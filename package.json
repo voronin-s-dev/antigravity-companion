@@ -8,6 +8,7 @@
     "reload": "node localization/inject_translator.js",
     "harvest": "node localization/strings_harvester.js",
     "status": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1",
+    "doctor": "node bin/doctor.js",
     "build:zip": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (!(Test-Path 'dist')) { New-Item -ItemType Directory -Path 'dist' | Out-Null }; Compress-Archive -Path 'bin', 'limits_widget', 'localization', 'skills', 'install.bat', 'install.ps1', 'uninstall.bat', 'uninstall.ps1', 'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'LICENSE', '.gitignore' -DestinationPath 'dist/antigravity-companion-v1.1.0.zip' -Force; Write-Host '✓ Архив собран в dist/antigravity-companion-v1.1.0.zip' -ForegroundColor Green\""
   },
   "keywords": [
