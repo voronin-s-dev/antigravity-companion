@@ -110,6 +110,16 @@
     "Learn more about": "Подробнее о",
     "Also includes": "Также включает",
     "when working in this project.": "при работе в этом проекте.",
+    "Inherit Global": "Наследовать глобальные",
+    "Inherit global": "Наследовать глобальные",
+    "Inherits your Global Permissions when working in this project.": "Наследует глобальные разрешения при работе в этом проекте.",
+    "Requires manual review for all terminal commands and file accesses outside of the working folders.": "Требует ручного подтверждения для всех терминальных команд и доступа к файлам вне рабочих папок.",
+    "Full machine": "Полный доступ к системе",
+    "Full Machine": "Полный доступ к системе",
+    "All terminal commands require review. The agent can read or write to any file in the machine.": "Все команды терминала требуют подтверждения. Агент может читать и записывать любые файлы на машине.",
+    "Disables all safety barriers for maximal iteration velocity.": "Отключает все барьеры безопасности для максимальной скорости работы.",
+    "Manually customize individual settings.": "Ручная настройка отдельных параметров.",
+    "No more older messages": "Больше нет предыдущих сообщений",
     "Loading token usage...": "Загрузка расхода токенов...",
     "Global": "Глобальный",
     "Plugin:": "Плагин:",
@@ -602,6 +612,10 @@
     {
       "regex": "^Loading older messages, showing (\\d+) of (\\d+)$",
       "replace": "Загрузка сообщений, показано $1 из $2"
+    },
+    {
+      "regex": "^No more older messages, showing (\\d+) of (\\d+)$",
+      "replace": "Больше нет сообщений, показано $1 из $2"
     },
     {
       "regex": "^Running (\\d+) commands?$",

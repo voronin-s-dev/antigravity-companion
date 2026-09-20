@@ -22,6 +22,9 @@ async function injectWidget() {
 
   ws.onopen = () => {
     const injectionCode = `(() => {
+      if (window.__agyLimitsCleanup) {
+        try { window.__agyLimitsCleanup(); } catch (e) {}
+      }
       const existing = document.getElementById('agy-limits-floating-panel');
       if (existing) existing.remove();
       const existingTooltip = document.getElementById('agy-limits-tooltip');
@@ -262,9 +265,6 @@ async function injectWidget() {
 
       const container = document.createElement('div');
       container.id = 'agy-limits-floating-panel';
-      
-      const savedPos = JSON.parse(localStorage.getItem('agy_limits_pos') || 'null');
-      const isSaved = !!savedPos && savedPos.left !== undefined;
 
       const DEFAULT_TINT = 'native';
       let currentTint = localStorage.getItem('agy_limits_tint') || DEFAULT_TINT;
@@ -293,7 +293,6 @@ async function injectWidget() {
 
       container.style.cssText = \`
         position: fixed;
-        \${isSaved ? \`left: \${savedPos.left}px; top: \${savedPos.top}px;\` : 'bottom: 45px; right: 28px;'}
         width: 270px;
         border-radius: 10px;
         padding: 10px 12px;
@@ -531,6 +530,144 @@ async function injectWidget() {
       renderSettingsContent();
       applyThemeColor(currentTint);
 
+      // Responsive Anchored Positioning System
+      function getViewportBounds() {
+        const winW = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+        const winH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        return {
+          winW: Math.max(200, Math.round(winW || window.innerWidth || 1000)),
+          winH: Math.max(150, Math.round(winH || window.innerHeight || 700))
+        };
+      }
+
+      function applySavedPosition() {
+        let saved = null;
+        try {
+          saved = JSON.parse(localStorage.getItem('agy_limits_pos') || 'null');
+        } catch (e) {}
+
+        const { winW, winH } = getViewportBounds();
+
+        if (!saved) {
+          container.style.left = 'auto';
+          container.style.right = '28px';
+          container.style.top = 'auto';
+          container.style.bottom = '45px';
+          return;
+        }
+
+        // Migrate legacy { left, top }
+        if (saved.anchorX === undefined && saved.left !== undefined) {
+          const isRight = saved.left > (winW / 2);
+          const approxW = container.offsetWidth || (isCollapsed ? 175 : 270);
+          const approxH = container.offsetHeight || (isCollapsed ? 32 : 200);
+
+          saved = {
+            anchorX: isRight ? 'right' : 'left',
+            distX: isRight ? Math.max(6, winW - saved.left - approxW) : Math.max(6, saved.left),
+            anchorY: (saved.top > winH / 2) ? 'bottom' : 'top',
+            distY: (saved.top > winH / 2) ? Math.max(6, winH - saved.top - approxH) : Math.max(6, saved.top)
+          };
+          try {
+            localStorage.setItem('agy_limits_pos', JSON.stringify(saved));
+          } catch (e) {}
+        }
+
+        const approxW = container.offsetWidth || (isCollapsed ? 175 : 270);
+        const approxH = container.offsetHeight || (isCollapsed ? 32 : 200);
+
+        const maxDistX = Math.max(6, winW - approxW - 6);
+        const maxDistY = Math.max(6, winH - approxH - 6);
+
+        const distX = Math.min(Math.max(6, saved.distX !== undefined ? saved.distX : 28), maxDistX);
+        const distY = Math.min(Math.max(6, saved.distY !== undefined ? saved.distY : 45), maxDistY);
+
+        container.style.left = saved.anchorX === 'left' ? (distX + 'px') : 'auto';
+        container.style.right = saved.anchorX === 'right' ? (distX + 'px') : 'auto';
+        container.style.top = saved.anchorY === 'top' ? (distY + 'px') : 'auto';
+        container.style.bottom = saved.anchorY === 'bottom' ? (distY + 'px') : 'auto';
+      }
+
+      function clampToViewport() {
+        if (isDragging) return;
+        const { winW, winH } = getViewportBounds();
+        const rect = container.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+
+        const pad = 6;
+        let left = rect.left;
+        let top = rect.top;
+        let adjusted = false;
+
+        if (rect.right > winW - pad) {
+          left = Math.max(pad, winW - rect.width - pad);
+          adjusted = true;
+        }
+        if (left < pad) {
+          left = pad;
+          adjusted = true;
+        }
+        if (rect.bottom > winH - pad) {
+          top = Math.max(pad, winH - rect.height - pad);
+          adjusted = true;
+        }
+        if (top < pad) {
+          top = pad;
+          adjusted = true;
+        }
+
+        if (adjusted) {
+          const isRight = (left + rect.width / 2) > (winW / 2);
+          const isBottom = (top + rect.height / 2) > (winH / 2);
+
+          if (isRight) {
+            container.style.right = Math.max(pad, Math.round(winW - left - rect.width)) + 'px';
+            container.style.left = 'auto';
+          } else {
+            container.style.left = Math.round(left) + 'px';
+            container.style.right = 'auto';
+          }
+
+          if (isBottom) {
+            container.style.bottom = Math.max(pad, Math.round(winH - top - rect.height)) + 'px';
+            container.style.top = 'auto';
+          } else {
+            container.style.top = Math.round(top) + 'px';
+            container.style.bottom = 'auto';
+          }
+
+          saveCurrentPosition();
+        }
+      }
+
+      function saveCurrentPosition() {
+        const { winW, winH } = getViewportBounds();
+        const rect = container.getBoundingClientRect();
+        if (rect.width === 0 || rect.height === 0) return;
+
+        const isRight = (rect.left + rect.width / 2) > (winW / 2);
+        const anchorX = isRight ? 'right' : 'left';
+        const distX = isRight
+          ? Math.max(6, Math.min(winW - rect.width - 6, Math.round(winW - rect.right)))
+          : Math.max(6, Math.min(winW - rect.width - 6, Math.round(rect.left)));
+
+        const isBottom = (rect.top + rect.height / 2) > (winH / 2);
+        const anchorY = isBottom ? 'bottom' : 'top';
+        const distY = isBottom
+          ? Math.max(6, Math.min(winH - rect.height - 6, Math.round(winH - rect.bottom)))
+          : Math.max(6, Math.min(winH - rect.height - 6, Math.round(rect.top)));
+
+        const pos = { anchorX, distX, anchorY, distY };
+        try {
+          localStorage.setItem('agy_limits_pos', JSON.stringify(pos));
+        } catch (e) {}
+
+        container.style.left = anchorX === 'left' ? (distX + 'px') : 'auto';
+        container.style.right = anchorX === 'right' ? (distX + 'px') : 'auto';
+        container.style.top = anchorY === 'top' ? (distY + 'px') : 'auto';
+        container.style.bottom = anchorY === 'bottom' ? (distY + 'px') : 'auto';
+      }
+
       // Drag logic
       let isDragging = false;
       let hasDragged = false;
@@ -554,26 +691,45 @@ async function injectWidget() {
       header.addEventListener('mousedown', handleDragStart);
       pillSummary.addEventListener('mousedown', handleDragStart);
 
-      window.addEventListener('mousemove', (e) => {
+      function handleMouseMove(e) {
         if (!isDragging) return;
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
         if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
           hasDragged = true;
         }
-        const newLeft = Math.max(10, Math.min(window.innerWidth - 80, startLeft + dx));
-        const newTop = Math.max(10, Math.min(window.innerHeight - 40, startTop + dy));
+        const { winW, winH } = getViewportBounds();
+        const maxLeft = Math.max(6, winW - container.offsetWidth - 6);
+        const maxTop = Math.max(6, winH - container.offsetHeight - 6);
+        const newLeft = Math.max(6, Math.min(maxLeft, startLeft + dx));
+        const newTop = Math.max(6, Math.min(maxTop, startTop + dy));
         container.style.left = newLeft + 'px';
         container.style.top = newTop + 'px';
-      });
+        container.style.right = 'auto';
+        container.style.bottom = 'auto';
+      }
 
-      window.addEventListener('mouseup', () => {
+      function handleMouseUp() {
         if (isDragging) {
           isDragging = false;
-          const rect = container.getBoundingClientRect();
-          localStorage.setItem('agy_limits_pos', JSON.stringify({ left: Math.round(rect.left), top: Math.round(rect.top) }));
+          saveCurrentPosition();
         }
-      });
+      }
+
+      function onViewportResize() {
+        hideBadgeTooltip();
+        applySavedPosition();
+        clampToViewport();
+      }
+
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener('resize', onViewportResize);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', onViewportResize);
+      }
+
+      applySavedPosition();
 
       // Header button hovers
       header.querySelectorAll('button').forEach(btn => {
@@ -636,6 +792,9 @@ async function injectWidget() {
           container.style.cursor = 'default';
         }
         localStorage.setItem('agy_limits_collapsed', isCollapsed ? 'true' : 'false');
+        requestAnimationFrame(() => {
+          clampToViewport();
+        });
       }
 
       collapseBtn.addEventListener('click', () => {
@@ -651,7 +810,7 @@ async function injectWidget() {
 
       closeBtn.addEventListener('click', () => {
         hideBadgeTooltip();
-        if (window.__agyLimitsInterval) clearInterval(window.__agyLimitsInterval);
+        if (window.__agyLimitsCleanup) window.__agyLimitsCleanup();
         container.style.opacity = '0';
         setTimeout(() => container.remove(), 150);
       });
@@ -816,7 +975,22 @@ async function injectWidget() {
       updateLimits();
       setupInterval(currentIntervalMs);
 
-      return { status: 'tooltip_and_spin_fixed' };
+      window.__agyLimitsCleanup = () => {
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseup', handleMouseUp);
+        window.removeEventListener('resize', onViewportResize);
+        if (window.visualViewport) {
+          window.visualViewport.removeEventListener('resize', onViewportResize);
+        }
+        if (tooltipTimer) clearInterval(tooltipTimer);
+        if (window.__agyLimitsInterval) clearInterval(window.__agyLimitsInterval);
+        const p = document.getElementById('agy-limits-floating-panel');
+        if (p) p.remove();
+        const t = document.getElementById('agy-limits-tooltip');
+        if (t) t.remove();
+      };
+
+      return { status: 'responsive_positioning_and_cleanup_ready' };
     })()`;
 
     ws.send(JSON.stringify({
