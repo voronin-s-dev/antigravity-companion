@@ -1,0 +1,10 @@
+# Ignore large or generated binary files to conserve context window and tokens
+*.zip
+*.tar.gz
+*.log
+install.log
+*.bak
+.lock_updates
+localization/untranslated_queue.json
+dist/
+node_modules/

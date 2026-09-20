@@ -1,0 +1,316 @@
+/**
+ * Antigravity High-Fidelity UI Translation Engine (Safe Edition)
+ * 
+ * - React-safe Virtual DOM protection (no node replacement, only textValue)
+ * - Strict content isolation: never touches user chat (.prose), code blocks, or terminal
+ * - Full self-mutation guard: isInternalMutating prevents any observer recursion
+ * - childList-only subtree observation with requestAnimationFrame debounce
+ * - Bidirectional translation dictionary with reverse map for instant zero-reload RU <-> EN switching
+ */
+
+(function() {
+  let currentLang = localStorage.getItem('agy_lang') || 'ru';
+  let isInternalMutating = false;
+
+  const EXCLUDED_SELECTORS = [
+    'script',
+    'style',
+    'noscript',
+    'pre',
+    'code',
+    '.monaco-editor',
+    '.xterm',
+    'textarea',
+    '[contenteditable="true"]',
+    '[data-lexical-editor]',
+    '.prose',
+    '[role="log"]',
+    '#agy-limits-floating-panel',
+    '.font-mono',
+    '[data-testid="conversation-row-sidebar"] span.truncate'
+  ].join(', ');
+
+  const EXCLUDED_ATTR_SELECTORS = [
+    'script',
+    'style',
+    'noscript',
+    '#agy-limits-floating-panel',
+    '.monaco-editor',
+    '.xterm'
+  ].join(', ');
+
+  function isExcluded(node) {
+    if (!node || node.nodeType !== Node.ELEMENT_NODE) return false;
+    try {
+      if (node.matches(EXCLUDED_SELECTORS)) return true;
+      if (node.closest(EXCLUDED_SELECTORS)) return true;
+    } catch (e) {}
+    return false;
+  }
+
+  function isAttrExcluded(node) {
+    if (!node || node.nodeType !== Node.ELEMENT_NODE) return true;
+    try {
+      if (node.matches(EXCLUDED_ATTR_SELECTORS)) return true;
+      if (node.closest(EXCLUDED_ATTR_SELECTORS)) return true;
+    } catch (e) {}
+    return false;
+  }
+
+  let cachedRev = null;
+  function getReverseMap() {
+    if (cachedRev) return cachedRev;
+    const dict = window.__agyDictRu;
+    if (!dict) return {};
+    cachedRev = {};
+    if (dict.exact) {
+      for (const [en, ru] of Object.entries(dict.exact)) {
+        cachedRev[ru] = en;
+      }
+    }
+    if (dict.attributes) {
+      for (const [en, ru] of Object.entries(dict.attributes)) {
+        cachedRev[ru] = en;
+      }
+    }
+    return cachedRev;
+  }
+
+  function formatTimeTokens(str) {
+    if (!str || typeof str !== 'string') return str;
+    return str
+      .replace(/(\d+)\s*days?/gi, '$1 дн.')
+      .replace(/(\d+)\s*hours?/gi, '$1 ч.')
+      .replace(/(\d+)\s*minutes?/gi, '$1 мин.')
+      .replace(/(\d+)\s*seconds?/gi, '$1 сек.');
+  }
+
+  function getTranslation(rawText) {
+    if (!rawText || !window.__agyDictRu) return null;
+    const trimmed = rawText.trim();
+    if (!trimmed || trimmed.length < 2) return null;
+
+    const dict = window.__agyDictRu;
+
+    // 1. Exact match
+    if (dict.exact && dict.exact[trimmed]) {
+      const match = dict.exact[trimmed];
+      const leading = rawText.match(/^\s*/)[0];
+      const trailing = rawText.match(/\s*$/)[0];
+      return leading + match + trailing;
+    }
+
+    // 2. Pattern match
+    if (dict.patterns && dict.patterns.length) {
+      for (const p of dict.patterns) {
+        if (!p._compiled) p._compiled = new RegExp(p.regex);
+        if (p._compiled.test(trimmed)) {
+          let replaced = trimmed.replace(p._compiled, p.replace);
+          replaced = formatTimeTokens(replaced);
+          const leading = rawText.match(/^\s*/)[0];
+          const trailing = rawText.match(/\s*$/)[0];
+          return leading + replaced + trailing;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  function translateTextNode(node, lang) {
+    if (!node || node.nodeType !== Node.TEXT_NODE) return;
+    const parent = node.parentElement;
+    if (!parent || isExcluded(parent)) return;
+
+    const rev = getReverseMap();
+    const trimmedVal = node.nodeValue.trim();
+
+    if (rev[trimmedVal]) {
+      const leading = node.nodeValue.match(/^\s*/)[0];
+      const trailing = node.nodeValue.match(/\s*$/)[0];
+      node.__agy_orig = leading + rev[trimmedVal] + trailing;
+    } else if (node.__agy_orig === undefined) {
+      node.__agy_orig = node.nodeValue;
+    }
+
+    if (lang === 'ru') {
+      const tr = getTranslation(node.__agy_orig);
+      if (tr && tr !== node.nodeValue) {
+        try {
+          isInternalMutating = true;
+          node.nodeValue = tr;
+        } finally {
+          isInternalMutating = false;
+        }
+      }
+    } else {
+      if (node.__agy_orig !== undefined && node.nodeValue !== node.__agy_orig) {
+        try {
+          isInternalMutating = true;
+          node.nodeValue = node.__agy_orig;
+        } finally {
+          isInternalMutating = false;
+        }
+      }
+    }
+  }
+
+  function translateAttributes(el, lang) {
+    if (!el || el.nodeType !== Node.ELEMENT_NODE || isAttrExcluded(el)) return;
+
+    const attrs = ['placeholder', 'title', 'aria-label'];
+    const dict = window.__agyDictRu || {};
+    const rev = getReverseMap();
+
+    for (const attr of attrs) {
+      const val = el.getAttribute(attr);
+      if (!val) continue;
+
+      const cacheProp = '__agy_orig_' + attr;
+      const trimmedVal = val.trim();
+      if (rev[trimmedVal]) {
+        el[cacheProp] = rev[trimmedVal];
+      } else if (el[cacheProp] === undefined) {
+        el[cacheProp] = val;
+      }
+
+      if (lang === 'ru') {
+        let tr = (dict.attributes && dict.attributes[el[cacheProp]]) ||
+                 (dict.exact && dict.exact[el[cacheProp]]) ||
+                 getTranslation(el[cacheProp]);
+        if (tr && tr !== val) {
+          try {
+            isInternalMutating = true;
+            el.setAttribute(attr, tr);
+          } finally {
+            isInternalMutating = false;
+          }
+        }
+      } else {
+        if (el[cacheProp] !== undefined && val !== el[cacheProp]) {
+          try {
+            isInternalMutating = true;
+            el.setAttribute(attr, el[cacheProp]);
+          } finally {
+            isInternalMutating = false;
+          }
+        }
+      }
+    }
+  }
+
+  function walkAndTranslate(root, lang) {
+    if (!root || !root.ownerDocument) return;
+
+    if (root.nodeType === Node.ELEMENT_NODE) {
+      if (!isAttrExcluded(root)) {
+        translateAttributes(root, lang);
+      }
+      if (isExcluded(root)) return;
+    }
+
+    const walker = document.createTreeWalker(
+      root,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode(node) {
+          if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          const p = node.parentElement;
+          if (!p || isExcluded(p)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }
+    );
+
+    let curr;
+    while (curr = walker.nextNode()) {
+      translateTextNode(curr, lang);
+    }
+
+    if (root.querySelectorAll) {
+      const elementsWithAttrs = root.querySelectorAll('[placeholder], [title], [aria-label]');
+      for (let i = 0; i < elementsWithAttrs.length; i++) {
+        if (!isAttrExcluded(elementsWithAttrs[i])) {
+          translateAttributes(elementsWithAttrs[i], lang);
+        }
+      }
+    }
+  }
+
+  // Batch queue for MutationObserver
+  let scheduledNodes = new Set();
+  let rafId = null;
+
+  function processBatch() {
+    rafId = null;
+    const nodes = Array.from(scheduledNodes);
+    scheduledNodes.clear();
+
+    for (const node of nodes) {
+      if (document.body.contains(node)) {
+        walkAndTranslate(node, currentLang);
+      }
+    }
+  }
+
+  function queueNode(node) {
+    scheduledNodes.add(node);
+    if (!rafId) {
+      rafId = requestAnimationFrame(processBatch);
+    }
+  }
+
+  if (window.__agyTranslatorObserver) {
+    window.__agyTranslatorObserver.disconnect();
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    if (isInternalMutating) return;
+
+    for (const mut of mutations) {
+      if (mut.type === 'childList') {
+        for (let i = 0; i < mut.addedNodes.length; i++) {
+          const added = mut.addedNodes[i];
+          if (added.nodeType === Node.ELEMENT_NODE) {
+            queueNode(added);
+          } else if (added.nodeType === Node.TEXT_NODE) {
+            queueNode(added.parentElement || document.body);
+          }
+        }
+      }
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+  window.__agyTranslatorObserver = observer;
+  window.__agyTranslatorActive = true;
+
+  // Global Language Switcher API
+  window.setAgyLanguage = function(lang) {
+    if (lang !== 'ru' && lang !== 'en') return;
+    currentLang = lang;
+    localStorage.setItem('agy_lang', lang);
+    localStorage.setItem('agy_limits_lang', lang);
+    console.log(`[Antigravity Translator] Language switched to: ${lang.toUpperCase()}`);
+    walkAndTranslate(document.body, currentLang);
+  };
+
+  window.__agyTranslatorRefresh = function() {
+    cachedRev = null;
+    walkAndTranslate(document.body, currentLang);
+  };
+
+  window.addEventListener('agy-language-change', (e) => {
+    if (e.detail && e.detail.lang) {
+      window.setAgyLanguage(e.detail.lang);
+    }
+  });
+
+  // Initial translation run
+  walkAndTranslate(document.body, currentLang);
+  console.log(`[Antigravity Translator] Engine initialized successfully. Active: ${currentLang.toUpperCase()}`);
+})();

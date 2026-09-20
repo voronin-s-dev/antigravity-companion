@@ -1,0 +1,82 @@
+const fs = require('fs');
+const path = require('path');
+const { injectWidget } = require('../limits_widget/inject_panel.js');
+const { injectTranslator } = require('../localization/inject_translator.js');
+
+// Dynamically locate DevToolsActivePort in current user's AppData
+const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Roaming');
+const activePortFile = path.join(appData, 'Antigravity', 'DevToolsActivePort');
+
+let isChecking = false;
+
+async function checkAndInject() {
+  if (isChecking) return;
+  isChecking = true;
+
+  try {
+    if (!fs.existsSync(activePortFile)) {
+      return;
+    }
+
+    const lines = fs.readFileSync(activePortFile, 'utf8').trim().split('\n');
+    const port = lines[0].trim();
+    if (!port || isNaN(port)) return;
+
+    const res = await fetch(`http://127.0.0.1:${port}/json`, { signal: AbortSignal.timeout(2000) });
+    const tabs = await res.json();
+    const page = tabs.find(t => t.type === 'page');
+    if (!page || !page.webSocketDebuggerUrl) return;
+
+    const ws = new WebSocket(page.webSocketDebuggerUrl);
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({
+        id: 1,
+        method: 'Runtime.evaluate',
+        params: {
+          expression: `({
+            hasModernWidget: !!document.getElementById('agy-limits-tooltip') && !!document.getElementById('agy-limits-floating-panel'),
+            hasTranslator: !!window.__agyTranslatorActive
+          })`,
+          returnByValue: true
+        }
+      }));
+    };
+
+    ws.onmessage = async (evt) => {
+      try {
+        const msg = JSON.parse(evt.data);
+        if (msg.id === 1) {
+          const state = msg.result?.result?.value || {};
+          ws.close();
+
+          if (!state.hasModernWidget) {
+            console.log('[Companion] Injecting Modern Limits Widget...');
+            await injectWidget();
+          }
+
+          if (!state.hasTranslator) {
+            console.log('[Companion] Injecting Russian Translation Engine...');
+            await injectTranslator();
+          }
+        }
+      } catch(e) {
+        ws.close();
+      }
+    };
+
+    ws.onerror = () => {
+      ws.close();
+    };
+  } catch (e) {
+    // Antigravity not ready or loading
+  } finally {
+    isChecking = false;
+  }
+}
+
+console.log('[Antigravity Companion Service] Активен. Фоновый мониторинг (виджет + русский перевод)...');
+setInterval(checkAndInject, 3500);
+checkAndInject();
+
+module.exports = { checkAndInject };

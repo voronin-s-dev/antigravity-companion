@@ -1,0 +1,50 @@
+name: CI & Release Packaging
+
+on:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Validate Dictionary and JSON syntax
+        run: npm test
+
+  release:
+    needs: validate
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Package Distribution ZIP
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          zip -r "antigravity-companion-${VERSION}.zip" \
+            bin limits_widget localization skills \
+            install.bat install.ps1 uninstall.bat uninstall.ps1 \
+            update_dictionary.bat update_dictionary.ps1 \
+            README.md LICENSE .gitignore package.json
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "antigravity-companion-*.zip"
+          draft: false
+          prerelease: false
+          generate_release_notes: true

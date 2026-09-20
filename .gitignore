@@ -1,0 +1,30 @@
+# Logs
+*.log
+install.log
+
+# Temporary and diagnostic files
+*.tmp
+temp/
+scratch/
+
+# OS specific files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Backups & Update locks
+*.bak
+.lock_updates
+localization/untranslated_queue.json
+
+# Builds & Archives
+dist/
+*.zip
+
+# Local Agent Workspace
+.gemini/
+

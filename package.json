@@ -1,0 +1,27 @@
+{
+  "name": "antigravity-companion",
+  "version": "1.1.0",
+  "description": "Модуль глубокой русификации и виджет лимитов моделей для Google Antigravity Desktop App",
+  "main": "bin/antigravity_companion.js",
+  "scripts": {
+    "test": "node -e \"const dict = JSON.parse(require('fs').readFileSync('localization/dictionary_ru.json', 'utf8')); console.log('✓ Словарь валиден! Точных терминов:', Object.keys(dict.exact).length, 'Атрибутов:', Object.keys(dict.attributes).length, 'Шаблонов:', dict.patterns.length);\"",
+    "reload": "node localization/inject_translator.js",
+    "harvest": "node localization/strings_harvester.js",
+    "status": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1",
+    "build:zip": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (!(Test-Path 'dist')) { New-Item -ItemType Directory -Path 'dist' | Out-Null }; Compress-Archive -Path 'bin', 'limits_widget', 'localization', 'skills', 'install.bat', 'install.ps1', 'uninstall.bat', 'uninstall.ps1', 'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'LICENSE', '.gitignore' -DestinationPath 'dist/antigravity-companion-v1.1.0.zip' -Force; Write-Host '✓ Архив собран в dist/antigravity-companion-v1.1.0.zip' -ForegroundColor Green\""
+  },
+  "keywords": [
+    "antigravity",
+    "localization",
+    "russian",
+    "limits-widget",
+    "cdp",
+    "electron"
+  ],
+  "author": "Antigravity Community",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/voronin-s-dev/antigravity-companion.git"
+  }
+}
