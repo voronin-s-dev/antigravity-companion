@@ -20,7 +20,8 @@ async function injectWidget() {
 
   const ws = new WebSocket(page.webSocketDebuggerUrl);
 
-  ws.onopen = () => {
+  return new Promise((resolve, reject) => {
+    ws.onopen = () => {
     const injectionCode = `(() => {
       if (window.__agyLimitsCleanup) {
         try { window.__agyLimitsCleanup(); } catch (e) {}
@@ -353,7 +354,7 @@ async function injectWidget() {
             </svg>
           </button>
           <button id="agy-collapse-btn" title="Свернуть / Развернуть" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 12px; line-height: 1; transition: background 0.12s, color 0.12s;">─</button>
-          <button id="agy-close-btn" title="Закрыть" style="background: none; border: none; color: #6b6b72; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 13px; line-height: 1; transition: background 0.12s, color 0.12s;">×</button>
+          <button id="agy-close-btn" title="\${currentLang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)'}" style="background: none; border: none; color: #6b6b72; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 13px; line-height: 1; transition: background 0.12s, color 0.12s;">×</button>
         </div>
       \`;
 
@@ -509,6 +510,9 @@ async function injectWidget() {
         localStorage.setItem('agy_lang', lang);
         window.dispatchEvent(new CustomEvent('agy-language-change', { detail: { lang } }));
         header.querySelector('#agy-title-text').textContent = t('title');
+        const cBtn = header.querySelector('#agy-close-btn');
+        if (cBtn) cBtn.title = lang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)';
+        updateSidebarButtonState(isVisible);
         renderSettingsContent();
         updateLimits();
       }
@@ -729,7 +733,116 @@ async function injectWidget() {
         window.visualViewport.addEventListener('resize', onViewportResize);
       }
 
+      // Visibility and Sidebar Integration
+      let isVisible = localStorage.getItem('agy_limits_visible') !== 'false';
+
+      function toggleLimitsWidget(forceState) {
+        isVisible = forceState !== undefined ? forceState : !isVisible;
+        try {
+          localStorage.setItem('agy_limits_visible', isVisible ? 'true' : 'false');
+        } catch (e) {}
+
+        if (isVisible) {
+          container.style.display = isCollapsed ? 'flex' : 'block';
+          applyCollapseState();
+          container.style.opacity = '0';
+          requestAnimationFrame(() => {
+            clampToViewport();
+            container.style.opacity = '1';
+          });
+        } else {
+          hideBadgeTooltip();
+          container.style.opacity = '0';
+          setTimeout(() => {
+            if (!isVisible) {
+              container.style.display = 'none';
+            }
+          }, 150);
+        }
+
+        updateSidebarButtonState(isVisible);
+      }
+
+      function updateSidebarButtonState(visible) {
+        const btn = document.getElementById('agy-sidebar-limits-btn');
+        if (!btn) return;
+        const iconSpan = btn.querySelector('.agy-sidebar-icon');
+        const dotSpan = btn.querySelector('.agy-sidebar-dot');
+        const textSpan = btn.querySelector('.agy-sidebar-text');
+
+        const expectedText = currentLang === 'ru' ? 'Лимиты моделей' : 'Model Limits';
+        if (textSpan && textSpan.textContent !== expectedText) {
+          textSpan.textContent = expectedText;
+        }
+
+        const expectedColor = visible ? '#22c55e' : '#71717a';
+        if (iconSpan && iconSpan.style.color !== expectedColor) {
+          iconSpan.style.color = expectedColor;
+        }
+
+        const expectedDotBg = visible ? '#22c55e' : '#52525b';
+        if (dotSpan && dotSpan.style.background !== expectedDotBg) {
+          dotSpan.style.background = expectedDotBg;
+          dotSpan.style.boxShadow = visible ? '0 0 6px rgba(34, 197, 94, 0.5)' : 'none';
+        }
+      }
+
+      function ensureSidebarButton() {
+        const settingsBtn = document.querySelector('[data-testid="settings-button"]');
+        if (!settingsBtn || !settingsBtn.parentElement) return;
+
+        let btn = document.getElementById('agy-sidebar-limits-btn');
+        if (btn && btn.parentElement === settingsBtn.parentElement) {
+          return;
+        }
+        if (btn) btn.remove();
+
+        btn = document.createElement('button');
+        btn.id = 'agy-sidebar-limits-btn';
+        btn.className = settingsBtn.className;
+        btn.title = currentLang === 'ru' ? 'Лимиты моделей (Alt+L)' : 'Model Limits (Alt+L)';
+        btn.style.position = 'relative';
+
+        const label = currentLang === 'ru' ? 'Лимиты моделей' : 'Model Limits';
+        const iconColor = isVisible ? '#22c55e' : '#71717a';
+        const dotColor = isVisible ? '#22c55e' : '#52525b';
+
+        btn.innerHTML = '<span class="shrink-0 flex items-center agy-sidebar-icon" style="color: ' + iconColor + '; transition: color 0.15s ease;">' +
+          '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="m12 14 4-4"/>' +
+            '<path d="M3.34 19a10 10 0 1 1 17.32 0"/>' +
+          '</svg>' +
+        '</span>' +
+        '<span class="truncate text-sm agy-sidebar-text" style="flex: 1; text-align: left;">' + label + '</span>' +
+        '<span class="agy-sidebar-dot" style="width: 5px; height: 5px; border-radius: 50%; background: ' + dotColor + '; margin-right: 2px; transition: all 0.2s ease;"></span>' +
+        '<span style="font-size: 10px; color: #71717a; padding: 1px 4px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); line-height: 1;">Alt+L</span>';
+
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleLimitsWidget();
+        });
+
+        settingsBtn.parentElement.insertBefore(btn, settingsBtn);
+        updateSidebarButtonState(isVisible);
+      }
+
+      const sidebarInterval = setInterval(ensureSidebarButton, 2000);
+
+      function handleKeyDown(e) {
+        if (e.altKey && !e.ctrlKey && !e.metaKey && (e.code === 'KeyL' || e.key === 'l' || e.key === 'L' || e.key === 'д' || e.key === 'Д')) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleLimitsWidget();
+        }
+      }
+      window.addEventListener('keydown', handleKeyDown);
+
       applySavedPosition();
+      if (!isVisible) {
+        container.style.display = 'none';
+      }
+      ensureSidebarButton();
 
       // Header button hovers
       header.querySelectorAll('button').forEach(btn => {
@@ -774,6 +887,10 @@ async function injectWidget() {
 
       function applyCollapseState() {
         hideBadgeTooltip();
+        if (!isVisible) {
+          container.style.display = 'none';
+          return;
+        }
         if (isCollapsed) {
           header.style.display = 'none';
           content.style.display = 'none';
@@ -782,6 +899,7 @@ async function injectWidget() {
           container.style.width = 'auto';
           container.style.padding = '5px 9px';
           container.style.cursor = 'move';
+          container.style.display = 'flex';
         } else {
           header.style.display = 'flex';
           content.style.display = 'block';
@@ -790,6 +908,7 @@ async function injectWidget() {
           container.style.width = '270px';
           container.style.padding = '10px 12px';
           container.style.cursor = 'default';
+          container.style.display = 'block';
         }
         localStorage.setItem('agy_limits_collapsed', isCollapsed ? 'true' : 'false');
         requestAnimationFrame(() => {
@@ -809,10 +928,7 @@ async function injectWidget() {
       });
 
       closeBtn.addEventListener('click', () => {
-        hideBadgeTooltip();
-        if (window.__agyLimitsCleanup) window.__agyLimitsCleanup();
-        container.style.opacity = '0';
-        setTimeout(() => container.remove(), 150);
+        toggleLimitsWidget(false);
       });
 
       function setupInterval(ms) {
@@ -979,9 +1095,13 @@ async function injectWidget() {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
         window.removeEventListener('resize', onViewportResize);
+        window.removeEventListener('keydown', handleKeyDown);
         if (window.visualViewport) {
           window.visualViewport.removeEventListener('resize', onViewportResize);
         }
+        if (sidebarInterval) clearInterval(sidebarInterval);
+        const sbBtn = document.getElementById('agy-sidebar-limits-btn');
+        if (sbBtn) sbBtn.remove();
         if (tooltipTimer) clearInterval(tooltipTimer);
         if (window.__agyLimitsInterval) clearInterval(window.__agyLimitsInterval);
         const p = document.getElementById('agy-limits-floating-panel');
@@ -996,13 +1116,29 @@ async function injectWidget() {
     ws.send(JSON.stringify({
       id: 1,
       method: 'Runtime.evaluate',
-      params: { expression: injectionCode, awaitPromise: true, returnByValue: true }
+      params: { expression: injectionCode, returnByValue: true }
     }));
   };
 
-  ws.onmessage = () => {
-    ws.close();
+  ws.onmessage = (evt) => {
+    const msg = JSON.parse(evt.data);
+    if (msg.id === 1) {
+      if (msg.result?.exceptionDetails) {
+        console.error('[Antigravity Limits Widget] Evaluation Error:', msg.result.exceptionDetails);
+        ws.close();
+        reject(new Error(msg.result.exceptionDetails.text || 'CDP Evaluation Error'));
+      } else {
+        console.log('[Antigravity Limits Widget] Injected successfully:', msg.result?.result?.value);
+        ws.close();
+        resolve(msg.result?.result?.value);
+      }
+    }
   };
+
+  ws.onerror = (err) => {
+    reject(err);
+  };
+});
 }
 
 module.exports = { injectWidget };
