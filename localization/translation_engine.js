@@ -220,8 +220,73 @@
     }
   }
 
+  function translateReactTooltipRegistry() {
+    if (currentLang !== 'ru' || !window.__agyDictRu) return;
+    try {
+      const trigger = document.querySelector('[data-tooltip-id]');
+      if (!trigger) return;
+      const fKey = Object.getOwnPropertyNames(trigger).find(k => k.startsWith('__reactFiber'));
+      if (!fKey) return;
+      let fiber = trigger[fKey];
+
+      function walkProps(n) {
+        if (!n) return;
+        if (Array.isArray(n)) {
+          for (let i = 0; i < n.length; i++) {
+            if (typeof n[i] === 'string') {
+              const rep = getTranslation(n[i]);
+              if (rep) n[i] = rep;
+            } else if (n[i] && typeof n[i] === 'object') {
+              walkProps(n[i]);
+            }
+          }
+        } else if (typeof n === 'object') {
+          if (n.props && n.props.children) {
+            if (typeof n.props.children === 'string') {
+              const rep = getTranslation(n.props.children);
+              if (rep) n.props.children = rep;
+            } else {
+              walkProps(n.props.children);
+            }
+          }
+        }
+      }
+
+      while (fiber) {
+        let h = fiber.memoizedState;
+        while (h) {
+          if (h.memoizedState && typeof h.memoizedState === 'object' && 'current' in h.memoizedState) {
+            const cur = h.memoizedState.current;
+            if (cur && typeof cur === 'object') {
+              for (const [k, v] of Object.entries(cur)) {
+                if (v && v.body) {
+                  if (typeof v.body === 'string') {
+                    const rep = getTranslation(v.body);
+                    if (rep) v.body = rep;
+                  } else {
+                    walkProps(v.body);
+                  }
+                }
+              }
+            }
+          }
+          h = h.next;
+        }
+        fiber = fiber.return;
+      }
+    } catch (e) {}
+  }
+
   function walkAndTranslate(root, lang) {
     if (!root || !root.ownerDocument) return;
+
+    if (root.nodeType === Node.TEXT_NODE) {
+      const p = root.parentElement;
+      if (!p || !isExcluded(p)) {
+        translateTextNode(root, lang);
+      }
+      return;
+    }
 
     if (root.nodeType === Node.ELEMENT_NODE) {
       if (!isAttrExcluded(root)) {
@@ -322,11 +387,13 @@
     localStorage.setItem('agy_lang', lang);
     localStorage.setItem('agy_limits_lang', lang);
     console.log(`[Antigravity Translator] Language switched to: ${lang.toUpperCase()}`);
+    translateReactTooltipRegistry();
     walkAndTranslate(document.body, currentLang);
   };
 
   window.__agyTranslatorRefresh = function() {
     cachedRev = null;
+    translateReactTooltipRegistry();
     walkAndTranslate(document.body, currentLang);
   };
 
@@ -336,7 +403,27 @@
     }
   });
 
+  // Dynamic Tooltip Interceptor
+  document.addEventListener('pointerenter', (e) => {
+    if (e.target && e.target.nodeType === Node.ELEMENT_NODE) {
+      if (e.target.hasAttribute && e.target.hasAttribute('data-tooltip-id')) {
+        translateReactTooltipRegistry();
+      }
+    }
+  }, true);
+
+  document.addEventListener('mouseover', (e) => {
+    if (e.target && e.target.nodeType === Node.ELEMENT_NODE) {
+      if (e.target.closest && (e.target.closest('[data-tooltip-id]') || e.target.closest('.compact-tooltip, [role="tooltip"]'))) {
+        translateReactTooltipRegistry();
+        const tip = e.target.closest('.compact-tooltip, [role="tooltip"]');
+        if (tip) walkAndTranslate(tip, currentLang);
+      }
+    }
+  }, true);
+
   // Initial translation run
+  translateReactTooltipRegistry();
   walkAndTranslate(document.body, currentLang);
   console.log(`[Antigravity Translator] Engine initialized successfully. Active: ${currentLang.toUpperCase()}`);
 })();
