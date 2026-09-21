@@ -33,6 +33,16 @@ namespace AntigravityVoice {
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
+        [DllImport("user32.dll")]
+        public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll")]
+        public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
+        public const int GWL_EXSTYLE = -20;
+        public const int WS_EX_TOOLWINDOW = 0x00000080;
+        public const int WS_EX_NOACTIVATE = 0x08000000;
+
         public const uint MOD_ALT = 0x0001;
         public const uint MOD_CONTROL = 0x0002;
         public const uint MOD_SHIFT = 0x0004;
@@ -40,8 +50,8 @@ namespace AntigravityVoice {
         public const uint MOD_NOREPEAT = 0x4000;
 
         public const int WM_HOTKEY = 0x0312;
-        public const int HOTKEY_ID_WIN_SHIFT_V = 9228;
         public const int HOTKEY_ID_CTRL_ALT_V  = 9230;
+        public const int HOTKEY_ID_WIN_SHIFT_V = 9228;
 
         public const byte VK_CONTROL = 0x11;
         public const byte VK_V = 0x56;
@@ -49,26 +59,19 @@ namespace AntigravityVoice {
 
         // UI Controls
         private Border mainBorder;
-        private Border orbBorder;
-        private System.Windows.Shapes.Path orbIconPath;
-        private DropShadowEffect orbGlow;
-        
-        // Idle Content
-        private StackPanel idlePanel;
-        private TextBlock idleTitle;
-        private Border hotkeyBadge;
-        private TextBlock hotkeyText;
+        private DropShadowEffect mainShadow;
+        private Grid contentGrid;
 
-        // Recording Content
+        // Idle elements
+        private System.Windows.Shapes.Path micIcon;
+
+        // Recording elements (identical to Antigravity)
         private StackPanel recPanel;
+        private Rectangle bar1, bar2, bar3;
         private TextBlock timerText;
-        private StackPanel wavePanel;
-        private Rectangle[] waveBars;
-        private Button doneButton;
-        private Button cancelButton;
 
-        // State Content
-        private TextBlock feedbackText;
+        // Success element
+        private System.Windows.Shapes.Path checkIcon;
 
         // Timers & State
         private DispatcherTimer waveTimer;
@@ -78,7 +81,10 @@ namespace AntigravityVoice {
         private bool isProcessing = false;
         private IntPtr lastTargetWindow = IntPtr.Zero;
         private double wavePhase = 0.0;
-        private bool isHotkeyPressed = false;
+
+        // Drag vs Click detection
+        private Point mouseStartPos;
+        private bool isDragging = false;
 
         private readonly string posFilePath;
         private readonly string rootDir;
@@ -89,7 +95,6 @@ namespace AntigravityVoice {
             if (!Directory.Exists(compDir)) Directory.CreateDirectory(compDir);
             posFilePath = System.IO.Path.Combine(compDir, "voice_island_pos.json");
 
-            // Locate companion root dir dynamically
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             rootDir = Directory.GetParent(baseDir.TrimEnd('\\', '/')).FullName;
 
@@ -97,18 +102,22 @@ namespace AntigravityVoice {
             RestorePosition();
             SetupHotkeys();
 
-            // Track target window on mouse hover
-            MouseEnter += (s, e) => CaptureTargetWindow();
-            MouseDown += (s, e) => CaptureTargetWindow();
-
-            // Silently verify or start Voice Bridge in background
+            // Background check for companion bridge
             EnsureVoiceBridgeRunningAsync();
         }
 
+        protected override void OnSourceInitialized(EventArgs e) {
+            base.OnSourceInitialized(e);
+            // Ensure 100% NO TASKBAR ICON and NO ALT+TAB PRESENCE
+            IntPtr hwnd = new WindowInteropHelper(this).Handle;
+            int exStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+            SetWindowLong(hwnd, GWL_EXSTYLE, exStyle | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
+        }
+
         private void InitializeComponent() {
-            Title = "Antigravity Voice Island";
-            Width = 280;
-            Height = 52;
+            Title = "Antigravity Voice";
+            Width = 120;
+            Height = 60;
             WindowStyle = WindowStyle.None;
             AllowsTransparency = true;
             Background = Brushes.Transparent;
@@ -116,286 +125,195 @@ namespace AntigravityVoice {
             ShowInTaskbar = false;
             ResizeMode = ResizeMode.NoResize;
 
-            // Crisp rendering settings
             UseLayoutRounding = true;
             SnapsToDevicePixels = true;
             TextOptions.SetTextFormattingMode(this, TextFormattingMode.Display);
             TextOptions.SetTextRenderingMode(this, TextRenderingMode.ClearType);
 
-            // Outer container (centers capsule, leaves room for soft shadow)
+            // Outer layout (centers capsule with room for shadow)
             Grid rootGrid = new Grid();
             rootGrid.HorizontalAlignment = HorizontalAlignment.Center;
             rootGrid.VerticalAlignment = VerticalAlignment.Center;
 
-            // Ultra-compact Glass Capsule
+            // Main Floating Capsule
+            mainShadow = new DropShadowEffect {
+                Color = Colors.Black,
+                Direction = 270,
+                ShadowDepth = 3,
+                BlurRadius = 12,
+                Opacity = 0.65
+            };
+
             mainBorder = new Border {
-                Width = 156,
-                Height = 34,
-                CornerRadius = new CornerRadius(17),
-                Background = new SolidColorBrush(Color.FromArgb(240, 18, 18, 22)), // Sleek obsidian dark
-                BorderBrush = new SolidColorBrush(Color.FromArgb(34, 255, 255, 255)),
-                BorderThickness = new Thickness(1.0),
-                Cursor = Cursors.Hand,
-                Effect = new DropShadowEffect {
-                    Color = Colors.Black,
-                    Direction = 270,
-                    ShadowDepth = 3,
-                    BlurRadius = 14,
-                    Opacity = 0.65
-                }
-            };
-
-            // Drag to reposition
-            mainBorder.MouseLeftButtonDown += (s, e) => {
-                CaptureTargetWindow();
-                if (e.ClickCount == 1 && e.OriginalSource == mainBorder) {
-                    DragMove();
-                    SavePosition();
-                }
-            };
-
-            Grid innerGrid = new Grid();
-            innerGrid.Margin = new Thickness(5, 0, 5, 0);
-            innerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); // Orb
-            innerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }); // Content
-            innerGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); // Actions
-
-            // --- 1. Left Voice Orb (22x22) ---
-            orbGlow = new DropShadowEffect {
-                Color = Colors.Transparent,
-                BlurRadius = 8,
-                ShadowDepth = 0,
-                Opacity = 0.8
-            };
-
-            orbBorder = new Border {
-                Width = 22,
-                Height = 22,
-                CornerRadius = new CornerRadius(11),
-                Background = new SolidColorBrush(Color.FromArgb(255, 42, 42, 48)),
+                Width = 38,
+                Height = 38,
+                CornerRadius = new CornerRadius(19),
+                Background = new SolidColorBrush(Color.FromArgb(240, 24, 24, 28)), // #18181C
                 BorderBrush = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255)),
-                BorderThickness = new Thickness(0.8),
-                Effect = orbGlow,
-                VerticalAlignment = VerticalAlignment.Center
+                BorderThickness = new Thickness(1.0),
+                Effect = mainShadow,
+                Cursor = Cursors.Hand,
+                ToolTip = "Голосовой ввод Antigravity (Клик или Ctrl+Alt+V)"
             };
 
-            orbIconPath = new System.Windows.Shapes.Path {
-                Fill = new SolidColorBrush(Color.FromRgb(225, 225, 230)),
-                Width = 10,
-                Height = 10,
+            // Mouse handling: drag vs click distinction
+            mainBorder.MouseLeftButtonDown += (s, e) => {
+                mouseStartPos = e.GetPosition(this);
+                isDragging = false;
+                CaptureTargetWindow();
+                mainBorder.CaptureMouse();
+            };
+
+            mainBorder.MouseMove += (s, e) => {
+                if (mainBorder.IsMouseCaptured && !isDragging) {
+                    Point currentPos = e.GetPosition(this);
+                    if (Math.Abs(currentPos.X - mouseStartPos.X) > 4 || Math.Abs(currentPos.Y - mouseStartPos.Y) > 4) {
+                        isDragging = true;
+                        mainBorder.ReleaseMouseCapture();
+                        DragMove();
+                        SavePosition();
+                    }
+                }
+            };
+
+            mainBorder.MouseLeftButtonUp += (s, e) => {
+                if (mainBorder.IsMouseCaptured) {
+                    mainBorder.ReleaseMouseCapture();
+                }
+                if (!isDragging) {
+                    // It's a clean click -> toggle dictation identically to Antigravity!
+                    ToggleDictation();
+                }
+                isDragging = false;
+            };
+
+            // Hover effect in idle
+            mainBorder.MouseEnter += (s, e) => {
+                if (!isRecording) {
+                    mainBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(120, 255, 255, 255));
+                }
+            };
+            mainBorder.MouseLeave += (s, e) => {
+                if (!isRecording) {
+                    mainBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255));
+                }
+            };
+
+            contentGrid = new Grid();
+            contentGrid.HorizontalAlignment = HorizontalAlignment.Center;
+            contentGrid.VerticalAlignment = VerticalAlignment.Center;
+
+            // 1. Idle Mic Icon (Antigravity exact SVG path)
+            micIcon = new System.Windows.Shapes.Path {
+                Fill = Brushes.White,
+                Width = 15,
+                Height = 15,
                 Stretch = Stretch.Uniform,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 Data = Geometry.Parse("M12,2 A4,4 0 0,0 8,6 L8,12 A4,4 0 0,0 12,16 A4,4 0 0,0 16,12 L16,6 A4,4 0 0,0 12,2 Z M19,10 L19,12 A7,7 0 0,1 12,19 A7,7 0 0,1 5,12 L5,10 L3,10 L3,12 A9,9 0 0,0 11,20.92 L11,23 L13,23 L13,20.92 A9,9 0 0,0 21,12 L21,10 L19,10 Z")
             };
-            orbBorder.Child = orbIconPath;
+            contentGrid.Children.Add(micIcon);
 
-            orbBorder.MouseLeftButtonDown += (s, e) => {
-                e.Handled = true;
-                ToggleDictation();
-            };
-
-            Grid.SetColumn(orbBorder, 0);
-            innerGrid.Children.Add(orbBorder);
-
-            // --- 2. Center Content Area ---
-            Grid centerGrid = new Grid {
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(7, 0, 4, 0)
-            };
-
-            // A) Idle Panel: "Диктовка" + Hotkey badge
-            idlePanel = new StackPanel {
-                Orientation = Orientation.Horizontal,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            idleTitle = new TextBlock {
-                Text = "Диктовка",
-                FontFamily = new FontFamily("Segoe UI, Segoe UI Variable Text"),
-                FontSize = 11.5,
-                FontWeight = FontWeights.Medium,
-                Foreground = new SolidColorBrush(Color.FromRgb(228, 228, 232)),
-                VerticalAlignment = VerticalAlignment.Center
-            };
-            idlePanel.Children.Add(idleTitle);
-
-            hotkeyBadge = new Border {
-                CornerRadius = new CornerRadius(3),
-                Background = new SolidColorBrush(Color.FromArgb(24, 255, 255, 255)),
-                Padding = new Thickness(4, 1, 4, 1),
-                Margin = new Thickness(6, 0, 0, 0),
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            hotkeyText = new TextBlock {
-                Text = "Ctrl+Alt+V",
-                FontFamily = new FontFamily("Segoe UI, Segoe UI Variable Text"),
-                FontSize = 9.5,
-                Foreground = new SolidColorBrush(Color.FromArgb(160, 255, 255, 255))
-            };
-            hotkeyBadge.Child = hotkeyText;
-            idlePanel.Children.Add(hotkeyBadge);
-
-            // B) Recording Panel: Timer + 4 Mini Equalizer Bars
+            // 2. Recording Panel (Antigravity 3 animated bars + timer)
             recPanel = new StackPanel {
                 Orientation = Orientation.Horizontal,
                 VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
                 Visibility = Visibility.Collapsed
             };
 
+            // Sound visualizer container
+            StackPanel barsPanel = new StackPanel {
+                Orientation = Orientation.Horizontal,
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 0, 6, 0)
+            };
+
+            bar1 = CreateWaveBar();
+            bar2 = CreateWaveBar();
+            bar3 = CreateWaveBar();
+
+            barsPanel.Children.Add(bar1);
+            barsPanel.Children.Add(bar2);
+            barsPanel.Children.Add(bar3);
+            recPanel.Children.Add(barsPanel);
+
+            // Timer
             timerText = new TextBlock {
                 Text = "00:00",
                 FontFamily = new FontFamily("Segoe UI, Segoe UI Variable Text"),
-                FontSize = 11.5,
+                FontSize = 11,
                 FontWeight = FontWeights.SemiBold,
                 Foreground = Brushes.White,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 8, 0)
+                VerticalAlignment = VerticalAlignment.Center
             };
             recPanel.Children.Add(timerText);
+            contentGrid.Children.Add(recPanel);
 
-            wavePanel = new StackPanel {
-                Orientation = Orientation.Horizontal,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            waveBars = new Rectangle[4];
-            Color[] barColors = new Color[] {
-                Color.FromRgb(56, 189, 248),  // Light blue
-                Color.FromRgb(168, 85, 247),  // Purple
-                Color.FromRgb(236, 72, 153),  // Pink
-                Color.FromRgb(52, 211, 153)   // Emerald
-            };
-
-            for (int i = 0; i < 4; i++) {
-                waveBars[i] = new Rectangle {
-                    Width = 2,
-                    Height = 6,
-                    RadiusX = 1,
-                    RadiusY = 1,
-                    Fill = new SolidColorBrush(barColors[i]),
-                    Margin = new Thickness(1.5, 0, 1.5, 0),
-                    VerticalAlignment = VerticalAlignment.Center
-                };
-                wavePanel.Children.Add(waveBars[i]);
-            }
-            recPanel.Children.Add(wavePanel);
-
-            // C) Feedback / Processing text
-            feedbackText = new TextBlock {
-                FontFamily = new FontFamily("Segoe UI, Segoe UI Variable Text"),
-                FontSize = 11,
+            // 3. Success Checkmark
+            checkIcon = new System.Windows.Shapes.Path {
+                Fill = Brushes.White,
+                Width = 15,
+                Height = 15,
+                Stretch = Stretch.Uniform,
+                HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
+                Data = Geometry.Parse("M9,16.2 L4.8,12 L3.4,13.4 L9,19 L21,7 L19.6,5.6 Z"),
                 Visibility = Visibility.Collapsed
             };
+            contentGrid.Children.Add(checkIcon);
 
-            centerGrid.Children.Add(idlePanel);
-            centerGrid.Children.Add(recPanel);
-            centerGrid.Children.Add(feedbackText);
-
-            Grid.SetColumn(centerGrid, 1);
-            innerGrid.Children.Add(centerGrid);
-
-            // --- 3. Right Action Buttons (Recording state: Done & Cancel) ---
-            StackPanel recActions = new StackPanel {
-                Orientation = Orientation.Horizontal,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            doneButton = CreateCompactButton("M9,16.2 L4.8,12 L3.4,13.4 L9,19 L21,7 L19.6,5.6 Z", Color.FromRgb(34, 197, 94), Color.FromArgb(40, 34, 197, 94), "Вставить (Enter)");
-            doneButton.Click += (s, e) => {
-                e.Handled = true;
-                StopAndPasteDictation();
-            };
-
-            cancelButton = CreateCompactButton("M19,6.41 L17.59,5 L12,10.59 L6.41,5 L5,6.41 L10.59,12 L5,17.59 L6.41,19 L12,13.41 L17.59,19 L19,17.59 L13.41,12 Z", Color.FromRgb(220, 220, 225), Color.FromArgb(25, 255, 255, 255), "Отмена (Esc)");
-            cancelButton.Click += (s, e) => {
-                e.Handled = true;
-                CancelDictation();
-            };
-
-            recActions.Children.Add(doneButton);
-            recActions.Children.Add(cancelButton);
-
-            doneButton.Visibility = Visibility.Collapsed;
-            cancelButton.Visibility = Visibility.Collapsed;
-
-            Grid.SetColumn(recActions, 2);
-            innerGrid.Children.Add(recActions);
-
-            mainBorder.Child = innerGrid;
+            mainBorder.Child = contentGrid;
             rootGrid.Children.Add(mainBorder);
             Content = rootGrid;
 
-            // Click on island body toggles recording
-            mainBorder.MouseLeftButtonUp += (s, e) => {
-                if (!isRecording && !isProcessing) {
-                    ToggleDictation();
-                }
+            // Context Menu (Right Click)
+            ContextMenu ctx = new ContextMenu();
+            MenuItem mnuToggle = new MenuItem { Header = "Запись (Старт / Стоп)" };
+            mnuToggle.Click += (s, e) => ToggleDictation();
+
+            MenuItem mnuReset = new MenuItem { Header = "Вернуть в правый верхний угол" };
+            mnuReset.Click += (s, e) => {
+                double screenW = SystemParameters.PrimaryScreenWidth;
+                Left = screenW - Width - 30;
+                Top = 30;
+                SavePosition();
             };
 
-            // Keyboard navigation
-            KeyDown += (s, e) => {
-                if (e.Key == Key.Enter && isRecording) {
-                    StopAndPasteDictation();
-                } else if (e.Key == Key.Escape) {
-                    if (isRecording) CancelDictation();
-                }
-            };
+            MenuItem mnuClose = new MenuItem { Header = "✕ Закрыть" };
+            mnuClose.Click += (s, e) => this.Close();
+
+            ctx.Items.Add(mnuToggle);
+            ctx.Items.Add(new Separator());
+            ctx.Items.Add(mnuReset);
+            ctx.Items.Add(mnuClose);
+            mainBorder.ContextMenu = ctx;
 
             // Timers
-            waveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(45) };
+            waveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(30) };
             waveTimer.Tick += WaveTimer_Tick;
 
             recordTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) };
             recordTimer.Tick += RecordTimer_Tick;
         }
 
-        private Button CreateCompactButton(string svgPathData, Color iconColor, Color bgColor, string tooltipText) {
-            Button btn = new Button {
-                Width = 22,
-                Height = 22,
-                Margin = new Thickness(2, 0, 1, 0),
-                Cursor = Cursors.Hand,
-                ToolTip = tooltipText,
-                Background = Brushes.Transparent,
-                BorderThickness = new Thickness(0)
+        private Rectangle CreateWaveBar() {
+            return new Rectangle {
+                Width = 2.5,
+                Height = 5,
+                RadiusX = 1.25,
+                RadiusY = 1.25,
+                Fill = Brushes.White,
+                Margin = new Thickness(1.5, 0, 1.5, 0),
+                VerticalAlignment = VerticalAlignment.Center
             };
-
-            Border btnBorder = new Border {
-                Width = 22,
-                Height = 22,
-                CornerRadius = new CornerRadius(11),
-                Background = new SolidColorBrush(bgColor)
-            };
-
-            System.Windows.Shapes.Path path = new System.Windows.Shapes.Path {
-                Fill = new SolidColorBrush(iconColor),
-                Width = 9,
-                Height = 9,
-                Stretch = Stretch.Uniform,
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Data = Geometry.Parse(svgPathData)
-            };
-            btnBorder.Child = path;
-            btn.Content = btnBorder;
-
-            btn.MouseEnter += (s, e) => {
-                btnBorder.Background = new SolidColorBrush(Color.FromArgb(80, iconColor.R, iconColor.G, iconColor.B));
-            };
-            btn.MouseLeave += (s, e) => {
-                btnBorder.Background = new SolidColorBrush(bgColor);
-            };
-
-            return btn;
         }
 
         private void AnimateCapsuleWidth(double targetWidth) {
             DoubleAnimation anim = new DoubleAnimation {
                 To = targetWidth,
-                Duration = TimeSpan.FromMilliseconds(200),
+                Duration = TimeSpan.FromMilliseconds(160),
                 EasingFunction = new CubicEase { EasingMode = EasingMode.EaseInOut }
             };
             mainBorder.BeginAnimation(Border.WidthProperty, anim);
@@ -416,57 +334,24 @@ namespace AntigravityVoice {
                     HwndSource source = HwndSource.FromHwnd(helper.Handle);
                     source.AddHook(HwndHook);
 
-                    bool regWinShiftV = RegisterHotKey(helper.Handle, HOTKEY_ID_WIN_SHIFT_V, MOD_WIN | MOD_SHIFT | MOD_NOREPEAT, 0x56);
-                    bool regCtrlAltV  = RegisterHotKey(helper.Handle, HOTKEY_ID_CTRL_ALT_V, MOD_CONTROL | MOD_ALT | MOD_NOREPEAT, 0x56);
-
-                    if (regWinShiftV) {
-                        hotkeyText.Text = "Win+Shift+V";
-                    } else if (regCtrlAltV) {
-                        hotkeyText.Text = "Ctrl+Alt+V";
-                    }
+                    RegisterHotKey(helper.Handle, HOTKEY_ID_CTRL_ALT_V, MOD_CONTROL | MOD_ALT | MOD_NOREPEAT, 0x56);
+                    RegisterHotKey(helper.Handle, HOTKEY_ID_WIN_SHIFT_V, MOD_WIN | MOD_SHIFT | MOD_NOREPEAT, 0x56);
                 } catch {}
             };
 
             Closing += (s, e) => {
                 try {
                     WindowInteropHelper helper = new WindowInteropHelper(this);
-                    UnregisterHotKey(helper.Handle, HOTKEY_ID_WIN_SHIFT_V);
                     UnregisterHotKey(helper.Handle, HOTKEY_ID_CTRL_ALT_V);
+                    UnregisterHotKey(helper.Handle, HOTKEY_ID_WIN_SHIFT_V);
                 } catch {}
             };
-
-            // Context Menu (Right Click)
-            ContextMenu ctx = new ContextMenu();
-            MenuItem mnuToggle = new MenuItem { Header = "Запись (Старт / Стоп)" };
-            mnuToggle.Click += (s, e) => ToggleDictation();
-
-            MenuItem mnuSettings = new MenuItem { Header = "⚙ Настройки..." };
-            mnuSettings.Click += (s, e) => OpenSettings();
-
-            MenuItem mnuResetPos = new MenuItem { Header = "Вернуть в центр экрана" };
-            mnuResetPos.Click += (s, e) => {
-                double screenW = SystemParameters.PrimaryScreenWidth;
-                Left = (screenW - Width) / 2;
-                Top = 40;
-                SavePosition();
-            };
-
-            MenuItem mnuClose = new MenuItem { Header = "✕ Закрыть" };
-            mnuClose.Click += (s, e) => this.Close();
-
-            ctx.Items.Add(mnuToggle);
-            ctx.Items.Add(mnuSettings);
-            ctx.Items.Add(new Separator());
-            ctx.Items.Add(mnuResetPos);
-            ctx.Items.Add(mnuClose);
-
-            mainBorder.ContextMenu = ctx;
         }
 
         private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled) {
             if (msg == WM_HOTKEY) {
                 int id = wParam.ToInt32();
-                if (id == HOTKEY_ID_WIN_SHIFT_V || id == HOTKEY_ID_CTRL_ALT_V) {
+                if (id == HOTKEY_ID_CTRL_ALT_V || id == HOTKEY_ID_WIN_SHIFT_V) {
                     CaptureTargetWindow();
                     ToggleDictation();
                     handled = true;
@@ -502,7 +387,7 @@ namespace AntigravityVoice {
                     });
                 } catch (Exception) {
                     Dispatcher.Invoke(() => {
-                        ApplyFeedbackUI("Ошибка связи с мостом", Brushes.Tomato);
+                        ApplyFeedbackUI(Colors.Tomato);
                     });
                 }
             });
@@ -528,7 +413,6 @@ namespace AntigravityVoice {
                             ApplySuccessUI();
                             PlayBeepAsync(3);
 
-                            // Restore target window & paste
                             ThreadPool.QueueUserWorkItem(__ => {
                                 Thread.Sleep(80);
                                 if (lastTargetWindow != IntPtr.Zero) {
@@ -540,18 +424,18 @@ namespace AntigravityVoice {
                                     Clipboard.SetDataObject(recognizedText, true);
                                 });
 
-                                Thread.Sleep(60);
+                                Thread.Sleep(50);
                                 SimulateCtrlV();
 
-                                Thread.Sleep(900);
+                                Thread.Sleep(800);
                                 Dispatcher.Invoke(() => {
                                     isProcessing = false;
                                     ApplyIdleUI();
                                 });
                             });
                         } else {
-                            ApplyFeedbackUI("Речь не распознана", new SolidColorBrush(Color.FromRgb(251, 146, 60)));
-                            Thread.Sleep(1100);
+                            ApplyFeedbackUI(Color.FromRgb(251, 146, 60)); // Orange
+                            Thread.Sleep(800);
                             Dispatcher.Invoke(() => {
                                 isProcessing = false;
                                 ApplyIdleUI();
@@ -561,143 +445,85 @@ namespace AntigravityVoice {
                 } catch (Exception) {
                     Dispatcher.Invoke(() => {
                         isProcessing = false;
-                        ApplyFeedbackUI("Ошибка распознавания", Brushes.Tomato);
-                        Thread.Sleep(1100);
+                        ApplyFeedbackUI(Colors.Tomato);
+                        Thread.Sleep(800);
                         Dispatcher.Invoke(() => ApplyIdleUI());
                     });
                 }
             });
         }
 
-        public void CancelDictation() {
-            if (!isRecording) return;
-            isRecording = false;
-            isProcessing = false;
-            waveTimer.Stop();
-            recordTimer.Stop();
-
-            ThreadPool.QueueUserWorkItem(_ => {
-                try {
-                    HttpPost("http://127.0.0.1:9228/voice/stop", "{}");
-                } catch {}
-            });
-
-            ApplyIdleUI();
-        }
-
-        private void OpenSettings() {
-            ThreadPool.QueueUserWorkItem(_ => {
-                try {
-                    HttpPost("http://127.0.0.1:9228/settings/open", "{}");
-                } catch {}
-            });
-        }
-
-        // --- UI State Transitions ---
+        // --- UI Transitions ---
         private void ApplyIdleUI() {
-            AnimateCapsuleWidth(156);
+            AnimateCapsuleWidth(38);
 
-            idlePanel.Visibility = Visibility.Visible;
+            mainBorder.Background = new SolidColorBrush(Color.FromArgb(240, 24, 24, 28));
+            mainBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255));
+            mainShadow.Color = Colors.Black;
+            mainShadow.BlurRadius = 12;
+
+            micIcon.Visibility = Visibility.Visible;
             recPanel.Visibility = Visibility.Collapsed;
-            feedbackText.Visibility = Visibility.Collapsed;
-            doneButton.Visibility = Visibility.Collapsed;
-            cancelButton.Visibility = Visibility.Collapsed;
-
-            // Orb: clean dark circle with white mic
-            orbBorder.Background = new SolidColorBrush(Color.FromArgb(255, 42, 42, 48));
-            orbBorder.BorderBrush = new SolidColorBrush(Color.FromArgb(50, 255, 255, 255));
-            orbGlow.Color = Colors.Transparent;
-            orbIconPath.Fill = new SolidColorBrush(Color.FromRgb(225, 225, 230));
-            orbIconPath.Data = Geometry.Parse("M12,2 A4,4 0 0,0 8,6 L8,12 A4,4 0 0,0 12,16 A4,4 0 0,0 16,12 L16,6 A4,4 0 0,0 12,2 Z M19,10 L19,12 A7,7 0 0,1 12,19 A7,7 0 0,1 5,12 L5,10 L3,10 L3,12 A9,9 0 0,0 11,20.92 L11,23 L13,23 L13,20.92 A9,9 0 0,0 21,12 L21,10 L19,10 Z");
+            checkIcon.Visibility = Visibility.Collapsed;
         }
 
         private void ApplyRecordingUI() {
-            AnimateCapsuleWidth(246);
+            AnimateCapsuleWidth(82);
 
-            idlePanel.Visibility = Visibility.Collapsed;
+            // Red pill matching Antigravity
+            mainBorder.Background = new SolidColorBrush(Color.FromRgb(220, 38, 38)); // #DC2626
+            mainBorder.BorderBrush = new SolidColorBrush(Color.FromRgb(252, 165, 165));
+            mainShadow.Color = Color.FromRgb(220, 38, 38);
+            mainShadow.BlurRadius = 16;
+
+            micIcon.Visibility = Visibility.Collapsed;
             recPanel.Visibility = Visibility.Visible;
-            feedbackText.Visibility = Visibility.Collapsed;
-            doneButton.Visibility = Visibility.Visible;
-            cancelButton.Visibility = Visibility.Visible;
-
-            // Orb: Vibrant animated glowing gradient (ChatGPT coral / purple)
-            RadialGradientBrush grad = new RadialGradientBrush();
-            grad.GradientStops.Add(new GradientStop(Color.FromRgb(239, 68, 68), 0.0));
-            grad.GradientStops.Add(new GradientStop(Color.FromRgb(220, 38, 38), 1.0));
-            orbBorder.Background = grad;
-            orbBorder.BorderBrush = new SolidColorBrush(Color.FromRgb(252, 165, 165));
-
-            orbGlow.Color = Color.FromRgb(239, 68, 68);
-            orbGlow.BlurRadius = 10;
+            checkIcon.Visibility = Visibility.Collapsed;
         }
 
         private void ApplyProcessingUI() {
-            AnimateCapsuleWidth(200);
-
-            idlePanel.Visibility = Visibility.Collapsed;
-            recPanel.Visibility = Visibility.Collapsed;
-            doneButton.Visibility = Visibility.Collapsed;
-            cancelButton.Visibility = Visibility.Collapsed;
-
-            feedbackText.Text = "Распознавание...";
-            feedbackText.Foreground = new SolidColorBrush(Color.FromRgb(192, 132, 252)); // Purple
-            feedbackText.Visibility = Visibility.Visible;
-
-            orbGlow.Color = Color.FromRgb(168, 85, 247);
+            AnimateCapsuleWidth(42);
+            mainBorder.Background = new SolidColorBrush(Color.FromRgb(168, 85, 247)); // Purple
+            mainShadow.Color = Color.FromRgb(168, 85, 247);
         }
 
         private void ApplySuccessUI() {
-            AnimateCapsuleWidth(180);
+            AnimateCapsuleWidth(38);
 
-            idlePanel.Visibility = Visibility.Collapsed;
+            // Emerald green checkmark
+            mainBorder.Background = new SolidColorBrush(Color.FromRgb(22, 163, 74)); // #16A34A
+            mainBorder.BorderBrush = new SolidColorBrush(Color.FromRgb(134, 239, 172));
+            mainShadow.Color = Color.FromRgb(22, 163, 74);
+
+            micIcon.Visibility = Visibility.Collapsed;
             recPanel.Visibility = Visibility.Collapsed;
-            doneButton.Visibility = Visibility.Collapsed;
-            cancelButton.Visibility = Visibility.Collapsed;
-
-            feedbackText.Text = "✓ Вставлено!";
-            feedbackText.Foreground = new SolidColorBrush(Color.FromRgb(74, 222, 128)); // Emerald
-            feedbackText.Visibility = Visibility.Visible;
-
-            RadialGradientBrush grad = new RadialGradientBrush();
-            grad.GradientStops.Add(new GradientStop(Color.FromRgb(34, 197, 94), 0.0));
-            grad.GradientStops.Add(new GradientStop(Color.FromRgb(21, 128, 61), 1.0));
-            orbBorder.Background = grad;
-            orbBorder.BorderBrush = new SolidColorBrush(Color.FromRgb(134, 239, 172));
-            orbGlow.Color = Color.FromRgb(34, 197, 94);
+            checkIcon.Visibility = Visibility.Visible;
         }
 
-        private void ApplyFeedbackUI(string msg, Brush color) {
-            AnimateCapsuleWidth(210);
-
-            idlePanel.Visibility = Visibility.Collapsed;
-            recPanel.Visibility = Visibility.Collapsed;
-            doneButton.Visibility = Visibility.Collapsed;
-            cancelButton.Visibility = Visibility.Collapsed;
-
-            feedbackText.Text = msg;
-            feedbackText.Foreground = color;
-            feedbackText.Visibility = Visibility.Visible;
+        private void ApplyFeedbackUI(Color col) {
+            AnimateCapsuleWidth(38);
+            mainBorder.Background = new SolidColorBrush(col);
+            mainShadow.Color = col;
         }
 
-        // --- Animations ---
+        // --- Live Wave Animation (fluid multi-sine undulation identical to Antigravity) ---
+        private void WaveTimer_Tick(object sender, EventArgs e) {
+            if (!isRecording) return;
+            wavePhase += 0.35;
+
+            // 3 bars with independent harmonic frequencies
+            bar1.Height = 4 + Math.Abs(Math.Sin(wavePhase * 1.1)) * 10;
+            bar2.Height = 5 + Math.Abs(Math.Sin(wavePhase * 1.4 + 0.8)) * 12;
+            bar3.Height = 4 + Math.Abs(Math.Sin(wavePhase * 1.2 + 1.6)) * 9;
+        }
+
         private void RecordTimer_Tick(object sender, EventArgs e) {
             if (!isRecording) return;
             TimeSpan elapsed = DateTime.Now - recordStartTime;
             timerText.Text = string.Format("{0:D2}:{1:D2}", (int)elapsed.TotalMinutes, elapsed.Seconds);
         }
 
-        private void WaveTimer_Tick(object sender, EventArgs e) {
-            if (!isRecording) return;
-            wavePhase += 0.3;
-
-            for (int i = 0; i < 4; i++) {
-                double val = Math.Sin(wavePhase + i * 1.3);
-                double height = 4 + Math.Abs(val) * 11;
-                waveBars[i].Height = height;
-            }
-        }
-
-        // --- Background Service Auto-Manager ---
+        // --- Bridge Auto-Manager (100% hidden in background) ---
         private void EnsureVoiceBridgeRunningAsync() {
             ThreadPool.QueueUserWorkItem(_ => EnsureVoiceBridgeRunning());
         }
@@ -711,7 +537,6 @@ namespace AntigravityVoice {
                 }
             } catch {}
 
-            // Bridge not responding: launch node silently with NO console window
             try {
                 string nodePath = FindNodeExecutable();
                 string compScript = System.IO.Path.Combine(rootDir, "bin", "antigravity_companion.js");
@@ -742,13 +567,13 @@ namespace AntigravityVoice {
             return "node.exe";
         }
 
-        // --- Position Restore & Save ---
+        // --- Position ---
         private void RestorePosition() {
             double screenW = SystemParameters.PrimaryScreenWidth;
             double screenH = SystemParameters.PrimaryScreenHeight;
 
-            // Default: Top-center of screen (like Spotlight / Dynamic Island)
-            double defaultLeft = (screenW - Width) / 2;
+            // Default: Top-right corner of screen (unobtrusive, like a floating mic)
+            double defaultLeft = screenW - Width - 40;
             double defaultTop = 40;
 
             if (File.Exists(posFilePath)) {
@@ -779,7 +604,7 @@ namespace AntigravityVoice {
             } catch {}
         }
 
-        // --- Native Helpers ---
+        // --- Helpers ---
         private static void SimulateCtrlV() {
             keybd_event(VK_CONTROL, 0, 0, UIntPtr.Zero);
             keybd_event(VK_V, 0, 0, UIntPtr.Zero);
@@ -860,11 +685,6 @@ namespace AntigravityVoice {
                     }
                     Application app = new Application();
                     app.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-                    app.DispatcherUnhandledException += (s, e) => {
-                        try {
-                            File.WriteAllText(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "voice_island_crash.log"), e.Exception.ToString());
-                        } catch {}
-                    };
 
                     VoiceIslandWindow win = new VoiceIslandWindow();
                     win.Closed += (s, e) => {
@@ -874,11 +694,7 @@ namespace AntigravityVoice {
                     win.Show();
                     app.Run();
                 }
-            } catch (Exception ex) {
-                try {
-                    File.WriteAllText(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "voice_island_crash.log"), ex.ToString());
-                } catch {}
-            }
+            } catch {}
         }
     }
 }
