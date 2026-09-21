@@ -42,6 +42,21 @@ $nodePath = Find-NodeExecutable
 try {
     Start-Process -FilePath $nodePath -ArgumentList "antigravity_companion.js" -WorkingDirectory $baseDir -WindowStyle Hidden
     Start-Sleep -Milliseconds 500
+
+    $rootDir = Split-Path -Parent $baseDir
+    $micScript = Join-Path $rootDir "voice_widget\floating_mic.ps1"
+    if (Test-Path $micScript) {
+        $micRunning = $false
+        try {
+            $m = [System.Threading.Mutex]::OpenExisting("AntigravityCompanion_FloatingMic_Mutex")
+            if ($m) { $micRunning = $true; $m.Dispose() }
+        } catch {}
+
+        if (-not $micRunning) {
+            Start-Process -FilePath "powershell.exe" -ArgumentList "-ExecutionPolicy Bypass -NoProfile -File `"$micScript`"" -WorkingDirectory $rootDir -WindowStyle Hidden
+        }
+    }
+
     Write-Host "[+] Фоновая служба Antigravity Companion успешно запущена!" -ForegroundColor Green
 } catch {
     Write-Host "[X] Ошибка запуска службы: $_" -ForegroundColor Red

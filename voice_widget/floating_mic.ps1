@@ -1,5 +1,12 @@
 ﻿#Requires -Version 5.1
 
+# Single instance guard via Named Mutex
+$mutexCreated = $false
+$appMutex = New-Object System.Threading.Mutex($true, "AntigravityCompanion_FloatingMic_Mutex", [ref]$mutexCreated)
+if (-not $mutexCreated) {
+    exit 0
+}
+
 $CsharpSource = @"
 using System;
 using System.Drawing;
@@ -41,6 +48,11 @@ public class FloatingMicForm : Form {
     public static extern bool SetForegroundWindow(IntPtr hWnd);
 
     [DllImport("user32.dll")]
+    public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    public const int SW_SHOWNOACTIVATE = 4;
+
+    [DllImport("user32.dll")]
     public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
     public const int KEYEVENTF_KEYUP = 0x0002;
@@ -59,10 +71,10 @@ public class FloatingMicForm : Form {
         int radius = height / 2;
         int d = radius * 2;
         if (width <= height) {
-            path.AddEllipse(0, 0, height, height);
+            path.AddEllipse(2, 2, height - 4, height - 4);
         } else {
-            path.AddArc(0, 0, d, d, 90, 180);
-            path.AddArc(width - d, 0, d, d, 270, 180);
+            path.AddArc(2, 2, d - 4, d - 4, 90, 180);
+            path.AddArc(width - d + 2, 2, d - 4, d - 4, 270, 180);
             path.CloseFigure();
         }
         return path;
@@ -82,6 +94,10 @@ public class FloatingMicForm : Form {
                 }
             } catch {}
         });
+    }
+
+    public void ShowInactive() {
+        ShowWindow(this.Handle, SW_SHOWNOACTIVATE);
     }
 
     public event Action HotkeyPressed;
@@ -142,27 +158,26 @@ $Form = [FloatingMicForm]::new()
 $Form.Text = "Antigravity Voice Dictation"
 $Form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::None
 $Form.StartPosition = [System.Windows.Forms.FormStartPosition]::Manual
-$Form.Size = [System.Drawing.Size]::new(46, 46)
+$Form.Size = [System.Drawing.Size]::new(48, 48)
 $Form.TopMost = $true
 $Form.ShowInTaskbar = $false
-$Form.BackColor = [System.Drawing.Color]::FromArgb(30, 30, 30)
 
-# Position
+# Transparency key eliminates non-capsule box
+$Form.BackColor = [System.Drawing.Color]::Fuchsia
+$Form.TransparencyKey = [System.Drawing.Color]::Fuchsia
+
+# Position: default middle-right of screen
 $Screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea
 if (Test-Path $PosFile) {
     try {
         $pos = Get-Content $PosFile -Raw | ConvertFrom-Json
         $Form.Location = [System.Drawing.Point]::new([int]$pos.X, [int]$pos.Y)
     } catch {
-        $Form.Location = [System.Drawing.Point]::new($Screen.Right - 70, $Screen.Bottom - 120)
+        $Form.Location = [System.Drawing.Point]::new($Screen.Right - 80, [int]([Math]::Floor($Screen.Height / 2) - 25))
     }
 } else {
-    $Form.Location = [System.Drawing.Point]::new($Screen.Right - 70, $Screen.Bottom - 120)
+    $Form.Location = [System.Drawing.Point]::new($Screen.Right - 80, [int]([Math]::Floor($Screen.Height / 2) - 25))
 }
-
-# Initial Region
-$path = [FloatingMicForm]::CreateCapsulePath(46, 46)
-$Form.Region = [System.Drawing.Region]::new($path)
 
 # Colors and states
 $Script:IsRecording = $false
@@ -172,18 +187,16 @@ $Script:RecordStartTick = 0
 $Script:RecordElapsedSec = 0
 $Script:WaveTick = 0
 
-$Script:IdleColor = [System.Drawing.Color]::FromArgb(32, 32, 34)
-$Script:HoverColor = [System.Drawing.Color]::FromArgb(48, 48, 52)
-$Script:RecColor = [System.Drawing.Color]::FromArgb(190, 35, 35)
-$Script:PasteColor = [System.Drawing.Color]::FromArgb(38, 135, 50)
+$Script:IdleColor = [System.Drawing.Color]::FromArgb(36, 36, 40)
+$Script:HoverColor = [System.Drawing.Color]::FromArgb(52, 52, 58)
+$Script:RecColor = [System.Drawing.Color]::FromArgb(200, 35, 35)
+$Script:PasteColor = [System.Drawing.Color]::FromArgb(38, 145, 55)
 $Script:CurrentBg = $Script:IdleColor
 
 # Function to resize widget capsule smoothly
 function UpdateWidgetShape {
     param([int]$width)
     $Form.Width = $width
-    $newPath = [FloatingMicForm]::CreateCapsulePath($width, 46)
-    $Form.Region = [System.Drawing.Region]::new($newPath)
     $Form.Invalidate()
 }
 
@@ -208,68 +221,68 @@ $Form.add_Paint({
 
     # Background Capsule
     $bgBrush = [System.Drawing.SolidBrush]::new($Script:CurrentBg)
-    $capsulePath = [FloatingMicForm]::CreateCapsulePath($w, 46)
+    $capsulePath = [FloatingMicForm]::CreateCapsulePath($w, 48)
     $g.FillPath($bgBrush, $capsulePath)
     $bgBrush.Dispose()
 
     # Border
-    $borderColor = if ($Script:IsRecording) { [System.Drawing.Color]::FromArgb(255, 120, 120) } elseif ($Script:IsPasting) { [System.Drawing.Color]::FromArgb(120, 255, 120) } else { [System.Drawing.Color]::FromArgb(80, 255, 255, 255) }
-    $pen = [System.Drawing.Pen]::new($borderColor, 1.5)
+    $borderColor = if ($Script:IsRecording) { [System.Drawing.Color]::FromArgb(255, 140, 140) } elseif ($Script:IsPasting) { [System.Drawing.Color]::FromArgb(140, 255, 140) } else { [System.Drawing.Color]::FromArgb(100, 255, 255, 255) }
+    $pen = [System.Drawing.Pen]::new($borderColor, 1.8)
     $g.DrawPath($pen, $capsulePath)
     $pen.Dispose()
 
     if ($Script:IsRecording) {
         # 1. Pulsing red dot
         $dotBrush = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::White)
-        $g.FillEllipse($dotBrush, 14, 16, 12, 12)
+        $g.FillEllipse($dotBrush, 15, 17, 13, 13)
         $dotBrush.Dispose()
 
         # 2. Timer mm:ss
         $min = [Math]::Floor($Script:RecordElapsedSec / 60)
         $sec = $Script:RecordElapsedSec % 60
         $timeStr = "{0:D2}:{1:D2}" -f [int]$min, [int]$sec
-        $fTimer = New-Object System.Drawing.Font("Segoe UI", 9.0, [System.Drawing.FontStyle]::Bold)
+        $fTimer = New-Object System.Drawing.Font("Segoe UI", 9.5, [System.Drawing.FontStyle]::Bold)
         $bText = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White)
-        $g.DrawString($timeStr, $fTimer, $bText, 32, 14)
+        $g.DrawString($timeStr, $fTimer, $bText, 34, 15)
         $fTimer.Dispose()
         $bText.Dispose()
 
         # 3. Animated waveform bars
         $bWave = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(255, 220, 220))
         $t = $Script:WaveTick
-        $h1 = 6 + (($t * 3) % 10)
-        $h2 = 8 + (($t * 5) % 14)
-        $h3 = 10 + (($t * 2) % 12)
-        $h4 = 5 + (($t * 4) % 8)
+        $h1 = 6 + (($t * 3) % 12)
+        $h2 = 8 + (($t * 5) % 16)
+        $h3 = 10 + (($t * 2) % 14)
+        $h4 = 5 + (($t * 4) % 10)
 
-        $g.FillRectangle($bWave, 78, [int](23 - $h1 / 2), 3, $h1)
-        $g.FillRectangle($bWave, 84, [int](23 - $h2 / 2), 3, $h2)
-        $g.FillRectangle($bWave, 90, [int](23 - $h3 / 2), 3, $h3)
-        $g.FillRectangle($bWave, 96, [int](23 - $h4 / 2), 3, $h4)
+        $g.FillRectangle($bWave, 82, [int](24 - $h1 / 2), 3, $h1)
+        $g.FillRectangle($bWave, 88, [int](24 - $h2 / 2), 3, $h2)
+        $g.FillRectangle($bWave, 94, [int](24 - $h3 / 2), 3, $h3)
+        $g.FillRectangle($bWave, 100, [int](24 - $h4 / 2), 3, $h4)
         $bWave.Dispose()
 
     } elseif ($Script:IsPasting) {
-        # Green checkmark and "Pasted"
-        $fCheck = New-Object System.Drawing.Font("Segoe UI", 11.0, [System.Drawing.FontStyle]::Bold)
+        # Green checkmark and "Готово"
+        $fCheck = New-Object System.Drawing.Font("Segoe UI", 12.0, [System.Drawing.FontStyle]::Bold)
         $bText = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::White)
         $g.DrawString([char]0x2713, $fCheck, $bText, 14, 11)
 
-        $fDone = New-Object System.Drawing.Font("Segoe UI", 9.0, [System.Drawing.FontStyle]::Bold)
-        $g.DrawString("Готово", $fDone, $bText, 36, 14)
+        $fDone = New-Object System.Drawing.Font("Segoe UI", 9.5, [System.Drawing.FontStyle]::Bold)
+        $g.DrawString("Готово", $fDone, $bText, 38, 15)
         $fCheck.Dispose()
         $fDone.Dispose()
         $bText.Dispose()
 
     } else {
         # Standby: Microphone Icon
-        $brush = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(240, 240, 240))
-        $g.FillRectangle($brush, 20, 12, 6, 12)
-        $g.FillEllipse($brush, 20, 9, 6, 6)
-        $g.FillEllipse($brush, 20, 21, 6, 6)
-        $standPen = [System.Drawing.Pen]::new([System.Drawing.Color]::FromArgb(210, 210, 210), 2)
-        $g.DrawArc($standPen, 17, 14, 12, 14, 0, 180)
-        $g.DrawLine($standPen, 23, 28, 23, 33)
-        $g.DrawLine($standPen, 18, 33, 28, 33)
+        $brush = [System.Drawing.SolidBrush]::new([System.Drawing.Color]::FromArgb(245, 245, 245))
+        $g.FillRectangle($brush, 21, 13, 6, 13)
+        $g.FillEllipse($brush, 21, 10, 6, 6)
+        $g.FillEllipse($brush, 21, 23, 6, 6)
+        $standPen = [System.Drawing.Pen]::new([System.Drawing.Color]::FromArgb(215, 215, 215), 2)
+        $g.DrawArc($standPen, 18, 15, 12, 14, 0, 180)
+        $g.DrawLine($standPen, 24, 29, 24, 34)
+        $g.DrawLine($standPen, 19, 34, 29, 34)
         $standPen.Dispose()
         $brush.Dispose()
     }
@@ -338,7 +351,7 @@ function StartDictation {
             $Script:RecordStartTick = [Environment]::TickCount
             $Script:RecordElapsedSec = 0
             $Script:CurrentBg = $Script:RecColor
-            UpdateWidgetShape 112
+            UpdateWidgetShape 118
             $AnimTimer.Start()
 
             if ($Script:Config.voice.audioFeedback) {
@@ -363,7 +376,7 @@ function StopAndPasteDictation {
         if (-not [string]::IsNullOrWhiteSpace($transcribed)) {
             $Script:IsPasting = $true
             $Script:CurrentBg = $Script:PasteColor
-            UpdateWidgetShape 100
+            UpdateWidgetShape 104
 
             if ($Script:Config.voice.audioFeedback) {
                 [FloatingMicForm]::PlaySoundAsync(3)
@@ -390,7 +403,7 @@ function StopAndPasteDictation {
 
     $Script:IsPasting = $false
     $Script:CurrentBg = $Script:IdleColor
-    UpdateWidgetShape 46
+    UpdateWidgetShape 48
 }
 
 function ToggleDictation {
@@ -406,18 +419,18 @@ $ContextMenu = [System.Windows.Forms.ContextMenuStrip]::new()
 $ItemTitle = $ContextMenu.Items.Add("Antigravity Voice Dictation")
 $ItemTitle.Enabled = $false
 
-$ItemSettings = $ContextMenu.Items.Add("⚙️ Settings...")
+$ItemSettings = $ContextMenu.Items.Add("⚙️ Настройки...")
 $ItemSettings.add_Click({
     $settingsScript = Join-Path $PSScriptRoot "settings_window.ps1"
     Start-Process powershell -ArgumentList "-ExecutionPolicy Bypass -NoProfile -File `"$settingsScript`""
 })
 
 $ContextMenu.Items.Add("-") | Out-Null
-$ItemToggle = $ContextMenu.Items.Add("Record (Toggle)")
+$ItemToggle = $ContextMenu.Items.Add("Запись (Toggle)")
 $ItemToggle.add_Click({ ToggleDictation })
 
 $ContextMenu.Items.Add("-") | Out-Null
-$ItemExit = $ContextMenu.Items.Add("Close Widget")
+$ItemExit = $ContextMenu.Items.Add("Закрыть микрофон")
 $ItemExit.add_Click({ $Form.Close() })
 $Form.ContextMenuStrip = $ContextMenu
 
@@ -477,10 +490,6 @@ function RegisterConfiguredHotkey {
     }
 }
 
-$Form.add_Shown({
-    RegisterConfiguredHotkey
-})
-
 $Form.add_FormClosing({
     [FloatingMicForm]::UnregisterHotKey($Form.Handle, 9228)
 })
@@ -489,6 +498,10 @@ $Form.add_FormClosing({
 $Form.add_HotkeyPressed({
     ToggleDictation
 })
+
+# Show window without stealing focus, register hotkey, and run loop
+$Form.ShowInactive()
+RegisterConfiguredHotkey
 
 # Run Application Loop
 [System.Windows.Forms.Application]::Run($Form)
