@@ -36,6 +36,7 @@ function main() {
 
   let addedExact = 0;
   let addedAttributes = 0;
+  let addedPatterns = 0;
 
   // Check if structure has explicit sections or flat
   if (newItems.exact || newItems.attributes || newItems.patterns) {
@@ -57,8 +58,17 @@ function main() {
     }
     if (Array.isArray(newItems.patterns)) {
       for (const p of newItems.patterns) {
-        if (p.regex && p.replacement) {
-          dict.patterns.push(p);
+        const repl = p.replace !== undefined ? p.replace : p.replacement;
+        if (p.regex && repl !== undefined) {
+          const rule = { regex: p.regex, replace: repl };
+          if (p.flags) rule.flags = p.flags;
+          const existingIdx = dict.patterns.findIndex(existing => existing.regex === p.regex);
+          if (existingIdx >= 0) {
+            dict.patterns[existingIdx] = rule;
+          } else {
+            dict.patterns.push(rule);
+            addedPatterns++;
+          }
         }
       }
     }

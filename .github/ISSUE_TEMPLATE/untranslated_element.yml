@@ -1,0 +1,46 @@
+name: "Непереведенный элемент интерфейса / Untranslated UI"
+description: "Сообщить о непереведенном слове, кнопке или блоке в Antigravity"
+title: "[i18n]: "
+labels: ["localization", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо за помощь в улучшении русской локализации Antigravity Companion!
+        Пожалуйста, прикрепите скриншот (через `Ctrl + V`) и укажите, где именно встретился непереведенный текст.
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Скриншот проблемы
+      description: Сделайте скриншот (Win + Shift + S) и вставьте его прямо сюда с помощью Ctrl + V
+      placeholder: Вставьте изображение сюда...
+    validations:
+      required: false
+
+  - type: textarea
+    id: text
+    attributes:
+      label: Непереведенный текст / фраза
+      description: Какой именно текст отображается на английском языке?
+      placeholder: Например, Show 39 breakdowns или Customization token budget exceeded...
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: Где это находится в интерфейсе
+      description: Раздел, меню или диалоговое окно (например, Настройки -> Кастомизация)
+      placeholder: Настройки -> Кастомизация
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Версия Antigravity Companion
+      description: Текущая версия companion (отображается в README и виджете)
+      value: "v1.1.0"
+    validations:
+      required: false

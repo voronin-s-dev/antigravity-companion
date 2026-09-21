@@ -741,7 +741,14 @@
     "Equalize Split Panes": "Выровнять панели",
     "Toggle File Viewer": "Переключить просмотр файлов",
     "Toggle Environment Selector": "Переключить выбор окружения",
-    "Open Workspace Selector": "Открыть выбор рабочей области"
+    "Open Workspace Selector": "Открыть выбор рабочей области",
+    "Show breakdown": "Показать детализацию",
+    "Hide breakdown": "Скрыть детализацию",
+    "Hide breakdowns": "Скрыть детализацию",
+    "Workspaces": "Рабочие пространства",
+    "Customization token budget exceeded. Large customizations will be truncated.": "Бюджет токенов кастомизации превышен. Крупные элементы будут автоматически сокращены.",
+    "There are no customizations enabled.": "Нет включенных кастомизаций.",
+    "No token data available.": "Нет данных о токенах."
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -924,7 +931,7 @@
     },
     {
       "regex": "^Show\\s+(\\d+)\\s+breakdowns?$",
-      "replacement": "Показать разбивки ($1)"
+      "replace": "Показать детализацию ($1)"
     },
     {
       "regex": "^(\\d+)\\s+tools?\\s+enabled$",
@@ -941,6 +948,18 @@
     {
       "regex": "^You have used some of your 5-hour limit, it will fully refresh in (.+)$",
       "replacement": "Вы использовали часть 5-часового лимита, он полностью обновится через $1."
+    },
+    {
+      "regex": "^Hide\\s+(\\d+)\\s+breakdowns?$",
+      "replace": "Скрыть детализацию ($1)"
+    },
+    {
+      "regex": "^Skills\\s*\\((\\d+[\\s\\u00a0]?\\d*)\\s*tokens\\)\\s*([\\d\\.]+)%$",
+      "replace": "Навыки ($1 токенов) $2%"
+    },
+    {
+      "regex": "^Rules\\s*\\((\\d+[\\s\\u00a0]?\\d*)\\s*tokens\\)\\s*([\\d\\.]+)%$",
+      "replace": "Правила ($1 токенов) $2%"
     }
   ]
 }

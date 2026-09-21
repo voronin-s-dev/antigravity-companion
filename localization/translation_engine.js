@@ -105,7 +105,9 @@
       for (const p of dict.patterns) {
         if (!p._compiled) p._compiled = new RegExp(p.regex);
         if (p._compiled.test(trimmed)) {
-          let replaced = trimmed.replace(p._compiled, p.replace);
+          const replacement = p.replace !== undefined ? p.replace : p.replacement;
+          if (replacement === undefined) continue;
+          let replaced = trimmed.replace(p._compiled, replacement);
           replaced = formatTimeTokens(replaced);
           const leading = rawText.match(/^\s*/)[0];
           const trailing = rawText.match(/\s*$/)[0];
@@ -129,7 +131,7 @@
       const leading = node.nodeValue.match(/^\s*/)[0];
       const trailing = node.nodeValue.match(/\s*$/)[0];
       node.__agy_orig = leading + rev[trimmedVal] + trailing;
-    } else if (node.__agy_orig === undefined) {
+    } else if (node.__agy_orig === undefined || (node.nodeValue !== node.__agy_last_translated && !rev[trimmedVal])) {
       node.__agy_orig = node.nodeValue;
     }
 
@@ -139,6 +141,7 @@
         try {
           isInternalMutating = true;
           node.nodeValue = tr;
+          node.__agy_last_translated = tr;
         } finally {
           isInternalMutating = false;
         }
@@ -148,6 +151,7 @@
         try {
           isInternalMutating = true;
           node.nodeValue = node.__agy_orig;
+          node.__agy_last_translated = node.__agy_orig;
         } finally {
           isInternalMutating = false;
         }
@@ -277,13 +281,18 @@
             queueNode(added.parentElement || document.body);
           }
         }
+      } else if (mut.type === 'characterData') {
+        if (mut.target && mut.target.nodeType === Node.TEXT_NODE) {
+          queueNode(mut.target.parentElement || document.body);
+        }
       }
     }
   });
 
   observer.observe(document.body, {
     childList: true,
-    subtree: true
+    subtree: true,
+    characterData: true
   });
 
   window.__agyTranslatorObserver = observer;

@@ -30,6 +30,8 @@ async function injectWidget() {
       if (existing) existing.remove();
       const existingTooltip = document.getElementById('agy-limits-tooltip');
       if (existingTooltip) existingTooltip.remove();
+      const existingReportModal = document.getElementById('agy-report-modal');
+      if (existingReportModal) existingReportModal.remove();
 
       // Translations Dictionary
       const I18N = {
@@ -68,7 +70,20 @@ async function injectWidget() {
           m15: '15 мин',
           off: 'Выкл',
           native: 'РОДНОЙ',
-          serviceErr: 'Сервис недоступен'
+          serviceErr: 'Сервис недоступен',
+          scaleTitle: 'МАСШТАБ ВИДЖЕТА',
+          scaleCompact: 'Мини',
+          scaleNormal: 'Обычный',
+          scaleLarge: 'Крупный',
+          reportBtnTitle: 'Сообщить о непереведенном элементе (Ctrl+V)',
+          reportModalTitle: 'Сообщить о непереведенном элементе',
+          reportModalDesc: 'Вставьте скриншот по Ctrl+V и кратко опишите проблему',
+          reportPastePrompt: 'Нажмите Ctrl+V для вставки скриншота или кликните для выбора файла',
+          reportCommentPlaceholder: 'Что не переведено или где это находится (например, в настройках кастомизаций)...',
+          reportSendBtn: 'Создать Issue на GitHub',
+          reportCancelBtn: 'Отмена',
+          reportCopiedNotice: 'Скриншот скопирован в буфер обмена! Вставьте его через Ctrl+V в открывшемся GitHub Issue.',
+          reportRemoveImg: 'Удалить снимок'
         },
         en: {
           title: 'Model Limits',
@@ -105,7 +120,20 @@ async function injectWidget() {
           m15: '15m',
           off: 'Off',
           native: 'NATIVE',
-          serviceErr: 'Service unavailable'
+          serviceErr: 'Service unavailable',
+          scaleTitle: 'WIDGET SCALE',
+          scaleCompact: 'Mini',
+          scaleNormal: 'Normal',
+          scaleLarge: 'Large',
+          reportBtnTitle: 'Report untranslated element (Ctrl+V)',
+          reportModalTitle: 'Report untranslated element',
+          reportModalDesc: 'Paste screenshot via Ctrl+V and describe the issue',
+          reportPastePrompt: 'Press Ctrl+V to paste screenshot or click to choose file',
+          reportCommentPlaceholder: 'What is untranslated or where is it located...',
+          reportSendBtn: 'Create Issue on GitHub',
+          reportCancelBtn: 'Cancel',
+          reportCopiedNotice: 'Screenshot copied to clipboard! Paste it via Ctrl+V into the GitHub Issue description.',
+          reportRemoveImg: 'Remove image'
         }
       };
 
@@ -308,6 +336,7 @@ async function injectWidget() {
 
       let isCollapsed = localStorage.getItem('agy_limits_collapsed') === 'true';
       let currentIntervalMs = parseInt(localStorage.getItem('agy_limits_interval') || '300000', 10);
+      let currentScale = localStorage.getItem('agy_limits_scale') || 'normal';
       let isSettingsOpen = false;
 
       // Miniature Pill items preferences
@@ -342,6 +371,12 @@ async function injectWidget() {
           <span id="agy-title-text" style="font-weight: 500; font-size: 12px; color: #f4f4f5;">\${t('title')}</span>
         </div>
         <div style="display: flex; gap: 2px; align-items: center;">
+          <button id="agy-report-btn" title="\${t('reportBtnTitle')}" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
+            <svg style="width: 13px; height: 13px; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
+              <circle cx="12" cy="13" r="3"></circle>
+            </svg>
+          </button>
           <button id="agy-gear-btn" title="Настройки" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
             <svg style="width: 13px; height: 13px; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3"></circle>
@@ -418,7 +453,28 @@ async function injectWidget() {
               <span id="agy-hex-label" style="font-family: monospace; font-size: 9.5px; color: #85858b; margin-left: 2px;">\${currentTint === 'native' ? t('native') : currentTint.toUpperCase()}</span>
             </div>
           </div>
+
+          <!-- Section 5: Widget Scale -->
+          <div style="margin-top: 8px; padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.06);">
+            <div style="color: #85858b; font-size: 10px; font-weight: 500; margin-bottom: 5px;">\${t('scaleTitle')}</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;">
+              <button class="agy-scale-btn" data-scale="compact" style="padding: 3px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.03); color: #d4d4d8; font-size: 10px; cursor: pointer; text-align: center;">\${t('scaleCompact')}</button>
+              <button class="agy-scale-btn" data-scale="normal" style="padding: 3px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.03); color: #d4d4d8; font-size: 10px; cursor: pointer; text-align: center;">\${t('scaleNormal')}</button>
+              <button class="agy-scale-btn" data-scale="large" style="padding: 3px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.03); color: #d4d4d8; font-size: 10px; cursor: pointer; text-align: center;">\${t('scaleLarge')}</button>
+            </div>
+          </div>
         \`;
+
+        // Bind scale buttons
+        settingsPanel.querySelectorAll('.agy-scale-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            currentScale = btn.dataset.scale;
+            localStorage.setItem('agy_limits_scale', currentScale);
+            applyCollapseState();
+            updateSettingsButtons();
+            clampToViewport();
+          });
+        });
 
         // Bind language buttons
         const ruBtn = settingsPanel.querySelector('#agy-lang-ru');
@@ -858,10 +914,186 @@ async function injectWidget() {
         });
       });
 
+      // Feedback & Bug Reporting Modal
+      const reportModal = document.createElement('div');
+      reportModal.id = 'agy-report-modal';
+      reportModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.72); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 10000002; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;';
+
+      let reportPastedImage = null;
+
+      function renderReportModal() {
+        reportModal.innerHTML = \`
+          <div style="background: rgb(28, 26, 23); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; width: 440px; max-width: 92vw; box-shadow: 0 16px 40px rgba(0,0,0,0.8); color: #f4f4f5; padding: 16px 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px;">
+            <!-- Header -->
+            <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+              <div>
+                <div style="font-weight: 600; font-size: 13px; color: #f4f4f5; display: flex; align-items: center; gap: 6px;">
+                  <span style="color: #60a5fa;">📸</span>
+                  <span>\${t('reportModalTitle')}</span>
+                </div>
+                <div style="font-size: 11px; color: #a1a1aa; margin-top: 2px;">\${t('reportModalDesc')}</div>
+              </div>
+              <button id="agy-report-close-btn" style="background: none; border: none; color: #71717a; cursor: pointer; font-size: 16px; padding: 0 4px; line-height: 1; border-radius: 4px;">✕</button>
+            </div>
+
+            <!-- Paste / Drop Area -->
+            <div id="agy-paste-dropzone" style="border: 1.5px dashed rgba(255, 255, 255, 0.18); border-radius: 8px; padding: 12px; text-align: center; background: rgba(255, 255, 255, 0.02); cursor: pointer; transition: all 0.15s ease; position: relative;">
+              <input type="file" id="agy-report-file-input" accept="image/*" style="display: none;">
+              <div id="agy-paste-prompt" style="display: \${reportPastedImage ? 'none' : 'flex'}; flex-direction: column; align-items: center; gap: 6px;">
+                <svg style="width: 24px; height: 24px; color: #71717a;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                  <circle cx="9" cy="9" r="2"></circle>
+                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                </svg>
+                <div style="font-size: 11px; color: #d4d4d8; font-weight: 500;">\${t('reportPastePrompt')}</div>
+                <div style="font-size: 10px; color: #71717a;">Win + Shift + S → Ctrl + V</div>
+              </div>
+              <div id="agy-preview-container" style="display: \${reportPastedImage ? 'flex' : 'none'}; flex-direction: column; align-items: center; gap: 8px;">
+                <img id="agy-report-preview-img" src="\${reportPastedImage || ''}" style="max-height: 150px; max-width: 100%; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); object-fit: contain; background: #18181b;">
+                <button id="agy-remove-img-btn" style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; border-radius: 4px; padding: 2px 8px; font-size: 10px; cursor: pointer;">\${t('reportRemoveImg')}</button>
+              </div>
+            </div>
+
+            <!-- Comment Input -->
+            <div>
+              <div style="font-size: 10px; color: #a1a1aa; margin-bottom: 4px; font-weight: 500;">КОММЕНТАРИЙ / COMMENT</div>
+              <textarea id="agy-report-comment" placeholder="\${t('reportCommentPlaceholder')}" style="width: 100%; height: 60px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; color: #f4f4f5; font-size: 11px; padding: 7px 9px; box-sizing: border-box; resize: none; font-family: inherit;"></textarea>
+            </div>
+
+            <!-- Toast / Status info -->
+            <div id="agy-report-status" style="display: none; font-size: 10.5px; padding: 6px 9px; border-radius: 6px; background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.25); color: #4ade80;"></div>
+
+            <!-- Buttons -->
+            <div style="display: flex; justify-content: flex-end; gap: 6px; margin-top: 2px;">
+              <button id="agy-report-cancel-btn" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); color: #a1a1aa; border-radius: 6px; padding: 6px 12px; font-size: 11px; cursor: pointer;">\${t('reportCancelBtn')}</button>
+              <button id="agy-report-submit-btn" style="background: #238636; border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; border-radius: 6px; padding: 6px 14px; font-size: 11px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                <span>\${t('reportSendBtn')}</span>
+                <span style="opacity: 0.7;">↗</span>
+              </button>
+            </div>
+          </div>
+        \`;
+
+        const closeBtn = reportModal.querySelector('#agy-report-close-btn');
+        const cancelBtn = reportModal.querySelector('#agy-report-cancel-btn');
+        const submitBtn = reportModal.querySelector('#agy-report-submit-btn');
+        const dropzone = reportModal.querySelector('#agy-paste-dropzone');
+        const fileInput = reportModal.querySelector('#agy-report-file-input');
+        const removeImgBtn = reportModal.querySelector('#agy-remove-img-btn');
+
+        closeBtn.addEventListener('click', closeReportModal);
+        cancelBtn.addEventListener('click', closeReportModal);
+
+        dropzone.addEventListener('click', (e) => {
+          if (e.target !== removeImgBtn && !reportPastedImage) {
+            fileInput.click();
+          }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (file) handleImageFile(file);
+        });
+
+        if (removeImgBtn) {
+          removeImgBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            reportPastedImage = null;
+            renderReportModal();
+          });
+        }
+
+        submitBtn.addEventListener('click', handleReportSubmit);
+      }
+
+      function handleImageFile(file) {
+        if (!file || !file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          reportPastedImage = evt.target.result;
+          renderReportModal();
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function handleGlobalPaste(e) {
+        if (reportModal.style.display !== 'flex') return;
+        const items = (e.clipboardData || e.originalEvent?.clipboardData)?.items;
+        if (!items) return;
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].type.indexOf('image') !== -1) {
+            const blob = items[i].getAsFile();
+            handleImageFile(blob);
+            break;
+          }
+        }
+      }
+
+      window.addEventListener('paste', handleGlobalPaste);
+
+      function handleReportSubmit() {
+        const commentInput = reportModal.querySelector('#agy-report-comment');
+        const statusDiv = reportModal.querySelector('#agy-report-status');
+        const comment = commentInput ? commentInput.value.trim() : '';
+
+        const title = '[i18n] ' + (currentLang === 'ru' ? 'Непереведенный элемент: ' : 'Untranslated element: ') + (comment ? comment.slice(0, 45) : 'Antigravity UI');
+        const bodyLines = [
+          '### ' + (currentLang === 'ru' ? 'Описание непереведенного элемента' : 'Description of untranslated element'),
+          comment || (currentLang === 'ru' ? 'Обнаружен непереведенный элемент в интерфейсе Antigravity.' : 'Untranslated element detected in Antigravity UI.'),
+          '',
+          '### ' + (currentLang === 'ru' ? 'Скриншот' : 'Screenshot'),
+          reportPastedImage ? '*(Вставьте скриншот из буфера обмена через Ctrl+V ниже / Paste screenshot below)*' : '*(Скриншот не прикреплен / No screenshot attached)*',
+          '',
+          '### ' + (currentLang === 'ru' ? 'Окружение' : 'Environment'),
+          '- Antigravity Companion: v1.1.0',
+          '- ' + (currentLang === 'ru' ? 'Язык' : 'Language') + ': ' + currentLang.toUpperCase(),
+          '- ' + (currentLang === 'ru' ? 'Разрешение экрана' : 'Screen resolution') + ': ' + window.innerWidth + 'x' + window.innerHeight,
+          '- ' + (currentLang === 'ru' ? 'Время' : 'Date') + ': ' + new Date().toLocaleString()
+        ];
+
+        const issueUrl = 'https://github.com/voronin-s-dev/antigravity-companion/issues/new?title=' +
+          encodeURIComponent(title) +
+          '&body=' + encodeURIComponent(bodyLines.join(String.fromCharCode(10)));
+
+        if (statusDiv) {
+          statusDiv.style.display = 'block';
+          statusDiv.textContent = t('reportCopiedNotice');
+        }
+
+        window.open(issueUrl, '_blank');
+
+        setTimeout(() => {
+          closeReportModal();
+        }, 2200);
+      }
+
+      function openReportModal() {
+        renderReportModal();
+        reportModal.style.display = 'flex';
+      }
+
+      function closeReportModal() {
+        reportModal.style.display = 'none';
+        reportPastedImage = null;
+      }
+
+      reportModal.addEventListener('click', (e) => {
+        if (e.target === reportModal) closeReportModal();
+      });
+
+      document.body.appendChild(reportModal);
+
+      const reportBtn = header.querySelector('#agy-report-btn');
       const gearBtn = header.querySelector('#agy-gear-btn');
       const refreshBtn = header.querySelector('#agy-refresh-btn');
       const collapseBtn = header.querySelector('#agy-collapse-btn');
       const closeBtn = header.querySelector('#agy-close-btn');
+
+      if (reportBtn) {
+        reportBtn.addEventListener('click', () => {
+          openReportModal();
+        });
+      }
 
       gearBtn.addEventListener('click', () => {
         isSettingsOpen = !isSettingsOpen;
@@ -884,6 +1116,22 @@ async function injectWidget() {
             btn.style.fontWeight = '400';
           }
         });
+
+        settingsPanel.querySelectorAll('.agy-scale-btn').forEach(btn => {
+          const sc = btn.dataset.scale;
+          if (sc === currentScale) {
+            btn.style.background = 'rgba(255, 255, 255, 0.12)';
+            btn.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            btn.style.color = '#fff';
+            btn.style.fontWeight = '500';
+          } else {
+            btn.style.background = 'rgba(255,255,255,0.03)';
+            btn.style.borderColor = 'rgba(255,255,255,0.06)';
+            btn.style.color = '#85858b';
+            btn.style.fontWeight = '400';
+          }
+        });
+
         updatePillItemButtons();
       }
 
@@ -899,7 +1147,21 @@ async function injectWidget() {
           settingsPanel.style.display = 'none';
           pillSummary.style.display = 'flex';
           container.style.width = 'auto';
-          container.style.padding = '5px 9px';
+
+          if (currentScale === 'compact') {
+            container.style.padding = '3px 7px';
+            container.style.fontSize = '10.5px';
+            pillSummary.style.gap = '4px';
+          } else if (currentScale === 'large') {
+            container.style.padding = '7px 12px';
+            container.style.fontSize = '13.5px';
+            pillSummary.style.gap = '8px';
+          } else {
+            container.style.padding = '5px 9px';
+            container.style.fontSize = '12px';
+            pillSummary.style.gap = '6px';
+          }
+
           container.style.cursor = 'move';
           container.style.display = 'flex';
         } else {
@@ -907,8 +1169,21 @@ async function injectWidget() {
           content.style.display = 'block';
           settingsPanel.style.display = isSettingsOpen ? 'block' : 'none';
           pillSummary.style.display = 'none';
-          container.style.width = '270px';
-          container.style.padding = '10px 12px';
+
+          if (currentScale === 'compact') {
+            container.style.width = '240px';
+            container.style.padding = '8px 10px';
+            container.style.fontSize = '11px';
+          } else if (currentScale === 'large') {
+            container.style.width = '320px';
+            container.style.padding = '12px 15px';
+            container.style.fontSize = '13.5px';
+          } else {
+            container.style.width = '270px';
+            container.style.padding = '10px 12px';
+            container.style.fontSize = '12px';
+          }
+
           container.style.cursor = 'default';
           container.style.display = 'block';
         }
@@ -1111,6 +1386,9 @@ async function injectWidget() {
         if (p) p.remove();
         const t = document.getElementById('agy-limits-tooltip');
         if (t) t.remove();
+        window.removeEventListener('paste', handleGlobalPaste);
+        const rm = document.getElementById('agy-report-modal');
+        if (rm) rm.remove();
       };
 
       return { status: 'responsive_positioning_and_cleanup_ready' };
