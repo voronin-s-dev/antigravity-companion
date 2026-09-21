@@ -676,6 +676,14 @@ async function injectWidget() {
               </div>
             </div>
           </div>
+
+          <!-- Section 6: Full Companion Settings Window -->
+          <div style="padding-top: 8px; margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.08);">
+            <button id="agy-open-native-settings-btn" style="width: 100%; padding: 6px 10px; border-radius: 5px; border: 1px solid rgba(59,130,246,0.3); background: rgba(59,130,246,0.15); color: #93c5fd; font-size: 10px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background 0.15s;">
+              <span>⚙️</span>
+              <span>Все настройки Companion (Голос, Хоткеи, Звуки)</span>
+            </button>
+          </div>
         \`;
 
         // Bind scale buttons
@@ -755,6 +763,14 @@ async function injectWidget() {
           soundWeeklyResetBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             resetSoundToDefault('weekly');
+          });
+        }
+
+        const nativeSettingsBtn = settingsPanel.querySelector('#agy-open-native-settings-btn');
+        if (nativeSettingsBtn) {
+          nativeSettingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fetch('http://127.0.0.1:9228/settings/open').catch(err => console.warn('Не удалось вызвать окно настроек:', err));
           });
         }
 

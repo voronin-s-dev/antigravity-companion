@@ -2,6 +2,9 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { spawn } = require('child_process');
+const { processVoiceText } = require('./voice_text_processor');
+const { loadConfig, saveConfig } = require('../config/companion_config');
 
 const PORT = 9228;
 
@@ -98,7 +101,7 @@ async function startVoice() {
 // Stop voice recording and extract transcribed text
 async function stopVoice() {
   const { wsUrl } = await getCDPEndpoint();
-  return await evaluate(wsUrl, `(async () => {
+  const rawResult = await evaluate(wsUrl, `(async () => {
     const btn = document.querySelector('[data-tooltip-id="input-send-button-record-tooltip"]');
     if (!btn) throw new Error('Кнопка микрофона не найдена');
 
@@ -110,7 +113,7 @@ async function stopVoice() {
       btn.click();
     }
 
-    // Wait for transcription to finalize (up to 3 seconds)
+    // Wait for transcription to finalize (up to 3.5 seconds)
     const editor = document.querySelector('[contenteditable="true"]');
     let text = '';
     const start = Date.now();
@@ -144,6 +147,19 @@ async function stopVoice() {
 
     return { status: 'completed', text: text || '' };
   })()`);
+
+  const config = loadConfig();
+  const rawText = rawResult?.text || '';
+  const formattedText = processVoiceText(rawText, {
+    smartPunctuation: config.voice?.smartPunctuation !== false,
+    autoCapitalize: config.voice?.autoCapitalize !== false
+  });
+
+  return {
+    status: rawResult?.status || 'completed',
+    text: formattedText,
+    rawText: rawText
+  };
 }
 
 // Toggle voice recording
@@ -151,7 +167,7 @@ async function toggleVoice() {
   const recording = await isRecording();
   if (recording) {
     const res = await stopVoice();
-    return { action: 'stopped', text: res.text };
+    return { action: 'stopped', text: res.text, rawText: res.rawText };
   } else {
     await startVoice();
     return { action: 'started', text: '' };
@@ -191,6 +207,33 @@ function startServer() {
         const recording = await isRecording();
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: true, isRecording: recording }));
+      } else if (url.pathname === '/settings/open') {
+        const psFile = path.join(__dirname, 'settings_window.ps1');
+        spawn('powershell', ['-ExecutionPolicy', 'Bypass', '-NoProfile', '-File', psFile], {
+          detached: true,
+          stdio: 'ignore'
+        }).unref();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, message: 'Settings window opened' }));
+      } else if (url.pathname === '/config') {
+        if (req.method === 'GET') {
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, config: loadConfig() }));
+        } else if (req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => { body += chunk; });
+          req.on('end', () => {
+            try {
+              const parsed = JSON.parse(body);
+              const saved = saveConfig(parsed);
+              res.writeHead(200, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ ok: true, config: saved }));
+            } catch (e) {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ ok: false, error: e.message }));
+            }
+          });
+        }
       } else {
         res.writeHead(404, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Endpoint not found' }));
