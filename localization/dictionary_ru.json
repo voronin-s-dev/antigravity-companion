@@ -846,7 +846,11 @@
     "Stop Task": "Остановить задачу",
     "Timed": "По таймеру",
     "Loading": "Загрузка",
-    "Stop recording": "Остановить запись"
+    "Stop recording": "Остановить запись",
+    "1 task running": "Выполняется 1 задача",
+    "Task Log": "Журнал задачи",
+    "Killed task": "Задача остановлена",
+    "Explored 1 task": "Проверена 1 задача"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
