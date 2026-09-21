@@ -91,7 +91,7 @@
     "Undo to this point": "Откатить до этой точки",
     "Scroll to Bottom": "Прокрутить вниз",
     "Add context": "Добавить контекст",
-    "Record voice memo": "Записать голосовое",
+    "Record voice memo": "Записать голосовую заметку",
     "Send message": "Отправить сообщение",
     "Overview": "Обзор",
     "Add": "Добавить",
@@ -845,7 +845,8 @@
     "Send message Enter": "Отправить сообщение (Enter)",
     "Stop Task": "Остановить задачу",
     "Timed": "По таймеру",
-    "Loading": "Загрузка"
+    "Loading": "Загрузка",
+    "Stop recording": "Остановить запись"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -862,7 +863,7 @@
     "Type a message...": "Введите сообщение...",
     "Ask a question or describe a task...": "Задайте вопрос или опишите задачу...",
     "Send message": "Отправить сообщение",
-    "Record voice memo": "Записать голосовое сообщение",
+    "Record voice memo": "Записать голосовую заметку",
     "Add context": "Добавить контекст",
     "Scroll to Bottom": "Прокрутить вниз",
     "Scroll to Top": "Прокрутить вверх",
@@ -912,7 +913,8 @@
     "Select Worktree": "Выбрать рабочее дерево",
     "Select Model": "Выбрать модель",
     "Install IDE": "Установить IDE",
-    "Open in Code Search": "Открыть в поиске по коду"
+    "Open in Code Search": "Открыть в поиске по коду",
+    "Stop recording": "Остановить запись"
   },
   "patterns": [
     {

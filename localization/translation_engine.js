@@ -9,6 +9,23 @@
  */
 
 (function() {
+  let ls = null;
+  try {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.getItem('__agy_test__');
+      ls = window.localStorage;
+    }
+  } catch (e) {}
+  if (!ls) {
+    const mem = {};
+    ls = {
+      getItem: (k) => (k in mem ? mem[k] : null),
+      setItem: (k, v) => { mem[k] = String(v); },
+      removeItem: (k) => { delete mem[k]; }
+    };
+  }
+  const localStorage = ls;
+
   let currentLang = localStorage.getItem('agy_lang') || 'ru';
   let isInternalMutating = false;
 

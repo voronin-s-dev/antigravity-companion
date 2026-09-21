@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { injectWidget } = require('../limits_widget/inject_panel.js');
 const { injectTranslator } = require('../localization/inject_translator.js');
+const { startServer: startVoiceBridgeServer } = require('../voice_widget/voice_bridge.js');
 
 // Dynamically locate DevToolsActivePort in current user's AppData
 const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Roaming');
@@ -24,7 +25,8 @@ async function checkAndInject() {
 
     const res = await fetch(`http://127.0.0.1:${port}/json`, { signal: AbortSignal.timeout(2000) });
     const tabs = await res.json();
-    const page = tabs.find(t => t.type === 'page');
+    const page = tabs.find(t => t.type === 'page' && typeof t.url === 'string' && (t.url.includes('127.0.0.1') || t.url.includes('localhost')) && !t.url.startsWith('data:'))
+      || tabs.find(t => t.type === 'page' && typeof t.url === 'string' && !t.url.startsWith('data:') && !t.url.startsWith('devtools:') && !t.url.startsWith('chrome:') && !t.url.startsWith('about:'));
     if (!page || !page.webSocketDebuggerUrl) return;
 
     const ws = new WebSocket(page.webSocketDebuggerUrl);
@@ -85,7 +87,12 @@ process.on('exit', (code) => {
   console.log('[Companion Exit] Process exiting with code:', code);
 });
 
-console.log('[Antigravity Companion Service] Активен. Фоновый мониторинг (виджет + русский перевод)...');
+console.log('[Antigravity Companion Service] Активен. Фоновый мониторинг (виджет + русский перевод + голос)...');
+try {
+  startVoiceBridgeServer();
+} catch (e) {
+  console.log('[Voice Bridge] Note:', e.message);
+}
 setInterval(checkAndInject, 3500);
 checkAndInject();
 

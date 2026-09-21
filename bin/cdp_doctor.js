@@ -12,7 +12,8 @@ async function getCDPEndpoint() {
   const lines = fs.readFileSync(activePortFile, 'utf8').trim().split(/\r?\n/);
   const port = lines[0].trim();
   const tabs = await fetch(`http://127.0.0.1:${port}/json`).then(r => r.json());
-  const page = tabs.find(t => t.type === 'page');
+  const page = tabs.find(t => t.type === 'page' && typeof t.url === 'string' && (t.url.includes('127.0.0.1') || t.url.includes('localhost')) && !t.url.startsWith('data:'))
+    || tabs.find(t => t.type === 'page' && typeof t.url === 'string' && !t.url.startsWith('data:') && !t.url.startsWith('devtools:') && !t.url.startsWith('chrome:') && !t.url.startsWith('about:'));
   if (!page) {
     throw new Error(`Страница Antigravity не найдена на порту ${port}. Доступные таргеты: ${tabs.map(t => t.type).join(', ')}`);
   }

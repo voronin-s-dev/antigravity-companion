@@ -12,7 +12,8 @@ async function injectTranslator() {
   const port = lines[0].trim();
 
   const tabs = await fetch(`http://127.0.0.1:${port}/json`).then(r => r.json());
-  const page = tabs.find(t => t.type === 'page');
+  const page = tabs.find(t => t.type === 'page' && typeof t.url === 'string' && (t.url.includes('127.0.0.1') || t.url.includes('localhost')) && !t.url.startsWith('data:'))
+    || tabs.find(t => t.type === 'page' && typeof t.url === 'string' && !t.url.startsWith('data:') && !t.url.startsWith('devtools:') && !t.url.startsWith('chrome:') && !t.url.startsWith('about:'));
   if (!page) {
     console.error('Antigravity page not found');
     return;
@@ -30,6 +31,14 @@ async function injectTranslator() {
     ws.onopen = () => {
       const code = `
         (() => {
+          let ls = null;
+          try {
+            if (typeof window !== 'undefined' && window.localStorage) {
+              window.localStorage.getItem('__agy_test__');
+              ls = window.localStorage;
+            }
+          } catch (e) {}
+          const localStorage = ls || { getItem: () => 'ru', setItem: () => {} };
           window.__agyDictRu = ${dictContent};
           ${engineContent}
           if (window.__agyTranslatorRefresh) window.__agyTranslatorRefresh();
