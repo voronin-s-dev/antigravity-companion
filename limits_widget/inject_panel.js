@@ -83,7 +83,11 @@ async function injectWidget() {
           reportSendBtn: 'Создать Issue на GitHub',
           reportCancelBtn: 'Отмена',
           reportCopiedNotice: 'Скриншот скопирован в буфер обмена! Вставьте его через Ctrl+V в открывшемся GitHub Issue.',
-          reportRemoveImg: 'Удалить снимок'
+          reportRemoveImg: 'Удалить снимок',
+          soundTitle: 'ЗВУКОВЫЕ СИГНАЛЫ СБРОСА',
+          sound5hLabel: 'Сигнал сброса 5ч лимита',
+          soundWeeklyLabel: 'Сигнал сброса недельного лимита',
+          soundTest: 'Тест'
         },
         en: {
           title: 'Model Limits',
@@ -133,7 +137,11 @@ async function injectWidget() {
           reportSendBtn: 'Create Issue on GitHub',
           reportCancelBtn: 'Cancel',
           reportCopiedNotice: 'Screenshot copied to clipboard! Paste it via Ctrl+V into the GitHub Issue description.',
-          reportRemoveImg: 'Remove image'
+          reportRemoveImg: 'Remove image',
+          soundTitle: 'RESET SOUND ALERTS',
+          sound5hLabel: '5-hour limit reset alert',
+          soundWeeklyLabel: 'Weekly limit reset alert',
+          soundTest: 'Test'
         }
       };
 
@@ -337,7 +345,63 @@ async function injectWidget() {
       let isCollapsed = localStorage.getItem('agy_limits_collapsed') === 'true';
       let currentIntervalMs = parseInt(localStorage.getItem('agy_limits_interval') || '300000', 10);
       let currentScale = localStorage.getItem('agy_limits_scale') || 'normal';
+      let sound5hEnabled = localStorage.getItem('agy_sound_5h') === 'true';
+      let soundWeeklyEnabled = localStorage.getItem('agy_sound_weekly') === 'true';
+      let prevBucketFractions = null;
       let isSettingsOpen = false;
+
+      // Web Audio API Sound Synthesizer (100% offline, zero audio files)
+      function playResetSound(type) {
+        try {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (!AudioContextClass) return;
+          const ctx = new AudioContextClass();
+
+          if (type === '5h') {
+            // Pleasant ascending 2-tone chime: D5 (587.33 Hz) -> A5 (880 Hz)
+            const notes = [
+              { freq: 587.33, start: 0, duration: 0.15 },
+              { freq: 880.00, start: 0.12, duration: 0.35 }
+            ];
+            notes.forEach(n => {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(n.freq, ctx.currentTime + n.start);
+              gain.gain.setValueAtTime(0.001, ctx.currentTime + n.start);
+              gain.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + n.start + 0.02);
+              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + n.start + n.duration);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(ctx.currentTime + n.start);
+              osc.stop(ctx.currentTime + n.start + n.duration);
+            });
+          } else if (type === 'weekly') {
+            // Triumphant 4-note major chord arpeggio: C5 -> E5 -> G5 -> C6
+            const notes = [
+              { freq: 523.25, start: 0, duration: 0.2 },
+              { freq: 659.25, start: 0.1, duration: 0.25 },
+              { freq: 783.99, start: 0.2, duration: 0.3 },
+              { freq: 1046.50, start: 0.3, duration: 0.5 }
+            ];
+            notes.forEach(n => {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(n.freq, ctx.currentTime + n.start);
+              gain.gain.setValueAtTime(0.001, ctx.currentTime + n.start);
+              gain.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + n.start + 0.03);
+              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + n.start + n.duration);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(ctx.currentTime + n.start);
+              osc.stop(ctx.currentTime + n.start + n.duration);
+            });
+          }
+        } catch (e) {
+          console.warn('[Antigravity Sound Error]', e);
+        }
+      }
 
       // Miniature Pill items preferences
       const DEFAULT_PILL_ITEMS = ['gemini_5h', 'gemini_weekly', 'claude_5h', 'claude_weekly'];
@@ -463,6 +527,31 @@ async function injectWidget() {
               <button class="agy-scale-btn" data-scale="large" style="padding: 3px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.03); color: #d4d4d8; font-size: 10px; cursor: pointer; text-align: center;">\${t('scaleLarge')}</button>
             </div>
           </div>
+
+          <!-- Section 6: Sound Alerts -->
+          <div style="margin-top: 8px; padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.06);">
+            <div style="color: #85858b; font-size: 10px; font-weight: 500; margin-bottom: 6px;">\${t('soundTitle')}</div>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 10.5px; color: #d4d4d8;">
+                  <input type="checkbox" id="agy-sound-5h" \${sound5hEnabled ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
+                  <span>\${t('sound5hLabel')}</span>
+                </label>
+                <button id="agy-sound-5h-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 4px; padding: 2px 6px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+                  <span>🔔</span><span>\${t('soundTest')}</span>
+                </button>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 10.5px; color: #d4d4d8;">
+                  <input type="checkbox" id="agy-sound-weekly" \${soundWeeklyEnabled ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
+                  <span>\${t('soundWeeklyLabel')}</span>
+                </label>
+                <button id="agy-sound-weekly-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 4px; padding: 2px 6px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+                  <span>🎉</span><span>\${t('soundTest')}</span>
+                </button>
+              </div>
+            </div>
+          </div>
         \`;
 
         // Bind scale buttons
@@ -475,6 +564,37 @@ async function injectWidget() {
             clampToViewport();
           });
         });
+
+        // Bind sound notification toggles and test buttons
+        const sound5hCb = settingsPanel.querySelector('#agy-sound-5h');
+        const soundWeeklyCb = settingsPanel.querySelector('#agy-sound-weekly');
+        const sound5hTestBtn = settingsPanel.querySelector('#agy-sound-5h-test');
+        const soundWeeklyTestBtn = settingsPanel.querySelector('#agy-sound-weekly-test');
+
+        if (sound5hCb) {
+          sound5hCb.addEventListener('change', (e) => {
+            sound5hEnabled = e.target.checked;
+            localStorage.setItem('agy_sound_5h', sound5hEnabled ? 'true' : 'false');
+          });
+        }
+        if (soundWeeklyCb) {
+          soundWeeklyCb.addEventListener('change', (e) => {
+            soundWeeklyEnabled = e.target.checked;
+            localStorage.setItem('agy_sound_weekly', soundWeeklyEnabled ? 'true' : 'false');
+          });
+        }
+        if (sound5hTestBtn) {
+          sound5hTestBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playResetSound('5h');
+          });
+        }
+        if (soundWeeklyTestBtn) {
+          soundWeeklyTestBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            playResetSound('weekly');
+          });
+        }
 
         // Bind language buttons
         const ruBtn = settingsPanel.querySelector('#agy-lang-ru');
@@ -1255,6 +1375,7 @@ async function injectWidget() {
           let html = '';
           const geminiPillItems = [];
           const claudePillItems = [];
+          const currentFractions = {};
 
           for (let i = 0; i < groups.length; i++) {
             const grp = groups[i];
@@ -1284,6 +1405,7 @@ async function injectWidget() {
                 : (b.displayName || (is5h ? t('fiveHourLimit') : t('weeklyLimit')));
 
               const itemKey = (isGemini ? 'gemini_' : 'claude_') + (is5h ? '5h' : 'weekly');
+              currentFractions[itemKey] = fraction;
               if (pillItems.includes(itemKey)) {
                 const badgeLabel = is5h ? t('badge5h') : t('badgeWeekly');
                 const groupShort = isGemini ? 'Gemini' : 'Claude';
@@ -1314,6 +1436,26 @@ async function injectWidget() {
               \`;
             }
             html += '</div>';
+          }
+
+          // Detect limit resets (transition from < 100% to 100%)
+          let shouldPlay5h = false;
+          let shouldPlayWeekly = false;
+          if (prevBucketFractions !== null) {
+            for (const [key, prevFrac] of Object.entries(prevBucketFractions)) {
+              const newFrac = currentFractions[key];
+              if (newFrac !== undefined && prevFrac < 0.999 && newFrac >= 0.999) {
+                if (key.endsWith('5h') && sound5hEnabled) shouldPlay5h = true;
+                if (key.endsWith('weekly') && soundWeeklyEnabled) shouldPlayWeekly = true;
+              }
+            }
+          }
+          prevBucketFractions = currentFractions;
+
+          if (shouldPlayWeekly) {
+            playResetSound('weekly');
+          } else if (shouldPlay5h) {
+            playResetSound('5h');
           }
 
           let pillHtml = '';
