@@ -85,9 +85,14 @@ async function injectWidget() {
           reportCopiedNotice: 'Скриншот скопирован в буфер обмена! Вставьте его через Ctrl+V в открывшемся GitHub Issue.',
           reportRemoveImg: 'Удалить снимок',
           soundTitle: 'ЗВУКОВЫЕ СИГНАЛЫ СБРОСА',
-          sound5hLabel: 'Сигнал сброса 5ч лимита',
-          soundWeeklyLabel: 'Сигнал сброса недельного лимита',
-          soundTest: 'Тест'
+          sound5hLabel: '5-часовой лимит',
+          soundWeeklyLabel: 'Недельный лимит',
+          soundTest: 'Тест',
+          soundDefaultSynth: 'По умолчанию (синтез)',
+          soundUpload: 'Свой звук',
+          soundChange: 'Сменить',
+          soundReset: 'Сбросить на стандартный',
+          soundTooBig: 'Файл слишком большой (максимум 2 МБ)'
         },
         en: {
           title: 'Model Limits',
@@ -141,7 +146,12 @@ async function injectWidget() {
           soundTitle: 'RESET SOUND ALERTS',
           sound5hLabel: '5-hour limit reset alert',
           soundWeeklyLabel: 'Weekly limit reset alert',
-          soundTest: 'Test'
+          soundTest: 'Test',
+          soundDefaultSynth: 'Default (synthesizer)',
+          soundUpload: 'Custom sound',
+          soundChange: 'Change',
+          soundReset: 'Reset to default',
+          soundTooBig: 'File is too large (max 2 MB)'
         }
       };
 
@@ -348,10 +358,10 @@ async function injectWidget() {
       let sound5hEnabled = localStorage.getItem('agy_sound_5h') === 'true';
       let soundWeeklyEnabled = localStorage.getItem('agy_sound_weekly') === 'true';
       let prevBucketFractions = null;
-      let isSettingsOpen = false;
+      let isSettingsOpen = localStorage.getItem('agy_limits_settings_open') === 'true';
 
-      // Web Audio API Sound Synthesizer (100% offline, zero audio files)
-      function playResetSound(type) {
+      // Web Audio API Sound Synthesizer (100% offline fallback)
+      function playSynthesizedSound(type) {
         try {
           const AudioContextClass = window.AudioContext || window.webkitAudioContext;
           if (!AudioContextClass) return;
@@ -401,6 +411,69 @@ async function injectWidget() {
         } catch (e) {
           console.warn('[Antigravity Sound Error]', e);
         }
+      }
+
+      // Play alert: uses custom user sound if configured, otherwise synthesizer
+      function playResetSound(type) {
+        try {
+          const customData = (type === '5h')
+            ? localStorage.getItem('agy_sound_5h_custom')
+            : localStorage.getItem('agy_sound_weekly_custom');
+
+          if (customData) {
+            const audio = new Audio(customData);
+            audio.volume = 0.85;
+            audio.play().catch(err => {
+              console.warn('[Antigravity Custom Audio Error, falling back to synth]', err);
+              playSynthesizedSound(type);
+            });
+            return;
+          }
+        } catch (e) {
+          console.warn('[Antigravity Audio Error]', e);
+        }
+        playSynthesizedSound(type);
+      }
+
+      function handleSoundUpload(type, file) {
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) {
+          alert(t('soundTooBig'));
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          try {
+            const dataUrl = evt.target.result;
+            if (type === '5h') {
+              localStorage.setItem('agy_sound_5h_custom', dataUrl);
+              localStorage.setItem('agy_sound_5h_custom_name', file.name);
+            } else {
+              localStorage.setItem('agy_sound_weekly_custom', dataUrl);
+              localStorage.setItem('agy_sound_weekly_custom_name', file.name);
+            }
+            renderSettingsContent();
+            updateSettingsButtons();
+            playResetSound(type);
+          } catch (err) {
+            console.error('[Antigravity Sound Storage Error]', err);
+            alert('Ошибка сохранения звука: возможно, превышен лимит localStorage.');
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function resetSoundToDefault(type) {
+        if (type === '5h') {
+          localStorage.removeItem('agy_sound_5h_custom');
+          localStorage.removeItem('agy_sound_5h_custom_name');
+        } else {
+          localStorage.removeItem('agy_sound_weekly_custom');
+          localStorage.removeItem('agy_sound_weekly_custom_name');
+        }
+        renderSettingsContent();
+        updateSettingsButtons();
+        playResetSound(type);
       }
 
       // Miniature Pill items preferences
@@ -460,9 +533,11 @@ async function injectWidget() {
       // Settings Panel
       const settingsPanel = document.createElement('div');
       settingsPanel.id = 'agy-settings-panel';
-      settingsPanel.style.cssText = 'display: none; margin-bottom: 9px; padding: 8px 10px; border-radius: 8px; background: rgba(0,0,0,0.30); border: 1px solid rgba(255,255,255,0.06); font-size: 11px;';
+      settingsPanel.style.cssText = 'display: ' + (isSettingsOpen ? 'block' : 'none') + '; margin-bottom: 9px; padding: 8px 10px; border-radius: 8px; background: rgba(0,0,0,0.30); border: 1px solid rgba(255,255,255,0.06); font-size: 11px;';
 
       function renderSettingsContent() {
+        const custom5hName = localStorage.getItem('agy_sound_5h_custom_name');
+        const customWeeklyName = localStorage.getItem('agy_sound_weekly_custom_name');
         settingsPanel.innerHTML = \`
           <!-- Section 1: Language Switcher -->
           <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; padding-bottom: 7px; border-bottom: 1px solid rgba(255,255,255,0.06);">
@@ -531,24 +606,55 @@ async function injectWidget() {
           <!-- Section 6: Sound Alerts -->
           <div style="margin-top: 8px; padding-top: 7px; border-top: 1px solid rgba(255,255,255,0.06);">
             <div style="color: #85858b; font-size: 10px; font-weight: 500; margin-bottom: 6px;">\${t('soundTitle')}</div>
-            <div style="display: flex; flex-direction: column; gap: 5px;">
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 10.5px; color: #d4d4d8;">
-                  <input type="checkbox" id="agy-sound-5h" \${sound5hEnabled ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
-                  <span>\${t('sound5hLabel')}</span>
-                </label>
-                <button id="agy-sound-5h-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 4px; padding: 2px 6px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-                  <span>🔔</span><span>\${t('soundTest')}</span>
-                </button>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <!-- 5-hour limit sound -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 6px 7px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                  <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 10.5px; color: #d4d4d8;">
+                    <input type="checkbox" id="agy-sound-5h" \${sound5hEnabled ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
+                    <span style="font-weight: 500;">\${t('sound5hLabel')}</span>
+                  </label>
+                  <button id="agy-sound-5h-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 2px 7px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+                    <span>🔔</span><span>\${t('soundTest')}</span>
+                  </button>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9.5px; padding-left: 20px;">
+                  <input type="file" id="agy-sound-5h-file" accept="audio/*" style="display: none;">
+                  <span id="agy-sound-5h-name" title="\${custom5hName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 120px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                    \${custom5hName ? '🎵 ' + custom5hName : '🎹 ' + t('soundDefaultSynth')}
+                  </span>
+                  <div style="display: flex; align-items: center; gap: 3px;">
+                    <button id="agy-sound-5h-upload-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 5px; font-size: 9.5px; cursor: pointer;">
+                      \${custom5hName ? t('soundChange') : t('soundUpload')}
+                    </button>
+                    \${custom5hName ? '<button id="agy-sound-5h-reset-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 1px 3px;">✕</button>' : ''}
+                  </div>
+                </div>
               </div>
-              <div style="display: flex; align-items: center; justify-content: space-between;">
-                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 10.5px; color: #d4d4d8;">
-                  <input type="checkbox" id="agy-sound-weekly" \${soundWeeklyEnabled ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
-                  <span>\${t('soundWeeklyLabel')}</span>
-                </label>
-                <button id="agy-sound-weekly-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 4px; padding: 2px 6px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-                  <span>🎉</span><span>\${t('soundTest')}</span>
-                </button>
+
+              <!-- Weekly limit sound -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 6px 7px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                  <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 10.5px; color: #d4d4d8;">
+                    <input type="checkbox" id="agy-sound-weekly" \${soundWeeklyEnabled ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
+                    <span style="font-weight: 500;">\${t('soundWeeklyLabel')}</span>
+                  </label>
+                  <button id="agy-sound-weekly-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 2px 7px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+                    <span>🎉</span><span>\${t('soundTest')}</span>
+                  </button>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9.5px; padding-left: 20px;">
+                  <input type="file" id="agy-sound-weekly-file" accept="audio/*" style="display: none;">
+                  <span id="agy-sound-weekly-name" title="\${customWeeklyName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 120px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                    \${customWeeklyName ? '🎵 ' + customWeeklyName : '🎹 ' + t('soundDefaultSynth')}
+                  </span>
+                  <div style="display: flex; align-items: center; gap: 3px;">
+                    <button id="agy-sound-weekly-upload-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 5px; font-size: 9.5px; cursor: pointer;">
+                      \${customWeeklyName ? t('soundChange') : t('soundUpload')}
+                    </button>
+                    \${customWeeklyName ? '<button id="agy-sound-weekly-reset-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 1px 3px;">✕</button>' : ''}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -570,6 +676,12 @@ async function injectWidget() {
         const soundWeeklyCb = settingsPanel.querySelector('#agy-sound-weekly');
         const sound5hTestBtn = settingsPanel.querySelector('#agy-sound-5h-test');
         const soundWeeklyTestBtn = settingsPanel.querySelector('#agy-sound-weekly-test');
+        const sound5hUploadBtn = settingsPanel.querySelector('#agy-sound-5h-upload-btn');
+        const soundWeeklyUploadBtn = settingsPanel.querySelector('#agy-sound-weekly-upload-btn');
+        const sound5hFile = settingsPanel.querySelector('#agy-sound-5h-file');
+        const soundWeeklyFile = settingsPanel.querySelector('#agy-sound-weekly-file');
+        const sound5hResetBtn = settingsPanel.querySelector('#agy-sound-5h-reset-btn');
+        const soundWeeklyResetBtn = settingsPanel.querySelector('#agy-sound-weekly-reset-btn');
 
         if (sound5hCb) {
           sound5hCb.addEventListener('change', (e) => {
@@ -593,6 +705,38 @@ async function injectWidget() {
           soundWeeklyTestBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             playResetSound('weekly');
+          });
+        }
+        if (sound5hUploadBtn && sound5hFile) {
+          sound5hUploadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sound5hFile.click();
+          });
+          sound5hFile.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (file) handleSoundUpload('5h', file);
+          });
+        }
+        if (soundWeeklyUploadBtn && soundWeeklyFile) {
+          soundWeeklyUploadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            soundWeeklyFile.click();
+          });
+          soundWeeklyFile.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (file) handleSoundUpload('weekly', file);
+          });
+        }
+        if (sound5hResetBtn) {
+          sound5hResetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            resetSoundToDefault('5h');
+          });
+        }
+        if (soundWeeklyResetBtn) {
+          soundWeeklyResetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            resetSoundToDefault('weekly');
           });
         }
 
@@ -1217,6 +1361,7 @@ async function injectWidget() {
 
       gearBtn.addEventListener('click', () => {
         isSettingsOpen = !isSettingsOpen;
+        localStorage.setItem('agy_limits_settings_open', isSettingsOpen ? 'true' : 'false');
         settingsPanel.style.display = isSettingsOpen ? 'block' : 'none';
         updateSettingsButtons();
       });
