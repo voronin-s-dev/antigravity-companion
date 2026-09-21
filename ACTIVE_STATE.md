@@ -7,7 +7,7 @@
 ## 1. Метаданные репозитория
 - **Версия**: `v1.1.0` (релиз опубликован на GitHub)
 - **Ветка**: `main`
-- **Последний коммит**: `85ea835` (fix(localization): add translateReactTooltipRegistry to dynamically translate React Fiber tooltips on state changes)
+- **Последний коммит**: `6967cd9` (fix(voice): stabilize streaming speech-to-text capture, bypass foreground lock, and match native Antigravity capsule)
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **Релизы**: [v1.1.0 с прикрепленным ZIP-архивом](https://github.com/voronin-s-dev/antigravity-companion/releases/tag/v1.1.0)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
