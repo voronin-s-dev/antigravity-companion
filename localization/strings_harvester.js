@@ -63,6 +63,49 @@ async function harvestMissingStrings() {
             });
           });
 
+          // Check React Tooltip Registry
+          try {
+            function extractNodeStrings(node) {
+              if (!node) return;
+              if (typeof node === 'string') {
+                const tr = node.trim();
+                if (tr.length > 1 && /[A-Za-z]/.test(tr) && !/^[0-9+\\-.,:;!?()\\/\\s]+$/.test(tr) && !/^(Enter|Shift|Ctrl|Alt|Cmd|Esc|Space)$/i.test(tr)) {
+                  items.add(tr);
+                }
+                return;
+              }
+              if (Array.isArray(node)) {
+                node.forEach(extractNodeStrings);
+                return;
+              }
+              if (typeof node === 'object' && node.props) {
+                extractNodeStrings(node.props.children);
+              }
+            }
+
+            const trigger = document.querySelector('[data-tooltip-id]');
+            if (trigger) {
+              const fKey = Object.getOwnPropertyNames(trigger).find(k => k.startsWith('__reactFiber'));
+              let fiber = trigger[fKey];
+              while (fiber) {
+                let h = fiber.memoizedState;
+                while (h) {
+                  if (h.memoizedState && typeof h.memoizedState === 'object' && 'current' in h.memoizedState) {
+                    const cur = h.memoizedState.current;
+                    if (cur && typeof cur === 'object' && Object.keys(cur).some(k => k.includes('tooltip') || k.startsWith(':r'))) {
+                      for (const val of Object.values(cur)) {
+                        if (val && val.body) extractNodeStrings(val.body);
+                      }
+                      break;
+                    }
+                  }
+                  h = h.next;
+                }
+                fiber = fiber.return;
+              }
+            }
+          } catch (e) {}
+
           return Array.from(items);
         })()`,
         returnByValue: true
