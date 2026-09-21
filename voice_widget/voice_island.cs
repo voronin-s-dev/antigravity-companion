@@ -31,6 +31,15 @@ namespace AntigravityVoice {
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll")]
+        public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
+        [DllImport("kernel32.dll")]
+        public static extern uint GetCurrentThreadId();
+
+        [DllImport("user32.dll")]
+        public static extern bool AttachThreadInput(uint idAttach, uint idAttachTo, bool fAttach);
+
+        [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
         [DllImport("user32.dll")]
@@ -55,6 +64,10 @@ namespace AntigravityVoice {
 
         public const byte VK_CONTROL = 0x11;
         public const byte VK_V = 0x56;
+        public const byte VK_MENU = 0x12; // Alt
+        public const byte VK_SHIFT = 0x10;
+        public const byte VK_LWIN = 0x5B;
+        public const byte VK_RWIN = 0x5C;
         public const uint KEYEVENTF_KEYUP = 0x0002;
 
         // UI Controls
@@ -414,18 +427,18 @@ namespace AntigravityVoice {
                             PlayBeepAsync(3);
 
                             ThreadPool.QueueUserWorkItem(__ => {
-                                Thread.Sleep(80);
+                                Thread.Sleep(60);
                                 if (lastTargetWindow != IntPtr.Zero) {
-                                    SetForegroundWindow(lastTargetWindow);
-                                    Thread.Sleep(80);
+                                    ForceForeground(lastTargetWindow);
+                                    Thread.Sleep(90);
                                 }
 
                                 Dispatcher.Invoke(() => {
-                                    Clipboard.SetDataObject(recognizedText, true);
+                                    SafeSetClipboardText(recognizedText);
                                 });
 
-                                Thread.Sleep(50);
-                                SimulateCtrlV();
+                                Thread.Sleep(60);
+                                SimulateCleanCtrlV();
 
                                 Thread.Sleep(800);
                                 Dispatcher.Invoke(() => {
@@ -605,9 +618,47 @@ namespace AntigravityVoice {
         }
 
         // --- Helpers ---
-        private static void SimulateCtrlV() {
+        private static void ForceForeground(IntPtr hWnd) {
+            if (hWnd == IntPtr.Zero) return;
+            try {
+                uint curThread = GetCurrentThreadId();
+                uint targetProc;
+                uint targetThread = GetWindowThreadProcessId(hWnd, out targetProc);
+
+                if (curThread != targetThread && targetThread != 0) {
+                    AttachThreadInput(curThread, targetThread, true);
+                    SetForegroundWindow(hWnd);
+                    AttachThreadInput(curThread, targetThread, false);
+                } else {
+                    SetForegroundWindow(hWnd);
+                }
+            } catch {}
+        }
+
+        private static void SafeSetClipboardText(string text) {
+            for (int i = 0; i < 10; i++) {
+                try {
+                    Clipboard.SetDataObject(text, true);
+                    return;
+                } catch {
+                    Thread.Sleep(30);
+                }
+            }
+        }
+
+        private static void SimulateCleanCtrlV() {
+            // Release modifier keys that might still be held down from hotkeys
+            keybd_event(VK_MENU, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            keybd_event(VK_SHIFT, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            keybd_event(VK_LWIN, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            keybd_event(VK_RWIN, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            Thread.Sleep(25);
+
+            // Execute clean Ctrl+V paste
             keybd_event(VK_CONTROL, 0, 0, UIntPtr.Zero);
             keybd_event(VK_V, 0, 0, UIntPtr.Zero);
+            Thread.Sleep(20);
             keybd_event(VK_V, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
             keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
         }
@@ -681,6 +732,9 @@ namespace AntigravityVoice {
                 bool isNew;
                 using (Mutex mutex = new Mutex(true, "AntigravityCompanion_VoiceIsland_Mutex", out isNew)) {
                     if (!isNew) {
+                        try {
+                            File.WriteAllText(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "island_error.log"), "Mutex already held by another instance.");
+                        } catch {}
                         return; // Single instance
                     }
                     Application app = new Application();
@@ -694,7 +748,11 @@ namespace AntigravityVoice {
                     win.Show();
                     app.Run();
                 }
-            } catch {}
+            } catch (Exception ex) {
+                try {
+                    File.WriteAllText(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "island_error.log"), ex.ToString());
+                } catch {}
+            }
         }
     }
 }

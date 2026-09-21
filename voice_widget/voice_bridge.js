@@ -105,6 +105,9 @@ async function stopVoice() {
     const btn = document.querySelector('[data-tooltip-id="input-send-button-record-tooltip"]');
     if (!btn) throw new Error('Кнопка микрофона не найдена');
 
+    const editor = document.querySelector('[contenteditable="true"]');
+    let text = '';
+
     const aria = btn.getAttribute('aria-label') || '';
     const cls = btn.className || '';
     const isRec = cls.includes('bg-red-500') || /stop/i.test(aria) || /останов/i.test(aria);
@@ -113,24 +116,48 @@ async function stopVoice() {
       btn.click();
     }
 
-    // Wait for transcription to finalize (up to 3.5 seconds)
-    const editor = document.querySelector('[contenteditable="true"]');
-    let text = '';
+    // 1. Wait until recording button turns off
     const start = Date.now();
-
-    while (Date.now() - start < 3500) {
-      await new Promise(r => setTimeout(r, 150));
-      if (editor) {
-        text = editor.innerText.trim();
-        if (text) break;
-      }
+    while (Date.now() - start < 4000) {
+      await new Promise(r => setTimeout(r, 80));
       const curCls = btn.className || '';
       const curAria = btn.getAttribute('aria-label') || '';
       const stillRec = curCls.includes('bg-red-500') || /stop/i.test(curAria) || /останов/i.test(curAria);
-      if (!stillRec && text) break;
+      if (!stillRec) break;
     }
 
-    // Clear editor so chat remains empty
+    // 2. Wait for full speech-to-text streaming to complete (wait until text stabilizes)
+    let lastText = '';
+    let stableCount = 0;
+    const textStart = Date.now();
+
+    while (Date.now() - textStart < 4500) {
+      await new Promise(r => setTimeout(r, 100));
+      const currentText = editor ? editor.innerText.trim() : '';
+
+      if (currentText.length > 0) {
+        if (currentText === lastText) {
+          stableCount++;
+          // Require text to remain unchanged for 4 consecutive checks (400ms of silence/completion)
+          if (stableCount >= 4) {
+            text = currentText;
+            break;
+          }
+        } else {
+          lastText = currentText;
+          stableCount = 0;
+        }
+      } else {
+        // If still nothing after 2.5s, exit
+        if (Date.now() - textStart > 2500) break;
+      }
+    }
+
+    if (!text && editor) {
+      text = editor.innerText.trim();
+    }
+
+    // 3. Clear Lexical editor completely now that full transcription has been captured
     if (editor && editor.__lexicalEditor) {
       try {
         editor.__lexicalEditor.update(() => {
