@@ -66,7 +66,7 @@ try {
   const portFile = path.join(appData, 'Antigravity', 'DevToolsActivePort');
   if (fs.existsSync(portFile)) {
     const port = fs.readFileSync(portFile, 'utf8').split(/\r?\n/)[0].trim();
-    console.log(`\x1b[32mЗапущен (порт CDP: ${port})\x1b[0m`);
+    console.log(`\x1b[32mЗапущен (порт CDP: ${port}) — глубокая проверка: npm run doctor:cdp\x1b[0m`);
   } else {
     console.log('\x1b[33mФайл порта не найден (запустите Antigravity)\x1b[0m');
   }
