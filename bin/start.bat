@@ -1,5 +1,3 @@
 @echo off
-chcp 65001 >nul
-powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0start_silent.ps1"
-echo.
-pause
+start "" "%~dp0..\voice_widget\voice_island.exe"
+exit /b 0
