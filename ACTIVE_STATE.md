@@ -7,6 +7,7 @@
 ## 1. Метаданные репозитория
 - **Версия**: `v1.1.0` (релиз опубликован на GitHub)
 - **Ветка**: `main`
+- **Последний коммит**: `e495b9c` (feat: implement global voice dictation floating widget, CDP robustness and tooltip translations)
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **Релизы**: [v1.1.0 с прикрепленным ZIP-архивом](https://github.com/voronin-s-dev/antigravity-companion/releases/tag/v1.1.0)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
