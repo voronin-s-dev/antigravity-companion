@@ -1,4 +1,4 @@
-﻿# Antigravity Companion Installer
+# Antigravity Companion Installer
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 $baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -102,15 +102,15 @@ try {
     # 3. Настройка тихого автозапуска
     Write-Host ""
     Write-Host "[3/4] Настройка фонового автозапуска в Windows..." -ForegroundColor Cyan
-    $vbsPath = Join-Path $baseDir "bin\start_silent.vbs"
+    $startPs1 = Join-Path $baseDir "bin\start_silent.ps1"
     $startupFolder = [System.Environment]::GetFolderPath('Startup')
     $shortcutPath = Join-Path $startupFolder "AntigravityCompanion.lnk"
 
     try {
         $ws = New-Object -ComObject WScript.Shell
         $shortcut = $ws.CreateShortcut($shortcutPath)
-        $shortcut.TargetPath = "wscript.exe"
-        $shortcut.Arguments = "`"$vbsPath`""
+        $shortcut.TargetPath = "powershell.exe"
+        $shortcut.Arguments = "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$startPs1`""
         $shortcut.WorkingDirectory = (Join-Path $baseDir "bin")
         $shortcut.Description = "Antigravity Companion - Русский перевод и виджет лимитов"
         $shortcut.Save()
@@ -124,10 +124,9 @@ try {
     Write-Host ""
     Write-Host "[4/4] Запуск службы Antigravity Companion..." -ForegroundColor Cyan
     try {
-        Start-Process "wscript.exe" -ArgumentList "`"$vbsPath`""
-        Write-Host "[+] Фоновая служба успешно запущена!" -ForegroundColor Green
+        & "$startPs1"
     } catch {
-        Write-Host "[X] Ошибка запуска службы через wscript: $_" -ForegroundColor Red
+        Write-Host "[X] Ошибка запуска службы: $_" -ForegroundColor Red
     }
 
     # Проверка Antigravity

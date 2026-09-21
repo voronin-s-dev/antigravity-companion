@@ -745,11 +745,8 @@ async function injectWidget() {
         if (isVisible) {
           container.style.display = isCollapsed ? 'flex' : 'block';
           applyCollapseState();
-          container.style.opacity = '0';
-          requestAnimationFrame(() => {
-            clampToViewport();
-            container.style.opacity = '1';
-          });
+          clampToViewport();
+          container.style.opacity = '1';
         } else {
           hideBadgeTooltip();
           container.style.opacity = '0';
@@ -836,11 +833,16 @@ async function injectWidget() {
           toggleLimitsWidget();
         }
       }
-      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('keydown', handleKeyDown, true);
+      document.addEventListener('keydown', handleKeyDown, true);
 
       applySavedPosition();
+      clampToViewport();
       if (!isVisible) {
         container.style.display = 'none';
+        container.style.opacity = '0';
+      } else {
+        container.style.opacity = '1';
       }
       ensureSidebarButton();
 
@@ -1095,7 +1097,8 @@ async function injectWidget() {
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
         window.removeEventListener('resize', onViewportResize);
-        window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener('keydown', handleKeyDown, true);
+        document.removeEventListener('keydown', handleKeyDown, true);
         if (window.visualViewport) {
           window.visualViewport.removeEventListener('resize', onViewportResize);
         }

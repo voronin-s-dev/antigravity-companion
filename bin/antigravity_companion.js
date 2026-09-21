@@ -75,6 +75,16 @@ async function checkAndInject() {
   }
 }
 
+process.on('uncaughtException', (err) => {
+  console.error('[Companion Fatal] Uncaught Exception:', err);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('[Companion Fatal] Unhandled Rejection:', reason);
+});
+process.on('exit', (code) => {
+  console.log('[Companion Exit] Process exiting with code:', code);
+});
+
 console.log('[Antigravity Companion Service] Активен. Фоновый мониторинг (виджет + русский перевод)...');
 setInterval(checkAndInject, 3500);
 checkAndInject();
