@@ -1,18 +1,16 @@
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-
 $baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $baseDir) { $baseDir = Get-Location }
 $companionPath = Join-Path $baseDir "antigravity_companion.js"
 
-# 1. Проверяем, не запущена ли уже служба
-$running = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like '*antigravity_companion.js*' }
+# 1. Check if process is already running
+$running = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*node*" -and $_.CommandLine -like "*antigravity_companion.js*" }
 if ($running) {
     $pids = ($running | ForEach-Object { $_.ProcessId }) -join ', '
-    Write-Host "[i] Antigravity Companion уже работает в фоне (PID: $pids)." -ForegroundColor Yellow
+    Write-Host "[i] Antigravity Companion is already running in background (PID: $pids)." -ForegroundColor Yellow
     exit 0
 }
 
-# 2. Находим исполняемый файл node.exe
+# 2. Locate node.exe
 function Find-NodeExecutable {
     $cmd = Get-Command node -ErrorAction SilentlyContinue
     if ($cmd) { return $cmd.Source }
@@ -38,16 +36,21 @@ function Find-NodeExecutable {
 
 $nodePath = Find-NodeExecutable
 
-# 3. Запуск в фоновом режиме через WMI (полная изоляция от консоли)
+# 3. Launch via WMI with explicit hidden window (ShowWindow = 0, no console/terminal popup)
 try {
-    try {
-        Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{ CommandLine = "`"$nodePath`" `"antigravity_companion.js`""; CurrentDirectory = $baseDir } | Out-Null
-    } catch {
-        Start-Process -FilePath $nodePath -ArgumentList "antigravity_companion.js" -WorkingDirectory $baseDir -WindowStyle Hidden
+    $startup = [wmiclass]"Win32_ProcessStartup"
+    $startupInfo = $startup.CreateInstance()
+    $startupInfo.ShowWindow = 0
+
+    $proc = [wmiclass]"Win32_Process"
+    $res = $proc.Create("`"$nodePath`" `"antigravity_companion.js`"", $baseDir, $startupInfo)
+    if ($res.ReturnValue -eq 0) {
+        Start-Sleep -Milliseconds 500
+        Write-Host "[+] Antigravity Companion background service started successfully (PID: $($res.ProcessId))!" -ForegroundColor Green
+    } else {
+        throw "WMI process creation failed with code $($res.ReturnValue)"
     }
-    Start-Sleep -Milliseconds 500
-    Write-Host "[+] Фоновая служба Antigravity Companion успешно запущена!" -ForegroundColor Green
 } catch {
-    Write-Host "[X] Ошибка запуска службы: $_" -ForegroundColor Red
+    Write-Host "[X] Service launch error: $_" -ForegroundColor Red
     exit 1
 }

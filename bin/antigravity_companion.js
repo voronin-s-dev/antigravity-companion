@@ -1,10 +1,26 @@
 const fs = require('fs');
 const path = require('path');
+
+// Safe background logging (captures logs to %APPDATA%\AntigravityCompanion\companion.log and prevents EPIPE/crashes when running headless)
+const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Roaming');
+const compDir = path.join(appData, 'AntigravityCompanion');
+try {
+  if (!fs.existsSync(compDir)) fs.mkdirSync(compDir, { recursive: true });
+  const logStream = fs.createWriteStream(path.join(compDir, 'companion.log'), { flags: 'a' });
+  const safeWrite = (orig, chunk, enc, cb) => {
+    try { logStream.write(chunk, enc, cb); } catch (e) {}
+    try { if (orig) orig(chunk, enc, cb); } catch (e) {}
+  };
+  const origOut = process.stdout.write ? process.stdout.write.bind(process.stdout) : null;
+  const origErr = process.stderr.write ? process.stderr.write.bind(process.stderr) : null;
+  process.stdout.write = (chunk, enc, cb) => safeWrite(origOut, chunk, enc, cb);
+  process.stderr.write = (chunk, enc, cb) => safeWrite(origErr, chunk, enc, cb);
+} catch (e) {}
+
 const { injectWidget } = require('../limits_widget/inject_panel.js');
 const { injectTranslator } = require('../localization/inject_translator.js');
 
 // Dynamically locate DevToolsActivePort in current user's AppData
-const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Roaming');
 const activePortFile = path.join(appData, 'Antigravity', 'DevToolsActivePort');
 
 let isChecking = false;
@@ -76,14 +92,20 @@ async function checkAndInject() {
   }
 }
 
+const logSync = (msg) => {
+  try {
+    fs.appendFileSync(path.join(compDir, 'companion.log'), `[${new Date().toISOString()}] ${msg}\n`);
+  } catch (e) {}
+};
+
 process.on('uncaughtException', (err) => {
-  console.error('[Companion Fatal] Uncaught Exception:', err);
+  logSync(`[Companion Fatal] Uncaught Exception: ${err.stack || err}`);
 });
 process.on('unhandledRejection', (reason) => {
-  console.error('[Companion Fatal] Unhandled Rejection:', reason);
+  logSync(`[Companion Fatal] Unhandled Rejection: ${reason?.stack || reason}`);
 });
 process.on('exit', (code) => {
-  console.log('[Companion Exit] Process exiting with code:', code);
+  logSync(`[Companion Exit] Process exiting with code: ${code}`);
 });
 
 const { startServer: startConfigServer } = require('./companion_server.js');
