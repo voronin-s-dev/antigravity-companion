@@ -86,6 +86,13 @@ process.on('exit', (code) => {
   console.log('[Companion Exit] Process exiting with code:', code);
 });
 
+const { startServer: startConfigServer } = require('./companion_server.js');
+try {
+  startConfigServer();
+} catch (e) {
+  console.log('[Config Server] Note:', e.message);
+}
+
 console.log('[Antigravity Companion Service] Активен. Фоновый мониторинг (виджет + русский перевод)...');
 setInterval(checkAndInject, 3500);
 checkAndInject();

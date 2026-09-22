@@ -8,11 +8,18 @@ const path = require('path');
 
 const DEFAULT_CONFIG = {
   limits: {
-    showClaude: true,
-    showFlash: true,
-    showPro: true,
+    tint: 'native', // 'native' | 'graphite' | 'blue' | 'emerald' | 'purple' | 'amber' | hex (#rrggbb)
+    pillItems: ['gemini_5h', 'gemini_weekly', 'claude_5h', 'claude_weekly'],
+    scale: 'normal', // 'compact' | 'normal' | 'large'
+    intervalMs: 300000,
     sound5h: true,
-    soundWeekly: true
+    soundWeekly: true,
+    sound5hCustom: null,
+    sound5hCustomName: '',
+    soundWeeklyCustom: null,
+    soundWeeklyCustomName: '',
+    lang: 'ru',
+    position: null // { anchorX, anchorY, distX, distY }
   }
 };
 
@@ -49,7 +56,10 @@ function saveConfig(newConfig) {
   const file = getConfigPath();
   const current = loadConfig();
   const merged = {
-    limits: { ...current.limits, ...(newConfig.limits || {}) }
+    limits: {
+      ...current.limits,
+      ...(newConfig.limits || newConfig)
+    }
   };
   fs.writeFileSync(file, JSON.stringify(merged, null, 2), 'utf8');
   return merged;
@@ -57,6 +67,7 @@ function saveConfig(newConfig) {
 
 module.exports = {
   DEFAULT_CONFIG,
+  getConfigDir,
   getConfigPath,
   loadConfig,
   saveConfig
