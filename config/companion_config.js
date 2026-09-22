@@ -7,14 +7,6 @@ const fs = require('fs');
 const path = require('path');
 
 const DEFAULT_CONFIG = {
-  voice: {
-    hotkey: 'Win+Shift+V',
-    mode: 'toggle', // 'toggle' | 'push_to_talk' | 'smart_pause'
-    smartPauseSeconds: 2.0,
-    smartPunctuation: true,
-    autoCapitalize: true,
-    audioFeedback: true
-  },
   limits: {
     showClaude: true,
     showFlash: true,
@@ -44,7 +36,6 @@ function loadConfig() {
       const raw = fs.readFileSync(file, 'utf8');
       const parsed = JSON.parse(raw);
       return {
-        voice: { ...DEFAULT_CONFIG.voice, ...(parsed.voice || {}) },
         limits: { ...DEFAULT_CONFIG.limits, ...(parsed.limits || {}) }
       };
     } catch (e) {
@@ -58,7 +49,6 @@ function saveConfig(newConfig) {
   const file = getConfigPath();
   const current = loadConfig();
   const merged = {
-    voice: { ...current.voice, ...(newConfig.voice || {}) },
     limits: { ...current.limits, ...(newConfig.limits || {}) }
   };
   fs.writeFileSync(file, JSON.stringify(merged, null, 2), 'utf8');

@@ -46,25 +46,6 @@ try {
         Start-Process -FilePath $nodePath -ArgumentList "antigravity_companion.js" -WorkingDirectory $baseDir -WindowStyle Hidden
     }
     Start-Sleep -Milliseconds 500
-
-    $rootDir = Split-Path -Parent $baseDir
-    $islandExe = Join-Path $rootDir "voice_widget\voice_island.exe"
-    if (Test-Path $islandExe) {
-        $islandRunning = $false
-        try {
-            $m = [System.Threading.Mutex]::OpenExisting("AntigravityCompanion_VoiceIsland_Mutex")
-            if ($m) { $islandRunning = $true; $m.Dispose() }
-        } catch {}
-
-        if (-not $islandRunning) {
-            try {
-                Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{ CommandLine = "`"$islandExe`""; CurrentDirectory = $rootDir } | Out-Null
-            } catch {
-                Start-Process -FilePath $islandExe -WorkingDirectory $rootDir
-            }
-        }
-    }
-
     Write-Host "[+] Фоновая служба Antigravity Companion успешно запущена!" -ForegroundColor Green
 } catch {
     Write-Host "[X] Ошибка запуска службы: $_" -ForegroundColor Red

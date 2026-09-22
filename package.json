@@ -4,7 +4,7 @@
   "description": "Модуль глубокой русификации и виджет лимитов моделей для Google Antigravity Desktop App",
   "main": "bin/antigravity_companion.js",
   "scripts": {
-    "test": "node -e \"const dict = JSON.parse(require('fs').readFileSync('localization/dictionary_ru.json', 'utf8')); console.log('✓ Словарь валиден! Точных терминов:', Object.keys(dict.exact).length, 'Атрибутов:', Object.keys(dict.attributes).length, 'Шаблонов:', dict.patterns.length);\" && node test/voice_text_processor.test.js",
+    "test": "node -e \"const dict = JSON.parse(require('fs').readFileSync('localization/dictionary_ru.json', 'utf8')); console.log('✓ Словарь валиден! Точных терминов:', Object.keys(dict.exact).length, 'Атрибутов:', Object.keys(dict.attributes).length, 'Шаблонов:', dict.patterns.length);\"",
     "start": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/start_silent.ps1",
     "reload": "node localization/inject_translator.js && node limits_widget/inject_panel.js",
     "harvest": "node localization/strings_harvester.js",
@@ -12,11 +12,7 @@
     "status": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1",
     "doctor": "node bin/doctor.js",
     "doctor:cdp": "node bin/cdp_doctor.js",
-    "voice": "bin\\voice_start.bat",
-    "voice:island": "bin\\voice_start.bat",
-    "voice:build": "voice_widget\\build_island.bat",
-    "voice:bridge": "node voice_widget/voice_bridge.js",
-    "build:zip": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (!(Test-Path 'dist')) { New-Item -ItemType Directory -Path 'dist' | Out-Null }; Compress-Archive -Path 'bin', 'limits_widget', 'localization', 'voice_widget', 'skills', 'install.bat', 'install.ps1', 'uninstall.bat', 'uninstall.ps1', 'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'LICENSE', '.gitignore' -DestinationPath 'dist/antigravity-companion-v1.1.0.zip' -Force; Write-Host '✓ Архив собран в dist/antigravity-companion-v1.1.0.zip' -ForegroundColor Green\""
+    "build:zip": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (!(Test-Path 'dist')) { New-Item -ItemType Directory -Path 'dist' | Out-Null }; Compress-Archive -Path 'bin', 'limits_widget', 'localization', 'skills', 'install.bat', 'install.ps1', 'uninstall.bat', 'uninstall.ps1', 'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'LICENSE', '.gitignore' -DestinationPath 'dist/antigravity-companion-v1.1.0.zip' -Force; Write-Host '✓ Архив собран в dist/antigravity-companion-v1.1.0.zip' -ForegroundColor Green\""
   },
   "keywords": [
     "antigravity",

@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const { injectWidget } = require('../limits_widget/inject_panel.js');
 const { injectTranslator } = require('../localization/inject_translator.js');
-const { startServer: startVoiceBridgeServer } = require('../voice_widget/voice_bridge.js');
 
 // Dynamically locate DevToolsActivePort in current user's AppData
 const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Roaming');
@@ -87,12 +86,7 @@ process.on('exit', (code) => {
   console.log('[Companion Exit] Process exiting with code:', code);
 });
 
-console.log('[Antigravity Companion Service] Активен. Фоновый мониторинг (виджет + русский перевод + голос)...');
-try {
-  startVoiceBridgeServer();
-} catch (e) {
-  console.log('[Voice Bridge] Note:', e.message);
-}
+console.log('[Antigravity Companion Service] Активен. Фоновый мониторинг (виджет + русский перевод)...');
 setInterval(checkAndInject, 3500);
 checkAndInject();
 
