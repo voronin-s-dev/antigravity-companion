@@ -429,15 +429,17 @@ async function injectWidget() {
         if (THEME_PRESETS[keyOrHex]) return THEME_PRESETS[keyOrHex];
         const hex = (keyOrHex && keyOrHex.startsWith('#')) ? keyOrHex : '#BD9574';
         const { r, g, b } = hexToRgb(hex);
+        const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        const isLight = lum > 0.6;
         return {
           key: 'custom',
           nameRu: 'Свой цвет',
           nameEn: 'Custom',
-          bg: \`linear-gradient(145deg, rgba(\${Math.round(r*0.14)}, \${Math.round(g*0.14)}, \${Math.round(b*0.14)}, 0.96) 0%, rgba(\${Math.round(r*0.35)}, \${Math.round(g*0.35)}, \${Math.round(b*0.35)}, 0.96) 100%)\`,
-          border: \`1px solid rgba(\${r}, \${g}, \${b}, 0.5)\`,
-          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
+          bg: hex,
+          border: isLight ? '1px solid rgba(0, 0, 0, 0.2)' : '1px solid rgba(255, 255, 255, 0.14)',
+          boxShadow: isLight ? '0 4px 12px rgba(0, 0, 0, 0.15)' : '0 4px 12px rgba(0, 0, 0, 0.35)',
           accent: hex,
-          badgeBg: \`rgba(\${r}, \${g}, \${b}, 0.18)\`
+          color: isLight ? '#18181b' : '#f4f4f5'
         };
       }
 
@@ -459,6 +461,7 @@ async function injectWidget() {
         container.style.background = st.bg;
         container.style.border = st.border;
         container.style.boxShadow = st.boxShadow;
+        container.style.color = st.color || '#f4f4f5';
       }
 
       async function saveAllSettingsToDisk(cfg) {
@@ -759,17 +762,20 @@ async function injectWidget() {
             </div>
 
             <!-- Custom Color / Eyedropper -->
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 5px;">
-              <span style="color: #71717a; font-size: 10px;">\${t('themeCustom')}:</span>
+            <div id="agy-settings-custom-color-row" style="display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: \${d.tint.startsWith('#') ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${d.tint.startsWith('#') ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)'}; border-radius: 5px; transition: all 0.12s;">
+              <span style="color: \${d.tint.startsWith('#') ? '#fff' : '#71717a'}; font-size: 10px; display: flex; align-items: center; gap: 4px;">
+                <span>\${t('themeCustom')}:</span>
+                \${d.tint.startsWith('#') ? '<span style="color: #22c55e; font-weight: 700; font-size: 10px;">✓</span>' : ''}
+              </span>
               <div style="display: flex; align-items: center; gap: 5px;">
-                <div style="position: relative; width: 18px; height: 18px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;">
+                <div style="position: relative; width: 18px; height: 18px; border-radius: 3px; overflow: hidden; border: 1px solid \${d.tint.startsWith('#') ? d.tint : 'rgba(255,255,255,0.2)'}; cursor: pointer;">
                   <input type="color" id="agy-settings-color-picker" value="\${d.tint.startsWith('#') ? d.tint : '#BD9574'}" style="position: absolute; top: -6px; left: -6px; width: 32px; height: 32px; cursor: pointer; border: none; background: transparent;">
                 </div>
                 <button id="agy-settings-eyedropper-btn" style="display: flex; align-items: center; gap: 3px; padding: 2px 5px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer;">
                   <svg style="width: 10px; height: 10px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m2 22 1-1h3l9-9"></path><path d="M3 21v-3l9-9"></path><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1 3 3l-3.8 3.8a2.1 2.1 0 1 1-3-3l.4-.4"></path></svg>
                   <span>\${t('eyedropper')}</span>
                 </button>
-                <span id="agy-settings-hex-label" style="font-family: monospace; font-size: 9.5px; color: #a1a1aa;">\${d.tint.startsWith('#') ? d.tint.toUpperCase() : (currentLang === 'ru' ? 'Пресет' : 'Preset')}</span>
+                <span id="agy-settings-hex-label" style="font-family: monospace; font-size: 9.5px; font-weight: \${d.tint.startsWith('#') ? '600' : '400'}; color: \${d.tint.startsWith('#') ? '#fff' : '#a1a1aa'};">\${d.tint.startsWith('#') ? d.tint.toUpperCase() : (currentLang === 'ru' ? 'Пресет' : 'Preset')}</span>
               </div>
             </div>
           </div>
@@ -948,6 +954,9 @@ async function injectWidget() {
             applyThemeColor(d.tint, false);
             const hexLbl = settingsPanel.querySelector('#agy-settings-hex-label');
             if (hexLbl) hexLbl.textContent = d.tint.toUpperCase();
+          });
+          colorPicker.addEventListener('change', () => {
+            renderSettingsContent();
           });
         }
 
