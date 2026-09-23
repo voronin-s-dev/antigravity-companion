@@ -281,8 +281,8 @@ async function injectWidget() {
         pointer-events: none;
         z-index: 10000000;
         background: rgb(32, 30, 26);
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
         border-radius: 7px;
         padding: 6px 9px;
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -369,7 +369,7 @@ async function injectWidget() {
           nameEn: 'Native',
           bg: '#18181c',
           border: '1px solid rgba(255, 255, 255, 0.09)',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(0, 0, 0, 0.4)',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.35)',
           accent: '#BD9574',
           badgeBg: 'rgba(255, 255, 255, 0.06)'
         },
@@ -379,7 +379,7 @@ async function injectWidget() {
           nameEn: 'Graphite',
           bg: '#202124',
           border: '1px solid rgba(255, 255, 255, 0.14)',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.7)',
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.35)',
           accent: '#9aa0a6',
           badgeBg: 'rgba(255, 255, 255, 0.08)'
         },
@@ -389,7 +389,7 @@ async function injectWidget() {
           nameEn: 'Sapphire',
           bg: 'linear-gradient(145deg, #0b1329 0%, #172554 100%)',
           border: '1px solid rgba(59, 130, 246, 0.45)',
-          boxShadow: '0 10px 32px rgba(0, 0, 0, 0.7), 0 0 18px rgba(59, 130, 246, 0.25)',
+          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
           accent: '#60a5fa',
           badgeBg: 'rgba(59, 130, 246, 0.15)'
         },
@@ -399,7 +399,7 @@ async function injectWidget() {
           nameEn: 'Emerald',
           bg: 'linear-gradient(145deg, #041f17 0%, #064e3b 100%)',
           border: '1px solid rgba(16, 185, 129, 0.45)',
-          boxShadow: '0 10px 32px rgba(0, 0, 0, 0.7), 0 0 18px rgba(16, 185, 129, 0.25)',
+          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
           accent: '#34d399',
           badgeBg: 'rgba(16, 185, 129, 0.15)'
         },
@@ -409,7 +409,7 @@ async function injectWidget() {
           nameEn: 'Amethyst',
           bg: 'linear-gradient(145deg, #180b2c 0%, #4c1d95 100%)',
           border: '1px solid rgba(139, 92, 246, 0.45)',
-          boxShadow: '0 10px 32px rgba(0, 0, 0, 0.7), 0 0 18px rgba(139, 92, 246, 0.25)',
+          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
           accent: '#a78bfa',
           badgeBg: 'rgba(139, 92, 246, 0.15)'
         },
@@ -419,7 +419,7 @@ async function injectWidget() {
           nameEn: 'Amber',
           bg: 'linear-gradient(145deg, #241403 0%, #78350f 100%)',
           border: '1px solid rgba(245, 158, 11, 0.45)',
-          boxShadow: '0 10px 32px rgba(0, 0, 0, 0.7), 0 0 18px rgba(245, 158, 11, 0.25)',
+          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
           accent: '#fbbf24',
           badgeBg: 'rgba(245, 158, 11, 0.15)'
         }
@@ -435,7 +435,7 @@ async function injectWidget() {
           nameEn: 'Custom',
           bg: \`linear-gradient(145deg, rgba(\${Math.round(r*0.14)}, \${Math.round(g*0.14)}, \${Math.round(b*0.14)}, 0.96) 0%, rgba(\${Math.round(r*0.35)}, \${Math.round(g*0.35)}, \${Math.round(b*0.35)}, 0.96) 100%)\`,
           border: \`1px solid rgba(\${r}, \${g}, \${b}, 0.5)\`,
-          boxShadow: \`0 10px 32px rgba(0, 0, 0, 0.7), 0 0 18px rgba(\${r}, \${g}, \${b}, 0.3)\`,
+          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
           accent: hex,
           badgeBg: \`rgba(\${r}, \${g}, \${b}, 0.18)\`
         };
@@ -452,9 +452,10 @@ async function injectWidget() {
       let soundWeeklyCustomName = (diskConfig && diskConfig.soundWeeklyCustomName) || localStorage.getItem('agy_sound_weekly_custom_name') || '';
       let prevBucketFractions = null;
 
-      function applyThemeColor(val) {
-        currentTint = val || 'native';
-        const st = getThemeStyle(currentTint);
+      function applyThemeColor(val, commit = true) {
+        const tint = val || 'native';
+        if (commit) currentTint = tint;
+        const st = getThemeStyle(tint);
         container.style.background = st.bg;
         container.style.border = st.border;
         container.style.boxShadow = st.boxShadow;
@@ -697,237 +698,206 @@ async function injectWidget() {
       \`;
 
       // ==========================================
-      // Modern Settings Modal Window (Standalone)
+      // In-Widget Settings Panel (Compact & Neat)
       // ==========================================
-      const settingsModalBackdrop = document.createElement('div');
-      settingsModalBackdrop.id = 'agy-settings-modal-backdrop';
-      settingsModalBackdrop.style.cssText = \`
-        position: fixed;
-        top: 0; left: 0; width: 100vw; height: 100vh;
-        background: rgba(0, 0, 0, 0.65);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        z-index: 10000000;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      \`;
+      const oldModalBackdrop = document.getElementById('agy-settings-modal-backdrop');
+      if (oldModalBackdrop) oldModalBackdrop.remove();
 
-      const settingsModal = document.createElement('div');
-      settingsModal.id = 'agy-settings-modal';
-      settingsModal.style.cssText = \`
-        width: 460px;
-        max-width: 92vw;
-        max-height: 88vh;
-        background: #18181c;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 12px;
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
-        color: #f4f4f5;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        transform: scale(0.96);
-        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-      \`;
-      settingsModalBackdrop.appendChild(settingsModal);
-      document.body.appendChild(settingsModalBackdrop);
-
-      // Draft state for modal
+      let isSettingsOpen = false;
+      let wasCollapsedBeforeSettings = false;
       let draftSettings = null;
 
-      function renderSettingsModalContent() {
+      function switchLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('agy_limits_lang', lang);
+        localStorage.setItem('agy_lang', lang);
+        window.dispatchEvent(new CustomEvent('agy-language-change', { detail: { lang } }));
+        header.querySelector('#agy-title-text').textContent = isSettingsOpen ? t('settingsModalTitle') : t('title');
+        const cBtn = header.querySelector('#agy-close-btn');
+        if (cBtn) cBtn.title = lang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)';
+        updateSidebarButtonState(isVisible);
+        updateLimits();
+      }
+
+      const settingsPanel = document.createElement('div');
+      settingsPanel.id = 'agy-panel-settings';
+      settingsPanel.style.cssText = \`
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 380px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 2px;
+        font-size: 11px;
+        box-sizing: border-box;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+      \`;
+
+      function renderSettingsContent() {
         if (!draftSettings) return;
         const d = draftSettings;
-        const currentTheme = getThemeStyle(d.tint);
 
-        settingsModal.innerHTML = \`
-          <!-- Header -->
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255,255,255,0.02);">
-            <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px;">
-              <span style="font-size: 15px;">⚙️</span>
-              <span>\${t('settingsModalTitle')}</span>
-            </div>
-            <button id="agy-modal-close-x" style="background: none; border: none; color: #71717a; font-size: 17px; cursor: pointer; padding: 2px 6px; border-radius: 4px; line-height: 1; transition: color 0.12s;">✕</button>
-          </div>
-
-          <!-- Scrollable Body -->
-          <div style="padding: 14px 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; font-size: 11.5px;">
-
-            <!-- Live Preview Card -->
-            <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 12px;">
-              <div style="color: #71717a; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 8px;">\${t('previewTitle')}</div>
-              <div id="agy-modal-preview-box" style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 8px; font-size: 11px; background: \${currentTheme.bg}; border: \${currentTheme.border}; box-shadow: \${currentTheme.boxShadow}; transition: all 0.2s ease;">
-                <span style="color: #a1a1aa; font-weight: 500;">Gemini:</span>
-                <span style="background: \${currentTheme.badgeBg}; padding: 1px 5px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08);"><b style="color: #22c55e;">100%</b> <span style="font-size: 9px; color: #a1a1aa;">5ч</span></span>
-                <div style="width: 1px; height: 12px; background: rgba(255,255,255,0.15); margin: 0 2px;"></div>
-                <span style="color: #a1a1aa; font-weight: 500;">Claude:</span>
-                <span style="background: \${currentTheme.badgeBg}; padding: 1px 5px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.08);"><b style="color: #3b82f6;">85%</b> <span style="font-size: 9px; color: #a1a1aa;">5ч</span></span>
-              </div>
+        settingsPanel.innerHTML = \`
+          <!-- Section 1: Themes & Colors -->
+          <div>
+            <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 5px;">\${t('themeTitle')}</div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 6px;">
+              \${Object.values(THEME_PRESETS).map(p => {
+                const isSel = d.tint === p.key;
+                return \`
+                  <button class="agy-theme-preset-btn" data-key="\${p.key}" style="padding: 4px 6px; border-radius: 5px; font-size: 10px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; background: \${isSel ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? (p.accent || '#fff') : 'rgba(255,255,255,0.08)'}; color: \${isSel ? '#fff' : '#a1a1aa'}; transition: all 0.12s;">
+                    <span style="display: flex; align-items: center; gap: 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: \${p.accent}; display: inline-block; flex-shrink: 0;"></span>
+                      <span>\${currentLang === 'ru' ? p.nameRu : p.nameEn}</span>
+                    </span>
+                    \${isSel ? '<span style="color: #22c55e; font-weight: 700; font-size: 10px;">✓</span>' : ''}
+                  </button>
+                \`;
+              }).join('')}
             </div>
 
-            <!-- Section 1: Themes & Colors -->
-            <div>
-              <div style="color: #a1a1aa; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 7px;">\${t('themeTitle')}</div>
-              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px;">
-                \${Object.values(THEME_PRESETS).map(p => {
-                  const isSel = d.tint === p.key;
-                  return \`
-                    <button class="agy-theme-preset-btn" data-key="\${p.key}" style="padding: 6px 8px; border-radius: 6px; font-size: 10.5px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; background: \${isSel ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? (p.accent || '#fff') : 'rgba(255,255,255,0.08)'}; color: \${isSel ? '#fff' : '#a1a1aa'}; transition: all 0.15s;">
-                      <span style="display: flex; align-items: center; gap: 6px;">
-                        <span style="width: 10px; height: 10px; border-radius: 50%; background: \${p.accent}; display: inline-block;"></span>
-                        <span>\${currentLang === 'ru' ? p.nameRu : p.nameEn}</span>
-                      </span>
-                      \${isSel ? '<span style="color: #22c55e; font-weight: 700;">✓</span>' : ''}
-                    </button>
-                  \`;
-                }).join('')}
-              </div>
-
-              <!-- Custom Color / Picker -->
-              <div style="display: flex; align-items: center; gap: 8px; padding: 6px 8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px;">
-                <span style="color: #71717a; font-size: 10.5px;">\${t('themeCustom')}:</span>
-                <div style="position: relative; width: 22px; height: 20px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;">
-                  <input type="color" id="agy-modal-color-picker" value="\${d.tint.startsWith('#') ? d.tint : '#BD9574'}" style="position: absolute; top: -8px; left: -8px; width: 40px; height: 38px; cursor: pointer; border: none; background: transparent;">
+            <!-- Custom Color / Eyedropper -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 5px;">
+              <span style="color: #71717a; font-size: 10px;">\${t('themeCustom')}:</span>
+              <div style="display: flex; align-items: center; gap: 5px;">
+                <div style="position: relative; width: 18px; height: 18px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;">
+                  <input type="color" id="agy-settings-color-picker" value="\${d.tint.startsWith('#') ? d.tint : '#BD9574'}" style="position: absolute; top: -6px; left: -6px; width: 32px; height: 32px; cursor: pointer; border: none; background: transparent;">
                 </div>
-                <button id="agy-modal-eyedropper-btn" style="display: flex; align-items: center; gap: 4px; padding: 3px 7px; border-radius: 4px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #d4d4d8; font-size: 10px; cursor: pointer;">
-                  <svg style="width: 11px; height: 11px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m2 22 1-1h3l9-9"></path><path d="M3 21v-3l9-9"></path><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1 3 3l-3.8 3.8a2.1 2.1 0 1 1-3-3l.4-.4"></path></svg>
+                <button id="agy-settings-eyedropper-btn" style="display: flex; align-items: center; gap: 3px; padding: 2px 5px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer;">
+                  <svg style="width: 10px; height: 10px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m2 22 1-1h3l9-9"></path><path d="M3 21v-3l9-9"></path><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1 3 3l-3.8 3.8a2.1 2.1 0 1 1-3-3l.4-.4"></path></svg>
                   <span>\${t('eyedropper')}</span>
                 </button>
-                <span id="agy-modal-hex-label" style="font-family: monospace; font-size: 10px; color: #a1a1aa;">\${d.tint.startsWith('#') ? d.tint.toUpperCase() : (currentLang === 'ru' ? 'Пресет' : 'Preset')}</span>
+                <span id="agy-settings-hex-label" style="font-family: monospace; font-size: 9.5px; color: #a1a1aa;">\${d.tint.startsWith('#') ? d.tint.toUpperCase() : (currentLang === 'ru' ? 'Пресет' : 'Preset')}</span>
               </div>
             </div>
+          </div>
 
-            <!-- Section 2: Pill Items Selection -->
+          <!-- Section 2: Pill Items Selection -->
+          <div>
+            <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 5px;">\${t('pillItemsTitle')}</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
+              \${['gemini_5h', 'gemini_weekly', 'claude_5h', 'claude_weekly'].map(key => {
+                const isSel = d.pillItems.includes(key);
+                const label = t(keyToI18n(key));
+                return \`
+                  <button class="agy-settings-pill-btn" data-key="\${key}" style="padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; background: \${isSel ? 'rgba(255,255,255,0.11)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#71717a'}; transition: all 0.12s;">
+                    <span>\${label}</span>
+                    <span style="color: \${isSel ? '#22c55e' : '#52525b'}; font-weight: 700; font-size: 10px;">\${isSel ? '✓' : '+'}</span>
+                  </button>
+                \`;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Section 3: Scale & Interval -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
             <div>
-              <div style="color: #a1a1aa; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 7px;">\${t('pillItemsTitle')}</div>
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
-                \${['gemini_5h', 'gemini_weekly', 'claude_5h', 'claude_weekly'].map(key => {
-                  const isSel = d.pillItems.includes(key);
-                  const label = t(keyToI18n(key));
-                  return \`
-                    <button class="agy-modal-pill-btn" data-key="\${key}" style="padding: 5px 8px; border-radius: 5px; font-size: 10.5px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; background: \${isSel ? 'rgba(255,255,255,0.11)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#71717a'}; transition: all 0.12s;">
-                      <span>\${label}</span>
-                      <span style="color: \${isSel ? '#22c55e' : '#52525b'}; font-weight: 700; font-size: 11px;">\${isSel ? '✓' : '+'}</span>
-                    </button>
-                  \`;
+              <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px;">\${t('scaleTitle')}</div>
+              <div style="display: flex; gap: 2px;">
+                \${['compact', 'normal', 'large'].map(sc => {
+                  const isSel = d.scale === sc;
+                  const labels = { compact: t('scaleCompact'), normal: t('scaleNormal'), large: t('scaleLarge') };
+                  return \`<button class="agy-settings-scale-btn" data-scale="\${sc}" style="flex: 1; padding: 3px 1px; border-radius: 4px; font-size: 9.5px; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#85858b'}; font-weight: \${isSel ? '600' : '400'};">\${labels[sc]}</button>\`;
                 }).join('')}
               </div>
             </div>
-
-            <!-- Section 3: Scale & Interval -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-              <div>
-                <div style="color: #a1a1aa; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px;">\${t('scaleTitle')}</div>
-                <div style="display: flex; gap: 3px;">
-                  \${['compact', 'normal', 'large'].map(sc => {
-                    const isSel = d.scale === sc;
-                    const labels = { compact: t('scaleCompact'), normal: t('scaleNormal'), large: t('scaleLarge') };
-                    return \`<button class="agy-modal-scale-btn" data-scale="\${sc}" style="flex: 1; padding: 4px 2px; border-radius: 4px; font-size: 10px; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#85858b'}; font-weight: \${isSel ? '600' : '400'};">\${labels[sc]}</button>\`;
-                  }).join('')}
-                </div>
-              </div>
-              <div>
-                <div style="color: #a1a1aa; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 6px;">\${t('intervalTitle')}</div>
-                <div style="display: flex; gap: 3px;">
-                  \${[{ ms: 60000, l: t('m1') }, { ms: 300000, l: t('m5') }, { ms: 900000, l: t('m15') }, { ms: 0, l: t('off') }].map(item => {
-                    const isSel = d.intervalMs === item.ms;
-                    return \`<button class="agy-modal-int-btn" data-ms="\${item.ms}" style="flex: 1; padding: 4px 2px; border-radius: 4px; font-size: 10px; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#85858b'}; font-weight: \${isSel ? '600' : '400'};">\${item.l}</button>\`;
-                  }).join('')}
-                </div>
-              </div>
-            </div>
-
-            <!-- Section 4: Sound Alerts -->
             <div>
-              <div style="color: #a1a1aa; font-size: 10px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 7px;">\${t('soundTitle')}</div>
-              <div style="display: flex; flex-direction: column; gap: 6px;">
-                <!-- 5h limit sound -->
-                <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 7px 9px;">
-                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                    <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 11px; color: #d4d4d8;">
-                      <input type="checkbox" id="agy-modal-sound-5h" \${d.sound5h ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
-                      <span style="font-weight: 500;">\${t('sound5hLabel')}</span>
-                    </label>
-                    <button id="agy-modal-sound-5h-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 2px 7px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-                      <span>🔔</span><span>\${t('soundTest')}</span>
+              <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px;">\${t('intervalTitle')}</div>
+              <div style="display: flex; gap: 2px;">
+                \${[{ ms: 60000, l: t('m1') }, { ms: 300000, l: t('m5') }, { ms: 900000, l: t('m15') }, { ms: 0, l: t('off') }].map(item => {
+                  const isSel = d.intervalMs === item.ms;
+                  return \`<button class="agy-settings-int-btn" data-ms="\${item.ms}" style="flex: 1; padding: 3px 1px; border-radius: 4px; font-size: 9.5px; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#85858b'}; font-weight: \${isSel ? '600' : '400'};">\${item.l}</button>\`;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 4: Sound Alerts -->
+          <div>
+            <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 5px;">\${t('soundTitle')}</div>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+              <!-- 5h limit sound -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 5px; padding: 5px 7px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px;">
+                  <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 10.5px; color: #d4d4d8;">
+                    <input type="checkbox" id="agy-settings-sound-5h" \${d.sound5h ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
+                    <span style="font-weight: 500;">\${t('sound5hLabel')}</span>
+                  </label>
+                  <button id="agy-settings-sound-5h-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 1px 6px; font-size: 9.5px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+                    <span>🔔</span><span>\${t('soundTest')}</span>
+                  </button>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9px; padding-left: 17px;">
+                  <input type="file" id="agy-settings-sound-5h-file" accept="audio/*" style="display: none;">
+                  <span title="\${d.sound5hCustomName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 140px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                    \${d.sound5hCustomName ? '🎵 ' + d.sound5hCustomName : '🎹 ' + t('soundDefaultSynth')}
+                  </span>
+                  <div style="display: flex; align-items: center; gap: 3px;">
+                    <button id="agy-settings-sound-5h-upload-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 5px; font-size: 9px; cursor: pointer;">
+                      \${d.sound5hCustomName ? t('soundChange') : t('soundUpload')}
                     </button>
-                  </div>
-                  <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9.5px; padding-left: 20px;">
-                    <input type="file" id="agy-modal-sound-5h-file" accept="audio/*" style="display: none;">
-                    <span title="\${d.sound5hCustomName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 170px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
-                      \${d.sound5hCustomName ? '🎵 ' + d.sound5hCustomName : '🎹 ' + t('soundDefaultSynth')}
-                    </span>
-                    <div style="display: flex; align-items: center; gap: 4px;">
-                      <button id="agy-modal-sound-5h-upload-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 6px; font-size: 9.5px; cursor: pointer;">
-                        \${d.sound5hCustomName ? t('soundChange') : t('soundUpload')}
-                      </button>
-                      \${d.sound5hCustomName ? '<button id="agy-modal-sound-5h-reset-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 1px 3px;">✕</button>' : ''}
-                    </div>
+                    \${d.sound5hCustomName ? '<button id="agy-settings-sound-5h-reset-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 0 2px;">✕</button>' : ''}
                   </div>
                 </div>
+              </div>
 
-                <!-- Weekly limit sound -->
-                <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 6px; padding: 7px 9px;">
-                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                    <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 11px; color: #d4d4d8;">
-                      <input type="checkbox" id="agy-modal-sound-weekly" \${d.soundWeekly ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
-                      <span style="font-weight: 500;">\${t('soundWeeklyLabel')}</span>
-                    </label>
-                    <button id="agy-modal-sound-weekly-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 2px 7px; font-size: 10px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-                      <span>🎉</span><span>\${t('soundTest')}</span>
+              <!-- Weekly limit sound -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 5px; padding: 5px 7px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px;">
+                  <label style="display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 10.5px; color: #d4d4d8;">
+                    <input type="checkbox" id="agy-settings-sound-weekly" \${d.soundWeekly ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
+                    <span style="font-weight: 500;">\${t('soundWeeklyLabel')}</span>
+                  </label>
+                  <button id="agy-settings-sound-weekly-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 1px 6px; font-size: 9.5px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
+                    <span>🎉</span><span>\${t('soundTest')}</span>
+                  </button>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9px; padding-left: 17px;">
+                  <input type="file" id="agy-settings-sound-weekly-file" accept="audio/*" style="display: none;">
+                  <span title="\${d.soundWeeklyCustomName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 140px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+                    \${d.soundWeeklyCustomName ? '🎵 ' + d.soundWeeklyCustomName : '🎹 ' + t('soundDefaultSynth')}
+                  </span>
+                  <div style="display: flex; align-items: center; gap: 3px;">
+                    <button id="agy-settings-sound-weekly-upload-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 5px; font-size: 9px; cursor: pointer;">
+                      \${d.soundWeeklyCustomName ? t('soundChange') : t('soundUpload')}
                     </button>
-                  </div>
-                  <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9.5px; padding-left: 20px;">
-                    <input type="file" id="agy-modal-sound-weekly-file" accept="audio/*" style="display: none;">
-                    <span title="\${d.soundWeeklyCustomName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 170px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
-                      \${d.soundWeeklyCustomName ? '🎵 ' + d.soundWeeklyCustomName : '🎹 ' + t('soundDefaultSynth')}
-                    </span>
-                    <div style="display: flex; align-items: center; gap: 4px;">
-                      <button id="agy-modal-sound-weekly-upload-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 6px; font-size: 9.5px; cursor: pointer;">
-                        \${d.soundWeeklyCustomName ? t('soundChange') : t('soundUpload')}
-                      </button>
-                      \${d.soundWeeklyCustomName ? '<button id="agy-modal-sound-weekly-reset-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 1px 3px;">✕</button>' : ''}
-                    </div>
+                    \${d.soundWeeklyCustomName ? '<button id="agy-settings-sound-weekly-reset-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 0 2px;">✕</button>' : ''}
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Section 5: Language Switcher -->
-            <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.06);">
-              <span style="color: #a1a1aa; font-size: 10px; font-weight: 600; letter-spacing: 0.5px;">\${t('langTitle')}</span>
-              <div style="display: flex; gap: 3px;">
-                <button id="agy-modal-lang-ru" style="padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: \${d.lang === 'ru' ? '600' : '400'}; background: \${d.lang === 'ru' ? 'rgba(255,255,255,0.14)' : 'transparent'}; border: 1px solid \${d.lang === 'ru' ? 'rgba(255,255,255,0.2)' : 'transparent'}; color: \${d.lang === 'ru' ? '#fff' : '#85858b'}; cursor: pointer;">RU</button>
-                <button id="agy-modal-lang-en" style="padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: \${d.lang === 'en' ? '600' : '400'}; background: \${d.lang === 'en' ? 'rgba(255,255,255,0.14)' : 'transparent'}; border: 1px solid \${d.lang === 'en' ? 'rgba(255,255,255,0.2)' : 'transparent'}; color: \${d.lang === 'en' ? '#fff' : '#85858b'}; cursor: pointer;">EN</button>
-              </div>
+          <!-- Section 5: Language Switcher -->
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.06);">
+            <span style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${t('langTitle')}</span>
+            <div style="display: flex; gap: 2px;">
+              <button id="agy-settings-lang-ru" style="padding: 2px 7px; border-radius: 3px; font-size: 9.5px; font-weight: \${d.lang === 'ru' ? '600' : '400'}; background: \${d.lang === 'ru' ? 'rgba(255,255,255,0.14)' : 'transparent'}; border: 1px solid \${d.lang === 'ru' ? 'rgba(255,255,255,0.2)' : 'transparent'}; color: \${d.lang === 'ru' ? '#fff' : '#85858b'}; cursor: pointer;">RU</button>
+              <button id="agy-settings-lang-en" style="padding: 2px 7px; border-radius: 3px; font-size: 9.5px; font-weight: \${d.lang === 'en' ? '600' : '400'}; background: \${d.lang === 'en' ? 'rgba(255,255,255,0.14)' : 'transparent'}; border: 1px solid \${d.lang === 'en' ? 'rgba(255,255,255,0.2)' : 'transparent'}; color: \${d.lang === 'en' ? '#fff' : '#85858b'}; cursor: pointer;">EN</button>
             </div>
-
           </div>
 
           <!-- Footer Actions -->
-          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255,255,255,0.02);">
-            <button id="agy-modal-cancel-btn" style="padding: 6px 12px; border-radius: 6px; font-size: 11.5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #a1a1aa; cursor: pointer; transition: all 0.12s;">
+          <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 2px;">
+            <button id="agy-settings-cancel-btn" style="padding: 4px 10px; border-radius: 5px; font-size: 10.5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #a1a1aa; cursor: pointer; transition: all 0.12s;">
               \${t('settingsCancelBtn')}
             </button>
-            <button id="agy-modal-save-btn" style="padding: 6px 16px; border-radius: 6px; font-size: 11.5px; font-weight: 600; background: #2563eb; border: 1px solid rgba(255,255,255,0.2); color: #ffffff; cursor: pointer; display: flex; align-items: center; gap: 5px; box-shadow: 0 2px 8px rgba(37,99,235,0.4); transition: all 0.15s;">
-              <span id="agy-modal-save-icon">💾</span>
-              <span id="agy-modal-save-text">\${t('settingsSaveBtn')}</span>
+            <button id="agy-settings-save-btn" style="padding: 4px 14px; border-radius: 5px; font-size: 10.5px; font-weight: 600; background: #2563eb; border: 1px solid rgba(255,255,255,0.2); color: #ffffff; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); transition: all 0.15s;">
+              <span id="agy-settings-save-icon">💾</span>
+              <span id="agy-settings-save-text">\${t('settingsSaveBtn')}</span>
             </button>
           </div>
         \`;
 
-        // Bind event listeners for modal elements
-        const closeX = settingsModal.querySelector('#agy-modal-close-x');
-        const cancelBtn = settingsModal.querySelector('#agy-modal-cancel-btn');
-        const saveBtn = settingsModal.querySelector('#agy-modal-save-btn');
-        if (closeX) closeX.addEventListener('click', closeSettingsModal);
-        if (cancelBtn) cancelBtn.addEventListener('click', closeSettingsModal);
+        // Bind event listeners inside settingsPanel:
+        const cancelBtn = settingsPanel.querySelector('#agy-settings-cancel-btn');
+        if (cancelBtn) {
+          cancelBtn.addEventListener('click', () => closeSettings(true));
+        }
 
-        // Save button
+        const saveBtn = settingsPanel.querySelector('#agy-settings-save-btn');
         if (saveBtn) {
           saveBtn.addEventListener('click', async () => {
             currentTint = d.tint;
@@ -946,48 +916,43 @@ async function injectWidget() {
             }
 
             applyThemeColor(currentTint);
-            applyCollapseState();
             setupInterval(currentIntervalMs);
             updateLimits();
 
             saveBtn.style.background = '#16a34a';
-            saveBtn.querySelector('#agy-modal-save-icon').textContent = '✓';
-            saveBtn.querySelector('#agy-modal-save-text').textContent = t('settingsSavedNotice');
+            saveBtn.querySelector('#agy-settings-save-icon').textContent = '✓';
+            saveBtn.querySelector('#agy-settings-save-text').textContent = t('settingsSavedNotice');
 
             await saveAllSettingsToDisk(d);
 
             setTimeout(() => {
-              closeSettingsModal();
-            }, 300);
+              closeSettings(false);
+            }, 350);
           });
         }
 
-        // Theme preset buttons
-        settingsModal.querySelectorAll('.agy-theme-preset-btn').forEach(btn => {
+        // Theme presets
+        settingsPanel.querySelectorAll('.agy-theme-preset-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             d.tint = btn.dataset.key;
-            renderSettingsModalContent();
+            applyThemeColor(d.tint, false);
+            renderSettingsContent();
           });
         });
 
-        // Color picker and eyedropper
-        const colorPicker = settingsModal.querySelector('#agy-modal-color-picker');
+        // Color picker
+        const colorPicker = settingsPanel.querySelector('#agy-settings-color-picker');
         if (colorPicker) {
           colorPicker.addEventListener('input', (e) => {
             d.tint = e.target.value;
-            const previewBox = settingsModal.querySelector('#agy-modal-preview-box');
-            if (previewBox) {
-              const th = getThemeStyle(d.tint);
-              previewBox.style.background = th.bg;
-              previewBox.style.border = th.border;
-              previewBox.style.boxShadow = th.boxShadow;
-            }
-            const hexLbl = settingsModal.querySelector('#agy-modal-hex-label');
+            applyThemeColor(d.tint, false);
+            const hexLbl = settingsPanel.querySelector('#agy-settings-hex-label');
             if (hexLbl) hexLbl.textContent = d.tint.toUpperCase();
           });
         }
 
-        const eyedropperBtn = settingsModal.querySelector('#agy-modal-eyedropper-btn');
+        // Eyedropper
+        const eyedropperBtn = settingsPanel.querySelector('#agy-settings-eyedropper-btn');
         if (eyedropperBtn) {
           eyedropperBtn.addEventListener('click', async () => {
             if ('EyeDropper' in window) {
@@ -996,7 +961,8 @@ async function injectWidget() {
                 const res = await ed.open();
                 if (res && res.sRGBHex) {
                   d.tint = res.sRGBHex;
-                  renderSettingsModalContent();
+                  applyThemeColor(d.tint, false);
+                  renderSettingsContent();
                 }
               } catch (e) {}
             } else if (colorPicker) {
@@ -1005,8 +971,8 @@ async function injectWidget() {
           });
         }
 
-        // Pill items buttons
-        settingsModal.querySelectorAll('.agy-modal-pill-btn').forEach(btn => {
+        // Pill items
+        settingsPanel.querySelectorAll('.agy-settings-pill-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             const key = btn.dataset.key;
             const idx = d.pillItems.indexOf(key);
@@ -1015,48 +981,51 @@ async function injectWidget() {
             } else {
               d.pillItems.push(key);
             }
-            renderSettingsModalContent();
+            renderSettingsContent();
           });
         });
 
-        // Scale buttons
-        settingsModal.querySelectorAll('.agy-modal-scale-btn').forEach(btn => {
+        // Scale
+        settingsPanel.querySelectorAll('.agy-settings-scale-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             d.scale = btn.dataset.scale;
-            renderSettingsModalContent();
+            renderSettingsContent();
+            if (d.scale === 'compact') {
+              container.style.width = '250px';
+              container.style.padding = '8px 10px';
+            } else if (d.scale === 'large') {
+              container.style.width = '330px';
+              container.style.padding = '12px 14px';
+            } else {
+              container.style.width = '285px';
+              container.style.padding = '10px 12px';
+            }
           });
         });
 
-        // Interval buttons
-        settingsModal.querySelectorAll('.agy-modal-int-btn').forEach(btn => {
+        // Interval
+        settingsPanel.querySelectorAll('.agy-settings-int-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             d.intervalMs = parseInt(btn.dataset.ms, 10);
-            renderSettingsModalContent();
+            renderSettingsContent();
           });
         });
 
-        // Sound toggles and test buttons
-        const s5hCb = settingsModal.querySelector('#agy-modal-sound-5h');
-        if (s5hCb) {
-          s5hCb.addEventListener('change', (e) => {
-            d.sound5h = e.target.checked;
-          });
-        }
-        const sWkCb = settingsModal.querySelector('#agy-modal-sound-weekly');
-        if (sWkCb) {
-          sWkCb.addEventListener('change', (e) => {
-            d.soundWeekly = e.target.checked;
-          });
-        }
+        // Sound toggles
+        const s5hCb = settingsPanel.querySelector('#agy-settings-sound-5h');
+        if (s5hCb) s5hCb.addEventListener('change', (e) => { d.sound5h = e.target.checked; });
+        const sWkCb = settingsPanel.querySelector('#agy-settings-sound-weekly');
+        if (sWkCb) sWkCb.addEventListener('change', (e) => { d.soundWeekly = e.target.checked; });
 
-        const s5hTest = settingsModal.querySelector('#agy-modal-sound-5h-test');
+        // Sound tests
+        const s5hTest = settingsPanel.querySelector('#agy-settings-sound-5h-test');
         if (s5hTest) {
           s5hTest.addEventListener('click', (e) => {
             e.stopPropagation();
             playResetSound('5h', d.sound5hCustom);
           });
         }
-        const sWkTest = settingsModal.querySelector('#agy-modal-sound-weekly-test');
+        const sWkTest = settingsPanel.querySelector('#agy-settings-sound-weekly-test');
         if (sWkTest) {
           sWkTest.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -1065,8 +1034,8 @@ async function injectWidget() {
         }
 
         // Sound upload 5h
-        const s5hUpBtn = settingsModal.querySelector('#agy-modal-sound-5h-upload-btn');
-        const s5hFile = settingsModal.querySelector('#agy-modal-sound-5h-file');
+        const s5hUpBtn = settingsPanel.querySelector('#agy-settings-sound-5h-upload-btn');
+        const s5hFile = settingsPanel.querySelector('#agy-settings-sound-5h-file');
         if (s5hUpBtn && s5hFile) {
           s5hUpBtn.addEventListener('click', () => s5hFile.click());
           s5hFile.addEventListener('change', (e) => {
@@ -1080,7 +1049,7 @@ async function injectWidget() {
               reader.onload = (evt) => {
                 d.sound5hCustom = evt.target.result;
                 d.sound5hCustomName = file.name;
-                renderSettingsModalContent();
+                renderSettingsContent();
                 playResetSound('5h', d.sound5hCustom);
               };
               reader.readAsDataURL(file);
@@ -1089,20 +1058,20 @@ async function injectWidget() {
         }
 
         // Sound reset 5h
-        const s5hResetBtn = settingsModal.querySelector('#agy-modal-sound-5h-reset-btn');
+        const s5hResetBtn = settingsPanel.querySelector('#agy-settings-sound-5h-reset-btn');
         if (s5hResetBtn) {
           s5hResetBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             d.sound5hCustom = null;
             d.sound5hCustomName = '';
-            renderSettingsModalContent();
+            renderSettingsContent();
             playResetSound('5h', null);
           });
         }
 
         // Sound upload weekly
-        const sWkUpBtn = settingsModal.querySelector('#agy-modal-sound-weekly-upload-btn');
-        const sWkFile = settingsModal.querySelector('#agy-modal-sound-weekly-file');
+        const sWkUpBtn = settingsPanel.querySelector('#agy-settings-sound-weekly-upload-btn');
+        const sWkFile = settingsPanel.querySelector('#agy-settings-sound-weekly-file');
         if (sWkUpBtn && sWkFile) {
           sWkUpBtn.addEventListener('click', () => sWkFile.click());
           sWkFile.addEventListener('change', (e) => {
@@ -1116,7 +1085,7 @@ async function injectWidget() {
               reader.onload = (evt) => {
                 d.soundWeeklyCustom = evt.target.result;
                 d.soundWeeklyCustomName = file.name;
-                renderSettingsModalContent();
+                renderSettingsContent();
                 playResetSound('weekly', d.soundWeeklyCustom);
               };
               reader.readAsDataURL(file);
@@ -1125,37 +1094,45 @@ async function injectWidget() {
         }
 
         // Sound reset weekly
-        const sWkResetBtn = settingsModal.querySelector('#agy-modal-sound-weekly-reset-btn');
+        const sWkResetBtn = settingsPanel.querySelector('#agy-settings-sound-weekly-reset-btn');
         if (sWkResetBtn) {
           sWkResetBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             d.soundWeeklyCustom = null;
             d.soundWeeklyCustomName = '';
-            renderSettingsModalContent();
+            renderSettingsContent();
             playResetSound('weekly', null);
           });
         }
 
         // Language buttons
-        const ruBtn = settingsModal.querySelector('#agy-modal-lang-ru');
-        const enBtn = settingsModal.querySelector('#agy-modal-lang-en');
+        const ruBtn = settingsPanel.querySelector('#agy-settings-lang-ru');
+        const enBtn = settingsPanel.querySelector('#agy-settings-lang-en');
         if (ruBtn) {
           ruBtn.addEventListener('click', () => {
             d.lang = 'ru';
             currentLang = 'ru';
-            renderSettingsModalContent();
+            renderSettingsContent();
           });
         }
         if (enBtn) {
           enBtn.addEventListener('click', () => {
             d.lang = 'en';
             currentLang = 'en';
-            renderSettingsModalContent();
+            renderSettingsContent();
           });
         }
       }
 
-      function openSettingsModal() {
+      function openSettings() {
+        if (isSettingsOpen) {
+          closeSettings(true);
+          return;
+        }
+        wasCollapsedBeforeSettings = isCollapsed;
+        isCollapsed = false;
+        isSettingsOpen = true;
+
         draftSettings = {
           tint: currentTint,
           pillItems: [...pillItems],
@@ -1169,38 +1146,51 @@ async function injectWidget() {
           soundWeeklyCustomName: soundWeeklyCustomName,
           lang: currentLang
         };
-        renderSettingsModalContent();
-        settingsModalBackdrop.style.display = 'flex';
-        requestAnimationFrame(() => {
-          settingsModalBackdrop.style.opacity = '1';
-          settingsModal.style.transform = 'scale(1)';
-        });
-      }
 
-      function closeSettingsModal() {
-        settingsModalBackdrop.style.opacity = '0';
-        settingsModal.style.transform = 'scale(0.96)';
-        setTimeout(() => {
-          settingsModalBackdrop.style.display = 'none';
-        }, 200);
-      }
+        renderSettingsContent();
+        applyCollapseState();
 
-      settingsModalBackdrop.addEventListener('click', (e) => {
-        if (e.target === settingsModalBackdrop) {
-          closeSettingsModal();
+        const gearBtn = header.querySelector('#agy-gear-btn');
+        if (gearBtn) {
+          gearBtn.style.color = '#fff';
+          gearBtn.style.background = 'rgba(255, 255, 255, 0.15)';
         }
-      });
+        const titleText = header.querySelector('#agy-title-text');
+        if (titleText) {
+          titleText.textContent = t('settingsModalTitle');
+        }
+        const reportBtn = header.querySelector('#agy-report-btn');
+        if (reportBtn) reportBtn.style.display = 'none';
+        const refreshBtn = header.querySelector('#agy-refresh-btn');
+        if (refreshBtn) refreshBtn.style.display = 'none';
+      }
 
-      function switchLanguage(lang) {
-        currentLang = lang;
-        localStorage.setItem('agy_limits_lang', lang);
-        localStorage.setItem('agy_lang', lang);
-        window.dispatchEvent(new CustomEvent('agy-language-change', { detail: { lang } }));
-        header.querySelector('#agy-title-text').textContent = t('title');
-        const cBtn = header.querySelector('#agy-close-btn');
-        if (cBtn) cBtn.title = lang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)';
-        updateSidebarButtonState(isVisible);
-        updateLimits();
+      function closeSettings(shouldRevert = true) {
+        if (!isSettingsOpen) return;
+        isSettingsOpen = false;
+
+        if (shouldRevert) {
+          applyThemeColor(currentTint, true);
+        }
+
+        const gearBtn = header.querySelector('#agy-gear-btn');
+        if (gearBtn) {
+          gearBtn.style.color = '#85858b';
+          gearBtn.style.background = 'none';
+        }
+        const titleText = header.querySelector('#agy-title-text');
+        if (titleText) {
+          titleText.textContent = t('title');
+        }
+        const reportBtn = header.querySelector('#agy-report-btn');
+        if (reportBtn) reportBtn.style.display = 'flex';
+        const refreshBtn = header.querySelector('#agy-refresh-btn');
+        if (refreshBtn) refreshBtn.style.display = 'flex';
+
+        if (wasCollapsedBeforeSettings) {
+          isCollapsed = true;
+        }
+        applyCollapseState();
       }
 
       const content = document.createElement('div');
@@ -1212,6 +1202,7 @@ async function injectWidget() {
 
       container.appendChild(header);
       container.appendChild(content);
+      container.appendChild(settingsPanel);
       container.appendChild(pillSummary);
       document.body.appendChild(container);
 
@@ -1441,6 +1432,9 @@ async function injectWidget() {
           clampToViewport();
           container.style.opacity = '1';
         } else {
+          if (isSettingsOpen) {
+            closeSettings(true);
+          }
           hideBadgeTooltip();
           container.style.opacity = '0';
           setTimeout(() => {
@@ -1520,6 +1514,12 @@ async function injectWidget() {
       const sidebarInterval = setInterval(ensureSidebarButton, 2000);
 
       function handleKeyDown(e) {
+        if (e.key === 'Escape' && isSettingsOpen) {
+          e.preventDefault();
+          e.stopPropagation();
+          closeSettings(true);
+          return;
+        }
         if (e.altKey && !e.ctrlKey && !e.metaKey && (e.code === 'KeyL' || e.key === 'l' || e.key === 'L' || e.key === 'д' || e.key === 'Д')) {
           e.preventDefault();
           e.stopPropagation();
@@ -1560,7 +1560,7 @@ async function injectWidget() {
 
       function renderReportModal() {
         reportModal.innerHTML = \`
-          <div style="background: rgb(28, 26, 23); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; width: 440px; max-width: 92vw; box-shadow: 0 16px 40px rgba(0,0,0,0.8); color: #f4f4f5; padding: 16px 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: rgb(28, 26, 23); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; width: 440px; max-width: 92vw; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45); color: #f4f4f5; padding: 16px 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px;">
             <!-- Header -->
             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
               <div>
@@ -1734,7 +1734,11 @@ async function injectWidget() {
 
       gearBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        openSettingsModal();
+        if (isSettingsOpen) {
+          closeSettings(true);
+        } else {
+          openSettings();
+        }
       });
 
       function applyCollapseState() {
@@ -1743,9 +1747,32 @@ async function injectWidget() {
           container.style.display = 'none';
           return;
         }
-        if (isCollapsed) {
+        if (isSettingsOpen) {
+          header.style.display = 'flex';
+          content.style.display = 'none';
+          settingsPanel.style.display = 'flex';
+          pillSummary.style.display = 'none';
+
+          if (currentScale === 'compact') {
+            container.style.width = '250px';
+            container.style.padding = '8px 10px';
+            container.style.fontSize = '11px';
+          } else if (currentScale === 'large') {
+            container.style.width = '330px';
+            container.style.padding = '12px 14px';
+            container.style.fontSize = '13px';
+          } else {
+            container.style.width = '285px';
+            container.style.padding = '10px 12px';
+            container.style.fontSize = '12px';
+          }
+
+          container.style.cursor = 'default';
+          container.style.display = 'block';
+        } else if (isCollapsed) {
           header.style.display = 'none';
           content.style.display = 'none';
+          settingsPanel.style.display = 'none';
           pillSummary.style.display = 'flex';
           container.style.width = 'auto';
 
@@ -1768,6 +1795,7 @@ async function injectWidget() {
         } else {
           header.style.display = 'flex';
           content.style.display = 'block';
+          settingsPanel.style.display = 'none';
           pillSummary.style.display = 'none';
 
           if (currentScale === 'compact') {
@@ -1794,6 +1822,7 @@ async function injectWidget() {
       }
 
       collapseBtn.addEventListener('click', () => {
+        if (isSettingsOpen) closeSettings(true);
         isCollapsed = true;
         applyCollapseState();
       });
@@ -1806,6 +1835,7 @@ async function injectWidget() {
       });
 
       closeBtn.addEventListener('click', () => {
+        if (isSettingsOpen) closeSettings(true);
         toggleLimitsWidget(false);
       });
 
@@ -1975,7 +2005,7 @@ async function injectWidget() {
             pGear.addEventListener('mouseleave', () => { pGear.style.opacity = '0.65'; pGear.style.background = 'rgba(255,255,255,0.06)'; });
             pGear.addEventListener('click', (e) => {
               e.stopPropagation();
-              openSettingsModal();
+              openSettings();
             });
           }
 
@@ -2022,6 +2052,8 @@ async function injectWidget() {
         if (t) t.remove();
         const smb = document.getElementById('agy-settings-modal-backdrop');
         if (smb) smb.remove();
+        const sp = document.getElementById('agy-panel-settings');
+        if (sp) sp.remove();
         window.removeEventListener('paste', handleGlobalPaste);
         const rm = document.getElementById('agy-report-modal');
         if (rm) rm.remove();
