@@ -1,4 +1,4 @@
-$baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+﻿$baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $baseDir) { $baseDir = Get-Location }
 $companionPath = Join-Path $baseDir "antigravity_companion.js"
 

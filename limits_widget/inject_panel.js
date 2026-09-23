@@ -885,6 +885,25 @@ async function injectWidget() {
             </div>
           </div>
 
+          <!-- Section 6: Service Controls & Updates -->
+          <div style="padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${currentLang === 'ru' ? 'Управление и обновления' : 'Controls & Updates'}</span>
+              <span style="font-size: 9px; color: #22c55e;">● v1.1.0</span>
+            </div>
+            <div style="display: flex; gap: 4px;">
+              <button id="agy-settings-reload-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 3px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; transition: all 0.12s;">
+                <span>🔄</span>
+                <span>\${currentLang === 'ru' ? 'Перезагрузить UI' : 'Hot Reload'}</span>
+              </button>
+              <button id="agy-settings-check-update-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 3px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; transition: all 0.12s;">
+                <span>🌐</span>
+                <span>\${currentLang === 'ru' ? 'Обновления' : 'Updates'}</span>
+              </button>
+            </div>
+            <div id="agy-settings-update-msg" style="display: none; font-size: 9.5px; padding: 2px 4px; border-radius: 3px; margin-top: 1px; text-align: center;"></div>
+          </div>
+
           <!-- Footer Actions -->
           <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 2px;">
             <button id="agy-settings-cancel-btn" style="padding: 4px 10px; border-radius: 5px; font-size: 10.5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #a1a1aa; cursor: pointer; transition: all 0.12s;">
@@ -1129,6 +1148,76 @@ async function injectWidget() {
             d.lang = 'en';
             currentLang = 'en';
             renderSettingsContent();
+          });
+        }
+
+        // Section 6: Hot-Reload and Update buttons
+        const reloadBtn = settingsPanel.querySelector('#agy-settings-reload-btn');
+        const updateMsg = settingsPanel.querySelector('#agy-settings-update-msg');
+        if (reloadBtn) {
+          reloadBtn.addEventListener('click', async () => {
+            reloadBtn.style.opacity = '0.5';
+            if (updateMsg) {
+              updateMsg.style.display = 'block';
+              updateMsg.style.background = 'rgba(59, 130, 246, 0.15)';
+              updateMsg.style.color = '#93c5fd';
+              updateMsg.textContent = currentLang === 'ru' ? 'Перезагрузка...' : 'Reloading...';
+            }
+            try {
+              const res = await fetch('http://127.0.0.1:9229/api/reload', { method: 'POST', signal: AbortSignal.timeout(3000) });
+              const data = await res.json();
+              if (updateMsg) {
+                updateMsg.style.background = 'rgba(34, 197, 94, 0.15)';
+                updateMsg.style.color = '#86efac';
+                updateMsg.textContent = currentLang === 'ru' ? '✓ UI обновлен!' : '✓ UI reloaded!';
+              }
+            } catch (err) {
+              if (updateMsg) {
+                updateMsg.style.background = 'rgba(239, 68, 68, 0.15)';
+                updateMsg.style.color = '#fca5a5';
+                updateMsg.textContent = currentLang === 'ru' ? 'Служба офлайн' : 'Service offline';
+              }
+            } finally {
+              reloadBtn.style.opacity = '1';
+              setTimeout(() => { if (updateMsg) updateMsg.style.display = 'none'; }, 2500);
+            }
+          });
+        }
+
+        const checkUpdateBtn = settingsPanel.querySelector('#agy-settings-check-update-btn');
+        if (checkUpdateBtn) {
+          checkUpdateBtn.addEventListener('click', async () => {
+            checkUpdateBtn.style.opacity = '0.5';
+            if (updateMsg) {
+              updateMsg.style.display = 'block';
+              updateMsg.style.background = 'rgba(59, 130, 246, 0.15)';
+              updateMsg.style.color = '#93c5fd';
+              updateMsg.textContent = currentLang === 'ru' ? 'Проверка GitHub...' : 'Checking GitHub...';
+            }
+            try {
+              const res = await fetch('http://127.0.0.1:9229/api/check-update', { method: 'POST', signal: AbortSignal.timeout(7000) });
+              const data = await res.json();
+              if (updateMsg) {
+                if (data.hasUpdate) {
+                  updateMsg.style.background = 'rgba(234, 179, 8, 0.15)';
+                  updateMsg.style.color = '#fde047';
+                  updateMsg.textContent = currentLang === 'ru' ? \`Доступно обновление (+ \${data.behindCommits} комм.)\` : \`Update available (+ \${data.behindCommits} commits)\`;
+                } else {
+                  updateMsg.style.background = 'rgba(34, 197, 94, 0.15)';
+                  updateMsg.style.color = '#86efac';
+                  updateMsg.textContent = currentLang === 'ru' ? \`✓ Актуально (\${data.localTerms} сл.)\` : \`✓ Up to date (\${data.localTerms} terms)\`;
+                }
+              }
+            } catch (err) {
+              if (updateMsg) {
+                updateMsg.style.background = 'rgba(239, 68, 68, 0.15)';
+                updateMsg.style.color = '#fca5a5';
+                updateMsg.textContent = currentLang === 'ru' ? 'Служба офлайн' : 'Service offline';
+              }
+            } finally {
+              checkUpdateBtn.style.opacity = '1';
+              setTimeout(() => { if (updateMsg) updateMsg.style.display = 'none'; }, 3500);
+            }
           });
         }
       }
