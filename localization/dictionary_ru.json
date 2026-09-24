@@ -850,7 +850,16 @@
     "1 task running": "Выполняется 1 задача",
     "Task Log": "Журнал задачи",
     "Killed task": "Задача остановлена",
-    "Explored 1 task": "Проверена 1 задача"
+    "Explored 1 task": "Проверена 1 задача",
+    "Plan Review Policy": "Политика проверки планов",
+    "Type": "Введите",
+    "and select": "и выберите",
+    "to have the agent generate a plan.": ", чтобы агент составил план.",
+    "Choose how technical the interface should be.": "Выберите желаемый уровень технической сложности интерфейса.",
+    "Simplified": "Упрощённый",
+    "Workspace Settings": "Настройки рабочей области",
+    "Workspace settings have moved": "Настройки рабочей области перемещены",
+    "Workspace settings have moved to the Advanced section of General settings.": "Настройки рабочей области перемещены в раздел «Расширенные» основных настроек."
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1068,6 +1077,10 @@
     {
       "regex": "^Rules\\s*\\((\\d+[\\s\\u00a0]?\\d*)\\s*tokens\\)\\s*([\\d\\.]+)%$",
       "replace": "Правила ($1 токенов) $2%"
+    },
+    {
+      "regex": "^Send feedback as (.+)$",
+      "replace": "Отправить отзыв от имени $1"
     }
   ]
 }

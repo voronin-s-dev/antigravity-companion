@@ -7,7 +7,7 @@
 ## 1. Метаданные репозитория
 - **Версия**: `v1.1.0` (релиз опубликован на GitHub)
 - **Ветка**: `main`
-- **Последний коммит**: `f78bfa8` (refactor: remove experimental voice island and restore clean startup scripts)
+- **Последний коммит**: `95a6932` (feat(localization): add translations for Plan Review Policy and related settings, improve inline punctuation handling)
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **Релизы**: [v1.1.0 с прикрепленным ZIP-архивом](https://github.com/voronin-s-dev/antigravity-companion/releases/tag/v1.1.0)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
@@ -91,6 +91,11 @@
     - **Лаунчер `companion.bat` (и `bin/companion_manager.ps1`)**: единый интерактивный командный центр в корне проекта для быстрого запуска Antigravity + Companion, перезапуска, остановки, горячего релоада, проверки/установки обновлений с GitHub и переключения автозагрузки Windows.
     - **Встроенные кнопки в виджете (`#agy-panel-settings`)**: в настройки виджета добавлена секция «Управление и обновления» с кнопками «🔄 Перезагрузить UI» и «🌐 Обновления» прямо в окне Antigravity.
     - **HTTP API управления (`companion_server.js`)**: добавлены эндпоинты `/api/status`, `/api/reload`, `/api/check-update`, `/api/apply-update` на локальном порту 9229.
+11. **Локализация новых настроек и инлайн-пунктуация (Plan Review Policy & Updates)**:
+    - Переведена новая настройка агента: `Plan Review Policy` («Политика проверки планов») и интерактивная подсказка `Type / and select plan to have the agent generate a plan.` («Введите / и выберите plan, чтобы агент составил план.»).
+    - Переведены опции стиля интерфейса: `Choose how technical the interface should be.` («Выберите желаемый уровень технической сложности интерфейса.») и `Simplified` («Упрощённый»).
+    - Переведены уведомления о перемещении настроек рабочего пространства: `Workspace Settings` («Настройки рабочей области»), `Workspace settings have moved` («Настройки рабочей области перемещены»), а также шаблон отправки отзывов `Send feedback as (.+)`.
+    - Доработан движок `translation_engine.js`: внедрена интеллектуальная обработка предшествующих пробелов перед знаками пунктуации (`^[.,;:!?]`) после инлайн-тегов (`<code>`, `<span>`), что исключает лишние пробелы перед запятыми в композитных предложениях (`plan, чтобы...`).
 
 ---
 
@@ -102,6 +107,7 @@
   4. Исправлена передача цвета из пипетки и палитры: точное совпадение оттенков.
   5. Экранные оверлеи удалены, настройки компактно разворачиваются внутри виджета с аккуратными тенями.
   6. Настройки надежно сохраняются в `%APPDATA%\AntigravityCompanion\config.json`.
+  7. Добавлен перевод новой секции «Политика проверки планов» (Plan Review Policy) и сопутствующих элементов управления Antigravity.
 
 ---
 

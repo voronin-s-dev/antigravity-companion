@@ -112,7 +112,7 @@
     // 1. Exact match
     if (dict.exact && dict.exact[trimmed]) {
       const match = dict.exact[trimmed];
-      const leading = rawText.match(/^\s*/)[0];
+      const leading = /^[.,;:!?]/.test(match) ? '' : rawText.match(/^\s*/)[0];
       const trailing = rawText.match(/\s*$/)[0];
       return leading + match + trailing;
     }
@@ -126,7 +126,7 @@
           if (replacement === undefined) continue;
           let replaced = trimmed.replace(p._compiled, replacement);
           replaced = formatTimeTokens(replaced);
-          const leading = rawText.match(/^\s*/)[0];
+          const leading = /^[.,;:!?]/.test(replaced) ? '' : rawText.match(/^\s*/)[0];
           const trailing = rawText.match(/\s*$/)[0];
           return leading + replaced + trailing;
         }
@@ -157,6 +157,13 @@
       if (tr && tr !== node.nodeValue) {
         try {
           isInternalMutating = true;
+          if (/^[.,;:!?]/.test(tr)) {
+            const prev = node.previousSibling;
+            if (prev && prev.nodeType === Node.TEXT_NODE && /^\s+$/.test(prev.nodeValue)) {
+              if (prev.__agy_orig === undefined) prev.__agy_orig = prev.nodeValue;
+              prev.nodeValue = '';
+            }
+          }
           node.nodeValue = tr;
           node.__agy_last_translated = tr;
         } finally {
@@ -167,6 +174,10 @@
       if (node.__agy_orig !== undefined && node.nodeValue !== node.__agy_orig) {
         try {
           isInternalMutating = true;
+          const prev = node.previousSibling;
+          if (prev && prev.nodeType === Node.TEXT_NODE && prev.__agy_orig !== undefined) {
+            prev.nodeValue = prev.__agy_orig;
+          }
           node.nodeValue = node.__agy_orig;
           node.__agy_last_translated = node.__agy_orig;
         } finally {
