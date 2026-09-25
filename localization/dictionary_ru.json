@@ -859,7 +859,13 @@
     "Simplified": "Упрощённый",
     "Workspace Settings": "Настройки рабочей области",
     "Workspace settings have moved": "Настройки рабочей области перемещены",
-    "Workspace settings have moved to the Advanced section of General settings.": "Настройки рабочей области перемещены в раздел «Расширенные» основных настроек."
+    "Workspace settings have moved to the Advanced section of General settings.": "Настройки рабочей области перемещены в раздел «Расширенные» основных настроек.",
+    "Show All": "Показать все",
+    "Show all": "Показать все",
+    "Show Less": "Показать меньше",
+    "Show less": "Показать меньше",
+    "Show More": "Показать больше",
+    "Show more": "Показать больше"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",

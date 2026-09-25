@@ -7,7 +7,7 @@
 ## 1. Метаданные репозитория
 - **Версия**: `v1.1.0` (релиз опубликован на GitHub)
 - **Ветка**: `main`
-- **Последний коммит**: `95a6932` (feat(localization): add translations for Plan Review Policy and related settings, improve inline punctuation handling)
+- **Последний коммит**: `f37eea1` (feat(localization): add translations for Show All, Show Less and Show More)
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **Релизы**: [v1.1.0 с прикрепленным ZIP-архивом](https://github.com/voronin-s-dev/antigravity-companion/releases/tag/v1.1.0)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
@@ -96,6 +96,7 @@
     - Переведены опции стиля интерфейса: `Choose how technical the interface should be.` («Выберите желаемый уровень технической сложности интерфейса.») и `Simplified` («Упрощённый»).
     - Переведены уведомления о перемещении настроек рабочего пространства: `Workspace Settings` («Настройки рабочей области»), `Workspace settings have moved` («Настройки рабочей области перемещены»), а также шаблон отправки отзывов `Send feedback as (.+)`.
     - Доработан движок `translation_engine.js`: внедрена интеллектуальная обработка предшествующих пробелов перед знаками пунктуации (`^[.,;:!?]`) после инлайн-тегов (`<code>`, `<span>`), что исключает лишние пробелы перед запятыми в композитных предложениях (`plan, чтобы...`).
+    - Переведены кнопки раскрытия списков проектов и диалогов: `Show All` / `Show all` («Показать все»), `Show Less` / `Show less` («Показать меньше»), `Show More` / `Show more` («Показать больше»).
 
 ---
 
@@ -108,6 +109,7 @@
   5. Экранные оверлеи удалены, настройки компактно разворачиваются внутри виджета с аккуратными тенями.
   6. Настройки надежно сохраняются в `%APPDATA%\AntigravityCompanion\config.json`.
   7. Добавлен перевод новой секции «Политика проверки планов» (Plan Review Policy) и сопутствующих элементов управления Antigravity.
+  8. Добавлен перевод кнопок раскрытия проектов «Show All» / «Show Less» («Показать все» / «Показать меньше»).
 
 ---
 
