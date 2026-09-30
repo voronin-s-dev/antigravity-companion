@@ -1,4 +1,4 @@
-﻿[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $Host.UI.RawUI.WindowTitle = "Удаление Antigravity Companion"
 
 Write-Host "=====================================================================" -ForegroundColor Cyan
@@ -8,7 +8,12 @@ Write-Host ""
 
 # 1. Остановка процессов
 Write-Host "[*] Остановка фоновой службы..." -ForegroundColor Cyan
-$procs = Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -like '*antigravity_companion.js*' }
+$procs = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { 
+    ($_.Name -like "*node*") -and (
+        $_.CommandLine -like '*antigravity_companion*' -or 
+        $_.CommandLine -like '*limits_daemon*'
+    )
+}
 if ($procs) {
     $procs | ForEach-Object {
         Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue

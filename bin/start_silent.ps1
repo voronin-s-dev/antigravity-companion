@@ -1,13 +1,37 @@
-﻿$baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $baseDir) { $baseDir = Get-Location }
 $companionPath = Join-Path $baseDir "antigravity_companion.js"
 
-# 1. Check if process is already running
-$running = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.Name -like "*node*" -and $_.CommandLine -like "*antigravity_companion.js*" }
-if ($running) {
-    $pids = ($running | ForEach-Object { $_.ProcessId }) -join ', '
-    Write-Host "[i] Antigravity Companion is already running in background (PID: $pids)." -ForegroundColor Yellow
-    exit 0
+# 1. Clean up any obsolete/rogue processes (e.g., old limits_daemon or processes from other folders)
+$allRelated = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { 
+    ($_.Name -like "*node*") -and (
+        $_.CommandLine -like "*antigravity_companion*" -or 
+        $_.CommandLine -like "*limits_daemon*"
+    )
+}
+
+if ($allRelated) {
+    # If any process is running the old limits_daemon or is outside our current baseDir, terminate it immediately
+    $legacy = $allRelated | Where-Object { 
+        $_.CommandLine -like "*limits_daemon*" -or 
+        ($_.CommandLine -notlike "*$companionPath*")
+    }
+    if ($legacy) {
+        $legacy | ForEach-Object {
+            Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue
+            Write-Host "[!] Завершен устаревший процесс Companion (PID: $($_.ProcessId))." -ForegroundColor Yellow
+        }
+    }
+
+    # Now re-check if current version is already running
+    $currentRunning = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { 
+        ($_.Name -like "*node*") -and ($_.CommandLine -like "*$companionPath*")
+    }
+    if ($currentRunning) {
+        $pids = ($currentRunning | ForEach-Object { $_.ProcessId }) -join ', '
+        Write-Host "[i] Antigravity Companion is already running in background (PID: $pids)." -ForegroundColor Yellow
+        exit 0
+    }
 }
 
 # 2. Locate node.exe

@@ -1,6 +1,6 @@
 # Antigravity Companion: Русский интерфейс + Виджет лимитов
 
-[![Version](https://img.shields.io/badge/version-v1.1.0-blue.svg)](https://github.com/voronin-s-dev/antigravity-companion)
+[![Version](https://img.shields.io/badge/version-v1.2.0-blue.svg)](https://github.com/voronin-s-dev/antigravity-companion)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-success.svg)](#)
 
@@ -100,6 +100,8 @@
 
 ## 🛠️ Управление и диагностика
 
+* **`companion.bat`** — интерактивный **Центр управления** (статус, рестарт, автозапуск Windows, проверка обновлений).
+* **`launch_antigravity.bat`** — одновременный запуск Antigravity и службы Companion в один клик.
 * **`bin\status.bat`** — проверка статуса (запущен ли Antigravity, порт CDP, активность фоновой службы, статус автозагрузки).
 * **`bin\stop.bat`** — временная остановка службы.
 * **`uninstall.bat`** — полное удаление службы из автозапуска Windows.

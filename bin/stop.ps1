@@ -1,6 +1,11 @@
-﻿[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-$procs = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like '*antigravity_companion.js*' }
+$procs = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { 
+    ($_.Name -like "*node*") -and (
+        $_.CommandLine -like '*antigravity_companion*' -or 
+        $_.CommandLine -like '*limits_daemon*'
+    )
+}
 if ($procs) {
     $procs | ForEach-Object {
         Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue

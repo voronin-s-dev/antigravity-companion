@@ -1,11 +1,16 @@
-﻿[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $Host.UI.RawUI.WindowTitle = "Antigravity Companion — Центр управления"
 
 $baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $rootDir = Split-Path -Parent $baseDir
 
 function Get-CompanionStatus {
-    $procs = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like '*antigravity_companion.js*' }
+    $procs = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { 
+        ($_.Name -like "*node*") -and (
+            $_.CommandLine -like '*antigravity_companion*' -or 
+            $_.CommandLine -like '*limits_daemon*'
+        )
+    }
     return $procs
 }
 
