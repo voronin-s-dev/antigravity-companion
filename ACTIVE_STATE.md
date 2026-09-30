@@ -7,7 +7,7 @@
 ## 1. Метаданные репозитория
 - **Версия**: `v1.2.0`
 - **Ветка**: `main`
-- **Последний коммит**: `ae749ad` (fix(lifecycle): eliminate legacy companion conflicts, enhance process isolation, release v1.2.0)
+- **Последний коммит**: `a18d490` (Release v1.2.0: Process isolation, Plan Review Policy, Show All/Less localization, and Control Center)
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **Релизы**: [v1.1.0 с прикрепленным ZIP-архивом](https://github.com/voronin-s-dev/antigravity-companion/releases/tag/v1.1.0)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
