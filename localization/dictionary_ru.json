@@ -13,7 +13,7 @@
     "Conversations": "Диалоги",
     "Settings": "Настройки",
     "Install IDE": "Установить IDE",
-    "Load older messages": "Загрузить более ранние сообщения",
+    "Load older messages": "Загрузить более старые сообщения",
     "Conversation Log": "Журнал диалога",
     "Review": "Просмотр",
     "Edited": "Изменено",
@@ -872,7 +872,12 @@
     "Manage License": "Управление лицензией",
     "Create with Prompt": "Создать по промпту",
     "Unused": "Не используется",
-    "Active Context Start": "Начало активного контекста"
+    "Active Context Start": "Начало активного контекста",
+    "Limited time": "Ограниченное время",
+    "Limited Time": "Ограниченное время",
+    "Limited time only": "Только ограниченное время",
+    "Limited Time Only": "Только ограниченное время",
+    "Gemini 3.8 Flash": "Gemini 3.8 Flash"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1094,6 +1099,14 @@
     {
       "regex": "^Send feedback as (.+)$",
       "replace": "Отправить отзыв от имени $1"
+    },
+    {
+      "regex": "^Load older messages, showing (.+) of (.+)$",
+      "replace": "Загрузить более старые сообщения, показано $1 из $2"
+    },
+    {
+      "regex": "^Thought for (.+)s$",
+      "replace": "Размышление ($1 с)"
     }
   ]
 }
