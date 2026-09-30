@@ -7,7 +7,7 @@
 ## 1. Метаданные репозитория
 - **Версия**: `v1.2.0`
 - **Ветка**: `main`
-- **Последний коммит**: `a18d490` (Release v1.2.0: Process isolation, Plan Review Policy, Show All/Less localization, and Control Center)
+- **Последний коммит**: `f6422d5` (feat(localization): add translations for Select Project and related header tooltips)
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **Релизы**: [v1.1.0 с прикрепленным ZIP-архивом](https://github.com/voronin-s-dev/antigravity-companion/releases/tag/v1.1.0)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
@@ -116,6 +116,7 @@
   7. Добавлен перевод новой секции «Политика проверки планов» (Plan Review Policy) и сопутствующих элементов управления Antigravity.
   8. Добавлен перевод кнопок раскрытия проектов «Show All» / «Show Less» («Показать все» / «Показать меньше»).
   9. Полностью ликвидирован конфликт со старой версией компаньона, внедрена взаимная изоляция процессов и собран автономный дистрибутив v1.2.0.
+  10. Переведен тултип селектора проектов «Select Project» («Выбрать проект») и сопутствующие тултипы панели (`Select Workspace`, `Display Options`, `Manage License`). Всего в словаре: **872 термина**.
 
 ---
 

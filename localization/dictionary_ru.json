@@ -865,7 +865,14 @@
     "Show Less": "Показать меньше",
     "Show less": "Показать меньше",
     "Show More": "Показать больше",
-    "Show more": "Показать больше"
+    "Show more": "Показать больше",
+    "Select Project": "Выбрать проект",
+    "Select Workspace": "Выбрать рабочую область",
+    "Display Options": "Параметры отображения",
+    "Manage License": "Управление лицензией",
+    "Create with Prompt": "Создать по промпту",
+    "Unused": "Не используется",
+    "Active Context Start": "Начало активного контекста"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
