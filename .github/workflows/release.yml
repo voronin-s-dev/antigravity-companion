@@ -37,6 +37,7 @@ jobs:
           VERSION=${GITHUB_REF#refs/tags/}
           zip -r "antigravity-companion-${VERSION}.zip" \
             bin limits_widget localization skills \
+            companion.bat launch_antigravity.bat start.bat \
             install.bat install.ps1 uninstall.bat uninstall.ps1 \
             update_dictionary.bat update_dictionary.ps1 \
             README.md LICENSE .gitignore package.json
