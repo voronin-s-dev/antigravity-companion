@@ -877,7 +877,12 @@
     "Limited Time": "Ограниченное время",
     "Limited time only": "Только ограниченное время",
     "Limited Time Only": "Только ограниченное время",
-    "Gemini 3.8 Flash": "Gemini 3.8 Flash"
+    "Gemini 3.8 Flash": "Gemini 3.8 Flash",
+    "See less": "Показать меньше",
+    "See Less": "Показать меньше",
+    "See more": "Показать больше",
+    "See More": "Показать больше",
+    "See All": "Показать все"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
