@@ -78,6 +78,9 @@ async function injectWidget() {
           intervalTitle: 'ПЕРИОД АВТООБНОВЛЕНИЯ',
           colorTitle: 'ОТТЕНОК И ЦВЕТ',
           langTitle: 'ЯЗЫК / LANGUAGE',
+          placementTitle: 'РЕЖИМ ОТОБРАЖЕНИЯ',
+          placementSidebar: 'В боковой панели',
+          placementFloating: 'Плавающий виджет',
           pillItemsTitle: 'ЭЛЕМЕНТЫ В МИНИАТЮРЕ',
           gemini5h: 'Gemini (5ч)',
           geminiWeekly: 'Gemini (нед)',
@@ -150,6 +153,9 @@ async function injectWidget() {
           intervalTitle: 'REFRESH INTERVAL',
           colorTitle: 'TINT & COLOR',
           langTitle: 'LANGUAGE',
+          placementTitle: 'DISPLAY MODE',
+          placementSidebar: 'In Sidebar (docked)',
+          placementFloating: 'Floating Widget',
           pillItemsTitle: 'MINIATURE ITEMS',
           gemini5h: 'Gemini (5h)',
           geminiWeekly: 'Gemini (wk)',
@@ -443,6 +449,7 @@ async function injectWidget() {
         };
       }
 
+      let currentPlacement = (diskConfig && diskConfig.placement) || localStorage.getItem('agy_limits_placement') || 'sidebar';
       let currentTint = (diskConfig && diskConfig.tint) || localStorage.getItem('agy_limits_tint') || 'native';
       let currentScale = (diskConfig && diskConfig.scale) || localStorage.getItem('agy_limits_scale') || 'normal';
       let currentIntervalMs = (diskConfig && diskConfig.intervalMs) || parseInt(localStorage.getItem('agy_limits_interval') || '300000', 10);
@@ -466,6 +473,7 @@ async function injectWidget() {
 
       async function saveAllSettingsToDisk(cfg) {
         try {
+          localStorage.setItem('agy_limits_placement', currentPlacement);
           localStorage.setItem('agy_limits_tint', currentTint);
           localStorage.setItem('agy_limits_pill_items', JSON.stringify(pillItems));
           localStorage.setItem('agy_limits_scale', currentScale);
@@ -483,6 +491,7 @@ async function injectWidget() {
         } catch (e) {}
 
         const payload = {
+          placement: currentPlacement,
           tint: currentTint,
           pillItems,
           scale: currentScale,
@@ -642,6 +651,10 @@ async function injectWidget() {
         playResetSound(type);
       }
 
+      // Official Brand SVGs
+      const GEMINI_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="display: inline-block; vertical-align: middle; flex-shrink: 0;" title="Google Gemini"><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81" fill="#9d7fe6"/></svg>';
+      const CLAUDE_ICON_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#D97757" style="display: inline-block; vertical-align: middle; flex-shrink: 0;" title="Claude (Anthropic)"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>';
+
       // Miniature Pill items preferences
       const DEFAULT_PILL_ITEMS = ['gemini_5h', 'gemini_weekly', 'claude_5h', 'claude_weekly'];
       let pillItems;
@@ -780,6 +793,19 @@ async function injectWidget() {
             </div>
           </div>
 
+          <!-- Section: Placement -->
+          <div>
+            <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 5px;">\${t('placementTitle')}</div>
+            <div style="display: flex; gap: 4px;">
+              <button class="agy-settings-placement-btn" data-placement="sidebar" style="flex: 1; padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: center; background: \${(d.placement || 'sidebar') === 'sidebar' ? 'rgba(37,99,235,0.18)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${(d.placement || 'sidebar') === 'sidebar' ? '#2563eb' : 'rgba(255,255,255,0.06)'}; color: \${(d.placement || 'sidebar') === 'sidebar' ? '#93c5fd' : '#a1a1aa'}; transition: all 0.12s;">
+                \${t('placementSidebar')}
+              </button>
+              <button class="agy-settings-placement-btn" data-placement="floating" style="flex: 1; padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: center; background: \${d.placement === 'floating' ? 'rgba(37,99,235,0.18)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${d.placement === 'floating' ? '#2563eb' : 'rgba(255,255,255,0.06)'}; color: \${d.placement === 'floating' ? '#93c5fd' : '#a1a1aa'}; transition: all 0.12s;">
+                \${t('placementFloating')}
+              </button>
+            </div>
+          </div>
+
           <!-- Section 2: Pill Items Selection -->
           <div>
             <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 5px;">\${t('pillItemsTitle')}</div>
@@ -797,26 +823,14 @@ async function injectWidget() {
             </div>
           </div>
 
-          <!-- Section 3: Scale & Interval -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-            <div>
-              <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px;">\${t('scaleTitle')}</div>
-              <div style="display: flex; gap: 2px;">
-                \${['compact', 'normal', 'large'].map(sc => {
-                  const isSel = d.scale === sc;
-                  const labels = { compact: t('scaleCompact'), normal: t('scaleNormal'), large: t('scaleLarge') };
-                  return \`<button class="agy-settings-scale-btn" data-scale="\${sc}" style="flex: 1; padding: 3px 1px; border-radius: 4px; font-size: 9.5px; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#85858b'}; font-weight: \${isSel ? '600' : '400'};">\${labels[sc]}</button>\`;
-                }).join('')}
-              </div>
-            </div>
-            <div>
-              <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px;">\${t('intervalTitle')}</div>
-              <div style="display: flex; gap: 2px;">
-                \${[{ ms: 60000, l: t('m1') }, { ms: 300000, l: t('m5') }, { ms: 900000, l: t('m15') }, { ms: 0, l: t('off') }].map(item => {
-                  const isSel = d.intervalMs === item.ms;
-                  return \`<button class="agy-settings-int-btn" data-ms="\${item.ms}" style="flex: 1; padding: 3px 1px; border-radius: 4px; font-size: 9.5px; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#85858b'}; font-weight: \${isSel ? '600' : '400'};">\${item.l}</button>\`;
-                }).join('')}
-              </div>
+          <!-- Section 3: Refresh Interval -->
+          <div>
+            <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 5px;">\${t('intervalTitle')}</div>
+            <div style="display: flex; gap: 3px;">
+              \${[{ ms: 60000, l: t('m1') }, { ms: 300000, l: t('m5') }, { ms: 900000, l: t('m15') }, { ms: 0, l: t('off') }].map(item => {
+                const isSel = d.intervalMs === item.ms;
+                return \`<button class="agy-settings-int-btn" data-ms="\${item.ms}" style="flex: 1; padding: 4px 2px; border-radius: 4px; font-size: 9.5px; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#85858b'}; font-weight: \${isSel ? '600' : '400'};">\${item.l}</button>\`;
+              }).join('')}
             </div>
           </div>
 
@@ -889,7 +903,7 @@ async function injectWidget() {
           <div style="padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 4px;">
             <div style="display: flex; align-items: center; justify-content: space-between;">
               <span style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${currentLang === 'ru' ? 'Управление и обновления' : 'Controls & Updates'}</span>
-              <span style="font-size: 9px; color: #22c55e;">● v1.2.0</span>
+              <span style="font-size: 9px; color: #22c55e;">● v1.3.0</span>
             </div>
             <div style="display: flex; gap: 4px;">
               <button id="agy-settings-reload-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 3px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; transition: all 0.12s;">
@@ -925,6 +939,7 @@ async function injectWidget() {
         const saveBtn = settingsPanel.querySelector('#agy-settings-save-btn');
         if (saveBtn) {
           saveBtn.addEventListener('click', async () => {
+            currentPlacement = d.placement || currentPlacement;
             currentTint = d.tint;
             pillItems = [...d.pillItems];
             currentScale = d.scale;
@@ -943,6 +958,8 @@ async function injectWidget() {
             applyThemeColor(currentTint);
             setupInterval(currentIntervalMs);
             updateLimits();
+            applyCollapseState();
+            renderSidebarButtonContent();
 
             saveBtn.style.background = '#16a34a';
             saveBtn.querySelector('#agy-settings-save-icon').textContent = '✓';
@@ -955,6 +972,14 @@ async function injectWidget() {
             }, 350);
           });
         }
+
+        // Placement mode buttons
+        settingsPanel.querySelectorAll('.agy-settings-placement-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            d.placement = btn.dataset.placement;
+            renderSettingsContent();
+          });
+        });
 
         // Theme presets
         settingsPanel.querySelectorAll('.agy-theme-preset-btn').forEach(btn => {
@@ -1013,23 +1038,7 @@ async function injectWidget() {
           });
         });
 
-        // Scale
-        settingsPanel.querySelectorAll('.agy-settings-scale-btn').forEach(btn => {
-          btn.addEventListener('click', () => {
-            d.scale = btn.dataset.scale;
-            renderSettingsContent();
-            if (d.scale === 'compact') {
-              container.style.width = '250px';
-              container.style.padding = '8px 10px';
-            } else if (d.scale === 'large') {
-              container.style.width = '330px';
-              container.style.padding = '12px 14px';
-            } else {
-              container.style.width = '285px';
-              container.style.padding = '10px 12px';
-            }
-          });
-        });
+
 
         // Interval
         settingsPanel.querySelectorAll('.agy-settings-int-btn').forEach(btn => {
@@ -1254,6 +1263,7 @@ async function injectWidget() {
         isSettingsOpen = true;
 
         draftSettings = {
+          placement: currentPlacement,
           tint: currentTint,
           pillItems: [...pillItems],
           scale: currentScale,
@@ -1539,6 +1549,8 @@ async function injectWidget() {
 
       // Visibility and Sidebar Integration
       let isVisible = localStorage.getItem('agy_limits_visible') !== 'false';
+      let lastGeminiPillItems = [];
+      let lastClaudePillItems = [];
 
       function toggleLimitsWidget(forceState) {
         isVisible = forceState !== undefined ? forceState : !isVisible;
@@ -1567,7 +1579,123 @@ async function injectWidget() {
         updateSidebarButtonState(isVisible);
       }
 
+      function renderSidebarButtonContent() {
+        const btn = document.getElementById('agy-sidebar-limits-btn');
+        if (!btn) return;
+
+        if (currentPlacement === 'floating') {
+          btn.style.height = '';
+          btn.style.minHeight = '';
+          btn.style.padding = '';
+          btn.title = currentLang === 'ru' ? 'Лимиты моделей (Alt+L)' : 'Model Limits (Alt+L)';
+          const label = currentLang === 'ru' ? 'Лимиты моделей' : 'Model Limits';
+          const iconColor = isVisible ? '#22c55e' : '#71717a';
+          const dotColor = isVisible ? '#22c55e' : '#52525b';
+          btn.innerHTML = '<span class="shrink-0 flex items-center agy-sidebar-icon" style="color: ' + iconColor + '; transition: color 0.15s ease;">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+              '<path d="m12 14 4-4"/>' +
+              '<path d="M3.34 19a10 10 0 1 1 17.32 0"/>' +
+            '</svg>' +
+          '</span>' +
+          '<span class="truncate text-sm agy-sidebar-text" style="flex: 1; text-align: left;">' + label + '</span>' +
+          '<span class="agy-sidebar-dot" style="width: 5px; height: 5px; border-radius: 50%; background: ' + dotColor + '; margin-right: 2px; transition: all 0.2s ease;"></span>' +
+          '<span style="font-size: 10px; color: #71717a; padding: 1px 4px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); line-height: 1;">Alt+L</span>';
+          return;
+        }
+
+        // Docked Sidebar Placement Mode
+        btn.title = currentLang === 'ru' ? 'Лимиты моделей (нажмите для подробностей)' : 'Model Limits (click for details)';
+
+        const hasGemini = lastGeminiPillItems && lastGeminiPillItems.length > 0;
+        const hasClaude = lastClaudePillItems && lastClaudePillItems.length > 0;
+        const isTwoLines = hasGemini && hasClaude;
+
+        if (isTwoLines) {
+          btn.style.height = 'auto';
+          btn.style.minHeight = '42px';
+          btn.style.padding = '4px 8px';
+
+          btn.innerHTML = '<div style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 0; gap: 6px;">' +
+            '<div style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0;">' +
+              '<div style="display: flex; align-items: center; gap: 6px; min-width: 0;">' +
+                '<span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">' + GEMINI_ICON_SVG + '</span>' +
+                '<div style="display: flex; align-items: center; gap: 3px; flex: 1; min-width: 0;">' +
+                  lastGeminiPillItems.join('') +
+                '</div>' +
+              '</div>' +
+              '<div style="display: flex; align-items: center; gap: 6px; min-width: 0;">' +
+                '<span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">' + CLAUDE_ICON_SVG + '</span>' +
+                '<div style="display: flex; align-items: center; gap: 3px; flex: 1; min-width: 0;">' +
+                  lastClaudePillItems.join('') +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div style="display: flex; align-items: center; justify-content: center; flex-shrink: 0;">' +
+              '<span class="agy-sidebar-gear-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.55; font-size: 11px; padding: 3px 4px; border-radius: 4px; display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>' +
+            '</div>' +
+          '</div>';
+        } else {
+          btn.style.height = '';
+          btn.style.minHeight = '';
+          btn.style.padding = '';
+
+          let singleHtml = '';
+          if (hasGemini) {
+            singleHtml = '<div style="display: inline-flex; align-items: center; gap: 6px; flex: 1; min-width: 0;">' +
+              '<span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">' + GEMINI_ICON_SVG + '</span>' +
+              '<div style="display: inline-flex; align-items: center; gap: 3px;">' +
+                lastGeminiPillItems.join('') +
+              '</div>' +
+            '</div>';
+          } else if (hasClaude) {
+            singleHtml = '<div style="display: inline-flex; align-items: center; gap: 6px; flex: 1; min-width: 0;">' +
+              '<span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">' + CLAUDE_ICON_SVG + '</span>' +
+              '<div style="display: inline-flex; align-items: center; gap: 3px;">' +
+                lastClaudePillItems.join('') +
+              '</div>' +
+            '</div>';
+          } else {
+            singleHtml = '<span style="font-size: 11px; color: #71717a;">' + t('title') + '</span>';
+          }
+
+          btn.innerHTML = '<div style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 0; gap: 6px;">' +
+            '<div class="agy-sidebar-metrics-area" style="display: flex; align-items: center; min-width: 0; overflow: hidden; flex: 1;">' +
+              singleHtml +
+            '</div>' +
+            '<div style="display: flex; align-items: center; flex-shrink: 0;">' +
+              '<span class="agy-sidebar-gear-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.55; font-size: 11px; padding: 2px 4px; border-radius: 4px; display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>' +
+            '</div>' +
+          '</div>';
+        }
+
+        const gear = btn.querySelector('.agy-sidebar-gear-btn');
+        if (gear) {
+          gear.addEventListener('mouseenter', () => { gear.style.opacity = '1'; gear.style.background = 'rgba(255,255,255,0.12)'; });
+          gear.addEventListener('mouseleave', () => { gear.style.opacity = '0.55'; gear.style.background = 'transparent'; });
+          gear.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            openSettings();
+          });
+        }
+
+        btn.querySelectorAll('.agy-pill-badge').forEach(badge => {
+          badge.addEventListener('mouseenter', (e) => {
+            e.stopPropagation();
+            showBadgeTooltip(badge);
+          });
+          badge.addEventListener('mouseleave', (e) => {
+            e.stopPropagation();
+            hideBadgeTooltip();
+          });
+        });
+      }
+
       function updateSidebarButtonState(visible) {
+        if (currentPlacement === 'sidebar') {
+          renderSidebarButtonContent();
+          return;
+        }
         const btn = document.getElementById('agy-sidebar-limits-btn');
         if (!btn) return;
         const iconSpan = btn.querySelector('.agy-sidebar-icon');
@@ -1604,31 +1732,31 @@ async function injectWidget() {
         btn = document.createElement('button');
         btn.id = 'agy-sidebar-limits-btn';
         btn.className = settingsBtn.className;
-        btn.title = currentLang === 'ru' ? 'Лимиты моделей (Alt+L)' : 'Model Limits (Alt+L)';
         btn.style.position = 'relative';
-
-        const label = currentLang === 'ru' ? 'Лимиты моделей' : 'Model Limits';
-        const iconColor = isVisible ? '#22c55e' : '#71717a';
-        const dotColor = isVisible ? '#22c55e' : '#52525b';
-
-        btn.innerHTML = '<span class="shrink-0 flex items-center agy-sidebar-icon" style="color: ' + iconColor + '; transition: color 0.15s ease;">' +
-          '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
-            '<path d="m12 14 4-4"/>' +
-            '<path d="M3.34 19a10 10 0 1 1 17.32 0"/>' +
-          '</svg>' +
-        '</span>' +
-        '<span class="truncate text-sm agy-sidebar-text" style="flex: 1; text-align: left;">' + label + '</span>' +
-        '<span class="agy-sidebar-dot" style="width: 5px; height: 5px; border-radius: 50%; background: ' + dotColor + '; margin-right: 2px; transition: all 0.2s ease;"></span>' +
-        '<span style="font-size: 10px; color: #71717a; padding: 1px 4px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07); line-height: 1;">Alt+L</span>';
 
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          toggleLimitsWidget();
+          if (currentPlacement === 'sidebar') {
+            if (isSettingsOpen) {
+              closeSettings(true);
+              return;
+            }
+            if (container.style.display !== 'none' && !isCollapsed) {
+              container.style.display = 'none';
+              isCollapsed = true;
+            } else {
+              isCollapsed = false;
+              applyCollapseState();
+              updateLimits();
+            }
+          } else {
+            toggleLimitsWidget();
+          }
         });
 
         settingsBtn.parentElement.insertBefore(btn, settingsBtn);
-        updateSidebarButtonState(isVisible);
+        renderSidebarButtonContent();
       }
 
       const sidebarInterval = setInterval(ensureSidebarButton, 2000);
@@ -1643,11 +1771,41 @@ async function injectWidget() {
         if (e.altKey && !e.ctrlKey && !e.metaKey && (e.code === 'KeyL' || e.key === 'l' || e.key === 'L' || e.key === 'д' || e.key === 'Д')) {
           e.preventDefault();
           e.stopPropagation();
-          toggleLimitsWidget();
+          if (currentPlacement === 'sidebar') {
+            if (container.style.display !== 'none' && !isCollapsed) {
+              if (isSettingsOpen) closeSettings(true);
+              isCollapsed = true;
+              container.style.display = 'none';
+            } else {
+              isCollapsed = false;
+              applyCollapseState();
+              updateLimits();
+            }
+          } else {
+            toggleLimitsWidget();
+          }
         }
       }
       window.addEventListener('keydown', handleKeyDown, true);
       document.addEventListener('keydown', handleKeyDown, true);
+
+      function handleOutsideClick(e) {
+        if (currentPlacement === 'sidebar' && container.style.display !== 'none') {
+          const sbBtn = document.getElementById('agy-sidebar-limits-btn');
+          if (container.contains(e.target) || (sbBtn && sbBtn.contains(e.target))) {
+            return;
+          }
+          const rm = document.getElementById('agy-report-modal');
+          if (rm && rm.contains(e.target)) return;
+
+          if (isSettingsOpen) {
+            closeSettings(true);
+          }
+          isCollapsed = true;
+          container.style.display = 'none';
+        }
+      }
+      document.addEventListener('mousedown', handleOutsideClick);
 
       applySavedPosition();
       clampToViewport();
@@ -1802,7 +1960,7 @@ async function injectWidget() {
           reportPastedImage ? '*(Вставьте скриншот из буфера обмена через Ctrl+V ниже / Paste screenshot below)*' : '*(Скриншот не прикреплен / No screenshot attached)*',
           '',
           '### ' + (currentLang === 'ru' ? 'Окружение' : 'Environment'),
-          '- Antigravity Companion: v1.1.0',
+          '- Antigravity Companion: v1.3.0',
           '- ' + (currentLang === 'ru' ? 'Язык' : 'Language') + ': ' + currentLang.toUpperCase(),
           '- ' + (currentLang === 'ru' ? 'Разрешение экрана' : 'Screen resolution') + ': ' + window.innerWidth + 'x' + window.innerHeight,
           '- ' + (currentLang === 'ru' ? 'Время' : 'Date') + ': ' + new Date().toLocaleString()
@@ -1863,29 +2021,59 @@ async function injectWidget() {
 
       function applyCollapseState() {
         hideBadgeTooltip();
+
+        if (currentPlacement === 'sidebar') {
+          pillSummary.style.display = 'none';
+
+          if (isSettingsOpen) {
+            header.style.display = 'flex';
+            content.style.display = 'none';
+            settingsPanel.style.display = 'flex';
+            container.style.position = 'fixed';
+            container.style.left = '12px';
+            container.style.bottom = '52px';
+            container.style.top = 'auto';
+            container.style.right = 'auto';
+            container.style.zIndex = '10000001';
+            container.style.width = '285px';
+            container.style.padding = '10px 12px';
+            container.style.display = 'block';
+            container.style.cursor = 'default';
+          } else if (!isCollapsed && isVisible) {
+            header.style.display = 'flex';
+            content.style.display = 'block';
+            settingsPanel.style.display = 'none';
+            container.style.position = 'fixed';
+            container.style.left = '12px';
+            container.style.bottom = '52px';
+            container.style.top = 'auto';
+            container.style.right = 'auto';
+            container.style.zIndex = '10000001';
+            container.style.width = '270px';
+            container.style.padding = '10px 12px';
+            container.style.display = 'block';
+            container.style.cursor = 'default';
+          } else {
+            container.style.display = 'none';
+          }
+          return;
+        }
+
         if (!isVisible) {
           container.style.display = 'none';
           return;
         }
+        applySavedPosition();
+
         if (isSettingsOpen) {
           header.style.display = 'flex';
           content.style.display = 'none';
           settingsPanel.style.display = 'flex';
           pillSummary.style.display = 'none';
 
-          if (currentScale === 'compact') {
-            container.style.width = '250px';
-            container.style.padding = '8px 10px';
-            container.style.fontSize = '11px';
-          } else if (currentScale === 'large') {
-            container.style.width = '330px';
-            container.style.padding = '12px 14px';
-            container.style.fontSize = '13px';
-          } else {
-            container.style.width = '285px';
-            container.style.padding = '10px 12px';
-            container.style.fontSize = '12px';
-          }
+          container.style.width = '265px';
+          container.style.padding = '8px 10px';
+          container.style.fontSize = '11px';
 
           container.style.cursor = 'default';
           container.style.display = 'block';
@@ -1896,19 +2084,9 @@ async function injectWidget() {
           pillSummary.style.display = 'flex';
           container.style.width = 'auto';
 
-          if (currentScale === 'compact') {
-            container.style.padding = '3px 7px';
-            container.style.fontSize = '10.5px';
-            pillSummary.style.gap = '4px';
-          } else if (currentScale === 'large') {
-            container.style.padding = '7px 12px';
-            container.style.fontSize = '13.5px';
-            pillSummary.style.gap = '8px';
-          } else {
-            container.style.padding = '5px 9px';
-            container.style.fontSize = '12px';
-            pillSummary.style.gap = '6px';
-          }
+          container.style.padding = '3px 7px';
+          container.style.fontSize = '10.5px';
+          pillSummary.style.gap = '4px';
 
           container.style.cursor = 'move';
           container.style.display = 'flex';
@@ -1918,19 +2096,9 @@ async function injectWidget() {
           settingsPanel.style.display = 'none';
           pillSummary.style.display = 'none';
 
-          if (currentScale === 'compact') {
-            container.style.width = '240px';
-            container.style.padding = '8px 10px';
-            container.style.fontSize = '11px';
-          } else if (currentScale === 'large') {
-            container.style.width = '320px';
-            container.style.padding = '12px 15px';
-            container.style.fontSize = '13.5px';
-          } else {
-            container.style.width = '270px';
-            container.style.padding = '10px 12px';
-            container.style.fontSize = '12px';
-          }
+          container.style.width = '240px';
+          container.style.padding = '8px 10px';
+          container.style.fontSize = '11px';
 
           container.style.cursor = 'default';
           container.style.display = 'block';
@@ -1956,7 +2124,12 @@ async function injectWidget() {
 
       closeBtn.addEventListener('click', () => {
         if (isSettingsOpen) closeSettings(true);
-        toggleLimitsWidget(false);
+        if (currentPlacement === 'sidebar') {
+          isCollapsed = true;
+          applyCollapseState();
+        } else {
+          toggleLimitsWidget(false);
+        }
       });
 
       function setupInterval(ms) {
@@ -2019,9 +2192,11 @@ async function injectWidget() {
               html += '<div style="height: 1px; background: rgba(255, 255, 255, 0.06); margin: 6px 0;"></div>';
             }
 
+            const grpIcon = isGemini ? GEMINI_ICON_SVG : CLAUDE_ICON_SVG;
             html += \`<div style="margin-bottom: 2px;">
-              <div style="padding: 2px 2px 4px 2px; font-size: 11px; font-weight: 500; color: #8a8784; letter-spacing: 0.1px;">
-                \${grpTitle}
+              <div style="padding: 2px 2px 4px 2px; font-size: 11px; font-weight: 500; color: #a1a1aa; letter-spacing: 0.1px; display: flex; align-items: center; gap: 5px;">
+                \${grpIcon}
+                <span>\${grpTitle}</span>
               </div>\`;
 
             for (const b of (grp.buckets || [])) {
@@ -2044,9 +2219,9 @@ async function injectWidget() {
                 const resetSec = b.resetTime?.seconds || '';
 
                 const badgeItem = \`
-                  <span class="agy-pill-badge" data-reset="\${resetSec}" data-title="\${fullMetricTitle}" style="display: inline-flex; align-items: baseline; gap: 2.5px; background: rgba(255, 255, 255, 0.06); padding: 1px 4px; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.08); cursor: pointer; transition: all 0.12s;">
+                  <span class="agy-pill-badge" data-reset="\${resetSec}" data-title="\${fullMetricTitle}" style="display: inline-flex; align-items: baseline; justify-content: center; gap: 2px; padding: 1px 4px; min-width: 44px; border-radius: 3px; cursor: pointer; background: rgba(255, 255, 255, 0.05); transition: background 0.12s;">
                     <b style="color: \${color}; font-weight: 600; font-size: 11px; pointer-events: none;">\${pct}%</b>
-                    <span style="font-size: 9px; color: #8a8784; font-weight: 500; pointer-events: none;">\${badgeLabel}</span>
+                    <span style="font-size: 8.5px; color: #8a8784; font-weight: 500; pointer-events: none;">\${badgeLabel}</span>
                   </span>
                 \`;
                 if (isGemini) geminiPillItems.push(badgeItem);
@@ -2090,22 +2265,39 @@ async function injectWidget() {
           }
 
           let pillHtml = '';
-          if (geminiPillItems.length > 0) {
+          if (geminiPillItems.length > 0 && claudePillItems.length > 0) {
             pillHtml += \`
-              <div style="display: inline-flex; align-items: center; gap: 3.5px;">
-                <span style="color: #a1a1aa; font-weight: 500; font-size: 11px;">Gemini:</span>
-                \${geminiPillItems.join('')}
+              <div style="display: flex; flex-direction: column; gap: 2.5px;">
+                <div style="display: flex; align-items: center; gap: 5px;">
+                  <span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">\${GEMINI_ICON_SVG}</span>
+                  <div style="display: flex; align-items: center; gap: 2.5px;">
+                    \${geminiPillItems.join('')}
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 5px;">
+                  <span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">\${CLAUDE_ICON_SVG}</span>
+                  <div style="display: flex; align-items: center; gap: 2.5px;">
+                    \${claudePillItems.join('')}
+                  </div>
+                </div>
               </div>
             \`;
-          }
-          if (geminiPillItems.length > 0 && claudePillItems.length > 0) {
-            pillHtml += '<div style="width: 1px; height: 13px; background: rgba(255, 255, 255, 0.12); margin: 0 4px;"></div>';
-          }
-          if (claudePillItems.length > 0) {
+          } else if (geminiPillItems.length > 0) {
             pillHtml += \`
-              <div style="display: inline-flex; align-items: center; gap: 3.5px;">
-                <span style="color: #a1a1aa; font-weight: 500; font-size: 11px;">Claude:</span>
-                \${claudePillItems.join('')}
+              <div style="display: inline-flex; align-items: center; gap: 5px;">
+                <span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">\${GEMINI_ICON_SVG}</span>
+                <div style="display: flex; align-items: center; gap: 2.5px;">
+                  \${geminiPillItems.join('')}
+                </div>
+              </div>
+            \`;
+          } else if (claudePillItems.length > 0) {
+            pillHtml += \`
+              <div style="display: inline-flex; align-items: center; gap: 5px;">
+                <span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">\${CLAUDE_ICON_SVG}</span>
+                <div style="display: inline-flex; align-items: center; gap: 2.5px;">
+                  \${claudePillItems.join('')}
+                </div>
               </div>
             \`;
           }
@@ -2118,6 +2310,10 @@ async function injectWidget() {
             <span class="agy-pill-gear-btn" title="\${t('settingsModalTitle') || 'Настройки'}" style="cursor: pointer; opacity: 0.65; font-size: 11px; margin-left: 6px; padding: 1px 4px; border-radius: 4px; background: rgba(255,255,255,0.06); display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>
             <span title="Развернуть" style="color: #8a8784; font-size: 9.5px; margin-left: 4px; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center;">▲</span>
           \`;
+
+          lastGeminiPillItems = geminiPillItems;
+          lastClaudePillItems = claudePillItems;
+          renderSidebarButtonContent();
 
           const pGear = pillSummary.querySelector('.agy-pill-gear-btn');
           if (pGear) {
@@ -2158,6 +2354,7 @@ async function injectWidget() {
         window.removeEventListener('resize', onViewportResize);
         window.removeEventListener('keydown', handleKeyDown, true);
         document.removeEventListener('keydown', handleKeyDown, true);
+        document.removeEventListener('mousedown', handleOutsideClick);
         if (window.visualViewport) {
           window.visualViewport.removeEventListener('resize', onViewportResize);
         }

@@ -8,9 +8,10 @@ const path = require('path');
 
 const DEFAULT_CONFIG = {
   limits: {
+    placement: 'sidebar', // 'sidebar' | 'floating'
     tint: 'native', // 'native' | 'graphite' | 'blue' | 'emerald' | 'purple' | 'amber' | hex (#rrggbb)
     pillItems: ['gemini_5h', 'gemini_weekly', 'claude_5h', 'claude_weekly'],
-    scale: 'normal', // 'compact' | 'normal' | 'large'
+    scale: 'compact', // mini / compact
     intervalMs: 300000,
     sound5h: true,
     soundWeekly: true,

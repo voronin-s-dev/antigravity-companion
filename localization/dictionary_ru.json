@@ -1,5 +1,5 @@
 {
-  "version": "1.2.0",
+  "version": "1.3.0",
   "exact": {
     "Antigravity": "Antigravity",
     "File": "Файл",
@@ -887,7 +887,10 @@
     "November 2, 2026": "2 ноября 2026 г.",
     "Sonnet 5.5 is now available on paid Pro and Ultra plans. Third-party model access will no longer be available on your current plan starting on November 2, 2026.": "Sonnet 5.5 теперь доступна на платных тарифах Pro и Ultra. Доступ к сторонним моделям на вашем текущем тарифе будет прекращён с 2 ноября 2026 г.",
     "Opus 5.5 is now available on paid Pro and Ultra plans. Third-party model access will no longer be available on your current plan starting on November 2, 2026.": "Opus 5.5 теперь доступна на платных тарифах Pro и Ultra. Доступ к сторонним моделям на вашем текущем тарифе будет прекращён с 2 ноября 2026 г.",
-    "GPT-OSS will be removed from Antigravity on November 2, 2026.": "GPT-OSS будет удалена из Antigravity 2 ноября 2026 г."
+    "GPT-OSS will be removed from Antigravity on November 2, 2026.": "GPT-OSS будет удалена из Antigravity 2 ноября 2026 г.",
+    "Stop Recording": "Остановить запись",
+    "Stop Recording and Send": "Остановить запись и отправить",
+    "Stop recording and send": "Остановить запись и отправить"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1125,6 +1128,14 @@
     {
       "regex": "^GPT-OSS will be removed from Antigravity on (.+)\\.$",
       "replace": "GPT-OSS будет удалена из Antigravity $1."
+    },
+    {
+      "regex": "^Stop Recording (.+)$",
+      "replace": "Остановить запись $1"
+    },
+    {
+      "regex": "^Stop recording (.+)$",
+      "replace": "Остановить запись $1"
     }
   ]
 }
