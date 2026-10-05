@@ -882,7 +882,12 @@
     "See Less": "Показать меньше",
     "See more": "Показать больше",
     "See More": "Показать больше",
-    "See All": "Показать все"
+    "See All": "Показать все",
+    "Notice": "Уведомление",
+    "November 2, 2026": "2 ноября 2026 г.",
+    "Sonnet 5.5 is now available on paid Pro and Ultra plans. Third-party model access will no longer be available on your current plan starting on November 2, 2026.": "Sonnet 5.5 теперь доступна на платных тарифах Pro и Ultra. Доступ к сторонним моделям на вашем текущем тарифе будет прекращён с 2 ноября 2026 г.",
+    "Opus 5.5 is now available on paid Pro and Ultra plans. Third-party model access will no longer be available on your current plan starting on November 2, 2026.": "Opus 5.5 теперь доступна на платных тарифах Pro и Ultra. Доступ к сторонним моделям на вашем текущем тарифе будет прекращён с 2 ноября 2026 г.",
+    "GPT-OSS will be removed from Antigravity on November 2, 2026.": "GPT-OSS будет удалена из Antigravity 2 ноября 2026 г."
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1112,6 +1117,14 @@
     {
       "regex": "^Thought for (.+)s$",
       "replace": "Размышление ($1 с)"
+    },
+    {
+      "regex": "^(.+) is now available on paid Pro and Ultra plans\\. Third-party model access will no longer be available on your current plan starting on (.+)\\.$",
+      "replace": "$1 теперь доступна на платных тарифах Pro и Ultra. Доступ к сторонним моделям на вашем текущем тарифе будет прекращён с $2."
+    },
+    {
+      "regex": "^GPT-OSS will be removed from Antigravity on (.+)\\.$",
+      "replace": "GPT-OSS будет удалена из Antigravity $1."
     }
   ]
 }
