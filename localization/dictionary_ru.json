@@ -890,7 +890,15 @@
     "GPT-OSS will be removed from Antigravity on November 2, 2026.": "GPT-OSS будет удалена из Antigravity 2 ноября 2026 г.",
     "Stop Recording": "Остановить запись",
     "Stop Recording and Send": "Остановить запись и отправить",
-    "Stop recording and send": "Остановить запись и отправить"
+    "Stop recording and send": "Остановить запись и отправить",
+    "now": "сейчас",
+    "Now": "Сейчас",
+    "just now": "только что",
+    "Just now": "Только что",
+    "yesterday": "вчера",
+    "Yesterday": "Вчера",
+    "today": "сегодня",
+    "Today": "Сегодня"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1136,6 +1144,86 @@
     {
       "regex": "^Stop recording (.+)$",
       "replace": "Остановить запись $1"
+    },
+    {
+      "regex": "^(\\d+)mo$",
+      "replace": "$1мес"
+    },
+    {
+      "regex": "^(\\d+)d$",
+      "replace": "$1д"
+    },
+    {
+      "regex": "^(\\d+)w$",
+      "replace": "$1нед"
+    },
+    {
+      "regex": "^(\\d+)h$",
+      "replace": "$1ч"
+    },
+    {
+      "regex": "^(\\d+)m$",
+      "replace": "$1мин"
+    },
+    {
+      "regex": "^(\\d+)s$",
+      "replace": "$1с"
+    },
+    {
+      "regex": "^(\\d+)y$",
+      "replace": "$1г"
+    },
+    {
+      "regex": "^(\\d+)\\s*mo\\s+ago$",
+      "replace": "$1 мес. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*d\\s+ago$",
+      "replace": "$1 дн. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*w\\s+ago$",
+      "replace": "$1 нед. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*h\\s+ago$",
+      "replace": "$1 ч. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*m\\s+ago$",
+      "replace": "$1 мин. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*s\\s+ago$",
+      "replace": "$1 сек. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*days?\\s+ago$",
+      "replace": "$1 дн. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*hours?\\s+ago$",
+      "replace": "$1 ч. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*minutes?\\s+ago$",
+      "replace": "$1 мин. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*seconds?\\s+ago$",
+      "replace": "$1 сек. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*weeks?\\s+ago$",
+      "replace": "$1 нед. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*months?\\s+ago$",
+      "replace": "$1 мес. назад"
+    },
+    {
+      "regex": "^(\\d+)\\s*years?\\s+ago$",
+      "replace": "$1 г. назад"
     }
   ]
 }
