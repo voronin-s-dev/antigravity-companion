@@ -922,7 +922,12 @@
     "to ask for content changes for legal reasons.": "для запроса изменений контента по юридическим основаниям.",
     "Visit": "Посетите",
     "tokens (": "токенов (",
-    "tokens": "токенов"
+    "tokens": "токенов",
+    "Quote": "Цитировать",
+    "quote": "цитировать",
+    "Quote selection": "Цитировать выделенное",
+    "Add to Chat": "Добавить в чат",
+    "Add to chat": "Добавить в чат"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -990,7 +995,13 @@
     "Select Model": "Выбрать модель",
     "Install IDE": "Установить IDE",
     "Open in Code Search": "Открыть в поиске по коду",
-    "Stop recording": "Остановить запись"
+    "Stop recording": "Остановить запись",
+    "Quote": "Цитировать",
+    "quote": "цитировать",
+    "Quote Selection": "Цитировать выделенное",
+    "Quote selection": "Цитировать выделенное",
+    "Add to Chat": "Добавить в чат",
+    "Add to chat": "Добавить в чат"
   },
   "patterns": [
     {
