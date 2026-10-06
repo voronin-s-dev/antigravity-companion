@@ -1095,7 +1095,27 @@
     "Show in File Explorer": "Показать в проводнике",
     "Show in Explorer": "Показать в проводнике",
     "Show in Finder": "Показать в Finder",
-    "Reveal in Finder": "Показать в Finder"
+    "Reveal in Finder": "Показать в Finder",
+    "Conversation Name": "Имя диалога",
+    "Conversation ID": "ID диалога",
+    "Project Name": "Имя проекта",
+    "Copy Conversation Name": "Скопировать имя диалога",
+    "Copy Conversation ID": "Скопировать ID диалога",
+    "Copy conversation name": "Скопировать имя диалога",
+    "Copy conversation ID": "Скопировать ID диалога",
+    "Copy project name": "Скопировать имя проекта",
+    "Conversation Title": "Название диалога",
+    "Copy Conversation Title": "Скопировать название диалога",
+    "Copy conversation title": "Скопировать название диалога",
+    "Project ID": "ID проекта",
+    "Copy Project ID": "Скопировать ID проекта",
+    "Copy project ID": "Скопировать ID проекта",
+    "Split Vertically": "Разделить по вертикали",
+    "Split Horizontally": "Разделить по горизонтали",
+    "Vertically": "По вертикали",
+    "Horizontally": "По горизонтали",
+    "Opens external link": "Открыть внешнюю ссылку",
+    "Open external link": "Открыть внешнюю ссылку"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1211,7 +1231,12 @@
     "Expand queued messages": "Развернуть очередь сообщений",
     "Send Now": "Отправить сейчас",
     "Send now": "Отправить сейчас",
-    "Edit": "Изменить"
+    "Edit": "Изменить",
+    "Conversation Name": "Имя диалога",
+    "Conversation ID": "ID диалога",
+    "Project Name": "Имя проекта",
+    "Copy Conversation Name": "Скопировать имя диалога",
+    "Copy Conversation ID": "Скопировать ID диалога"
   },
   "patterns": [
     {
@@ -1729,6 +1754,10 @@
     {
       "regex": "^(\\d+) attachment\\(s\\)$",
       "replace": "Вложений: $1"
+    },
+    {
+      "regex": "^Opens external link:\\s*(.*)$",
+      "replace": "Открыть внешнюю ссылку: $1"
     }
   ]
 }
