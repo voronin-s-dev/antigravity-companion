@@ -3,6 +3,11 @@ const path = require('path');
 const { loadConfig } = require('../config/companion_config.js');
 
 async function injectWidget() {
+  let pkgVersion = '1.4.0';
+  try {
+    delete require.cache[require.resolve('../package.json')];
+    pkgVersion = require('../package.json').version;
+  } catch (e) {}
   const diskConfig = loadConfig().limits;
   const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Roaming');
   const activePortFile = path.join(appData, 'Antigravity', 'DevToolsActivePort');
@@ -27,6 +32,7 @@ async function injectWidget() {
     ws.onopen = () => {
     const injectionCode = `(() => {
       const diskConfig = ${JSON.stringify(diskConfig)};
+      const COMPANION_VERSION = ${JSON.stringify('v' + pkgVersion)};
       let ls = null;
       try {
         if (typeof window !== 'undefined' && window.localStorage) {
@@ -922,7 +928,7 @@ async function injectWidget() {
           <div style="padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 4px;">
             <div style="display: flex; align-items: center; justify-content: space-between;">
               <span style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${currentLang === 'ru' ? 'Управление и обновления' : 'Controls & Updates'}</span>
-              <span style="font-size: 9px; color: #22c55e;">● v1.3.0</span>
+              <span style="font-size: 9px; color: #22c55e;">● \${COMPANION_VERSION}</span>
             </div>
             <div style="display: flex; gap: 4px;">
               <button id="agy-settings-reload-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 3px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; transition: all 0.12s;">
@@ -1981,7 +1987,7 @@ async function injectWidget() {
           reportPastedImage ? '*(Вставьте скриншот из буфера обмена через Ctrl+V ниже / Paste screenshot below)*' : '*(Скриншот не прикреплен / No screenshot attached)*',
           '',
           '### ' + (currentLang === 'ru' ? 'Окружение' : 'Environment'),
-          '- Antigravity Companion: v1.3.0',
+          '- Antigravity Companion: ' + COMPANION_VERSION,
           '- ' + (currentLang === 'ru' ? 'Язык' : 'Language') + ': ' + currentLang.toUpperCase(),
           '- ' + (currentLang === 'ru' ? 'Разрешение экрана' : 'Screen resolution') + ': ' + window.innerWidth + 'x' + window.innerHeight,
           '- ' + (currentLang === 'ru' ? 'Время' : 'Date') + ': ' + new Date().toLocaleString()
