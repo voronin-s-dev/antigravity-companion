@@ -1079,7 +1079,19 @@
     "Errored": "Ошибка",
     "Ran command": "Команда выполнена",
     "Used MCP tool": "Использован инструмент MCP",
-    "Used tool": "Использован инструмент"
+    "Used tool": "Использован инструмент",
+    "Sends after agent finishes working": "Отправится после завершения работы агента",
+    "Sends after agent finishes working.": "Отправится после завершения работы агента.",
+    "Queued messages": "Очередь сообщений",
+    "Collapse queued messages": "Свернуть очередь сообщений",
+    "Expand queued messages": "Развернуть очередь сообщений",
+    "Empty message": "Пустое сообщение",
+    "empty message": "пустое сообщение",
+    "Message queued.": "Сообщение добавлено в очередь.",
+    "Audio clip": "Аудиозапись",
+    "Actions available: Send Now, Edit, Delete.": "Доступные действия: Отправить сразу, Изменить, Удалить.",
+    "Send now": "Отправить сейчас",
+    "review comments": "комментарии к проверке"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1188,7 +1200,14 @@
     "Sidecar error": "Ошибка sidecar",
     "Restore": "Восстановить",
     "Unpin": "Открепить",
-    "Subtitles": "Подзаголовки"
+    "Subtitles": "Подзаголовки",
+    "Sends after agent finishes working": "Отправится после завершения работы агента",
+    "Queued messages": "Очередь сообщений",
+    "Collapse queued messages": "Свернуть очередь сообщений",
+    "Expand queued messages": "Развернуть очередь сообщений",
+    "Send Now": "Отправить сейчас",
+    "Send now": "Отправить сейчас",
+    "Edit": "Изменить"
   },
   "patterns": [
     {
@@ -1686,6 +1705,26 @@
     {
       "regex": "^Viewed (.+)$",
       "replace": "Просмотрено $1"
+    },
+    {
+      "regex": "^Send now: (.+)$",
+      "replace": "Отправить сейчас: $1"
+    },
+    {
+      "regex": "^Edit: (.+)$",
+      "replace": "Изменить: $1"
+    },
+    {
+      "regex": "^Delete: (.+)$",
+      "replace": "Удалить: $1"
+    },
+    {
+      "regex": "^Message queued\\. (\\d+) messages in queue\\.$",
+      "replace": "Сообщение добавлено в очередь. В очереди сообщений: $1."
+    },
+    {
+      "regex": "^(\\d+) attachment\\(s\\)$",
+      "replace": "Вложений: $1"
     }
   ]
 }
