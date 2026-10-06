@@ -927,7 +927,47 @@
     "quote": "цитировать",
     "Quote selection": "Цитировать выделенное",
     "Add to Chat": "Добавить в чат",
-    "Add to chat": "Добавить в чат"
+    "Add to chat": "Добавить в чат",
+    "For Turn": "За ход",
+    "For turn": "За ход",
+    "Push": "Отправить",
+    "push": "отправить",
+    "Commit": "Закоммитить",
+    "commit": "закоммитить",
+    "Amend": "Дополнить коммит",
+    "amend": "дополнить коммит",
+    "No changes to amend": "Нет изменений для дополнения",
+    "No commit to amend": "Нет коммита для дополнения",
+    "No commits to push": "Нет коммитов для отправки",
+    "Clear filter": "Очистить фильтр",
+    "Review Changes": "Просмотр изменений",
+    "Review header": "Панель просмотра",
+    "Resolve conflicts first": "Сначала разрешите конфликты",
+    "No remote configured": "Удалённый репозиторий не настроен",
+    "Not on a branch": "Ветка не выбрана",
+    "Commit staged changes": "Закоммитить индексированные изменения",
+    "Stage and commit all changes": "Индексировать и закоммитить все изменения",
+    "Amend staged changes into the current commit": "Внести индексированные изменения в текущий коммит",
+    "Stage and amend all changes into the current commit": "Индексировать и внести все изменения в текущий коммит",
+    "This commit is already pushed; amending will require a force push.": "Этот коммит уже отправлен; для его изменения потребуется force push.",
+    "Pushing...": "Отправка...",
+    "Push succeeded": "Коммиты успешно отправлены",
+    "Failed to Push": "Не удалось отправить коммиты",
+    "Committing...": "Создание коммита...",
+    "Commit succeeded": "Коммит успешно создан",
+    "Failed to Commit": "Не удалось создать коммит",
+    "Amending...": "Дополнение коммита...",
+    "Amend succeeded": "Коммит успешно дополнен",
+    "Failed to Amend": "Не удалось дополнить коммит",
+    "Generating commit message...": "Генерация описания коммита...",
+    "Failed to Generate Commit Message": "Не удалось сгенерировать описание коммита",
+    "Commit message cannot be empty": "Описание коммита не может быть пустым",
+    "Include unstaged changes": "Включить неиндексированные изменения",
+    "Conflict": "Конфликт",
+    "Conflicts": "Конфликта",
+    "more": "ещё",
+    "lines": "строк",
+    "line": "строка"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1001,7 +1041,23 @@
     "Quote Selection": "Цитировать выделенное",
     "Quote selection": "Цитировать выделенное",
     "Add to Chat": "Добавить в чат",
-    "Add to chat": "Добавить в чат"
+    "Add to chat": "Добавить в чат",
+    "For Turn": "За ход",
+    "For turn": "За ход",
+    "Push": "Отправить",
+    "Commit": "Закоммитить",
+    "Amend": "Дополнить коммит",
+    "No changes to amend": "Нет изменений для дополнения",
+    "No commit to amend": "Нет коммита для дополнения",
+    "No commits to push": "Нет коммитов для отправки",
+    "Clear filter": "Очистить фильтр",
+    "Review Changes": "Просмотр изменений",
+    "Review header": "Панель просмотра",
+    "Resolve conflicts first": "Сначала разрешите конфликты",
+    "No remote configured": "Удалённый репозиторий не настроен",
+    "Not on a branch": "Ветка не выбрана",
+    "Commit staged changes": "Закоммитить индексированные изменения",
+    "Stage and commit all changes": "Индексировать и закоммитить все изменения"
   },
   "patterns": [
     {
@@ -1271,6 +1327,70 @@
     {
       "regex": "^([0-9\\u00a0\\s,.]+)\\s*tokens$",
       "replace": "$1 токенов"
+    },
+    {
+      "regex": "^Push 1 commit to (.+)$",
+      "replace": "Отправить 1 коммит в $1"
+    },
+    {
+      "regex": "^Push (\\d*[02-9][234]) commits to (.+)$",
+      "replace": "Отправить $1 коммита в $2"
+    },
+    {
+      "regex": "^Push ([234]) commits to (.+)$",
+      "replace": "Отправить $1 коммита в $2"
+    },
+    {
+      "regex": "^Push (\\d+) commits to (.+)$",
+      "replace": "Отправить $1 коммитов в $2"
+    },
+    {
+      "regex": "^Pushed 1 commit to (.+?)\\.?$",
+      "replace": "Отправлен 1 коммит в $1."
+    },
+    {
+      "regex": "^Pushed (\\d*[02-9][234]) commits to (.+?)\\.?$",
+      "replace": "Отправлено $1 коммита в $2."
+    },
+    {
+      "regex": "^Pushed ([234]) commits to (.+?)\\.?$",
+      "replace": "Отправлено $1 коммита в $2."
+    },
+    {
+      "regex": "^Pushed (\\d+) commits to (.+?)\\.?$",
+      "replace": "Отправлено $1 коммитов в $2."
+    },
+    {
+      "regex": "^Pushed to (.+?)\\.?$",
+      "replace": "Отправлено в $1."
+    },
+    {
+      "regex": "^Publish (.+) to origin$",
+      "replace": "Опубликовать $1 в origin"
+    },
+    {
+      "regex": "^Published (.+) to origin\\.?$",
+      "replace": "Ветка $1 опубликована в origin."
+    },
+    {
+      "regex": "^Committed to (.+?)\\.?$",
+      "replace": "Зафиксировано в $1."
+    },
+    {
+      "regex": "^Amended commit on (.+?)\\.?$",
+      "replace": "Обновлён коммит в $1."
+    },
+    {
+      "regex": "^\\+(\\d+)\\s+more\\s+lines?$",
+      "replace": "+$1 ещё строк"
+    },
+    {
+      "regex": "^Commit (\\d+) file changes? to$",
+      "replace": "Зафиксировать изменения в $1 файлах:"
+    },
+    {
+      "regex": "^Commit 1 file change to$",
+      "replace": "Зафиксировать изменения в 1 файле:"
     }
   ]
 }
