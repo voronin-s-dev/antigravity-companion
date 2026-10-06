@@ -1091,7 +1091,11 @@
     "Audio clip": "Аудиозапись",
     "Actions available: Send Now, Edit, Delete.": "Доступные действия: Отправить сразу, Изменить, Удалить.",
     "Send now": "Отправить сейчас",
-    "review comments": "комментарии к проверке"
+    "review comments": "комментарии к проверке",
+    "Show in File Explorer": "Показать в проводнике",
+    "Show in Explorer": "Показать в проводнике",
+    "Show in Finder": "Показать в Finder",
+    "Reveal in Finder": "Показать в Finder"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
