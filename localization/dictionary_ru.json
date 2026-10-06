@@ -794,7 +794,7 @@
     "Autonomous Mode": "Автономный режим",
     "Autonomous mode": "Автономный режим",
     "The agent works with autonomy-enhancing features, and does not ask questions or request new permissions.": "Агент работает в режиме повышенной автономии и не задает уточняющих вопросов и разрешений.",
-    "Cancel questionnaire and stop the agent": "Отменить опросник и остановить агента",
+    "Cancel questionnaire and stop the agent": "Отменить опрос и остановить агента",
     "Cancel Step": "Отменить шаг",
     "Cancel Task": "Отменить задачу",
     "Cancel task": "Отменить задачу",
@@ -1115,7 +1115,32 @@
     "Vertically": "По вертикали",
     "Horizontally": "По горизонтали",
     "Opens external link": "Открыть внешнюю ссылку",
-    "Open external link": "Открыть внешнюю ссылку"
+    "Open external link": "Открыть внешнюю ссылку",
+    "Asking": "Запрос",
+    "Asked": "Запрошено",
+    "1 question": "1 вопрос",
+    "2 questions": "2 вопроса",
+    "3 questions": "3 вопроса",
+    "4 questions": "4 вопроса",
+    "5 questions": "5 вопросов",
+    "Asking 1 question": "Запрос 1 вопроса",
+    "Asked 1 question": "Задан 1 вопрос",
+    "Waiting for user input": "Ожидание ответа пользователя",
+    "Waiting for input": "Ожидание ввода",
+    "Other (write your answer)": "Другое (введите свой ответ)",
+    "write your answer": "введите свой ответ",
+    "Write your answer": "Введите свой ответ",
+    "Skip": "Пропустить",
+    "Skip All": "Пропустить всё",
+    "Multi-select": "Множественный выбор",
+    "Submit (Enter)": "Отправить (Enter)",
+    "Continue (Enter)": "Продолжить (Enter)",
+    "Submit response": "Отправить ответ",
+    "Cancel questionnaire": "Отменить опрос",
+    "Cancel questionnaire and stop the agent (Ctrl+D)": "Отменить опрос и остановить агента (Ctrl+D)",
+    "Skip (esc), Skip All (Ctrl+esc)": "Пропустить (Esc), пропустить всё (Ctrl+Esc)",
+    "Previous question": "Предыдущий вопрос",
+    "Next question": "Следующий вопрос"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1236,7 +1261,14 @@
     "Conversation ID": "ID диалога",
     "Project Name": "Имя проекта",
     "Copy Conversation Name": "Скопировать имя диалога",
-    "Copy Conversation ID": "Скопировать ID диалога"
+    "Copy Conversation ID": "Скопировать ID диалога",
+    "Other (write your answer)": "Другое (введите свой ответ)",
+    "write your answer": "введите свой ответ",
+    "Previous question": "Предыдущий вопрос",
+    "Next question": "Следующий вопрос",
+    "Cancel questionnaire": "Отменить опрос",
+    "Submit (Enter)": "Отправить (Enter)",
+    "Continue (Enter)": "Продолжить (Enter)"
   },
   "patterns": [
     {
@@ -1758,6 +1790,38 @@
     {
       "regex": "^Opens external link:\\s*(.*)$",
       "replace": "Открыть внешнюю ссылку: $1"
+    },
+    {
+      "regex": "^Asking (\\d+) questions?$",
+      "replace": "Запрос $1 вопросов"
+    },
+    {
+      "regex": "^Asked (\\d+) questions?$",
+      "replace": "Задано $1 вопросов"
+    },
+    {
+      "regex": "^(\\d+) questions?$",
+      "replace": "$1 вопросов"
+    },
+    {
+      "regex": "^Submit \\((.*)\\)$",
+      "replace": "Отправить ($1)"
+    },
+    {
+      "regex": "^Continue \\((.*)\\)$",
+      "replace": "Продолжить ($1)"
+    },
+    {
+      "regex": "^Skip \\(esc\\), Skip All \\((.*)\\)$",
+      "replace": "Пропустить (Esc), пропустить всё ($1)"
+    },
+    {
+      "regex": "^Cancel questionnaire and stop the agent \\((.*)\\)$",
+      "replace": "Отменить опрос и остановить агента ($1)"
+    },
+    {
+      "regex": "^(\\d+) of (\\d+)$",
+      "replace": "$1 из $2"
     }
   ]
 }
