@@ -16,11 +16,11 @@
     "Load older messages": "Загрузить более старые сообщения",
     "Conversation Log": "Журнал диалога",
     "Review": "Просмотр",
-    "Edited": "Изменено",
+    "Edited": "Отредактировано",
     "Run": "Запуск",
     "Working.": "Выполняется...",
     "Working...": "Выполняется...",
-    "Working": "В процессе",
+    "Working": "В процессе...",
     "Thinking...": "Обдумывание...",
     "Done": "Готово",
     "Cancel": "Отмена",
@@ -1039,7 +1039,47 @@
     "Scheduled": "Запланированные",
     "Name": "Название",
     "Schedule": "Расписание",
-    "Prompt": "Запрос"
+    "Prompt": "Запрос",
+    "Ran": "Выполнено",
+    "Analyzed": "Проанализировано",
+    "Analyzing": "Анализ",
+    "Created": "Создано",
+    "Creating": "Создание",
+    "Deleted": "Удалено",
+    "Deleting": "Удаление",
+    "Canceled edit to": "Отменено редактирование",
+    "Canceled creation of": "Отменено создание",
+    "Canceled deletion of": "Отменено удаление",
+    "Unknown file edit": "Неизвестное изменение файла",
+    "Searching": "Поиск",
+    "Searched": "Найдено",
+    "Reading page": "Чтение страницы",
+    "Read page": "Страница прочитана",
+    "Created outline": "Создана структура",
+    "Analyzing content": "Анализ содержимого",
+    "Analyzed content": "Проанализировано содержимое",
+    "Analyzing Task Log": "Анализ журнала задачи",
+    "Analyzed Task Log": "Проанализирован журнал задачи",
+    "Semantic searching": "Семантический поиск",
+    "Semantic searched": "Выполнен семантический поиск",
+    "Scrolled": "Прокручено",
+    "Inspected commit": "Проверен коммит",
+    "Checking command status": "Проверка статуса команды",
+    "Checked command status": "Статус команды проверен",
+    "MCP Tool:": "Инструмент MCP:",
+    "Sent input to command": "Отправлен ввод в команду",
+    "Sent termination request to command": "Отправлен запрос на завершение команды",
+    "Sending input to command": "Отправка ввода в команду",
+    "Sending termination request to command": "Отправка запроса на завершение команды",
+    "Suggested sending input to command": "Предложена отправка ввода в команду",
+    "Rejected sending input to command": "Отклонена отправка ввода в команду",
+    "Error sending input to command": "Ошибка отправки ввода в команду",
+    "Rejected": "Отклонено",
+    "Canceled": "Отменено",
+    "Errored": "Ошибка",
+    "Ran command": "Команда выполнена",
+    "Used MCP tool": "Использован инструмент MCP",
+    "Used tool": "Использован инструмент"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1165,7 +1205,7 @@
     },
     {
       "regex": "^Running (\\d+) commands?$",
-      "replace": "Выполняется команд: $1"
+      "replace": "Запуск $1 команд"
     },
     {
       "regex": "^Skills: ([\\d\\s\\u00a0]+) tokens$",
@@ -1217,7 +1257,7 @@
     },
     {
       "regex": "^Exploring (\\d+) files?$",
-      "replace": "Анализ файлов: $1"
+      "replace": "Анализ $1 файлов"
     },
     {
       "regex": "^Exploring (\\d+) tasks?, running (\\d+) commands?$",
@@ -1526,6 +1566,126 @@
     {
       "regex": "^Remove (.+)$",
       "replace": "Удалить $1"
+    },
+    {
+      "regex": "^Exploring 1 file, running 1 command$",
+      "replace": "Анализ 1 файла, запуск 1 команды"
+    },
+    {
+      "regex": "^Explored 1 file, ran 1 command$",
+      "replace": "Проанализирован 1 файл, выполнена 1 команда"
+    },
+    {
+      "regex": "^Exploring (\\d+) files?, running (\\d+) commands?$",
+      "replace": "Анализ $1 файлов, запуск $2 команд"
+    },
+    {
+      "regex": "^Explored (\\d+) files?, ran (\\d+) commands?$",
+      "replace": "Проанализировано $1 файлов, выполнено $2 команд"
+    },
+    {
+      "regex": "^Exploring 1 file$",
+      "replace": "Анализ 1 файла"
+    },
+    {
+      "regex": "^Explored 1 file$",
+      "replace": "Проанализирован 1 файл"
+    },
+    {
+      "regex": "^Explored (\\d+) files?$",
+      "replace": "Проанализировано $1 файлов"
+    },
+    {
+      "regex": "^Exploring 1 folder$",
+      "replace": "Анализ 1 папки"
+    },
+    {
+      "regex": "^Explored 1 folder$",
+      "replace": "Проанализирована 1 папка"
+    },
+    {
+      "regex": "^Exploring (\\d+) folders?$",
+      "replace": "Анализ $1 папок"
+    },
+    {
+      "regex": "^Explored (\\d+) folders?$",
+      "replace": "Проанализировано $1 папок"
+    },
+    {
+      "regex": "^Exploring 1 search$",
+      "replace": "1 поиск"
+    },
+    {
+      "regex": "^Explored 1 search$",
+      "replace": "Выполнен 1 поиск"
+    },
+    {
+      "regex": "^Exploring (\\d+) searches?$",
+      "replace": "Поиск ($1)"
+    },
+    {
+      "regex": "^Explored (\\d+) searches?$",
+      "replace": "Выполнено поисков: $1"
+    },
+    {
+      "regex": "^Running 1 command$",
+      "replace": "Запуск 1 команды"
+    },
+    {
+      "regex": "^Ran 1 command$",
+      "replace": "Выполнена 1 команда"
+    },
+    {
+      "regex": "^Ran (\\d+) commands?$",
+      "replace": "Выполнено $1 команд"
+    },
+    {
+      "regex": "^Editing 1 file$",
+      "replace": "Редактирование 1 файла"
+    },
+    {
+      "regex": "^Edited 1 file$",
+      "replace": "Отредактирован 1 файл"
+    },
+    {
+      "regex": "^Editing (\\d+) files?$",
+      "replace": "Редактирование $1 файлов"
+    },
+    {
+      "regex": "^Edited (\\d+) files?$",
+      "replace": "Отредактировано $1 файлов"
+    },
+    {
+      "regex": "^Editing files$",
+      "replace": "Редактирование файлов"
+    },
+    {
+      "regex": "^Edited files$",
+      "replace": "Отредактировано файлов"
+    },
+    {
+      "regex": "^Ran command: (.+)$",
+      "replace": "Выполнена команда: $1"
+    },
+    {
+      "regex": "^Waiting for command completion \\(up to (\\d+) seconds\\)$",
+      "replace": "Ожидание завершения команды (до $1 сек.)"
+    },
+    {
+      "regex": "^Used MCP tool: (.+)$",
+      "replace": "Использован инструмент MCP: $1"
+    },
+    {
+      "regex": "^Used tool: (.+)$",
+      "replace": "Использован инструмент: $1"
+    },
+    {
+      "regex": "^Viewed (.+):(\\d+)-(\\d+)$",
+      "replace": "Просмотрено $1:$2-$3"
+    },
+    {
+      "regex": "^Viewed (.+)$",
+      "replace": "Просмотрено $1"
     }
   ]
 }
