@@ -310,11 +310,29 @@ async function injectWidget() {
         const title = activeBadge.dataset.title;
         const liveText = formatResetLive(resetSec);
 
+        let etaText = '';
+        if (resetSec) {
+          const resetMs = parseInt(resetSec, 10) * 1000;
+          if (resetMs > Date.now()) {
+            const date = new Date(resetMs);
+            const timeStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const isToday = date.toDateString() === new Date().toDateString();
+            if (isToday) {
+              etaText = currentLang === 'ru' ? \`в \${timeStr}\` : \`at \${timeStr}\`;
+            } else {
+              const dayStr = date.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { weekday: 'short' });
+              etaText = currentLang === 'ru' ? \`\${dayStr}, в \${timeStr}\` : \`\${dayStr}, at \${timeStr}\`;
+            }
+          }
+        }
+
+        const fullTimeStr = liveText ? (liveText + (etaText ? \` (\${etaText})\` : '')) : t('resetsNow');
+
         tooltip.innerHTML = \`
           <div style="font-weight: 600; font-size: 11px; color: #f4f4f5; margin-bottom: 2px;">\${title}</div>
           <div style="font-size: 10px; color: #a1a1aa; display: flex; align-items: center; gap: 4px;">
             <span style="color: #22c55e;">⏱</span>
-            <span>\${liveText || t('resetsNow')}</span>
+            <span>\${fullTimeStr}</span>
           </div>
         \`;
       }
@@ -689,6 +707,7 @@ async function injectWidget() {
             <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
           </svg>
           <span id="agy-title-text" style="font-weight: 500; font-size: 12px; color: #f4f4f5;">\${t('title')}</span>
+          <span id="agy-header-step-count" style="display: none; font-size: 9.5px; font-weight: 600; padding: 1px 4px; border-radius: 3px; background: rgba(255, 255, 255, 0.08); margin-left: 2px;"></span>
         </div>
         <div style="display: flex; gap: 2px; align-items: center;">
           <button id="agy-report-btn" title="\${t('reportBtnTitle')}" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
@@ -1630,7 +1649,8 @@ async function injectWidget() {
                 '</div>' +
               '</div>' +
             '</div>' +
-            '<div style="display: flex; align-items: center; justify-content: center; flex-shrink: 0;">' +
+            '<div style="display: flex; align-items: center; justify-content: center; flex-shrink: 0; gap: 4px;">' +
+              '<span class="agy-sidebar-steps" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); line-height: 1.2;"></span>' +
               '<span class="agy-sidebar-gear-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.55; font-size: 11px; padding: 3px 4px; border-radius: 4px; display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>' +
             '</div>' +
           '</div>';
@@ -1662,7 +1682,8 @@ async function injectWidget() {
             '<div class="agy-sidebar-metrics-area" style="display: flex; align-items: center; min-width: 0; overflow: hidden; flex: 1;">' +
               singleHtml +
             '</div>' +
-            '<div style="display: flex; align-items: center; flex-shrink: 0;">' +
+            '<div style="display: flex; align-items: center; flex-shrink: 0; gap: 4px;">' +
+              '<span class="agy-sidebar-steps" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); line-height: 1.2;"></span>' +
               '<span class="agy-sidebar-gear-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.55; font-size: 11px; padding: 2px 4px; border-radius: 4px; display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>' +
             '</div>' +
           '</div>';
@@ -2307,13 +2328,15 @@ async function injectWidget() {
 
           content.innerHTML = html;
           pillSummary.innerHTML = pillHtml + \`
-            <span class="agy-pill-gear-btn" title="\${t('settingsModalTitle') || 'Настройки'}" style="cursor: pointer; opacity: 0.65; font-size: 11px; margin-left: 6px; padding: 1px 4px; border-radius: 4px; background: rgba(255,255,255,0.06); display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>
+            <span class="agy-pill-steps" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); margin-left: 4px; display: inline-flex; align-items: center;"></span>
+            <span class="agy-pill-gear-btn" title="\${t('settingsModalTitle') || 'Настройки'}" style="cursor: pointer; opacity: 0.65; font-size: 11px; margin-left: 4px; padding: 1px 4px; border-radius: 4px; background: rgba(255,255,255,0.06); display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>
             <span title="Развернуть" style="color: #8a8784; font-size: 9.5px; margin-left: 4px; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center;">▲</span>
           \`;
 
           lastGeminiPillItems = geminiPillItems;
           lastClaudePillItems = claudePillItems;
           renderSidebarButtonContent();
+          updateSessionStepDisplays();
 
           const pGear = pillSummary.querySelector('.agy-pill-gear-btn');
           if (pGear) {
@@ -2343,6 +2366,147 @@ async function injectWidget() {
         }
       }
 
+      function getSessionStepCount() {
+        const btns = Array.from(document.querySelectorAll('button'));
+        for (const b of btns) {
+          const l = b.getAttribute('aria-label') || '';
+          const m = l.match(/(\\d+)\\s*(?:из|of)\\s*(\\d+)/i);
+          if (m) {
+            const totalMessages = parseInt(m[2], 10);
+            return Math.max(1, Math.ceil(totalMessages / 2));
+          }
+        }
+        const userSteps = document.querySelectorAll('[data-testid="user-input-step"]').length;
+        if (userSteps > 0) return userSteps;
+        return 1;
+      }
+
+      function updateSessionStepDisplays() {
+        const steps = getSessionStepCount();
+        const color = steps >= 35 ? '#ef4444' : (steps >= 25 ? '#f59e0b' : '#9ca3af');
+        const text = \`\${currentLang === 'ru' ? 'Шаг' : 'Step'} \${steps}/40\`;
+        const tipTitle = currentLang === 'ru'
+          ? \`Текущая сессия: \${steps} шагов из 40 рекомендованных. При приближении к 35-40 шагам рекомендуется зафиксировать срез в ACTIVE_STATE и начать новый диалог для экономии токенов.\`
+          : \`Current session: \${steps} of 40 recommended turns. At 35-40 turns, consider saving a checkpoint and starting a fresh chat to save tokens.\`;
+
+        const headerSteps = header.querySelector('#agy-header-step-count');
+        if (headerSteps) {
+          headerSteps.textContent = text;
+          headerSteps.style.color = color;
+          headerSteps.style.display = 'inline-block';
+          headerSteps.title = tipTitle;
+        }
+
+        const sbSteps = document.querySelector('.agy-sidebar-steps');
+        if (sbSteps) {
+          sbSteps.textContent = text;
+          sbSteps.style.color = color;
+          sbSteps.title = tipTitle;
+        }
+
+        const pillSteps = pillSummary.querySelector('.agy-pill-steps');
+        if (pillSteps) {
+          pillSteps.textContent = text;
+          pillSteps.style.color = color;
+          pillSteps.title = tipTitle;
+        }
+      }
+
+      const sessionStepInterval = setInterval(updateSessionStepDisplays, 3000);
+
+      // Pre-flight Paste Guard (Clipboard Bloat Check)
+      let pasteToastTimer = null;
+      function showPasteGuardToast(lines, tokens) {
+        let toast = document.getElementById('agy-paste-guard-toast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.id = 'agy-paste-guard-toast';
+          toast.style.cssText = \`
+            position: fixed;
+            z-index: 10000000;
+            background: rgb(28, 25, 20);
+            border: 1px solid rgba(245, 158, 11, 0.45);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+            border-radius: 8px;
+            padding: 6px 11px;
+            color: #fbbf24;
+            font-size: 11px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 0.18s ease, transform 0.18s ease;
+            pointer-events: auto;
+            max-width: 90vw;
+          \`;
+          document.body.appendChild(toast);
+        }
+
+        const box = document.querySelector('[data-testid="agent-input-box"]');
+        if (box) {
+          const r = box.getBoundingClientRect();
+          const bottom = Math.max(10, Math.round(window.innerHeight - r.top + 8));
+          const left = Math.round(r.left + r.width / 2);
+          toast.style.bottom = bottom + 'px';
+          toast.style.left = left + 'px';
+          toast.style.transform = 'translateX(-50%) translateY(0px)';
+        } else {
+          toast.style.bottom = '80px';
+          toast.style.left = '50%';
+          toast.style.transform = 'translateX(-50%) translateY(0px)';
+        }
+
+        const msgText = currentLang === 'ru'
+          ? \`⚠️ Вставка \${lines} строк (~ \${tokens.toLocaleString()} токенов). Экономнее сохранить текст в файл и дать агенту ссылку.\`
+          : \`⚠️ Pasting \${lines} lines (~ \${tokens.toLocaleString()} tokens). Consider saving to a file to preserve context.\`;
+
+        toast.innerHTML = \`
+          <span>\${msgText}</span>
+          <button id="agy-toast-close" style="background: none; border: none; color: #a1a1aa; cursor: pointer; font-size: 13px; padding: 0 3px; line-height: 1; border-radius: 3px;">✕</button>
+        \`;
+
+        const closeBtn = toast.querySelector('#agy-toast-close');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', () => {
+            toast.style.opacity = '0';
+            setTimeout(() => { if (toast.parentElement) toast.remove(); }, 200);
+          });
+        }
+
+        toast.style.display = 'flex';
+        requestAnimationFrame(() => {
+          toast.style.opacity = '1';
+          toast.style.transform = 'translateX(-50%) translateY(0px)';
+        });
+
+        if (pasteToastTimer) clearTimeout(pasteToastTimer);
+        pasteToastTimer = setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => { if (toast.parentElement) toast.remove(); }, 200);
+        }, 7000);
+      }
+
+      function handleInputPaste(e) {
+        const box = document.querySelector('[data-testid="agent-input-box"]');
+        if (!box) return;
+        const active = document.activeElement;
+        if (!box.contains(active) && active !== box) return;
+
+        const clip = e.clipboardData || window.clipboardData;
+        const clipText = clip ? (clip.getData('text/plain') || clip.getData('text')) : '';
+        if (!clipText) return;
+
+        const lines = clipText.split(String.fromCharCode(10)).length;
+        const chars = clipText.length;
+        if (chars > 1200 || lines > 35) {
+          const estTokens = Math.round(chars / 3.5);
+          showPasteGuardToast(lines, estTokens);
+        }
+      }
+      window.addEventListener('paste', handleInputPaste, true);
+
       refreshBtn.addEventListener('click', () => updateLimits());
 
       updateLimits();
@@ -2363,6 +2527,10 @@ async function injectWidget() {
         if (sbBtn) sbBtn.remove();
         if (tooltipTimer) clearInterval(tooltipTimer);
         if (window.__agyLimitsInterval) clearInterval(window.__agyLimitsInterval);
+        if (sessionStepInterval) clearInterval(sessionStepInterval);
+        window.removeEventListener('paste', handleInputPaste, true);
+        const pgt = document.getElementById('agy-paste-guard-toast');
+        if (pgt) pgt.remove();
         const p = document.getElementById('agy-limits-floating-panel');
         if (p) p.remove();
         const t = document.getElementById('agy-limits-tooltip');

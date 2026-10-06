@@ -87,12 +87,16 @@ async function ensureInjected() {
 
     if (!state.hasTranslator) {
       logSync('[Companion] Внедрение русификатора UI...');
-      await injectTranslator();
+      try { delete require.cache[require.resolve('../localization/inject_translator.js')]; } catch (e) {}
+      const { injectTranslator: freshInjectTranslator } = require('../localization/inject_translator.js');
+      await freshInjectTranslator();
     }
 
     if (!state.hasWidget) {
       logSync('[Companion] Внедрение виджета лимитов...');
-      await injectWidget();
+      try { delete require.cache[require.resolve('../limits_widget/inject_panel.js')]; } catch (e) {}
+      const { injectWidget: freshInjectWidget } = require('../limits_widget/inject_panel.js');
+      await freshInjectWidget();
     }
 
     if (state.hasTranslator && state.hasWidget) {

@@ -1,6 +1,6 @@
 {
   "name": "antigravity-companion",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Модуль глубокой русификации и виджет лимитов моделей для Google Antigravity Desktop App",
   "main": "bin/antigravity_companion.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "status": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1",
     "doctor": "node bin/doctor.js",
     "doctor:cdp": "node bin/cdp_doctor.js",
-    "build:zip": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (!(Test-Path 'dist')) { New-Item -ItemType Directory -Path 'dist' | Out-Null }; Compress-Archive -Path 'bin', 'config', 'limits_widget', 'localization', 'skills', 'companion.bat', 'install.bat', 'install.ps1', 'launch_antigravity.bat', 'start.bat', 'uninstall.bat', 'uninstall.ps1', 'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'LICENSE', '.gitignore', 'package.json' -DestinationPath 'dist/antigravity-companion-v1.3.0.zip' -Force; Write-Host '✓ Архив собран в dist/antigravity-companion-v1.3.0.zip' -ForegroundColor Green\""
+    "build:zip": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (!(Test-Path 'dist')) { New-Item -ItemType Directory -Path 'dist' | Out-Null }; Compress-Archive -Path 'bin', 'config', 'limits_widget', 'localization', 'skills', 'companion.bat', 'install.bat', 'install.ps1', 'launch_antigravity.bat', 'start.bat', 'uninstall.bat', 'uninstall.ps1', 'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'CHANGELOG.md', 'LICENSE', '.gitignore', 'package.json' -DestinationPath 'dist/antigravity-companion-v1.4.0.zip' -Force; Write-Host '✓ Архив собран в dist/antigravity-companion-v1.4.0.zip' -ForegroundColor Green\""
   },
   "keywords": [
     "antigravity",

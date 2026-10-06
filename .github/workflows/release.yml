@@ -40,7 +40,7 @@ jobs:
             companion.bat launch_antigravity.bat start.bat \
             install.bat install.ps1 uninstall.bat uninstall.ps1 \
             update_dictionary.bat update_dictionary.ps1 \
-            README.md LICENSE .gitignore package.json
+            README.md CHANGELOG.md LICENSE .gitignore package.json
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

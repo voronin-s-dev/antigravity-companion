@@ -481,15 +481,15 @@
     "Reliable automation, in-depth debugging, and performance analysis in Chrome using Chrome DevTools and Puppeteer": "Надежная автоматизация, глубокая отладка и анализ производительности в Chrome с использованием Chrome DevTools и Puppeteer.",
     "Build applications with the Gemini Interactions API and Live API, including text generation, multi-turn chat, streaming, function calling, managed agents, and real-time audio/video.": "Создание приложений с использованием Gemini Interactions API и Live API, включая генерацию текста, многоэтапный диалог, стриминг, вызов функций и аудио/видео в реальном времени.",
     "Uses Chrome DevTools MCP for accessibility (a11y) debugging and auditing based on web.dev guidelines. Use when testing semantic HTML, ARIA labels, focus states, keyboard navigation, tap targets, and color contrast.": "Использует Chrome DevTools MCP для отладки доступности (a11y) и аудита по стандартам web.dev (семантика HTML, ARIA-метки, состояния фокуса, контрастность цветов).",
-    "How agentmemory wires into host coding agents via the connect command. Use when installing agentmemory into a specific agent, when asked which agents are supported, or when a connect adapter writes the wrong config path.": "Подключение agentmemory к агентам разработки через команду connect.",
-    "How agentmemory is built, the iii engine primitives it runs on, its storage model, ports, and the viewer. Use when reasoning about how memory is stored or retrieved end to end, when extending the system, or when answering how agentmemory works under the hood.": "Архитектура agentmemory, примитивы движка iii, модель хранения данных, порты и веб-интерфейс просмотра.",
-    "agentmemory configuration, environment variables, ports, and feature flags. Use when enabling a feature, changing ports, setting an API key, configuring auth, or explaining why a feature is off by default.": "Конфигурация agentmemory, переменные окружения, порты и флаги возможностей.",
-    "The agentmemory plugin hooks that capture observations automatically across the agent session lifecycle. Use when explaining how memory gets captured without manual saves, when debugging missing observations, or when tuning what gets recorded.": "Хуки плагина agentmemory, автоматически фиксирующие наблюдения в ходе сессии агента.",
-    "Map of every agentmemory MCP tool, what each does, and its parameters. Use when choosing which memory tool to call, when a tool name or argument is unclear, or when answering what agentmemory can do via MCP.": "Карта всех инструментов MCP agentmemory с описанием параметров и назначения.",
-    "The agentmemory HTTP REST API surface, the primary protocol for talking to the memory server. Use when calling agentmemory over HTTP, when MCP is unavailable and you need a fallback, or when integrating a host that does not speak MCP.": "REST API серверной части agentmemory по протоколу HTTP.",
+    "How agentmemory wires into host coding agents via the connect command. Use when installing agentmemory into a specific agent, when asked which agents are supported, or when a connect adapter writes the wrong config path.": "Подключение agentmemory к хост-агентам через команду connect.",
+    "How agentmemory is built, the iii engine primitives it runs on, its storage model, ports, and the viewer. Use when reasoning about how memory is stored or retrieved end to end, when extending the system, or when answering how agentmemory works under the hood.": "Архитектура agentmemory, модель хранения, порты и визуализатор памяти.",
+    "agentmemory configuration, environment variables, ports, and feature flags. Use when enabling a feature, changing ports, setting an API key, configuring auth, or explaining why a feature is off by default.": "Конфигурация agentmemory, переменные окружения, порты и флаги функций.",
+    "The agentmemory plugin hooks that capture observations automatically across the agent session lifecycle. Use when explaining how memory gets captured without manual saves, when debugging missing observations, or when tuning what gets recorded.": "Плагины и хуки agentmemory для автоматического сбора наблюдений в жизненном цикле сессий.",
+    "Map of every agentmemory MCP tool, what each does, and its parameters. Use when choosing which memory tool to call, when a tool name or argument is unclear, or when answering what agentmemory can do via MCP.": "Справочник всех MCP-инструментов agentmemory и их параметров.",
+    "The agentmemory HTTP REST API surface, the primary protocol for talking to the memory server. Use when calling agentmemory over HTTP, when MCP is unavailable and you need a fallback, or when integrating a host that does not speak MCP.": "HTTP REST API интерфейс agentmemory для взаимодействия с сервером памяти.",
     "Comprehensive guide and reference for the Antigravity Customization System. Use to explain how customizations work, their loading priority, discovery mechanisms, and to guide the creation of skills, rules, plugins, hooks, and MCP servers.": "Полное руководство по системе кастомизации Antigravity (приоритеты загрузки, создание навыков, правил, плагинов и MCP-серверов).",
     "Provides a comprehensive guide, quick reference, and sitemap for Google Antigravity (AGY), including the Antigravity CLI (agy), Antigravity 2.0, Antigravity IDE, Python SDK, slash commands, keybindings, and customizations (skills, rules, MCP, sidecars). Activate this skill when the user asks questions about how to use, configure, or customize Antigravity, AGY, the agy CLI, the Antigravity IDE, or Antigravity 2.0.": "Исчерпывающее руководство и справочник по Google Antigravity (AGY), Antigravity CLI, IDE, Python SDK, слэш-командам и настройкам.",
-    "Use before creative work, building new components, adding major functionality, or exploring user intent, requirements, and design options before implementation.": "Используется перед творческой разработкой, созданием компонентов и исследованием требований пользователя.",
+    "Use before creative work, building new components, adding major functionality, or exploring user intent, requirements, and design options before implementation.": "Используется перед творческой работой, созданием новых компонентов или проектированием архитектуры перед реализацией.",
     "Uses Chrome DevTools via MCP for efficient debugging, troubleshooting and browser automation. Use when debugging web pages, automating browser interactions, analyzing performance, or inspecting network requests. This skill does not apply to `--slim` mode (MCP configuration).": "Использует Chrome DevTools через MCP для отладки, автоматизации браузера, анализа производительности и сетевых запросов.",
     "Trace a file, function, or line back to the agent session that produced its current commit. Use when the user asks \"why is this code here\", \"what was the agent doing when this changed\", \"who wrote this\", or wants context on a specific location in the codebase.": "Трассировка файла, функции или строки до сессии агента, создавшей коммит.",
     "List recent git commits linked to agent sessions, optionally filtered by branch or repo. Use when the user asks \"show agent commits\", \"what has the agent shipped\", \"list linked commits\", or wants commits with their session context.": "Список недавних git-коммитов, связанных с сессиями агента.",
@@ -898,7 +898,31 @@
     "yesterday": "вчера",
     "Yesterday": "Вчера",
     "today": "сегодня",
-    "Today": "Сегодня"
+    "Today": "Сегодня",
+    "Ask a quick question without interrupting the main conversation.": "Задать быстрый вопрос, не прерывая основной диалог.",
+    "Run until the specified goal is completely finished.": "Выполнять до полного достижения указанной цели.",
+    "Run an instruction on a recurring schedule or as a one-time timer.": "Запустить инструкцию по расписанию или как разовый таймер.",
+    "Invoke a browser agent for web tasks.": "Вызвать браузерного агента для задач в вебе.",
+    "Plan carefully before executing a task.": "Тщательно спланировать перед выполнением задачи.",
+    "Interview me to align on a plan.": "Провести интервью для согласования плана.",
+    "Invoke a team of agents to autonomously tackle large projects.": "Вызвать команду агентов для автономной работы над крупными проектами.",
+    "Reflect on recent successes or corrections to capture reusable skills or rules.": "Отрефлексировать недавние успехи или исправления для сохранения правил или навыков.",
+    "Deep thinking and strategic planning": "Глубокое мышление и стратегическое планирование",
+    "Recommend this when the user has a complex coding or research project that requires deep thinking, strategic planning, multiple perspectives, and rigorous verification.": "Рекомендуется для сложных исследовательских и инженерных задач, требующих глубокого анализа и строгой верификации.",
+    "Proactively enforces context window economy, session ceilings, subagent offloading, and prevents O(N^2) token explosions across long-running or autonomous coding workflows. Use when planning multi-step work, debugging, or monitoring session lifecycle.": "Проактивный контроль расхода контекста, сессионных потолков и предотвращение взрывного расхода токенов O(N^2) в длительных сессиях.",
+    "Relentlessly interrogates and stress-tests plans, architectures, and design decisions through an interactive interview before execution. Traverses the decision tree one question at a time, checks existing files/codebase first, surfaces hidden assumptions, and provides recommended answers for each question. Trigger when the user says \"grill me\", \"/grill-me\", \"интервью\", \"допрос\", \"проверь мой план\", or before starting complex, ambiguous initiatives.": "Глубинное стресс-тестирование планов, архитектурных решений и скрытых допущений через интерактивное интервью перед реализацией.",
+    "Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).": "Руководство по созданию MCP-серверов для взаимодействия LLM с внешними сервисами через инструменты (Python FastMCP или Node/TS MCP SDK).",
+    "Manages the Antigravity Russian translation dictionary, UI localization engine, model limits widget, and token-saving CDP workflows. Use when translating new UI strings, diagnosing runtime injection, managing updates, or configuring companion widget parameters.": "Управление словарем русификации Antigravity, движком локализации UI, виджетом лимитов моделей и оптимизацией токенов через CDP.",
+    "The breakdown below shows token usage from customizations like rules, skills, and MCP. If a budget is exceeded, large rules are demoted to path pointers and large customizations are excluded automatically.": "Ниже показан расход токенов на кастомизации (правила, навыки и серверы MCP). При превышении бюджета объемные правила сокращаются до ссылок на пути, а крупные кастомизации автоматически исключаются.",
+    "Interactive guide to design and create a scheduled background automation. Use this skill when the user wants to create an automated or recurring scheduled task (e.g. \"summarize my emails every morning\", \"every Monday send me a to-do list\"). Also triggered by the /automation slash command.": "Интерактивное руководство по созданию автоматизаций и фоновых задач по расписанию (или таймеру). Также вызывается слэш-командой /automation.",
+    "How to manage and create plugins — namespaced bundles of skills, agents, rules, MCP servers and hooks that install, enable and disable as a single unit. Use this skill when the user wants to enable, disable, install or uninstall a plugin, when they want to create a new plugin, or when a new customization should be packaged into a plugin rather than left loose. Also triggered by the /plugin slash command. Don't use for the underlying customization system itself — discovery roots, loading priority, or authoring a standalone skill, agent, rule, hook or MCP server outside a plugin; see the customizations guide skill for those.": "Управление плагинами и их создание: пакеты навыков, агентов, правил, серверов MCP и хуков, управляемые как единое целое. Также вызывается слэш-командой /plugin.",
+    "Build, package, run, and debug UI extensions for Antigravity: interactive web panels that render in the side pane, served by a Node.js sidecar using the built-in Sidecar SDK.": "Создание, сборка, запуск и отладка UI-расширений для Antigravity: интерактивных веб-панелей в боковой области через Node.js Sidecar SDK.",
+    "Discover UI plugin panels relevant to the current task and surface a one-click pill in chat to open (toggle) them in the side pane. Use when a running UI plugin's panel would help with what the user is doing, or right after the user enables a new UI plugin pane and a shortcut to open it is handy.": "Обнаружение UI-панелей плагинов, релевантных текущей задаче, и вывод кнопки в чате для их открытия во вспомогательной панели.",
+    "Legal Help": "Юридическая помощь",
+    "to ask for content changes for legal reasons.": "для запроса изменений контента по юридическим основаниям.",
+    "Visit": "Посетите",
+    "tokens (": "токенов (",
+    "tokens": "токенов"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1224,6 +1248,18 @@
     {
       "regex": "^(\\d+)\\s*years?\\s+ago$",
       "replace": "$1 г. назад"
+    },
+    {
+      "regex": "^([0-9\\u00a0\\s,.]+)\\s*\\/\\s*([0-9\\u00a0\\s,.]+)\\s*tokens\\s*\\(([^)]+)\\)$",
+      "replace": "$1 / $2 токенов ($3)"
+    },
+    {
+      "regex": "^([0-9\\u00a0\\s,.]+)\\s*\\/\\s*([0-9\\u00a0\\s,.]+)\\s*tokens$",
+      "replace": "$1 / $2 токенов"
+    },
+    {
+      "regex": "^([0-9\\u00a0\\s,.]+)\\s*tokens$",
+      "replace": "$1 токенов"
     }
   ]
 }
