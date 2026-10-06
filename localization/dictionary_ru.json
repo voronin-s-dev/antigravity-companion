@@ -967,7 +967,18 @@
     "Conflicts": "Конфликта",
     "more": "ещё",
     "lines": "строк",
-    "line": "строка"
+    "line": "строка",
+    "Finalizing...": "Завершение...",
+    "Finalizing": "Завершение",
+    "finalizing...": "завершение...",
+    "finalizing": "завершение",
+    "Finalize": "Завершить",
+    "finalize": "завершить",
+    "Finalizing transcription...": "Завершение расшифровки...",
+    "Sending transcribed message...": "Отправка расшифрованного сообщения...",
+    "Recording": "Запись",
+    "Voice recording is unavailable while the Concierge mic is on": "Голосовая запись недоступна, пока включен микрофон Concierge",
+    "Concierge voice mode is active": "Голосовой режим Concierge активен"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1057,7 +1068,12 @@
     "No remote configured": "Удалённый репозиторий не настроен",
     "Not on a branch": "Ветка не выбрана",
     "Commit staged changes": "Закоммитить индексированные изменения",
-    "Stage and commit all changes": "Индексировать и закоммитить все изменения"
+    "Stage and commit all changes": "Индексировать и закоммитить все изменения",
+    "Finalizing...": "Завершение...",
+    "Finalizing": "Завершение",
+    "Finalize": "Завершить",
+    "Finalizing transcription...": "Завершение расшифровки...",
+    "Recording": "Запись"
   },
   "patterns": [
     {
