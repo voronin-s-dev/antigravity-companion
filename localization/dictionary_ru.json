@@ -978,7 +978,68 @@
     "Sending transcribed message...": "Отправка расшифрованного сообщения...",
     "Recording": "Запись",
     "Voice recording is unavailable while the Concierge mic is on": "Голосовая запись недоступна, пока включен микрофон Concierge",
-    "Concierge voice mode is active": "Голосовой режим Concierge активен"
+    "Concierge voice mode is active": "Голосовой режим Concierge активен",
+    "Search tasks...": "Поиск задач...",
+    "Search plugins...": "Поиск плагинов...",
+    "Search automations...": "Поиск автоматизаций...",
+    "No scheduled tasks configured.": "Нет настроенных запланированных задач.",
+    "No plugins configured.": "Нет настроенных плагинов.",
+    "No automations configured.": "Нет настроенных автоматизаций.",
+    "No scheduled tasks matching your search": "Нет запланированных задач, соответствующих вашему поиску",
+    "No plugins matching your search": "Нет плагинов, соответствующих вашему поиску",
+    "No automations matching your search": "Нет автоматизаций, соответствующих вашему поиску",
+    "scheduled task": "запланированная задача",
+    "scheduled tasks": "запланированные задачи",
+    "New": "Создать",
+    "New Scheduled Task": "Новая запланированная задача",
+    "New Automation": "Новая автоматизация",
+    "Add Scheduled Task": "Добавить запланированную задачу",
+    "Add Automation": "Добавить автоматизацию",
+    "Creating…": "Создание…",
+    "Enter scheduled task name...": "Введите название запланированной задачи...",
+    "Enter automation name...": "Введите название автоматизации...",
+    "You don't have any projects created. Please create a project first.": "У вас нет созданных проектов. Сначала создайте проект.",
+    "Enter a prompt for the agent to run...": "Введите запрос для запуска агентом...",
+    "All scheduled tasks run as Flash.": "Все запланированные задачи выполняются на Flash.",
+    "All automations run as Flash.": "Все автоматизации выполняются на Flash.",
+    "Frequency": "Периодичность",
+    "Select Day": "Выберите день",
+    "Hourly": "Каждый час",
+    "Daily": "Каждый день",
+    "Weekly": "Каждую неделю",
+    "Monday": "Понедельник",
+    "Tuesday": "Вторник",
+    "Wednesday": "Среда",
+    "Thursday": "Четверг",
+    "Friday": "Пятница",
+    "Saturday": "Суббота",
+    "Sunday": "Воскресенье",
+    "around": "около",
+    "This sidecar failed to start.": "Не удалось запустить данный sidecar.",
+    "Sidecar error": "Ошибка sidecar",
+    "Sidecar feature is not available.": "Функция sidecar недоступна.",
+    "Run Now": "Запустить сейчас",
+    "Manage Permissions": "Управление разрешениями",
+    "View Logs": "Просмотреть журнал",
+    "Subtitles": "Подзаголовки",
+    "Project + Worktree": "Проект + Рабочее дерево",
+    "Workspace + Worktree": "Рабочая область + Рабочее дерево",
+    "Pinned Chats Only": "Только закреплённые диалоги",
+    "Decorations": "Оформление",
+    "Archived Only": "Только архивированные",
+    "Only Unread": "Только непрочитанные",
+    "Outside of Project": "Вне проекта",
+    "Unpin": "Открепить",
+    "Restore": "Восстановить",
+    "Mark as Read": "Отметить как прочитанное",
+    "Mark all as read": "Отметить все как прочитанные",
+    "Mark 1 conversation as read": "Отметить 1 диалог как прочитанный",
+    "Are you sure you want to mark 1 conversation as read? This action cannot be undone.": "Вы уверены, что хотите отметить 1 диалог как прочитанный? Это действие нельзя отменить.",
+    "Automations": "Автоматизации",
+    "Scheduled": "Запланированные",
+    "Name": "Название",
+    "Schedule": "Расписание",
+    "Prompt": "Запрос"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1073,7 +1134,21 @@
     "Finalizing": "Завершение",
     "Finalize": "Завершить",
     "Finalizing transcription...": "Завершение расшифровки...",
-    "Recording": "Запись"
+    "Recording": "Запись",
+    "Search tasks...": "Поиск задач...",
+    "Search plugins...": "Поиск плагинов...",
+    "Search automations...": "Поиск автоматизаций...",
+    "Enter scheduled task name...": "Введите название запланированной задачи...",
+    "Enter automation name...": "Введите название автоматизации...",
+    "Enter a prompt for the agent to run...": "Введите запрос для запуска агентом...",
+    "Add scheduled task": "Добавить запланированную задачу",
+    "Add plugin": "Добавить плагин",
+    "Add automation": "Добавить автоматизацию",
+    "Actions": "Действия",
+    "Sidecar error": "Ошибка sidecar",
+    "Restore": "Восстановить",
+    "Unpin": "Открепить",
+    "Subtitles": "Подзаголовки"
   },
   "patterns": [
     {
@@ -1407,6 +1482,50 @@
     {
       "regex": "^Commit 1 file change to$",
       "replace": "Зафиксировать изменения в 1 файле:"
+    },
+    {
+      "regex": "^Mark all (\\d+) conversations as read$",
+      "replace": "Отметить все $1 диалогов как прочитанные"
+    },
+    {
+      "regex": "^Are you sure you want to mark all (\\d+) conversations as read\\? This action cannot be undone\\.$",
+      "replace": "Вы уверены, что хотите отметить все $1 диалогов как прочитанные? Это действие нельзя отменить."
+    },
+    {
+      "regex": "^Are you sure you want to delete (.+)\\? This action cannot be undone\\.$",
+      "replace": "Вы уверены, что хотите удалить $1? Это действие нельзя отменить."
+    },
+    {
+      "regex": "^A (scheduled task|automation|plugin) with ID (.+) already exists\\.$",
+      "replace": "Элемент с идентификатором $2 уже существует."
+    },
+    {
+      "regex": "^Failed to create (.+)\\.$",
+      "replace": "Не удалось создать $1."
+    },
+    {
+      "regex": "^Restarted \"(.+)\"\\.$",
+      "replace": "Перезапущен \"$1\"."
+    },
+    {
+      "regex": "^Failed to delete \"(.+)\"$",
+      "replace": "Не удалось удалить \"$1\""
+    },
+    {
+      "regex": "^Deleted \"(.+)\"\\.$",
+      "replace": "Удалён \"$1\"."
+    },
+    {
+      "regex": "^Failed to update \"(.+)\"$",
+      "replace": "Не удалось обновить \"$1\""
+    },
+    {
+      "regex": "^Failed to start \"(.+)\"\\.$",
+      "replace": "Не удалось запустить \"$1\"."
+    },
+    {
+      "regex": "^Remove (.+)$",
+      "replace": "Удалить $1"
     }
   ]
 }
