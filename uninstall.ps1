@@ -43,6 +43,11 @@ if (Test-Path $shortcutPath) {
     $removed = $true
 }
 
+$desktopLnk = Join-Path ([System.Environment]::GetFolderPath('Desktop')) "Antigravity (с Компаньоном).lnk"
+if (Test-Path $desktopLnk) {
+    Remove-Item -Path $desktopLnk -Force -ErrorAction SilentlyContinue
+}
+
 if ($removed) {
     Write-Host "[+] Автозапуск Windows успешно удален." -ForegroundColor Green
 } else {

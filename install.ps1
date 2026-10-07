@@ -121,8 +121,23 @@ try {
 
         Write-Host "[+] Автозапуск успешно зарегистрирован в реестре Windows (HKCU\Run)!" -ForegroundColor Green
         Write-Host "    Служба будет моментально стартовать при входе в систему без задержек Windows Startup Delay." -ForegroundColor Gray
+
+        # Создание удобного ярлыка прямого запуска на Рабочем столе
+        $desktopFolder = [System.Environment]::GetFolderPath('Desktop')
+        $desktopLnk = Join-Path $desktopFolder "Antigravity (с Компаньоном).lnk"
+        $ws = New-Object -ComObject WScript.Shell
+        $sc = $ws.CreateShortcut($desktopLnk)
+        $sc.TargetPath = Join-Path $baseDir "launch_antigravity.bat"
+        $sc.WorkingDirectory = $baseDir
+        $sc.Description = "Запуск Google Antigravity вместе со службой Companion"
+        $agyExe = "$env:LOCALAPPDATA\Programs\antigravity\Antigravity.exe"
+        if (Test-Path $agyExe) {
+            $sc.IconLocation = "$agyExe,0"
+        }
+        $sc.Save()
+        Write-Host "[+] Создан удобный ярлык на Рабочем столе: 'Antigravity (с Компаньоном)'" -ForegroundColor Green
     } catch {
-        Write-Host "[!] Предупреждение: Не удалось настроить запись в реестре: $_" -ForegroundColor Yellow
+        Write-Host "[!] Предупреждение: Не удалось настроить запись в реестре или ярлык: $_" -ForegroundColor Yellow
     }
 
     # 4. Немедленный запуск службы
