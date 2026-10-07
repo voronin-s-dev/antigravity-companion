@@ -189,6 +189,13 @@
       - Переведены элементы формы опроса: плейсхолдер свободного ответа `Other (write your answer)` («Другое (введите свой ответ)»), `write your answer`, бейдж `Multi-select` («Множественный выбор»), кнопки навигации `Previous question` / `Next question`, шаблон `{n} of {m}` («{n} из {m}»).
       - Переведены кнопки и их динамические всплывающие подсказки: кнопка `Skip` («Пропустить»), тултип `Skip (esc), Skip All (Ctrl+esc)` («Пропустить (Esc), пропустить всё (Ctrl+Esc)»), тултип кнопки отправки `Submit (Enter)` («Отправить (Enter)»), `Continue (Enter)` («Продолжить (Enter)»), отмена `Cancel questionnaire and stop the agent (Ctrl+D)`.
       - Всего в словаре: **1140 точных терминов**, **126 атрибутов**, **138 шаблонов** (всего 1404 правила перевода).
+  29. **Локализация подраздела «Плагины Build with Google / Antigravity» (Settings -> Customization -> Plugins)**:
+      - Переведены элементы навигации и управления: кнопка возврата `Back` («Назад»), заголовок секции `Build with Antigravity Plugins` («Плагины Build with Antigravity»), кнопка `Refresh` («Обновить») и статус `Refreshing...` («Обновление...»).
+      - Переведен составной информационный абзац каталога: `Plugins are packaged collections of skills and MCPs to help the Agent in Antigravity work with Google developer products...` («Плагины — это пакеты навыков и серверов MCP, которые помогают агенту в Antigravity работать с продуктами Google для разработчиков...») с поддержкой бесшовного слияния раздельных текстовых узлов React.
+      - Переведены кнопки действий над плагинами: `Download` («Скачать»), статус загрузки `Downloading...` («Загрузка...»), удаление `Delete` («Удалить») и статус `Deleting...` («Удаление...»).
+      - Переведены описания и названия всех 10 официальных плагинов каталога Google: `Android CLI`, `Modern Web Guidance` («Современная веб-разработка»), `Google Antigravity SDK`, `Science` («Наука»), `Firebase`, `Chrome DevTools`, `Dart and Flutter` («Dart и Flutter»), `Google Maps Platform`, `Data Agent Kit`, `Gemini API`.
+      - Переведены пустые состояния и ошибки операций: `Loading plugins...` («Загрузка плагинов...»), `No Plugins Available` («Нет доступных плагинов»), `No description available.` («Описание отсутствует.»), `Plugin Operation Error:` («Ошибка операции с плагинами:») и `Plugin operations are not supported in this environment.`.
+      - Всего в словаре: **1180 точных терминов**, **132 атрибута**, **140 шаблонов** (всего 1452 правила перевода).
 
 ---
 
