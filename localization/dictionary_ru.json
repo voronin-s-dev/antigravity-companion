@@ -1194,7 +1194,27 @@
     "Save Video": "Сохранить видео",
     "Are you sure you want to delete this conversation? This action cannot be undone.": "Вы действительно хотите удалить этот диалог? Это действие невозможно отменить.",
     "Archive / Restore": "Архивировать / Восстановить",
-    "Terminal: Add to Chat": "Терминал: Добавить в чат"
+    "Terminal: Add to Chat": "Терминал: Добавить в чат",
+    "Checked task": "Проверена задача",
+    "Checking task": "Проверка задачи",
+    "Check task": "Проверить задачу",
+    "Checked task status": "Статус задачи проверен",
+    "Checking task status": "Проверка статуса задачи",
+    "Check task status": "Проверить статус задачи",
+    "Stopped task": "Задача остановлена",
+    "Stopping task": "Остановка задачи",
+    "Task finished": "Задача завершена",
+    "Task completed": "Задача завершена",
+    "Task failed": "Сбой задачи",
+    "Task killed": "Задача остановлена",
+    "Task running": "Задача выполняется",
+    "Task started": "Задача запущена",
+    "Task stopped": "Задача остановлена",
+    "Enter Queues after the turn": "Enter: В очередь после хода",
+    "Alt+Enter Sends immediately": "Alt+Enter: Отправить немедленно",
+    "Alt+Enter On empty prompt, sends next in queue": "Alt+Enter: При пустом вводе отправить следующее из очереди",
+    "Reset to preset": "Сбросить к пресету",
+    "Attaching logs requires an email address": "Для прикрепления журналов требуется email"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1401,7 +1421,7 @@
     },
     {
       "regex": "^Exploring (\\d+) tasks?, running (\\d+) commands?$",
-      "replace": "Анализ задач: $1, команд: $2"
+      "replace": "Анализ задач: $1, запуск команд: $2"
     },
     {
       "regex": "^(\\d+) files? changed$",
@@ -1890,6 +1910,162 @@
     {
       "regex": "^There are currently no Build with (.+) plugins available\\.$",
       "replace": "В настоящее время нет доступных плагинов для разработки с $1."
+    },
+    {
+      "regex": "^Exploring 1 file, 1 task, running 1 command$",
+      "replace": "Анализ 1 файла, 1 задачи, запуск 1 команды"
+    },
+    {
+      "regex": "^Explored 1 file, 1 task, ran 1 command$",
+      "replace": "Проанализирован 1 файл, 1 задача, выполнена 1 команда"
+    },
+    {
+      "regex": "^Exploring 1 file, 1 task$",
+      "replace": "Анализ 1 файла, 1 задачи"
+    },
+    {
+      "regex": "^Explored 1 file, 1 task$",
+      "replace": "Проанализирован 1 файл, 1 задача"
+    },
+    {
+      "regex": "^Exploring 1 task, running 1 command$",
+      "replace": "Анализ 1 задачи, запуск 1 команды"
+    },
+    {
+      "regex": "^Explored 1 task, ran 1 command$",
+      "replace": "Проанализирована 1 задача, выполнена 1 команда"
+    },
+    {
+      "regex": "^Exploring (\\d+) files?, 1 task, running 1 command$",
+      "replace": "Анализ файлов: $1, 1 задачи, запуск 1 команды"
+    },
+    {
+      "regex": "^Explored (\\d+) files?, 1 task, ran 1 command$",
+      "replace": "Проанализировано файлов: $1, выполнена 1 задача, 1 команда"
+    },
+    {
+      "regex": "^Exploring 1 file, (\\d+) tasks?, running (\\d+) commands?$",
+      "replace": "Анализ 1 файла, задач: $1, запуск команд: $2"
+    },
+    {
+      "regex": "^Explored 1 file, (\\d+) tasks?, ran (\\d+) commands?$",
+      "replace": "Проанализирован 1 файл, задач: $1, выполнено команд: $2"
+    },
+    {
+      "regex": "^Exploring (\\d+) files?, (\\d+) tasks?, running (\\d+) commands?$",
+      "replace": "Анализ файлов: $1, задач: $2, запуск команд: $3"
+    },
+    {
+      "regex": "^Explored (\\d+) files?, (\\d+) tasks?, ran (\\d+) commands?$",
+      "replace": "Проанализировано файлов: $1, задач: $2, выполнено команд: $3"
+    },
+    {
+      "regex": "^Exploring (\\d+) files?, (\\d+) tasks?$",
+      "replace": "Анализ файлов: $1, задач: $2"
+    },
+    {
+      "regex": "^Explored (\\d+) files?, (\\d+) tasks?$",
+      "replace": "Проанализировано файлов: $1, задач: $2"
+    },
+    {
+      "regex": "^Explored (\\d+) tasks?, ran (\\d+) commands?$",
+      "replace": "Проанализировано задач: $1, выполнено команд: $2"
+    },
+    {
+      "regex": "^Exploring (\\d+) tasks?, running 1 command$",
+      "replace": "Анализ задач: $1, запуск 1 команды"
+    },
+    {
+      "regex": "^Explored (\\d+) tasks?, ran 1 command$",
+      "replace": "Проанализировано задач: $1, выполнена 1 команда"
+    },
+    {
+      "regex": "^Exploring 1 task, running (\\d+) commands?$",
+      "replace": "Анализ 1 задачи, запуск команд: $1"
+    },
+    {
+      "regex": "^Explored 1 task, ran (\\d+) commands?$",
+      "replace": "Проанализирована 1 задача, выполнено команд: $1"
+    },
+    {
+      "regex": "^Exploring 1 task$",
+      "replace": "Анализ 1 задачи"
+    },
+    {
+      "regex": "^Explored 1 task$",
+      "replace": "Проанализирована 1 задача"
+    },
+    {
+      "regex": "^Exploring (\\d+) tasks?$",
+      "replace": "Анализ задач ($1)"
+    },
+    {
+      "regex": "^Explored (\\d+) tasks?$",
+      "replace": "Проанализировано задач: $1"
+    },
+    {
+      "regex": "^Exploring 1 page$",
+      "replace": "Чтение 1 страницы"
+    },
+    {
+      "regex": "^Explored 1 page$",
+      "replace": "Прочитана 1 страница"
+    },
+    {
+      "regex": "^Exploring (\\d+) pages?$",
+      "replace": "Чтение страниц ($1)"
+    },
+    {
+      "regex": "^Explored (\\d+) pages?$",
+      "replace": "Прочитано страниц: $1"
+    },
+    {
+      "regex": "^Exploring 1 artifact$",
+      "replace": "Создание 1 артефакта"
+    },
+    {
+      "regex": "^Explored 1 artifact$",
+      "replace": "Создан 1 артефакт"
+    },
+    {
+      "regex": "^Exploring (\\d+) artifacts?$",
+      "replace": "Создание артефактов ($1)"
+    },
+    {
+      "regex": "^Explored (\\d+) artifacts?$",
+      "replace": "Создано артефактов: $1"
+    },
+    {
+      "regex": "^Checked task (.+)$",
+      "replace": "Проверена задача: $1"
+    },
+    {
+      "regex": "^Checking task (.+)$",
+      "replace": "Проверка задачи: $1"
+    },
+    {
+      "regex": "^Check task (.+)$",
+      "replace": "Проверить задачу: $1"
+    },
+    {
+      "regex": "^Checked task status:?\\s+(.+)$",
+      "replace": "Статус задачи проверен: $1"
+    },
+    {
+      "regex": "^Checking task status:?\\s+(.+)$",
+      "replace": "Проверка статуса задачи: $1"
+    },
+    {
+      "regex": "^(.+) finished$",
+      "replace": "Завершено: $1"
+    },
+    {
+      "regex": "^(.+) completed$",
+      "replace": "Завершено: $1"
+    },
+    {
+      "regex": "^Low contrast ratio \\((.+)\\)\\. Text may be hard to read\\.$",
+      "replace": "Низкий контраст ($1). Текст может быть трудно читаем."
     }
   ]
 }

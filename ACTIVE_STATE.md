@@ -208,6 +208,12 @@
       - **Динамический сборщик релизов (`bin/build_release.js`)**: автоматическое версионирование дистрибутива `dist/antigravity-companion-v<version>.zip` из `package.json` по команде `npm run build:zip`.
       - **Полировка кинематики и типографики по стандарту `design-taste-frontend-v1`**: внедрены нативная переменная `--vscode-font-family` и пружинящая кривая `cubic-bezier(0.16, 1, 0.3, 1)` для тултипов, баннеров и контейнера виджета.
 
+   32. **Локализация траекторий фоновых задач и комбинированных сводок (Background Tasks & Trajectory Summaries)**:
+       - Переведены комбинированные заголовки свёрнутого блока шагов (Trajectory Summary) со смешанными сущностями: Exploring 1 file, 1 task, running 1 command («Анализ 1 файла, 1 задачи, запуск 1 команды»), Explored 1 file, 1 task, ran 1 command («Проанализирован 1 файл, 1 задача, выполнена 1 команда»), варианты с несколькими задачами, файлами, командами, страницами и артефактами.
+       - Переведены префиксы и действия проверки/остановки задач: Checked task («Проверена задача»), Checking task («Проверка задачи»), Check task («Проверить задачу»), Checked task status («Статус задачи проверен»), Checking task status («Проверка статуса задачи»), Stopped task / Stopping task («Задача остановлена» / «Остановка задачи»), Task finished («Задача завершена»), Task completed, Task failed, Task running, Task started.
+       - Внедрены динамические шаблоны завершения фоновых процессов: ^(.+) finished$ («Завершено: »), ^(.+) completed$, ^Checked task (.+)$ («Проверена задача: »), ^Checking task (.+)$.
+       - Переведены горячие клавиши добавления в очередь: Enter Queues after the turn, Alt+Enter Sends immediately, Alt+Enter On empty prompt, sends next in queue, кнопка Reset to preset и предупреждение Low contrast ratio (...).
+       - Всего в словаре: **1214 точных терминов**, **132 атрибута**, **179 шаблонов** (всего 1525 правил перевода).
 ---
 
 ## 4. Следующие шаги и бэклог
