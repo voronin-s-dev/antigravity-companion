@@ -104,25 +104,25 @@ try {
         Write-Host "    - Пропуск завершения процессов." -ForegroundColor Gray
     }
 
-    # 3. Настройка тихого автозапуска
+    # 3. Настройка мгновенного автозапуска в реестре Windows (без задержек Startup Delay)
     Write-Host ""
-    Write-Host "[3/4] Настройка фонового автозапуска в Windows..." -ForegroundColor Cyan
+    Write-Host "[3/4] Настройка мгновенного фонового автозапуска в Windows (HKCU Run)..." -ForegroundColor Cyan
     $startPs1 = Join-Path $baseDir "bin\start_silent.ps1"
-    $startupFolder = [System.Environment]::GetFolderPath('Startup')
-    $shortcutPath = Join-Path $startupFolder "AntigravityCompanion.lnk"
+    $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+    $regName = "AntigravityCompanion"
+    $cmd = "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$startPs1`""
 
     try {
-        $ws = New-Object -ComObject WScript.Shell
-        $shortcut = $ws.CreateShortcut($shortcutPath)
-        $shortcut.TargetPath = "powershell.exe"
-        $shortcut.Arguments = "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$startPs1`""
-        $shortcut.WorkingDirectory = (Join-Path $baseDir "bin")
-        $shortcut.Description = "Antigravity Companion - Русский перевод и виджет лимитов"
-        $shortcut.Save()
-        Write-Host "[+] Ярлык автозапуска успешно добавлен в папку Автозагрузка Windows!" -ForegroundColor Green
-        Write-Host "    Служба будет тихо стартовать при входе в систему без всплывающих окон." -ForegroundColor Gray
+        Set-ItemProperty -Path $regPath -Name $regName -Value $cmd -Force
+        # Удаление устаревшего ярлыка из папки Startup, если он существовал
+        $startupFolder = [System.Environment]::GetFolderPath('Startup')
+        $oldShortcut = Join-Path $startupFolder "AntigravityCompanion.lnk"
+        if (Test-Path $oldShortcut) { Remove-Item -Path $oldShortcut -Force -ErrorAction SilentlyContinue }
+
+        Write-Host "[+] Автозапуск успешно зарегистрирован в реестре Windows (HKCU\Run)!" -ForegroundColor Green
+        Write-Host "    Служба будет моментально стартовать при входе в систему без задержек Windows Startup Delay." -ForegroundColor Gray
     } catch {
-        Write-Host "[!] Предупреждение: Не удалось создать ярлык автозапуска: $_" -ForegroundColor Yellow
+        Write-Host "[!] Предупреждение: Не удалось настроить запись в реестре: $_" -ForegroundColor Yellow
     }
 
     # 4. Немедленный запуск службы

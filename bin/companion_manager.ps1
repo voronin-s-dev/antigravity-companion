@@ -29,32 +29,35 @@ function Get-AntigravityStatus {
 }
 
 function Get-StartupStatus {
+    $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+    $reg = Get-ItemProperty -Path $regPath -Name "AntigravityCompanion" -ErrorAction SilentlyContinue
+    if ($reg) { return $true }
     $appData = [System.Environment]::GetFolderPath('ApplicationData')
     $lnk = Join-Path $appData 'Microsoft\Windows\Start Menu\Programs\Startup\AntigravityCompanion.lnk'
     return (Test-Path $lnk)
 }
 
 function Toggle-Startup {
+    $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+    $regName = "AntigravityCompanion"
     $appData = [System.Environment]::GetFolderPath('ApplicationData')
     $startupFolder = Join-Path $appData 'Microsoft\Windows\Start Menu\Programs\Startup'
     $lnk = Join-Path $startupFolder 'AntigravityCompanion.lnk'
     
-    if (Test-Path $lnk) {
-        Remove-Item $lnk -Force -ErrorAction SilentlyContinue
+    $isConfigured = Get-StartupStatus
+    if ($isConfigured) {
+        Remove-ItemProperty -Path $regPath -Name $regName -Force -ErrorAction SilentlyContinue
+        if (Test-Path $lnk) { Remove-Item $lnk -Force -ErrorAction SilentlyContinue }
         Write-Host "[+] Автозапуск Windows: ОТКЛЮЧЕН" -ForegroundColor Yellow
     } else {
         $startPs1 = Join-Path $baseDir "start_silent.ps1"
         try {
-            $ws = New-Object -ComObject WScript.Shell
-            $shortcut = $ws.CreateShortcut($lnk)
-            $shortcut.TargetPath = "powershell.exe"
-            $shortcut.Arguments = "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$startPs1`""
-            $shortcut.WorkingDirectory = $baseDir
-            $shortcut.Description = "Antigravity Companion"
-            $shortcut.Save()
-            Write-Host "[+] Автозапуск Windows: ВКЛЮЧЕН" -ForegroundColor Green
+            $cmd = "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$startPs1`""
+            Set-ItemProperty -Path $regPath -Name $regName -Value $cmd -Force
+            if (Test-Path $lnk) { Remove-Item $lnk -Force -ErrorAction SilentlyContinue }
+            Write-Host "[+] Автозапуск Windows (HKCU Run): ВКЛЮЧЕН (Мгновенный старт без задержек)" -ForegroundColor Green
         } catch {
-            Write-Host "[X] Ошибка создания ярлыка: $_" -ForegroundColor Red
+            Write-Host "[X] Ошибка настройки автозапуска в реестре: $_" -ForegroundColor Red
         }
     }
 }

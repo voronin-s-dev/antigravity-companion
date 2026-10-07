@@ -24,14 +24,29 @@ if ($procs) {
 }
 
 # 2. Удаление из автозапуска
+$regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+$regName = "AntigravityCompanion"
+$removed = $false
+
+try {
+    $existing = Get-ItemProperty -Path $regPath -Name $regName -ErrorAction SilentlyContinue
+    if ($existing) {
+        Remove-ItemProperty -Path $regPath -Name $regName -Force -ErrorAction SilentlyContinue
+        $removed = $true
+    }
+} catch {}
+
 $startupFolder = [System.Environment]::GetFolderPath('Startup')
 $shortcutPath = Join-Path $startupFolder "AntigravityCompanion.lnk"
-
 if (Test-Path $shortcutPath) {
     Remove-Item -Path $shortcutPath -Force -ErrorAction SilentlyContinue
+    $removed = $true
+}
+
+if ($removed) {
     Write-Host "[+] Автозапуск Windows успешно удален." -ForegroundColor Green
 } else {
-    Write-Host "[-] Ярлык автозапуска не был найден." -ForegroundColor Gray
+    Write-Host "[-] Записи автозапуска не были найдены." -ForegroundColor Gray
 }
 
 Write-Host ""
