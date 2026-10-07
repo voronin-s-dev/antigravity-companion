@@ -183,7 +183,7 @@
     // 1. Exact match
     if (dict.exact && dict.exact[trimmed]) {
       const match = dict.exact[trimmed];
-      const leading = /^[.,;:!?]/.test(match) ? '' : rawText.match(/^\s*/)[0];
+      const leading = /^[.,;:!?)]/.test(match) ? '' : rawText.match(/^\s*/)[0];
       const trailing = rawText.match(/\s*$/)[0];
       return leading + match + trailing;
     }
@@ -214,7 +214,7 @@
             if (replacement === undefined) continue;
             let replaced = trimmed.replace(p._compiled, replacement);
             replaced = formatTimeTokens(replaced);
-            const leading = /^[.,;:!?]/.test(replaced) ? '' : rawText.match(/^\s*/)[0];
+            const leading = /^[.,;:!?)]/.test(replaced) ? '' : rawText.match(/^\s*/)[0];
             const trailing = rawText.match(/\s*$/)[0];
             return leading + replaced + trailing;
           }
@@ -264,11 +264,50 @@
         }
       }
 
+      // Special handler for NUX callout paragraphs with inline SVGs
+      if (trimmedVal === 'Search conversations with') {
+        const nextSvg = node.nextSibling;
+        if (nextSvg && nextSvg.nodeType === Node.ELEMENT_NODE) {
+          const nextText = nextSvg.nextSibling;
+          if (nextText && nextText.nodeType === Node.TEXT_NODE && nextText.nodeValue.includes('in the top left.')) {
+            try {
+              isInternalMutating = true;
+              node.nodeValue = 'Поиск по диалогам через ';
+              node.__agy_last_translated = node.nodeValue;
+              nextText.nodeValue = ' вверху слева.';
+              nextText.__agy_last_translated = nextText.nodeValue;
+              return;
+            } finally {
+              isInternalMutating = false;
+            }
+          }
+        }
+      }
+
+      if (trimmedVal === 'View archived in the sidebar (') {
+        const nextSvg = node.nextSibling;
+        if (nextSvg && nextSvg.nodeType === Node.ELEMENT_NODE) {
+          const nextText = nextSvg.nextSibling;
+          if (nextText && nextText.nodeType === Node.TEXT_NODE && nextText.nodeValue.includes('menu).')) {
+            try {
+              isInternalMutating = true;
+              node.nodeValue = 'Просмотр архива в боковой панели (меню ';
+              node.__agy_last_translated = node.nodeValue;
+              nextText.nodeValue = ').';
+              nextText.__agy_last_translated = nextText.nodeValue;
+              return;
+            } finally {
+              isInternalMutating = false;
+            }
+          }
+        }
+      }
+
       const tr = getTranslation(node.__agy_orig);
       if (tr && tr !== node.nodeValue) {
         try {
           isInternalMutating = true;
-          if (/^[.,;:!?]/.test(tr)) {
+          if (/^[.,;:!?)]/.test(tr)) {
             const prev = node.previousSibling;
             if (prev && prev.nodeType === Node.TEXT_NODE && /^\s+$/.test(prev.nodeValue)) {
               if (prev.__agy_orig === undefined) prev.__agy_orig = prev.nodeValue;
@@ -293,6 +332,44 @@
               node.__agy_last_translated = node.nodeValue;
               nextNext.nodeValue = 's';
               nextNext.__agy_last_translated = nextNext.nodeValue;
+              return;
+            } finally {
+              isInternalMutating = false;
+            }
+          }
+        }
+      }
+
+      if (trimmedVal === 'Поиск по диалогам через') {
+        const nextSvg = node.nextSibling;
+        if (nextSvg && nextSvg.nodeType === Node.ELEMENT_NODE) {
+          const nextText = nextSvg.nextSibling;
+          if (nextText && nextText.nodeType === Node.TEXT_NODE && nextText.nodeValue.includes('вверху слева.')) {
+            try {
+              isInternalMutating = true;
+              node.nodeValue = 'Search conversations with ';
+              node.__agy_last_translated = node.nodeValue;
+              nextText.nodeValue = ' in the top left.';
+              nextText.__agy_last_translated = nextText.nodeValue;
+              return;
+            } finally {
+              isInternalMutating = false;
+            }
+          }
+        }
+      }
+
+      if (trimmedVal === 'Просмотр архива в боковой панели (меню') {
+        const nextSvg = node.nextSibling;
+        if (nextSvg && nextSvg.nodeType === Node.ELEMENT_NODE) {
+          const nextText = nextSvg.nextSibling;
+          if (nextText && nextText.nodeType === Node.TEXT_NODE && nextText.nodeValue.includes(').')) {
+            try {
+              isInternalMutating = true;
+              node.nodeValue = 'View archived in the sidebar (';
+              node.__agy_last_translated = node.nodeValue;
+              nextText.nodeValue = ' menu).';
+              nextText.__agy_last_translated = nextText.nodeValue;
               return;
             } finally {
               isInternalMutating = false;

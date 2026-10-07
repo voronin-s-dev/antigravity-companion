@@ -227,16 +227,26 @@
    35. **Локализация бейджей моделей и подменю разделения окон (Model Leaving Soon & Split Submenu)**:
        - Переведены бейдж скорого отключения модели `Leaving Soon` / `Leaving soon` («Скоро будет отключена»), тултип выбора модели `Start using Gemini 3.8 Flash, our best Flash model.` («Начните использовать Gemini 3.8 Flash, нашу лучшую модель Flash.») и универсальный шаблон `^Start using (.+), our best (.+) model\\.$`.
        - Переведены недостающие пункты подменю «Разделить» контекстного меню диалогов: `Replace With New` («Заменить новым»), `Remove From Split` («Убрать из разделения»), `Replace With Existing` («Заменить существующим») и сопутствующие варианты регистра.
-       - Всего в словаре: **1236 точных терминов**, **139 атрибутов**, **186 шаблонов** (всего 1561 правило перевода).
    36. **Диагностика и устранение задержки автозапуска после перезагрузки Windows (Instant Startup via HKCU Run)**:
        - **Выявление первопричины**: ярлык автозагрузки находился в классической папке `%APPDATA%\...\Startup`. В Windows 11 и при наличии `Microsoft PC Manager` (`MSPCManager`) для элементов этой папки действует искусственная задержка (Startup Delay) до 5–6 минут. Пользователь запустил Antigravity на 3-й минуте, когда служба Companion ещё ждала очереди Windows.
        - **Переход на мгновенный запуск**: автозагрузка переведена на реестр `HKCU:\Software\Microsoft\Windows\CurrentVersion\Run\AntigravityCompanion`, запускающийся одновременно с оболочкой Windows (User Logon) с нулевой задержкой. Устаревший ярлык из `Startup` удалён.
        - **Синхронизация скриптов**: обновлены `install.ps1`, `uninstall.ps1` и `bin/companion_manager.ps1` для работы через `HKCU\Run`.
        - **Проверка с запуском Antigravity**: служба крутится в фоне при 0% CPU и при запуске Antigravity моментально (через `fs.watch` за 250 мс) считывает `DevToolsActivePort` и инжектирует виджет и перевод.
+   37. **Локализация раздела «Кастомизация» и всплывающего окна поиска (Customizations & Search Across Conversations NUX Callout)**:
+       - **Всплывающая подсказка поиска по всем диалогам (NUX Callout)**:
+         - Переведены заголовок `Search Across Conversations` («Поиск по всем диалогам») и кнопка `Dismiss` («Понятно»).
+         - Решена проблема сложных предложений с инлайн-иконками SVG: `Search conversations with <svg> in the top left.` («Поиск по диалогам через [icon] вверху слева.») и `View archived in the sidebar (<svg> menu).` («Просмотр архива в боковой панели (меню [icon]).»). В `translation_engine.js` добавлен специализированный перехватчик составных узлов и улучшена проверка пунктуации для знаков закрытия скобок (`/^[.,;:!?)]/`).
+       - **Раздел «Кастомизация» (Customizations Marketplace & Installed)**:
+         - Переведены вкладка `Installed` («Установленные») и плейсхолдер строки поиска `Search customizations...` («Поиск кастомизаций...»).
+         - Переведены заголовки и описания секций: `Build with Google` («Разработка с Google»), `Build on Google's developer platforms, including Android, Chrome, Gemini, and Google Cloud.` («Разработка на платформах Google для разработчиков, включая Android, Chrome, Gemini и Google Cloud.»), `Connect to Google Workspace, including Docs, Sheets, Slides, Drive, and Calendar.` («Подключение к Google Workspace, включая Docs, Sheets, Slides, Drive и Календарь.»).
+         - Переведены описания всех карточек каталога: Google Docs, Google Sheets, Google Slides, Google Drive, Google Calendar, Firebase, Google Antigravity SDK, Science («Наука»), Data Agent Kit, Dart and Flutter, Google Maps Platform, Modern Web Guidance.
+         - Переведены кнопки и элементы управления: `Install` («Установить»), `Uninstall` («Удалить»), `Configure` («Настроить»), `Built In` («Встроенный»), `Blocked` («Заблокирован»), `Setup required` («Требуется настройка»), `No plugins available.` («Нет доступных плагинов.»), `Customizations views` («Представления кастомизации»).
+         - Внедрены динамические шаблоны раскрытия списков: `^\+\s*See\s+(\d+)\s+more$` («+ Показать ещё $1»), `^See\s+(\d+)\s+more$`, `^See\s+(\d+)\s+more\s+(.+)$`, `^\+\s*See\s+more$` («+ Показать больше»), `^See\s+more\s+plugins$`, `^More actions for (.+)$`.
+       - Всего в словаре: **1279 точных терминов**, **146 атрибутов**, **192 шаблона** (всего 1617 правил перевода).
 ---
 
 ## 4. Следующие шаги и бэклог
-1. Собрать обратную связь пользователя по контекстным меню и другим элементам UI.
+1. Собрать обратную связь пользователя по переводу всплывающего окна и раздела кастомизаций.
 2. Поддержание актуальности словаря при обновлениях Antigravity через `npm run harvest` и `npm run merge`.
 
 ---

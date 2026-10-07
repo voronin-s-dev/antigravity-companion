@@ -1155,16 +1155,16 @@
     "Build with Antigravity Plugins": "Плагины Build with Antigravity",
     "Plugins are packaged collections of skills and MCPs to help the Agent in Antigravity work with Google developer products. You can always change your choices in Settings.": "Плагины — это пакеты навыков и серверов MCP, которые помогают агенту Antigravity работать с продуктами Google для разработчиков. Вы всегда можете изменить свой выбор в Настройках.",
     "Plugins are packaged collections of skills and MCPs to help the Agent in": "Плагины — это пакеты навыков и серверов MCP, которые помогают агенту в",
-    "work with Google developer products. You can always change your choices in Settings.": "работать с продуктами Google для разработчиков. Вы всегда можете изменить свой выбор в Настройках.",
+    "work with Google developer products. You can always change your choices in Settings.": "в работе с продуктами Google для разработчиков. Вы всегда можете изменить выбор в Настройках.",
     "There are currently no Build with Antigravity plugins available.": "В настоящее время нет доступных плагинов для разработки с Antigravity.",
     "There are currently no Build with": "В настоящее время нет доступных плагинов для разработки с",
     "plugins available.": "плагинов.",
-    "Modern Web Guidance": "Современная веб-разработка",
+    "Modern Web Guidance": "Modern Web Guidance",
     "Dart and Flutter": "Dart и Flutter",
     "Science": "Наука",
     "Core tools and knowledge required to develop for Android": "Базовые инструменты и знания, необходимые для разработки под Android.",
     "Core tools and knowledge required to develop for Android.": "Базовые инструменты и знания, необходимые для разработки под Android.",
-    "Keep your coding agent up to date with the latest web best practices.": "Актуальные рекомендации и современные практики веб-разработки для вашего агента.",
+    "Keep your coding agent up to date with the latest web best practices.": "Актуальные рекомендации и современные веб-практики для вашего агента.",
     "Keep your coding agent up to date with the latest web best practices": "Актуальные рекомендации и современные практики веб-разработки для вашего агента.",
     "Using the Antigravity Python SDK to build AI agents": "Использование Antigravity Python SDK для создания ИИ-агентов.",
     "Using the Antigravity Python SDK to build AI agents.": "Использование Antigravity Python SDK для создания ИИ-агентов.",
@@ -1236,7 +1236,50 @@
     "Retiring soon": "Скоро будет отключена",
     "Deprecated Soon": "Скоро устареет",
     "Replace With Existing": "Заменить существующим",
-    "Replace with existing": "Заменить существующим"
+    "Replace with existing": "Заменить существующим",
+    "Installed": "Установленные",
+    "Search customizations...": "Поиск кастомизаций...",
+    "Build with Google": "Разработка с Google",
+    "Build on Google's developer platforms, including Android, Chrome, Gemini, and Google Cloud.": "Разработка на платформах Google для разработчиков, включая Android, Chrome, Gemini и Google Cloud.",
+    "Google Workspace": "Google Workspace",
+    "Connect to Google Workspace, including Docs, Sheets, Slides, Drive, and Calendar.": "Подключение к Google Workspace, включая Docs, Sheets, Slides, Drive и Календарь.",
+    "Google Docs": "Google Docs",
+    "Read, draft, and edit docs.": "Чтение, создание и редактирование документов.",
+    "Google Sheets": "Google Sheets",
+    "Read, write, and format spreadsheets.": "Чтение, редактирование и форматирование таблиц.",
+    "Google Slides": "Google Slides",
+    "Read, edit, and export presentations.": "Чтение, редактирование и экспорт презентаций.",
+    "Google Drive": "Google Drive",
+    "Search, upload, download, and share files.": "Поиск, отправка, скачивание и обмен файлами.",
+    "Google Calendar": "Google Calendar",
+    "Check availability, schedule events, and RSVP.": "Проверка доступности, планирование событий и ответы на приглашения.",
+    "Curated collection of agent skills for science tasks.": "Коллекция навыков агента для научных задач.",
+    "Prototype, build & run modern apps that users love with Firebase's backend, AI, and operational infrastructure.": "Прототипирование, разработка и запуск современных приложений с бэкендом, ИИ и инфраструктурой Firebase.",
+    "Using the Google Antigravity Python SDK to build AI agents": "Использование Python SDK Google Antigravity для создания ИИ-агентов",
+    "Data Agent Kit": "Data Agent Kit",
+    "This plugin provides a specialized suite of skills for data engineers and database practitioners working on Google Cloud. It acts as an expert assistant, allowing you to use natural language prompts in your preferred coding agent to architect complex data pipelines, transform data with dbt, write Spark and BigQuery SQL notebooks, and orchestrate end-to-end workflows across GCP's data ecosystem.": "Этот плагин предоставляет специализированный набор навыков для дата-инженеров и специалистов по базам данных в Google Cloud. Он выступает в роли эксперта, позволяя проектировать конвейеры данных, трансформировать данные с dbt, писать блокноты Spark и BigQuery SQL и оркестровать процессы в GCP.",
+    "Official plugin for Dart and Flutter that installs Flutter/Dart Skills, Rules, Custom Agents, and Dart MCP server for building natively compiled, visually stunning applications for mobile, web, desktop, and embedded devices from a single codebase": "Официальный плагин для Dart и Flutter, устанавливающий навыки, правила, агентов и MCP-сервер Dart для компиляции мультиплатформенных приложений из единой кодовой базы.",
+    "Google Maps Platform": "Google Maps Platform",
+    "Integration skill and tools for Google Maps Platform APIs": "Интеграционные навыки и инструменты для API Google Maps Platform",
+    "Install": "Установить",
+    "Uninstall": "Удалить",
+    "Configure": "Настроить",
+    "Built In": "Встроенный",
+    "Blocked": "Заблокирован",
+    "Setup required": "Требуется настройка",
+    "No plugins available.": "Нет доступных плагинов.",
+    "Search Across Conversations": "Поиск по всем диалогам",
+    "Search conversations with": "Поиск по диалогам через",
+    "in the top left.": "вверху слева.",
+    "View archived in the sidebar (": "Просмотр архива в боковой панели (меню ",
+    "menu).": ").",
+    "Dismiss": "Понятно",
+    "dismiss": "понятно",
+    "See 4 more": "Показать ещё 4",
+    "+ See 4 more": "+ Показать ещё 4",
+    "+ See more": "+ Показать больше",
+    "Customizations views": "Представления кастомизации",
+    "Plugins are packaged collections of skills and MCPs to help the Agent": "Плагины — это пакеты навыков и серверов MCP для помощи агенту"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1377,7 +1420,14 @@
     "Replace With New": "Заменить новым",
     "Replace with new": "Заменить новым",
     "Remove From Split": "Убрать из разделения",
-    "Remove from split": "Убрать из разделения"
+    "Remove from split": "Убрать из разделения",
+    "Search customizations...": "Поиск кастомизаций...",
+    "Installed": "Установленные",
+    "Install": "Установить",
+    "Uninstall": "Удалить",
+    "Configure": "Настроить",
+    "Dismiss": "Понятно",
+    "Customizations views": "Представления кастомизации"
   },
   "patterns": [
     {
@@ -2123,6 +2173,30 @@
     {
       "regex": "^Start using (.+), our best (.+) model$",
       "replace": "Начните использовать $1, нашу лучшую модель $2"
+    },
+    {
+      "regex": "^\\+\\s*See\\s+(\\d+)\\s+more$",
+      "replace": "+ Показать ещё $1"
+    },
+    {
+      "regex": "^See\\s+(\\d+)\\s+more$",
+      "replace": "Показать ещё $1"
+    },
+    {
+      "regex": "^See\\s+(\\d+)\\s+more\\s+(.+)$",
+      "replace": "Показать ещё $1 $2"
+    },
+    {
+      "regex": "^\\+\\s*See\\s+more$",
+      "replace": "+ Показать больше"
+    },
+    {
+      "regex": "^See\\s+more\\s+plugins$",
+      "replace": "Показать больше плагинов"
+    },
+    {
+      "regex": "^More actions for (.+)$",
+      "replace": "Другие действия для $1"
     }
   ]
 }
