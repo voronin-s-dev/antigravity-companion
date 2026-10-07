@@ -1,10 +1,10 @@
 {
   "name": "antigravity-companion",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Модуль глубокой русификации и виджет лимитов моделей для Google Antigravity Desktop App",
   "main": "bin/antigravity_companion.js",
   "scripts": {
-    "test": "node -e \"const dict = JSON.parse(require('fs').readFileSync('localization/dictionary_ru.json', 'utf8')); console.log('✓ Словарь валиден! Точных терминов:', Object.keys(dict.exact).length, 'Атрибутов:', Object.keys(dict.attributes).length, 'Шаблонов:', dict.patterns.length);\"",
+    "test": "node test/run_all.js",
     "start": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/start_silent.ps1",
     "reload": "node localization/inject_translator.js && node limits_widget/inject_panel.js",
     "harvest": "node localization/strings_harvester.js",
@@ -12,7 +12,7 @@
     "status": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1",
     "doctor": "node bin/doctor.js",
     "doctor:cdp": "node bin/cdp_doctor.js",
-    "build:zip": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"if (!(Test-Path 'dist')) { New-Item -ItemType Directory -Path 'dist' | Out-Null }; Compress-Archive -Path 'bin', 'config', 'limits_widget', 'localization', 'skills', 'companion.bat', 'install.bat', 'install.ps1', 'launch_antigravity.bat', 'start.bat', 'uninstall.bat', 'uninstall.ps1', 'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'CHANGELOG.md', 'LICENSE', '.gitignore', 'package.json' -DestinationPath 'dist/antigravity-companion-v1.4.0.zip' -Force; Write-Host '✓ Архив собран в dist/antigravity-companion-v1.4.0.zip' -ForegroundColor Green\""
+    "build:zip": "node bin/build_release.js"
   },
   "keywords": [
     "antigravity",

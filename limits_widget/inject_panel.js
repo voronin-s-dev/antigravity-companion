@@ -297,7 +297,7 @@ async function injectWidget() {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
         border-radius: 7px;
         padding: 6px 9px;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: var(--vscode-font-family, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
         color: #f4f4f5;
         font-size: 11px;
         user-select: none;
@@ -549,12 +549,12 @@ async function injectWidget() {
         border-radius: 10px;
         padding: 10px 12px;
         color: #f4f4f5;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-family: var(--vscode-font-family, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
         font-size: 12px;
         z-index: 9999999;
         user-select: none;
         box-sizing: border-box;
-        transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), padding 0.2s ease, opacity 0.15s ease, background 0.25s ease;
+        transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), padding 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       \`;
 
       let isCollapsed = localStorage.getItem('agy_limits_collapsed') === 'true';
@@ -2437,13 +2437,13 @@ async function injectWidget() {
             padding: 6px 11px;
             color: #fbbf24;
             font-size: 11px;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: var(--vscode-font-family, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
             display: flex;
             align-items: center;
             gap: 8px;
             opacity: 0;
             transform: translateY(4px);
-            transition: opacity 0.18s ease, transform 0.18s ease;
+            transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: auto;
             max-width: 90vw;
           \`;

@@ -117,18 +117,30 @@
       return leading + match + trailing;
     }
 
-    // 2. Pattern match
+    // 2. Pattern match (Safe compilation guard)
     if (dict.patterns && dict.patterns.length) {
       for (const p of dict.patterns) {
-        if (!p._compiled) p._compiled = new RegExp(p.regex);
-        if (p._compiled.test(trimmed)) {
-          const replacement = p.replace !== undefined ? p.replace : p.replacement;
-          if (replacement === undefined) continue;
-          let replaced = trimmed.replace(p._compiled, replacement);
-          replaced = formatTimeTokens(replaced);
-          const leading = /^[.,;:!?]/.test(replaced) ? '' : rawText.match(/^\s*/)[0];
-          const trailing = rawText.match(/\s*$/)[0];
-          return leading + replaced + trailing;
+        if (p._invalid) continue;
+        if (!p._compiled) {
+          try {
+            p._compiled = new RegExp(p.regex);
+          } catch (e) {
+            p._invalid = true;
+            continue;
+          }
+        }
+        try {
+          if (p._compiled.test(trimmed)) {
+            const replacement = p.replace !== undefined ? p.replace : p.replacement;
+            if (replacement === undefined) continue;
+            let replaced = trimmed.replace(p._compiled, replacement);
+            replaced = formatTimeTokens(replaced);
+            const leading = /^[.,;:!?]/.test(replaced) ? '' : rawText.match(/^\s*/)[0];
+            const trailing = rawText.match(/\s*$/)[0];
+            return leading + replaced + trailing;
+          }
+        } catch (e) {
+          p._invalid = true;
         }
       }
     }

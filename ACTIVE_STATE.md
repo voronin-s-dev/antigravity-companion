@@ -5,7 +5,7 @@
 ---
 
 ## 1. Метаданные репозитория
-- **Версия**: `v1.4.0`
+- **Версия**: `v1.5.0`
 - **Ветка**: `main`
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **Релизы**: [Релизы с прикрепленными ZIP-архивами](https://github.com/voronin-s-dev/antigravity-companion/releases)
@@ -202,6 +202,11 @@
       - **Поддержка рекурсивных подменю**: корректно транслируются все вложенные ветки подменю («Копировать» $\rightarrow$ «Имя диалога», «ID диалога», «Имя проекта»; «Разделить» $\rightarrow$ «Разделить вправо», «Разделить вниз»; «Ответвить» и др.).
       - **Пополнение словаря**: добавлены недостающие термины и подменю: `Fork` («Ответвить»), `Share` («Поделиться»), `View Debug` («Просмотр отладки»), `Worktree Name` («Имя рабочего дерева»), `Workspace Name` («Имя рабочей области»), `Create fork in current workspace` («Создать ветку в текущей рабочей области»), `Create fork in shared workspace`, `Create fork in new workspace`, `Copy Image` («Копировать изображение»), `Save Image` («Сохранить изображение»), `Save Video` («Сохранить видео»), модальное предупреждение `Are you sure you want to delete this conversation? This action cannot be undone.` («Вы действительно хотите удалить этот диалог? Это действие невозможно отменить.»), `Archive / Restore`, `Terminal: Add to Chat`.
       - Всего в словаре: **1194 точных термина**, **132 атрибута**, **140 шаблонов** (всего 1466 правил перевода).
+  31. **Инженерия качества, динамические релизы и UI-кинематика (v1.5.0)**:
+      - **Интеграция тестового раннера (`test/`)**: внедрены тесты синтаксиса инъекций в виртуальной машине Node.js (`test/syntax_injection.test.js`) и валидация целостности словаря (`test/dictionary_integrity.test.js`).
+      - **Безопасная компиляция шаблонов (`Safe Pattern Compiler`)**: в `localization/translation_engine.js` добавлен `try-catch` перехват при компиляции регулярных выражений с изоляцией ошибочных правил.
+      - **Динамический сборщик релизов (`bin/build_release.js`)**: автоматическое версионирование дистрибутива `dist/antigravity-companion-v<version>.zip` из `package.json` по команде `npm run build:zip`.
+      - **Полировка кинематики и типографики по стандарту `design-taste-frontend-v1`**: внедрены нативная переменная `--vscode-font-family` и пружинящая кривая `cubic-bezier(0.16, 1, 0.3, 1)` для тултипов, баннеров и контейнера виджета.
 
 ---
 
