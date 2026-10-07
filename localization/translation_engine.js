@@ -102,6 +102,77 @@
       .replace(/(\d+)\s*seconds?/gi, '$1 сек.');
   }
 
+  function translateTrajectorySummary(raw) {
+    if (!raw || typeof raw !== 'string') return null;
+    const m = raw.match(/^(Exploring|Explored)\s+(.+)$/i);
+    if (!m) return null;
+    const isPast = m[1].toLowerCase() === 'explored';
+    const rest = m[2];
+
+    const parts = rest.split(',').map(s => s.trim());
+    const translatedParts = [];
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      let pMatch;
+      if ((pMatch = part.match(/^(\d+)\s+files?$/i))) {
+        const n = parseInt(pMatch[1], 10);
+        if (n === 1) {
+          translatedParts.push(isPast ? '1 файл' : '1 файла');
+        } else {
+          translatedParts.push(parts.length > 1 ? 'файлов: ' + n : n + ' файлов');
+        }
+      } else if ((pMatch = part.match(/^(\d+)\s+tasks?$/i))) {
+        const n = parseInt(pMatch[1], 10);
+        if (n === 1) {
+          translatedParts.push(isPast ? '1 задача' : '1 задачи');
+        } else {
+          translatedParts.push(parts.length > 1 ? 'задач: ' + n : n + ' задач');
+        }
+      } else if ((pMatch = part.match(/^(\d+)\s+folders?$/i))) {
+        const n = parseInt(pMatch[1], 10);
+        if (n === 1) {
+          translatedParts.push(isPast ? '1 папка' : '1 папки');
+        } else {
+          translatedParts.push(parts.length > 1 ? 'папок: ' + n : n + ' папок');
+        }
+      } else if ((pMatch = part.match(/^(\d+)\s+searches?$/i))) {
+        const n = parseInt(pMatch[1], 10);
+        translatedParts.push(n === 1 ? '1 поиск' : (parts.length > 1 ? 'поисков: ' + n : n + ' поисков'));
+      } else if ((pMatch = part.match(/^(\d+)\s+pages?$/i))) {
+        const n = parseInt(pMatch[1], 10);
+        translatedParts.push(n === 1 ? '1 страница' : (parts.length > 1 ? 'страниц: ' + n : n + ' страниц'));
+      } else if ((pMatch = part.match(/^(\d+)\s+artifacts?$/i))) {
+        const n = parseInt(pMatch[1], 10);
+        translatedParts.push(n === 1 ? '1 артефакт' : (parts.length > 1 ? 'артефактов: ' + n : n + ' артефактов'));
+      } else if ((pMatch = part.match(/^(running|ran)\s+(\d+)\s+commands?$/i))) {
+        const isPastCmd = pMatch[1].toLowerCase() === 'ran';
+        const n = parseInt(pMatch[2], 10);
+        if (n === 1) {
+          translatedParts.push(isPastCmd ? 'выполнена 1 команда' : 'запуск 1 команды');
+        } else {
+          translatedParts.push(isPastCmd ? 'выполнено команд: ' + n : 'запуск команд: ' + n);
+        }
+      } else {
+        return null;
+      }
+    }
+
+    if (translatedParts.length === 0) return null;
+
+    if (isPast) {
+      if (rest.match(/^1\s+file$/i)) return 'Проанализирован 1 файл';
+      if (rest.match(/^1\s+task$/i)) return 'Проанализирована 1 задача';
+      if (rest.match(/^1\s+folder$/i)) return 'Проанализирована 1 папка';
+      if (rest.match(/^1\s+task,\s*ran\s+1\s+command$/i)) return 'Проанализирована 1 задача, выполнена 1 команда';
+      if (rest.match(/^1\s+file,\s*ran\s+1\s+command$/i)) return 'Проанализирован 1 файл, выполнена 1 команда';
+      if (rest.match(/^1\s+file,\s*1\s+task,\s*ran\s+1\s+command$/i)) return 'Проанализирован 1 файл, 1 задача, выполнена 1 команда';
+      return 'Проанализировано ' + translatedParts.join(', ');
+    } else {
+      return 'Анализ ' + translatedParts.join(', ');
+    }
+  }
+
   function getTranslation(rawText) {
     if (!rawText || !window.__agyDictRu) return null;
     const trimmed = rawText.trim();
@@ -117,7 +188,15 @@
       return leading + match + trailing;
     }
 
-    // 2. Pattern match (Safe compilation guard)
+    // 2. Trajectory summary special handler
+    const trajTr = translateTrajectorySummary(trimmed);
+    if (trajTr) {
+      const leading = rawText.match(/^\s*/)[0];
+      const trailing = rawText.match(/\s*$/)[0];
+      return leading + trajTr + trailing;
+    }
+
+    // 3. Pattern match (Safe compilation guard)
     if (dict.patterns && dict.patterns.length) {
       for (const p of dict.patterns) {
         if (p._invalid) continue;
@@ -165,6 +244,26 @@
     }
 
     if (lang === 'ru') {
+      // Special handler for React Fragment: ["Thinking for ", number, "s"]
+      if (trimmedVal === 'Thinking for') {
+        const next = node.nextSibling;
+        if (next && next.nodeType === Node.TEXT_NODE) {
+          const nextNext = next.nextSibling;
+          if (nextNext && nextNext.nodeType === Node.TEXT_NODE && nextNext.nodeValue.trim() === 's') {
+            try {
+              isInternalMutating = true;
+              node.nodeValue = 'Размышление (';
+              node.__agy_last_translated = node.nodeValue;
+              nextNext.nodeValue = ' с)';
+              nextNext.__agy_last_translated = nextNext.nodeValue;
+              return;
+            } finally {
+              isInternalMutating = false;
+            }
+          }
+        }
+      }
+
       const tr = getTranslation(node.__agy_orig);
       if (tr && tr !== node.nodeValue) {
         try {
@@ -183,6 +282,25 @@
         }
       }
     } else {
+      if (trimmedVal === 'Размышление (') {
+        const next = node.nextSibling;
+        if (next && next.nodeType === Node.TEXT_NODE) {
+          const nextNext = next.nextSibling;
+          if (nextNext && nextNext.nodeType === Node.TEXT_NODE && nextNext.nodeValue.trim() === 'с)') {
+            try {
+              isInternalMutating = true;
+              node.nodeValue = 'Thinking for ';
+              node.__agy_last_translated = node.nodeValue;
+              nextNext.nodeValue = 's';
+              nextNext.__agy_last_translated = nextNext.nodeValue;
+              return;
+            } finally {
+              isInternalMutating = false;
+            }
+          }
+        }
+      }
+
       if (node.__agy_orig !== undefined && node.nodeValue !== node.__agy_orig) {
         try {
           isInternalMutating = true;

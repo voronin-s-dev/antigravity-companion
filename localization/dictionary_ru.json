@@ -1214,7 +1214,14 @@
     "Alt+Enter Sends immediately": "Alt+Enter: Отправить немедленно",
     "Alt+Enter On empty prompt, sends next in queue": "Alt+Enter: При пустом вводе отправить следующее из очереди",
     "Reset to preset": "Сбросить к пресету",
-    "Attaching logs requires an email address": "Для прикрепления журналов требуется email"
+    "Attaching logs requires an email address": "Для прикрепления журналов требуется email",
+    "Thinking for": "Размышление",
+    "Install python testing skill finished": "Завершено: Install python testing skill",
+    "Checked task Install python testing skill": "Проверена задача: Install python testing skill",
+    "Install pytest finished": "Завершено: Install pytest",
+    "Checked task Install pytest": "Проверена задача: Install pytest",
+    "Explored 6 files, 3 tasks, ran 3 commands": "Проанализировано файлов: 6, задач: 3, выполнено команд: 3",
+    "Explored 1 task, ran 1 command": "Проанализирована 1 задача, выполнена 1 команда"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -2066,6 +2073,26 @@
     {
       "regex": "^Low contrast ratio \\((.+)\\)\\. Text may be hard to read\\.$",
       "replace": "Низкий контраст ($1). Текст может быть трудно читаем."
+    },
+    {
+      "regex": "^Thinking for (\\d+)s$",
+      "replace": "Размышление ($1 с)"
+    },
+    {
+      "regex": "^Thinking for (\\d+)m (\\d+)s$",
+      "replace": "Размышление ($1 мин $2 с)"
+    },
+    {
+      "regex": "^Thinking for (.+)$",
+      "replace": "Размышление ($1)"
+    },
+    {
+      "regex": "^Thought for (\\d+)m (\\d+)s$",
+      "replace": "Размышление ($1 мин $2 с)"
+    },
+    {
+      "regex": "^Thought for (.+)$",
+      "replace": "Размышление ($1)"
     }
   ]
 }
