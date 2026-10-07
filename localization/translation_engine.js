@@ -433,6 +433,106 @@
     }
   }, true);
 
+  // Native & Custom Context Menu Interceptor (Capture Phase)
+  function getTranslatedLabel(label) {
+    if (!label || typeof label !== 'string') return label;
+    const trimmed = label.trim();
+    if (!trimmed) return label;
+    const dict = window.__agyDictRu;
+    if (!dict) return label;
+    if (dict.exact && dict.exact[trimmed]) return dict.exact[trimmed];
+    if (dict.attributes && dict.attributes[trimmed]) return dict.attributes[trimmed];
+    const tr = getTranslation(trimmed);
+    if (tr) return tr;
+    return label;
+  }
+
+  function buildNativeMenuTemplate(items, clickMap, prefix = 'cmi') {
+    if (!Array.isArray(items)) return [];
+    return items.filter(Boolean).map((item, idx) => {
+      const id = item.id || `${prefix}-${idx}`;
+      const onClick = item.onClick || item.click;
+      if (onClick) {
+        clickMap.set(id, onClick);
+      }
+      const entry = {
+        id,
+        label: getTranslatedLabel(item.label),
+        type: item.type === 'separator' ? 'separator' : (item.type === 'submenu' || (item.items && item.items.length > 0)) ? 'submenu' : 'normal',
+        disabled: item.type === 'label' ? true : (item.disabled ?? (item.enabled !== undefined ? !item.enabled : false)),
+        accelerator: item.accelerator
+      };
+      if (item.items && item.items.length > 0) {
+        entry.submenu = buildNativeMenuTemplate(item.items, clickMap, `${id}-sub`);
+      }
+      return entry;
+    });
+  }
+
+  if (window.__agyContextMenuHandler) {
+    window.removeEventListener('contextmenu', window.__agyContextMenuHandler, true);
+  }
+
+  window.__agyContextMenuHandler = function(event) {
+    if (currentLang !== 'ru' || !window.__agyDictRu) return;
+    if (event.defaultPrevented) return;
+
+    const targetEl = event.target;
+    if (!targetEl || typeof targetEl.closest !== 'function') return;
+
+    // Skip input fields, textareas, and code editors that manage their own context menus
+    if (targetEl.closest('input, textarea, .monaco-editor, .xterm')) return;
+
+    let el = targetEl;
+    let foundItems = null;
+
+    while (el && el !== document.body && el !== document.documentElement) {
+      const fKey = Object.getOwnPropertyNames(el).find(k => k.startsWith('__reactFiber'));
+      if (fKey) {
+        let curr = el[fKey];
+        while (curr) {
+          if (curr.memoizedProps && curr.memoizedProps.items) {
+            try {
+              const raw = typeof curr.memoizedProps.items === 'function'
+                ? curr.memoizedProps.items()
+                : curr.memoizedProps.items;
+              if (Array.isArray(raw) && raw.length > 0) {
+                foundItems = raw;
+                break;
+              }
+            } catch (e) {}
+          }
+          curr = curr.return;
+        }
+      }
+      if (foundItems) break;
+      el = el.parentElement;
+    }
+
+    if (!foundItems || !window.electronNative?.showContextMenu) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    const clickMap = new Map();
+    const template = buildNativeMenuTemplate(foundItems, clickMap);
+
+    window.electronNative.showContextMenu(template).then(clickedId => {
+      if (clickedId && clickMap.has(clickedId)) {
+        try {
+          clickMap.get(clickedId)();
+        } catch (err) {
+          console.error('[Companion] Error in context menu click handler:', err);
+        }
+      }
+    }).catch(err => {
+      console.warn('[Companion] Failed to display native context menu:', err);
+    });
+  };
+
+  window.addEventListener('contextmenu', window.__agyContextMenuHandler, true);
+
   // Initial translation run
   translateReactTooltipRegistry();
   walkAndTranslate(document.body, currentLang);

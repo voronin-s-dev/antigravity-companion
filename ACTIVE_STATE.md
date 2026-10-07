@@ -196,12 +196,18 @@
       - Переведены описания и названия всех 10 официальных плагинов каталога Google: `Android CLI`, `Modern Web Guidance` («Современная веб-разработка»), `Google Antigravity SDK`, `Science` («Наука»), `Firebase`, `Chrome DevTools`, `Dart and Flutter` («Dart и Flutter»), `Google Maps Platform`, `Data Agent Kit`, `Gemini API`.
       - Переведены пустые состояния и ошибки операций: `Loading plugins...` («Загрузка плагинов...»), `No Plugins Available` («Нет доступных плагинов»), `No description available.` («Описание отсутствует.»), `Plugin Operation Error:` («Ошибка операции с плагинами:») и `Plugin operations are not supported in this environment.`.
       - Всего в словаре: **1180 точных терминов**, **132 атрибута**, **140 шаблонов** (всего 1452 правила перевода).
+  30. **Перехват и русификация нативных контекстных меню Electron (Native Context Menu Interceptor v1.0)**:
+      - **Выявление первопричины**: при правом клике мыши по строкам диалогов (и другим элементам UI) компонент Antigravity `mC` передает массив пунктов меню напрямую в `window.electronNative.showContextMenu(items)`, вызывающий нативное меню Electron через IPC (`window:show-context-menu`). Такие меню не создают узлов в DOM и не попадали под `MutationObserver`.
+      - **Архитектурное решение в Phase Capture**: в `localization/translation_engine.js` добавлен обработчик `handleContextMenuCapture` на событие `contextmenu` окна в фазе перехвата (`capture: true`). Он динамически считывает React Fiber цепочки элемента (`curr.memoizedProps.items`), предотвращает вызов англоязычного меню (`preventDefault()`, `stopImmediatePropagation()`) и формирует переведенный шаблон меню на русском языке с сохранением оригинальных коллбэков (`onClick`).
+      - **Поддержка рекурсивных подменю**: корректно транслируются все вложенные ветки подменю («Копировать» $\rightarrow$ «Имя диалога», «ID диалога», «Имя проекта»; «Разделить» $\rightarrow$ «Разделить вправо», «Разделить вниз»; «Ответвить» и др.).
+      - **Пополнение словаря**: добавлены недостающие термины и подменю: `Fork` («Ответвить»), `Share` («Поделиться»), `View Debug` («Просмотр отладки»), `Worktree Name` («Имя рабочего дерева»), `Workspace Name` («Имя рабочей области»), `Create fork in current workspace` («Создать ветку в текущей рабочей области»), `Create fork in shared workspace`, `Create fork in new workspace`, `Copy Image` («Копировать изображение»), `Save Image` («Сохранить изображение»), `Save Video` («Сохранить видео»), модальное предупреждение `Are you sure you want to delete this conversation? This action cannot be undone.` («Вы действительно хотите удалить этот диалог? Это действие невозможно отменить.»), `Archive / Restore`, `Terminal: Add to Chat`.
+      - Всего в словаре: **1194 точных термина**, **132 атрибута**, **140 шаблонов** (всего 1466 правил перевода).
 
 ---
 
 ## 4. Следующие шаги и бэклог
-1. Проверить создание релиза v1.4.0 на GitHub Actions.
-2. Проверить работу механизма обновления (`/api/check-update`) на клиентах.
+1. Собрать обратную связь пользователя по контекстным меню и другим элементам UI.
+2. Проверить работу контекстных меню на файловом дереве и редакторе.
 3. Поддержание актуальности словаря при обновлениях Antigravity через `npm run harvest` и `npm run merge`.
 
 ---
