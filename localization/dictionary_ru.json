@@ -1221,7 +1221,22 @@
     "Install pytest finished": "Завершено: Install pytest",
     "Checked task Install pytest": "Проверена задача: Install pytest",
     "Explored 6 files, 3 tasks, ran 3 commands": "Проанализировано файлов: 6, задач: 3, выполнено команд: 3",
-    "Explored 1 task, ran 1 command": "Проанализирована 1 задача, выполнена 1 команда"
+    "Explored 1 task, ran 1 command": "Проанализирована 1 задача, выполнена 1 команда",
+    "Leaving Soon": "Скоро будет отключена",
+    "Leaving soon": "Скоро будет отключена",
+    "leaving soon": "скоро будет отключена",
+    "Start using Gemini 3.8 Flash, our best Flash model.": "Начните использовать Gemini 3.8 Flash, нашу лучшую модель Flash.",
+    "Replace With New": "Заменить новым",
+    "Replace with new": "Заменить новым",
+    "Replace with New": "Заменить новым",
+    "Remove From Split": "Убрать из разделения",
+    "Remove from split": "Убрать из разделения",
+    "Remove from Split": "Убрать из разделения",
+    "Retiring Soon": "Скоро будет отключена",
+    "Retiring soon": "Скоро будет отключена",
+    "Deprecated Soon": "Скоро устареет",
+    "Replace With Existing": "Заменить существующим",
+    "Replace with existing": "Заменить существующим"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1355,7 +1370,14 @@
     "Refreshing...": "Обновление...",
     "Download": "Скачать",
     "Downloading...": "Загрузка...",
-    "Deleting...": "Удаление..."
+    "Deleting...": "Удаление...",
+    "Leaving Soon": "Скоро будет отключена",
+    "Leaving soon": "Скоро будет отключена",
+    "Start using Gemini 3.8 Flash, our best Flash model.": "Начните использовать Gemini 3.8 Flash, нашу лучшую модель Flash.",
+    "Replace With New": "Заменить новым",
+    "Replace with new": "Заменить новым",
+    "Remove From Split": "Убрать из разделения",
+    "Remove from split": "Убрать из разделения"
   },
   "patterns": [
     {
@@ -2093,6 +2115,14 @@
     {
       "regex": "^Thought for (.+)$",
       "replace": "Размышление ($1)"
+    },
+    {
+      "regex": "^Start using (.+), our best (.+) model\\.$",
+      "replace": "Начните использовать $1, нашу лучшую модель $2."
+    },
+    {
+      "regex": "^Start using (.+), our best (.+) model$",
+      "replace": "Начните использовать $1, нашу лучшую модель $2"
     }
   ]
 }
