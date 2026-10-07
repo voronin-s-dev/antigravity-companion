@@ -61,6 +61,31 @@ async function injectWidget() {
       if (existingReportModal) existingReportModal.remove();
       const existingSettingsModal = document.getElementById('agy-settings-modal-backdrop');
       if (existingSettingsModal) existingSettingsModal.remove();
+      const existingStyles = document.getElementById('agy-companion-ux-styles');
+      if (existingStyles) existingStyles.remove();
+
+      const uxStyle = document.createElement('style');
+      uxStyle.id = 'agy-companion-ux-styles';
+      uxStyle.textContent = \`
+        .agy-tabular-nums {
+          font-feature-settings: 'tnum' 1, 'cv05' 1 !important;
+          font-variant-numeric: tabular-nums !important;
+        }
+        .agy-tactile-btn {
+          transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), background 0.15s ease, opacity 0.15s ease !important;
+        }
+        .agy-tactile-btn:active {
+          transform: scale(0.96) translateY(0.5px) !important;
+        }
+        @keyframes agy-pulse-subtle {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.75; transform: scale(0.97); }
+        }
+        .agy-pulse-badge {
+          animation: agy-pulse-subtle 1.8s infinite ease-in-out;
+        }
+      \`;
+      document.head.appendChild(uxStyle);
 
       // Translations Dictionary
       const I18N = {
@@ -283,6 +308,22 @@ async function injectWidget() {
         };
       }
 
+      // Native Vector Icons (Anti-Emoji UI System)
+      const GEAR_ICON_SVG = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+      const BELL_ICON_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
+      const SPARK_ICON_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/></svg>';
+      const MUSIC_ICON_SVG = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+      const SYNTH_ICON_SVG = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><path d="M2 10v4M6 7v10M10 4v16M14 8v8M18 6v12M22 10v4"/></svg>';
+      const RELOAD_ICON_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>';
+      const GLOBE_ICON_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>';
+      const SAVE_ICON_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>';
+      const CHECK_ICON_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><polyline points="20 6 9 17 4 12"/></svg>';
+      const CLOSE_ICON_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+      const ALERT_ICON_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; flex-shrink: 0;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+      const CLOCK_ICON_SVG = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+      const CAMERA_ICON_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; flex-shrink: 0;"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>';
+      const HANDOFF_ICON_SVG = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+
       // Live Tooltip element
       const tooltip = document.createElement('div');
       tooltip.id = 'agy-limits-tooltip';
@@ -336,9 +377,9 @@ async function injectWidget() {
 
         tooltip.innerHTML = \`
           <div style="font-weight: 600; font-size: 11px; color: #f4f4f5; margin-bottom: 2px;">\${title}</div>
-          <div style="font-size: 10px; color: #a1a1aa; display: flex; align-items: center; gap: 4px;">
-            <span style="color: #22c55e;">⏱</span>
-            <span>\${fullTimeStr}</span>
+          <div style="font-size: 10px; color: #a1a1aa; display: flex; align-items: center; gap: 4.5px;" class="agy-tabular-nums">
+            \${CLOCK_ICON_SVG}
+            <span class="agy-tabular-nums">\${fullTimeStr}</span>
           </div>
         \`;
       }
@@ -788,12 +829,12 @@ async function injectWidget() {
               \${Object.values(THEME_PRESETS).map(p => {
                 const isSel = d.tint === p.key;
                 return \`
-                  <button class="agy-theme-preset-btn" data-key="\${p.key}" style="padding: 4px 6px; border-radius: 5px; font-size: 10px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; background: \${isSel ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? (p.accent || '#fff') : 'rgba(255,255,255,0.08)'}; color: \${isSel ? '#fff' : '#a1a1aa'}; transition: all 0.12s;">
+                  <button class="agy-theme-preset-btn agy-tactile-btn" data-key="\${p.key}" style="padding: 4px 6px; border-radius: 5px; font-size: 10px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; background: \${isSel ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? (p.accent || '#fff') : 'rgba(255,255,255,0.08)'}; color: \${isSel ? '#fff' : '#a1a1aa'};">
                     <span style="display: flex; align-items: center; gap: 5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                       <span style="width: 8px; height: 8px; border-radius: 50%; background: \${p.accent}; display: inline-block; flex-shrink: 0;"></span>
                       <span>\${currentLang === 'ru' ? p.nameRu : p.nameEn}</span>
                     </span>
-                    \${isSel ? '<span style="color: #22c55e; font-weight: 700; font-size: 10px;">✓</span>' : ''}
+                    \${isSel ? '<span style="color: #22c55e; display: inline-flex; align-items: center;">' + CHECK_ICON_SVG + '</span>' : ''}
                   </button>
                 \`;
               }).join('')}
@@ -803,17 +844,17 @@ async function injectWidget() {
             <div id="agy-settings-custom-color-row" style="display: flex; align-items: center; justify-content: space-between; padding: 4px 6px; background: \${d.tint.startsWith('#') ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${d.tint.startsWith('#') ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)'}; border-radius: 5px; transition: all 0.12s;">
               <span style="color: \${d.tint.startsWith('#') ? '#fff' : '#71717a'}; font-size: 10px; display: flex; align-items: center; gap: 4px;">
                 <span>\${t('themeCustom')}:</span>
-                \${d.tint.startsWith('#') ? '<span style="color: #22c55e; font-weight: 700; font-size: 10px;">✓</span>' : ''}
+                \${d.tint.startsWith('#') ? '<span style="color: #22c55e; display: inline-flex; align-items: center;">' + CHECK_ICON_SVG + '</span>' : ''}
               </span>
               <div style="display: flex; align-items: center; gap: 5px;">
                 <div style="position: relative; width: 18px; height: 18px; border-radius: 3px; overflow: hidden; border: 1px solid \${d.tint.startsWith('#') ? d.tint : 'rgba(255,255,255,0.2)'}; cursor: pointer;">
                   <input type="color" id="agy-settings-color-picker" value="\${d.tint.startsWith('#') ? d.tint : '#BD9574'}" style="position: absolute; top: -6px; left: -6px; width: 32px; height: 32px; cursor: pointer; border: none; background: transparent;">
                 </div>
-                <button id="agy-settings-eyedropper-btn" style="display: flex; align-items: center; gap: 3px; padding: 2px 5px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer;">
+                <button id="agy-settings-eyedropper-btn" class="agy-tactile-btn" style="display: flex; align-items: center; gap: 3px; padding: 2px 5px; border-radius: 3px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer;">
                   <svg style="width: 10px; height: 10px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m2 22 1-1h3l9-9"></path><path d="M3 21v-3l9-9"></path><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1 3 3l-3.8 3.8a2.1 2.1 0 1 1-3-3l.4-.4"></path></svg>
                   <span>\${t('eyedropper')}</span>
                 </button>
-                <span id="agy-settings-hex-label" style="font-family: monospace; font-size: 9.5px; font-weight: \${d.tint.startsWith('#') ? '600' : '400'}; color: \${d.tint.startsWith('#') ? '#fff' : '#a1a1aa'};">\${d.tint.startsWith('#') ? d.tint.toUpperCase() : (currentLang === 'ru' ? 'Пресет' : 'Preset')}</span>
+                <span id="agy-settings-hex-label" class="agy-tabular-nums" style="font-family: monospace; font-size: 9.5px; font-weight: \${d.tint.startsWith('#') ? '600' : '400'}; color: \${d.tint.startsWith('#') ? '#fff' : '#a1a1aa'};">\${d.tint.startsWith('#') ? d.tint.toUpperCase() : (currentLang === 'ru' ? 'Пресет' : 'Preset')}</span>
               </div>
             </div>
           </div>
@@ -822,10 +863,10 @@ async function injectWidget() {
           <div>
             <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 5px;">\${t('placementTitle')}</div>
             <div style="display: flex; gap: 4px;">
-              <button class="agy-settings-placement-btn" data-placement="sidebar" style="flex: 1; padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: center; background: \${(d.placement || 'sidebar') === 'sidebar' ? 'rgba(37,99,235,0.18)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${(d.placement || 'sidebar') === 'sidebar' ? '#2563eb' : 'rgba(255,255,255,0.06)'}; color: \${(d.placement || 'sidebar') === 'sidebar' ? '#93c5fd' : '#a1a1aa'}; transition: all 0.12s;">
+              <button class="agy-settings-placement-btn agy-tactile-btn" data-placement="sidebar" style="flex: 1; padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: center; background: \${(d.placement || 'sidebar') === 'sidebar' ? 'rgba(37,99,235,0.18)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${(d.placement || 'sidebar') === 'sidebar' ? '#2563eb' : 'rgba(255,255,255,0.06)'}; color: \${(d.placement || 'sidebar') === 'sidebar' ? '#93c5fd' : '#a1a1aa'};">
                 \${t('placementSidebar')}
               </button>
-              <button class="agy-settings-placement-btn" data-placement="floating" style="flex: 1; padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: center; background: \${d.placement === 'floating' ? 'rgba(37,99,235,0.18)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${d.placement === 'floating' ? '#2563eb' : 'rgba(255,255,255,0.06)'}; color: \${d.placement === 'floating' ? '#93c5fd' : '#a1a1aa'}; transition: all 0.12s;">
+              <button class="agy-settings-placement-btn agy-tactile-btn" data-placement="floating" style="flex: 1; padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: center; background: \${d.placement === 'floating' ? 'rgba(37,99,235,0.18)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${d.placement === 'floating' ? '#2563eb' : 'rgba(255,255,255,0.06)'}; color: \${d.placement === 'floating' ? '#93c5fd' : '#a1a1aa'};">
                 \${t('placementFloating')}
               </button>
             </div>
@@ -839,9 +880,9 @@ async function injectWidget() {
                 const isSel = d.pillItems.includes(key);
                 const label = t(keyToI18n(key));
                 return \`
-                  <button class="agy-settings-pill-btn" data-key="\${key}" style="padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; background: \${isSel ? 'rgba(255,255,255,0.11)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#71717a'}; transition: all 0.12s;">
+                  <button class="agy-settings-pill-btn agy-tactile-btn" data-key="\${key}" style="padding: 4px 6px; border-radius: 4px; font-size: 10px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; background: \${isSel ? 'rgba(255,255,255,0.11)' : 'rgba(255,255,255,0.02)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)'}; color: \${isSel ? '#fff' : '#71717a'};">
                     <span>\${label}</span>
-                    <span style="color: \${isSel ? '#22c55e' : '#52525b'}; font-weight: 700; font-size: 10px;">\${isSel ? '✓' : '+'}</span>
+                    <span style="color: \${isSel ? '#22c55e' : '#52525b'}; font-weight: 700; font-size: 10px; display: inline-flex; align-items: center;">\${isSel ? CHECK_ICON_SVG : '+'}</span>
                   </button>
                 \`;
               }).join('')}
@@ -870,20 +911,20 @@ async function injectWidget() {
                     <input type="checkbox" id="agy-settings-sound-5h" \${d.sound5h ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
                     <span style="font-weight: 500;">\${t('sound5hLabel')}</span>
                   </label>
-                  <button id="agy-settings-sound-5h-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 1px 6px; font-size: 9.5px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-                    <span>🔔</span><span>\${t('soundTest')}</span>
+                  <button id="agy-settings-sound-5h-test" class="agy-tactile-btn" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 1px 6px; font-size: 9.5px; cursor: pointer; display: flex; align-items: center; gap: 3.5px;">
+                    <span>\${BELL_ICON_SVG}</span><span>\${t('soundTest')}</span>
                   </button>
                 </div>
                 <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9px; padding-left: 17px;">
                   <input type="file" id="agy-settings-sound-5h-file" accept="audio/*" style="display: none;">
-                  <span title="\${d.sound5hCustomName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 140px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
-                    \${d.sound5hCustomName ? '🎵 ' + d.sound5hCustomName : '🎹 ' + t('soundDefaultSynth')}
+                  <span title="\${d.sound5hCustomName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 140px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">
+                    \${d.sound5hCustomName ? (MUSIC_ICON_SVG + ' ' + d.sound5hCustomName) : (SYNTH_ICON_SVG + ' ' + t('soundDefaultSynth'))}
                   </span>
                   <div style="display: flex; align-items: center; gap: 3px;">
-                    <button id="agy-settings-sound-5h-upload-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 5px; font-size: 9px; cursor: pointer;">
+                    <button id="agy-settings-sound-5h-upload-btn" class="agy-tactile-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 5px; font-size: 9px; cursor: pointer;">
                       \${d.sound5hCustomName ? t('soundChange') : t('soundUpload')}
                     </button>
-                    \${d.sound5hCustomName ? '<button id="agy-settings-sound-5h-reset-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 0 2px;">✕</button>' : ''}
+                    \${d.sound5hCustomName ? '<button id="agy-settings-sound-5h-reset-btn" class="agy-tactile-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 0 2px; display: inline-flex; align-items: center;">' + CLOSE_ICON_SVG + '</button>' : ''}
                   </div>
                 </div>
               </div>
@@ -895,20 +936,20 @@ async function injectWidget() {
                     <input type="checkbox" id="agy-settings-sound-weekly" \${d.soundWeekly ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
                     <span style="font-weight: 500;">\${t('soundWeeklyLabel')}</span>
                   </label>
-                  <button id="agy-settings-sound-weekly-test" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 1px 6px; font-size: 9.5px; cursor: pointer; display: flex; align-items: center; gap: 3px;">
-                    <span>🎉</span><span>\${t('soundTest')}</span>
+                  <button id="agy-settings-sound-weekly-test" class="agy-tactile-btn" title="\${t('soundTest')}" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #e4e4e7; border-radius: 4px; padding: 1px 6px; font-size: 9.5px; cursor: pointer; display: flex; align-items: center; gap: 3.5px;">
+                    <span>\${SPARK_ICON_SVG}</span><span>\${t('soundTest')}</span>
                   </button>
                 </div>
                 <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9px; padding-left: 17px;">
                   <input type="file" id="agy-settings-sound-weekly-file" accept="audio/*" style="display: none;">
-                  <span title="\${d.soundWeeklyCustomName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 140px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
-                    \${d.soundWeeklyCustomName ? '🎵 ' + d.soundWeeklyCustomName : '🎹 ' + t('soundDefaultSynth')}
+                  <span title="\${d.soundWeeklyCustomName || t('soundDefaultSynth')}" style="color: #8a8784; max-width: 140px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">
+                    \${d.soundWeeklyCustomName ? (MUSIC_ICON_SVG + ' ' + d.soundWeeklyCustomName) : (SYNTH_ICON_SVG + ' ' + t('soundDefaultSynth'))}
                   </span>
                   <div style="display: flex; align-items: center; gap: 3px;">
-                    <button id="agy-settings-sound-weekly-upload-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 5px; font-size: 9px; cursor: pointer;">
+                    <button id="agy-settings-sound-weekly-upload-btn" class="agy-tactile-btn" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); color: #a1a1aa; border-radius: 3px; padding: 1px 5px; font-size: 9px; cursor: pointer;">
                       \${d.soundWeeklyCustomName ? t('soundChange') : t('soundUpload')}
                     </button>
-                    \${d.soundWeeklyCustomName ? '<button id="agy-settings-sound-weekly-reset-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 0 2px;">✕</button>' : ''}
+                    \${d.soundWeeklyCustomName ? '<button id="agy-settings-sound-weekly-reset-btn" class="agy-tactile-btn" title="' + t('soundReset') + '" style="background: none; border: none; color: #f87171; font-size: 10px; cursor: pointer; padding: 0 2px; display: inline-flex; align-items: center;">' + CLOSE_ICON_SVG + '</button>' : ''}
                   </div>
                 </div>
               </div>
@@ -931,12 +972,12 @@ async function injectWidget() {
               <span style="font-size: 9px; color: #22c55e;">● \${COMPANION_VERSION}</span>
             </div>
             <div style="display: flex; gap: 4px;">
-              <button id="agy-settings-reload-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 3px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; transition: all 0.12s;">
-                <span>🔄</span>
+              <button id="agy-settings-reload-btn" class="agy-tactile-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 4px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer;">
+                <span style="display: inline-flex; align-items: center;">\${RELOAD_ICON_SVG}</span>
                 <span>\${currentLang === 'ru' ? 'Перезагрузить UI' : 'Hot Reload'}</span>
               </button>
-              <button id="agy-settings-check-update-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 3px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; transition: all 0.12s;">
-                <span>🌐</span>
+              <button id="agy-settings-check-update-btn" class="agy-tactile-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 4px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer;">
+                <span style="display: inline-flex; align-items: center;">\${GLOBE_ICON_SVG}</span>
                 <span>\${currentLang === 'ru' ? 'Обновления' : 'Updates'}</span>
               </button>
             </div>
@@ -945,11 +986,11 @@ async function injectWidget() {
 
           <!-- Footer Actions -->
           <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 2px;">
-            <button id="agy-settings-cancel-btn" style="padding: 4px 10px; border-radius: 5px; font-size: 10.5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #a1a1aa; cursor: pointer; transition: all 0.12s;">
+            <button id="agy-settings-cancel-btn" class="agy-tactile-btn" style="padding: 4px 10px; border-radius: 5px; font-size: 10.5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #a1a1aa; cursor: pointer;">
               \${t('settingsCancelBtn')}
             </button>
-            <button id="agy-settings-save-btn" style="padding: 4px 14px; border-radius: 5px; font-size: 10.5px; font-weight: 600; background: #2563eb; border: 1px solid rgba(255,255,255,0.2); color: #ffffff; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); transition: all 0.15s;">
-              <span id="agy-settings-save-icon">💾</span>
+            <button id="agy-settings-save-btn" class="agy-tactile-btn" style="padding: 4px 14px; border-radius: 5px; font-size: 10.5px; font-weight: 600; background: #2563eb; border: 1px solid rgba(255,255,255,0.2); color: #ffffff; cursor: pointer; display: flex; align-items: center; gap: 4.5px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
+              <span id="agy-settings-save-icon" style="display: inline-flex; align-items: center;">\${SAVE_ICON_SVG}</span>
               <span id="agy-settings-save-text">\${t('settingsSaveBtn')}</span>
             </button>
           </div>
@@ -987,7 +1028,8 @@ async function injectWidget() {
             renderSidebarButtonContent();
 
             saveBtn.style.background = '#16a34a';
-            saveBtn.querySelector('#agy-settings-save-icon').textContent = '✓';
+            saveBtn.querySelector('#agy-settings-save-icon').innerHTML = CHECK_ICON_SVG;
+            saveBtn.querySelector('#agy-settings-save-text').textContent = t('settingsSavedNotice');
             saveBtn.querySelector('#agy-settings-save-text').textContent = t('settingsSavedNotice');
 
             await saveAllSettingsToDisk(d);
@@ -1656,8 +1698,8 @@ async function injectWidget() {
               '</div>' +
             '</div>' +
             '<div style="display: flex; align-items: center; justify-content: center; flex-shrink: 0; gap: 4px;">' +
-              '<span class="agy-sidebar-steps" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); line-height: 1.2;"></span>' +
-              '<span class="agy-sidebar-gear-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.55; font-size: 11px; padding: 3px 4px; border-radius: 4px; display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>' +
+              '<span class="agy-sidebar-steps agy-tabular-nums" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); line-height: 1.2;"></span>' +
+              '<span class="agy-sidebar-gear-btn agy-tactile-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.6; padding: 3px 4px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">' + GEAR_ICON_SVG + '</span>' +
             '</div>' +
           '</div>';
         } else {
@@ -1689,8 +1731,8 @@ async function injectWidget() {
               singleHtml +
             '</div>' +
             '<div style="display: flex; align-items: center; flex-shrink: 0; gap: 4px;">' +
-              '<span class="agy-sidebar-steps" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); line-height: 1.2;"></span>' +
-              '<span class="agy-sidebar-gear-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.55; font-size: 11px; padding: 2px 4px; border-radius: 4px; display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>' +
+              '<span class="agy-sidebar-steps agy-tabular-nums" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); line-height: 1.2;"></span>' +
+              '<span class="agy-sidebar-gear-btn agy-tactile-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.6; padding: 2px 4px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">' + GEAR_ICON_SVG + '</span>' +
             '</div>' +
           '</div>';
         }
@@ -1870,12 +1912,12 @@ async function injectWidget() {
             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
               <div>
                 <div style="font-weight: 600; font-size: 13px; color: #f4f4f5; display: flex; align-items: center; gap: 6px;">
-                  <span style="color: #60a5fa;">📸</span>
+                  <span style="display: inline-flex; align-items: center;">\${CAMERA_ICON_SVG}</span>
                   <span>\${t('reportModalTitle')}</span>
                 </div>
                 <div style="font-size: 11px; color: #a1a1aa; margin-top: 2px;">\${t('reportModalDesc')}</div>
               </div>
-              <button id="agy-report-close-btn" style="background: none; border: none; color: #71717a; cursor: pointer; font-size: 16px; padding: 0 4px; line-height: 1; border-radius: 4px;">✕</button>
+              <button id="agy-report-close-btn" class="agy-tactile-btn" style="background: none; border: none; color: #71717a; cursor: pointer; padding: 2px 4px; display: inline-flex; align-items: center; border-radius: 4px;">\${CLOSE_ICON_SVG}</button>
             </div>
 
             <!-- Paste / Drop Area -->
@@ -2246,8 +2288,8 @@ async function injectWidget() {
                 const resetSec = b.resetTime?.seconds || '';
 
                 const badgeItem = \`
-                  <span class="agy-pill-badge" data-reset="\${resetSec}" data-title="\${fullMetricTitle}" style="display: inline-flex; align-items: baseline; justify-content: center; gap: 2px; padding: 1px 4px; min-width: 44px; border-radius: 3px; cursor: pointer; background: rgba(255, 255, 255, 0.05); transition: background 0.12s;">
-                    <b style="color: \${color}; font-weight: 600; font-size: 11px; pointer-events: none;">\${pct}%</b>
+                  <span class="agy-pill-badge agy-tabular-nums" data-reset="\${resetSec}" data-title="\${fullMetricTitle}" style="display: inline-flex; align-items: baseline; justify-content: center; gap: 2px; padding: 1px 4px; min-width: 44px; border-radius: 3px; cursor: pointer; background: rgba(255, 255, 255, 0.05); transition: background 0.12s;">
+                    <b style="color: \${color}; font-weight: 600; font-size: 11px; pointer-events: none;" class="agy-tabular-nums">\${pct}%</b>
                     <span style="font-size: 8.5px; color: #8a8784; font-weight: 500; pointer-events: none;">\${badgeLabel}</span>
                   </span>
                 \`;
@@ -2259,10 +2301,10 @@ async function injectWidget() {
                 <div style="display: flex; align-items: center; justify-content: space-between; padding: 3px 2px; border-radius: 4px; transition: background 0.1s;">
                   <div style="line-height: 1.25;">
                     <div style="font-size: 11.5px; color: #ffffff; font-weight: 400;">\${label}</div>
-                    \${reset ? \`<div style="font-size: 10px; color: #8a8784; margin-top: 1px;">\${reset}</div>\` : ''}
+                    \${reset ? \`<div style="font-size: 10px; color: #8a8784; margin-top: 1px;" class="agy-tabular-nums">\${reset}</div>\` : ''}
                   </div>
                   <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-                    <span style="font-weight: 600; font-size: 12px; color: #ffffff; min-width: 32px; text-align: right;">\${pct}%</span>
+                    <span style="font-weight: 600; font-size: 12px; color: #ffffff; min-width: 32px; text-align: right;" class="agy-tabular-nums">\${pct}%</span>
                     \${renderCircleRing(fraction, color)}
                   </div>
                 </div>
@@ -2334,9 +2376,9 @@ async function injectWidget() {
 
           content.innerHTML = html;
           pillSummary.innerHTML = pillHtml + \`
-            <span class="agy-pill-steps" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); margin-left: 4px; display: inline-flex; align-items: center;"></span>
-            <span class="agy-pill-gear-btn" title="\${t('settingsModalTitle') || 'Настройки'}" style="cursor: pointer; opacity: 0.65; font-size: 11px; margin-left: 4px; padding: 1px 4px; border-radius: 4px; background: rgba(255,255,255,0.06); display: inline-flex; align-items: center; transition: opacity 0.15s, background 0.15s;">⚙️</span>
-            <span title="Развернуть" style="color: #8a8784; font-size: 9.5px; margin-left: 4px; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center;">▲</span>
+            <span class="agy-pill-steps agy-tabular-nums" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); margin-left: 4px; display: inline-flex; align-items: center;"></span>
+            <span class="agy-pill-gear-btn agy-tactile-btn" title="\${t('settingsModalTitle') || 'Настройки'}" style="cursor: pointer; opacity: 0.65; margin-left: 4px; padding: 1px 4px; border-radius: 4px; background: rgba(255,255,255,0.06); display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">\${GEAR_ICON_SVG}</span>
+            <span title="Развернуть" style="color: #8a8784; font-size: 9px; margin-left: 4px; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center;">▲</span>
           \`;
 
           lastGeminiPillItems = geminiPillItems;
@@ -2392,29 +2434,57 @@ async function injectWidget() {
         const color = steps >= 35 ? '#ef4444' : (steps >= 25 ? '#f59e0b' : '#9ca3af');
         const text = \`\${currentLang === 'ru' ? 'Шаг' : 'Step'} \${steps}/40\`;
         const tipTitle = currentLang === 'ru'
-          ? \`Текущая сессия: \${steps} шагов из 40 рекомендованных. При приближении к 35-40 шагам рекомендуется зафиксировать срез в ACTIVE_STATE и начать новый диалог для экономии токенов.\`
-          : \`Current session: \${steps} of 40 recommended turns. At 35-40 turns, consider saving a checkpoint and starting a fresh chat to save tokens.\`;
+          ? \`Текущая сессия: \${steps} шагов из 40 рекомендованных. Нажмите, чтобы скопировать команду /handoff для перехода в свежий диалог.\`
+          : \`Current session: \${steps} of 40 recommended turns. Click to copy /handoff command to start a fresh chat.\`;
+
+        function styleStepBadge(el) {
+          if (!el) return;
+          el.textContent = text;
+          el.style.color = color;
+          el.title = tipTitle;
+          el.style.cursor = 'pointer';
+          if (steps >= 35) {
+            el.classList.add('agy-pulse-badge');
+            el.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+            el.style.background = 'rgba(239, 68, 68, 0.12)';
+          } else if (steps >= 25) {
+            el.classList.remove('agy-pulse-badge');
+            el.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+            el.style.background = 'rgba(245, 158, 11, 0.1)';
+          } else {
+            el.classList.remove('agy-pulse-badge');
+            el.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+            el.style.background = 'rgba(255, 255, 255, 0.06)';
+          }
+          if (!el.__agyHandled) {
+            el.__agyHandled = true;
+            el.addEventListener('click', (e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              try {
+                navigator.clipboard.writeText('/handoff');
+                const orig = el.textContent;
+                el.textContent = '✓ /handoff';
+                setTimeout(() => { el.textContent = orig; }, 1600);
+              } catch (err) {}
+            });
+          }
+        }
 
         const headerSteps = header.querySelector('#agy-header-step-count');
         if (headerSteps) {
-          headerSteps.textContent = text;
-          headerSteps.style.color = color;
           headerSteps.style.display = 'inline-block';
-          headerSteps.title = tipTitle;
+          styleStepBadge(headerSteps);
         }
 
         const sbSteps = document.querySelector('.agy-sidebar-steps');
         if (sbSteps) {
-          sbSteps.textContent = text;
-          sbSteps.style.color = color;
-          sbSteps.title = tipTitle;
+          styleStepBadge(sbSteps);
         }
 
         const pillSteps = pillSummary.querySelector('.agy-pill-steps');
         if (pillSteps) {
-          pillSteps.textContent = text;
-          pillSteps.style.color = color;
-          pillSteps.title = tipTitle;
+          styleStepBadge(pillSteps);
         }
       }
 
@@ -2465,12 +2535,13 @@ async function injectWidget() {
         }
 
         const msgText = currentLang === 'ru'
-          ? \`⚠️ Вставка \${lines} строк (~ \${tokens.toLocaleString()} токенов). Экономнее сохранить текст в файл и дать агенту ссылку.\`
-          : \`⚠️ Pasting \${lines} lines (~ \${tokens.toLocaleString()} tokens). Consider saving to a file to preserve context.\`;
+          ? \`Вставка <span class="agy-tabular-nums" style="font-weight: 600; color: #fde68a;">\${lines}</span> строк (~ <span class="agy-tabular-nums" style="font-weight: 600; color: #fde68a;">\${tokens.toLocaleString()}</span> токенов). Экономнее сохранить текст в файл и дать агенту ссылку.\`
+          : \`Pasting <span class="agy-tabular-nums" style="font-weight: 600; color: #fde68a;">\${lines}</span> lines (~ <span class="agy-tabular-nums" style="font-weight: 600; color: #fde68a;">\${tokens.toLocaleString()}</span> tokens). Consider saving to a file to preserve context.\`;
 
         toast.innerHTML = \`
+          <span style="display: inline-flex; align-items: center;">\${ALERT_ICON_SVG}</span>
           <span>\${msgText}</span>
-          <button id="agy-toast-close" style="background: none; border: none; color: #a1a1aa; cursor: pointer; font-size: 13px; padding: 0 3px; line-height: 1; border-radius: 3px;">✕</button>
+          <button id="agy-toast-close" class="agy-tactile-btn" style="background: none; border: none; color: #a1a1aa; cursor: pointer; padding: 2px 4px; display: inline-flex; align-items: center; border-radius: 3px;">\${CLOSE_ICON_SVG}</button>
         \`;
 
         const closeBtn = toast.querySelector('#agy-toast-close');
@@ -2548,6 +2619,8 @@ async function injectWidget() {
         window.removeEventListener('paste', handleGlobalPaste);
         const rm = document.getElementById('agy-report-modal');
         if (rm) rm.remove();
+        const st = document.getElementById('agy-companion-ux-styles');
+        if (st) st.remove();
       };
 
       return { status: 'responsive_positioning_and_cleanup_ready' };
