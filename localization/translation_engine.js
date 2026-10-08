@@ -104,73 +104,117 @@
 
   function translateTrajectorySummary(raw) {
     if (!raw || typeof raw !== 'string') return null;
-    const m = raw.match(/^(Exploring|Explored)\s+(.+)$/i);
-    if (!m) return null;
-    const isPast = m[1].toLowerCase() === 'explored';
-    const rest = m[2];
+    const trimmed = raw.trim();
+    if (!trimmed) return null;
 
-    const parts = rest.split(',').map(s => s.trim());
+    if (trimmed === 'Working') return 'В работе';
+    if (trimmed === 'Done') return 'Готово';
+    if (trimmed === 'Exploring') return 'Изучение';
+    if (trimmed === 'Explored') return 'Изучено';
+
+    const parts = trimmed.split(',').map(s => s.trim());
     const translatedParts = [];
 
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
-      let pMatch;
-      if ((pMatch = part.match(/^(\d+)\s+files?$/i))) {
-        const n = parseInt(pMatch[1], 10);
-        if (n === 1) {
-          translatedParts.push(isPast ? '1 файл' : '1 файла');
-        } else {
-          translatedParts.push(parts.length > 1 ? 'файлов: ' + n : n + ' файлов');
-        }
-      } else if ((pMatch = part.match(/^(\d+)\s+tasks?$/i))) {
-        const n = parseInt(pMatch[1], 10);
-        if (n === 1) {
-          translatedParts.push(isPast ? '1 задача' : '1 задачи');
-        } else {
-          translatedParts.push(parts.length > 1 ? 'задач: ' + n : n + ' задач');
-        }
-      } else if ((pMatch = part.match(/^(\d+)\s+folders?$/i))) {
-        const n = parseInt(pMatch[1], 10);
-        if (n === 1) {
-          translatedParts.push(isPast ? '1 папка' : '1 папки');
-        } else {
-          translatedParts.push(parts.length > 1 ? 'папок: ' + n : n + ' папок');
-        }
-      } else if ((pMatch = part.match(/^(\d+)\s+searches?$/i))) {
-        const n = parseInt(pMatch[1], 10);
-        translatedParts.push(n === 1 ? '1 поиск' : (parts.length > 1 ? 'поисков: ' + n : n + ' поисков'));
-      } else if ((pMatch = part.match(/^(\d+)\s+pages?$/i))) {
-        const n = parseInt(pMatch[1], 10);
-        translatedParts.push(n === 1 ? '1 страница' : (parts.length > 1 ? 'страниц: ' + n : n + ' страниц'));
-      } else if ((pMatch = part.match(/^(\d+)\s+artifacts?$/i))) {
-        const n = parseInt(pMatch[1], 10);
-        translatedParts.push(n === 1 ? '1 артефакт' : (parts.length > 1 ? 'артефактов: ' + n : n + ' артефактов'));
-      } else if ((pMatch = part.match(/^(running|ran)\s+(\d+)\s+commands?$/i))) {
-        const isPastCmd = pMatch[1].toLowerCase() === 'ran';
-        const n = parseInt(pMatch[2], 10);
-        if (n === 1) {
-          translatedParts.push(isPastCmd ? 'выполнена 1 команда' : 'запуск 1 команды');
-        } else {
-          translatedParts.push(isPastCmd ? 'выполнено команд: ' + n : 'запуск команд: ' + n);
-        }
+      const isFirst = (i === 0);
+      let trans = null;
+
+      // 1. Exploring / Explored clauses
+      if (/^exploring$/i.test(part)) {
+        trans = isFirst ? 'Изучение' : 'изучение';
+      } else if (/^explored$/i.test(part)) {
+        trans = isFirst ? 'Изучено' : 'изучено';
+      } else if (/^exploring\s+files?$/i.test(part)) {
+        trans = isFirst ? 'Изучение файлов' : 'изучение файлов';
+      } else if (/^explored\s+file$/i.test(part)) {
+        trans = isFirst ? 'Изучен файл' : 'изучен файл';
+      } else if (/^explored\s+files$/i.test(part)) {
+        trans = isFirst ? 'Изучены файлы' : 'изучены файлы';
+      } else if (/^exploring\s+artifacts?$/i.test(part)) {
+        trans = isFirst ? 'Изучение артефактов' : 'изучение артефактов';
+      } else if (/^explored\s+artifact$/i.test(part)) {
+        trans = isFirst ? 'Изучен артефакт' : 'изучен артефакт';
+      } else if (/^explored\s+artifacts$/i.test(part)) {
+        trans = isFirst ? 'Изучены артефакты' : 'изучены артефакты';
+      } else if (/^exploring\s+(\d+)\s+files?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = isFirst ? `Изучение файлов (${n})` : `изучение файлов (${n})`;
+      } else if (/^explored\s+(\d+)\s+files?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = isFirst ? `Изучено файлов: ${n}` : `изучено файлов: ${n}`;
+      } else if (/^(\d+)\s+files?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = n === '1' ? '1 файл' : `файлов: ${n}`;
+      } else if (/^(\d+)\s+folders?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = n === '1' ? '1 папка' : `папок: ${n}`;
+      } else if (/^(\d+)\s+tasks?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = n === '1' ? '1 задача' : `задач: ${n}`;
+      } else if (/^(\d+)\s+searches?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = n === '1' ? '1 поиск' : `поисков: ${n}`;
+      } else if (/^(\d+)\s+pages?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = n === '1' ? '1 страница' : `страниц: ${n}`;
+      } else if (/^(\d+)\s+artifacts?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = n === '1' ? '1 артефакт' : `артефактов: ${n}`;
+
+      // 2. Running / Ran clauses
+      } else if (/^running\s+command$/i.test(part)) {
+        trans = isFirst ? 'Запуск команды' : 'запуск команды';
+      } else if (/^running\s+commands$/i.test(part)) {
+        trans = isFirst ? 'Запуск команд' : 'запуск команд';
+      } else if (/^ran\s+command$/i.test(part)) {
+        trans = isFirst ? 'Выполнена команда' : 'выполнена команда';
+      } else if (/^ran\s+commands$/i.test(part)) {
+        trans = isFirst ? 'Выполнены команды' : 'выполнены команды';
+      } else if (/^(running|ran)\s+(\d+)\s+commands?$/i.test(part)) {
+        const mCmd = part.match(/^(running|ran)\s+(\d+)\s+commands?$/i);
+        const isPast = mCmd[1].toLowerCase() === 'ran';
+        const n = mCmd[2];
+        trans = isPast
+          ? (isFirst ? `Выполнено команд: ${n}` : `выполнено команд: ${n}`)
+          : (isFirst ? `Запуск команд (${n})` : `запуск команд (${n})`);
+      } else if (/^running\s+(.+)$/i.test(part)) {
+        const cmdName = part.match(/^running\s+(.+)$/i)[1];
+        trans = isFirst ? `Запуск: ${cmdName}` : `запуск: ${cmdName}`;
+      } else if (/^ran\s+(.+)$/i.test(part)) {
+        const cmdName = part.match(/^ran\s+(.+)$/i)[1];
+        trans = isFirst ? `Выполнено: ${cmdName}` : `выполнено: ${cmdName}`;
+
+      // 3. Editing / Edited clauses
+      } else if (/^editing\s+files?$/i.test(part)) {
+        trans = isFirst ? 'Редактирование файла' : 'редактирование файла';
+      } else if (/^edited\s+file$/i.test(part)) {
+        trans = isFirst ? 'Отредактирован файл' : 'отредактирован файл';
+      } else if (/^edited\s+files$/i.test(part)) {
+        trans = isFirst ? 'Отредактированы файлы' : 'отредактированы файлы';
+      } else if (/^editing\s+artifacts?$/i.test(part)) {
+        trans = isFirst ? 'Редактирование артефакта' : 'редактирование артефакта';
+      } else if (/^edited\s+artifact$/i.test(part)) {
+        trans = isFirst ? 'Отредактирован артефакт' : 'отредактирован артефакт';
+      } else if (/^edited\s+artifacts$/i.test(part)) {
+        trans = isFirst ? 'Отредактированы артефакты' : 'отредактированы артефакты';
+      } else if (/^editing\s+(\d+)\s+files?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = isFirst ? `Редактирование файлов (${n})` : `редактирование файлов (${n})`;
+      } else if (/^edited\s+(\d+)\s+files?$/i.test(part)) {
+        const n = part.match(/\d+/)[0];
+        trans = isFirst ? `Отредактировано файлов: ${n}` : `отредактировано файлов: ${n}`;
+      }
+
+      if (trans) {
+        translatedParts.push(trans);
       } else {
         return null;
       }
     }
 
     if (translatedParts.length === 0) return null;
-
-    if (isPast) {
-      if (rest.match(/^1\s+file$/i)) return 'Проанализирован 1 файл';
-      if (rest.match(/^1\s+task$/i)) return 'Проанализирована 1 задача';
-      if (rest.match(/^1\s+folder$/i)) return 'Проанализирована 1 папка';
-      if (rest.match(/^1\s+task,\s*ran\s+1\s+command$/i)) return 'Проанализирована 1 задача, выполнена 1 команда';
-      if (rest.match(/^1\s+file,\s*ran\s+1\s+command$/i)) return 'Проанализирован 1 файл, выполнена 1 команда';
-      if (rest.match(/^1\s+file,\s*1\s+task,\s*ran\s+1\s+command$/i)) return 'Проанализирован 1 файл, 1 задача, выполнена 1 команда';
-      return 'Проанализировано ' + translatedParts.join(', ');
-    } else {
-      return 'Анализ ' + translatedParts.join(', ');
-    }
+    return translatedParts.join(', ');
   }
 
   function getTranslation(rawText) {

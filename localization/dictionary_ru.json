@@ -20,7 +20,7 @@
     "Run": "Запуск",
     "Working.": "Выполняется...",
     "Working...": "Выполняется...",
-    "Working": "В процессе...",
+    "Working": "В работе",
     "Thinking...": "Обдумывание...",
     "Done": "Готово",
     "Cancel": "Отмена",
@@ -1384,7 +1384,71 @@
     "running commands": "запуск команд",
     "ran command": "выполнена команда",
     "Ran commands": "Выполнено команд",
-    "ran commands": "выполнено команд"
+    "ran commands": "выполнено команд",
+    "Exploring": "Изучение",
+    "Explored": "Изучено",
+    "Web search": "Поиск в интернете",
+    "Searching the web": "Поиск в интернете",
+    "Searching web": "Поиск в интернете",
+    "Directory analysis": "Анализ директории",
+    "Analyzing directory": "Анализ директории",
+    "Git status check": "Проверка статуса Git",
+    "Checking git status": "Проверка статуса Git",
+    "Test execution": "Выполнение тестов",
+    "Running tests": "Запуск тестов",
+    "Code search": "Поиск в коде",
+    "Searching code": "Поиск в коде",
+    "File inspection": "Просмотр файла",
+    "Viewing file": "Просмотр файла",
+    "Viewing files": "Просмотр файлов",
+    "Code edit": "Редактирование кода",
+    "Editing code": "Редактирование кода",
+    "File modification": "Изменение файла",
+    "Modifying file": "Изменение файла",
+    "File creation": "Создание файла",
+    "Writing to file": "Запись в файл",
+    "Writing file": "Запись файла",
+    "Creating file": "Создание файла",
+    "Command execution": "Выполнение команды",
+    "Executing command": "Выполнение команды",
+    "Task management": "Управление задачами",
+    "Managing task": "Управление задачей",
+    "Listing tasks": "Список задач",
+    "Subagent invocation": "Вызов субагента",
+    "Invoking subagent": "Вызов субагента",
+    "Subagent management": "Управление субагентами",
+    "Managing subagents": "Управление субагентами",
+    "Timer setup": "Настройка таймера",
+    "Scheduling timer": "Планирование таймера",
+    "Schedule timer": "Планирование таймера",
+    "Setting schedule": "Настройка расписания",
+    "Subagent definition": "Определение субагента",
+    "Defining subagent": "Определение субагента",
+    "Image generation": "Генерация изображения",
+    "Generating image": "Генерация изображения",
+    "User question": "Вопрос пользователю",
+    "Asking question": "Запрос к пользователю",
+    "Prompting user": "Запрос к пользователю",
+    "Question prompt": "Запрос к пользователю",
+    "Plugin accounts": "Аккаунты плагинов",
+    "Listing plugin accounts": "Список аккаунтов плагинов",
+    "URL read": "Чтение URL",
+    "Fetching URL content": "Загрузка контента по URL",
+    "Reading URL content": "Чтение контента по URL",
+    "Web content read": "Чтение веб-страницы",
+    "Listing directory": "Просмотр директории",
+    "Listing files": "Просмотр списка файлов",
+    "Analyzing files": "Анализ файлов",
+    "Project build": "Сборка проекта",
+    "Building project": "Сборка проекта",
+    "Dependency installation": "Установка зависимостей",
+    "Installing dependencies": "Установка зависимостей",
+    "Log inspection": "Просмотр логов",
+    "Checking logs": "Просмотр логов",
+    "Code linting": "Проверка линтером",
+    "Linting code": "Проверка линтером",
+    "Code formatting": "Форматирование кода",
+    "Formatting code": "Форматирование кода"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -2499,6 +2563,86 @@
     {
       "regex": "^[Rr]ead (\\d+) files?$",
       "replace": "Прочитано $1 файлов"
+    },
+    {
+      "regex": "^Web search$",
+      "replace": "Поиск в интернете"
+    },
+    {
+      "regex": "^Searching the web$",
+      "replace": "Поиск в интернете"
+    },
+    {
+      "regex": "^Searching web$",
+      "replace": "Поиск в интернете"
+    },
+    {
+      "regex": "^Searching\\s+(.+)$",
+      "replace": "Поиск: $1"
+    },
+    {
+      "regex": "^Analyzing\\s+(.+)$",
+      "replace": "Анализ: $1"
+    },
+    {
+      "regex": "^Checking\\s+(.+)$",
+      "replace": "Проверка: $1"
+    },
+    {
+      "regex": "^Running\\s+(.+)$",
+      "replace": "Запуск: $1"
+    },
+    {
+      "regex": "^Viewing\\s+(.+)$",
+      "replace": "Просмотр: $1"
+    },
+    {
+      "regex": "^Reading\\s+(.+)$",
+      "replace": "Чтение: $1"
+    },
+    {
+      "regex": "^Editing\\s+(.+)$",
+      "replace": "Редактирование: $1"
+    },
+    {
+      "regex": "^Writing\\s+(.+)$",
+      "replace": "Запись: $1"
+    },
+    {
+      "regex": "^Creating\\s+(.+)$",
+      "replace": "Создание: $1"
+    },
+    {
+      "regex": "^Managing\\s+(.+)$",
+      "replace": "Управление: $1"
+    },
+    {
+      "regex": "^Listing\\s+(.+)$",
+      "replace": "Список: $1"
+    },
+    {
+      "regex": "^Executing\\s+(.+)$",
+      "replace": "Выполнение: $1"
+    },
+    {
+      "regex": "^([A-Za-z0-9_.-]+)\\s+search$",
+      "replace": "Поиск ($1)"
+    },
+    {
+      "regex": "^([A-Za-z0-9_.-]+)\\s+check$",
+      "replace": "Проверка ($1)"
+    },
+    {
+      "regex": "^([A-Za-z0-9_.-]+)\\s+analysis$",
+      "replace": "Анализ ($1)"
+    },
+    {
+      "regex": "^([A-Za-z0-9_.-]+)\\s+execution$",
+      "replace": "Выполнение ($1)"
+    },
+    {
+      "regex": "^([A-Za-z0-9_.-]+)\\s+inspection$",
+      "replace": "Осмотр ($1)"
     }
   ]
 }
