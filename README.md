@@ -1,7 +1,7 @@
 # Antigravity Companion: Русский интерфейс + Виджет лимитов
 
-[![Version](https://img.shields.io/badge/version-v1.4.0-blue.svg)](https://github.com/voronin-s-dev/antigravity-companion)
-[![Changelog](https://img.shields.io/badge/changelog-v1.4.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-v1.6.0-blue.svg)](https://github.com/voronin-s-dev/antigravity-companion)
+[![Changelog](https://img.shields.io/badge/changelog-v1.6.0-orange.svg)](CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-success.svg)](#)
 
@@ -51,6 +51,16 @@
   * При копировании больших фрагментов (> 35 строк или > 1200 символов — дампы логов, стек-трейсы, JSON) появляется аккуратный предупреждающий тост с подсчетом строк и приблизительного числа токенов без блокировки набора текста.
 * **Супервизор с автоматическим сбросом кэша (Cache Busting)**:
   * Служба инвалидирует in-memory кэш Node.js при перезапуске окон Electron, гарантируя подгрузку самых свежих скриптов и словарей с диска.
+
+### 4. Автономный конвейер локализации и тихие OTA-обновления (Over-The-Air)
+* **Тихий фоновый сборщик (Zero-Click Runtime Miss Collector)**:
+  * Непереведённые английские элементы интерфейса при отображении автоматически буферизуются и сохраняются в очередь `localization/untranslated_queue.json` без задержек и без необходимости делать скриншоты.
+* **Статический сканер веб-бандла (`npm run harvest:bundle`)**:
+  * Скачивает скомпилированный 9.6 МБ React-бандл `main.js` напрямую из language server Antigravity и извлекает более 4 300 UI-литералов компонентов сразу со всех экранов IDE до их открытия пользователем.
+* **Тихий фоновый OTA-автоапдейтер**:
+  * Постоянная служба Companion раз в 60 минут (и при старте) тихо сверяет словарь с GitHub. При появлении новых терминов свежий словарь автоматически скачивается и мгновенно внедряется через WebSocket прямо в работающее окно Antigravity без перезапуска приложения.
+* **Детерминированный синтаксический анализатор шагов агента**:
+  * Встроенный грамматический парсер `pqb` и реестр действий `GY` полностью исключают появление английских названий процессов (`Exploring`, `Exploring files, editing file`, `Web search` и др.).
 
 ---
 

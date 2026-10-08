@@ -1,6 +1,6 @@
 {
   "name": "antigravity-companion",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Модуль глубокой русификации и виджет лимитов моделей для Google Antigravity Desktop App",
   "main": "bin/antigravity_companion.js",
   "scripts": {
