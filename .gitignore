@@ -19,6 +19,8 @@ npm-debug.log*
 # Backups & Update locks
 *.bak
 .lock_updates
+.env
+.env.*
 localization/untranslated_queue.json
 
 # Builds & Archives

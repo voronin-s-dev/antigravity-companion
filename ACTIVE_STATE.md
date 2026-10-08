@@ -51,6 +51,12 @@
 - **Статический экстрактор бандла `localization/bundle_harvester.js`**: сканирует 9.6 МБ React-бандл `main.js` напрямую из language server, извлекая 4300+ UI-литералов компонентов сразу для всех экранов IDE до их открытия пользователем.
 - **Команды CLI**: добавлены `npm run harvest:bundle` и обновлен общий пайплайн `npm run harvest`.
 
+### Веха 45: Автономный конвейер перевода (AI Auto-Translate, GitHub Actions CI/CD и Silent OTA Updates)
+- **Модуль OTA-обновлений `bin/updater.js`**: автономная проверка и скачивание свежего словаря с GitHub для Git-репозиториев и standalone ZIP-клиентов.
+- **Фоновый OTA-таймер в `bin/antigravity_companion.js`**: служба Companion раз в час (и при старте) тихо сверяет словарь с GitHub и при наличии обновлений мгновенно применяет их на лету через CDP прямо в открытое окно.
+- **Модуль автоперевода `localization/auto_translate.js`**: пакетная обработка очереди `untranslated_queue.json` через Gemini Flash API (поддержка `.env` и секретов), автоматическое слияние в словарь и валидация через `npm test`.
+- **Авто-публикация и CI/CD `.github/workflows/auto_translate.yml`**: ежедневный запуск и ручной триггер, автокоммит словаря от имени бота и пуш в `main`.
+
 ---
 
 ## 4. Следующие шаги и бэклог

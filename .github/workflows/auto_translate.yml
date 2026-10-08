@@ -1,0 +1,57 @@
+name: Autonomous AI Localization & OTA Dispatch
+
+on:
+  schedule:
+    # Запуск раз в сутки в 02:00 UTC для автоматического перевода накопившихся строк
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      max_strings:
+        description: 'Максимальное количество строк для перевода'
+        required: false
+        default: '100'
+
+permissions:
+  contents: write
+
+jobs:
+  auto-translate:
+    runs-on: ubuntu-latest
+    if: github.repository == 'voronin-s-dev/antigravity-companion'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Auto-Translate via Gemini API
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          MAX_COUNT="${{ github.event.inputs.max_strings || '100' }}"
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "GEMINI_API_KEY secret is not configured in this repository. Skipping AI translation."
+            exit 0
+          fi
+          node localization/auto_translate.js --max $MAX_COUNT
+
+      - name: Run Integrity & Syntax Tests
+        run: npm test
+
+      - name: Commit and Push Updated Dictionary
+        run: |
+          if git diff --quiet localization/dictionary_ru.json; then
+            echo "No new dictionary changes to commit."
+          else
+            git config --local user.name "github-actions[bot]"
+            git config --local user.email "github-actions[bot]@users.noreply.github.com"
+            git add localization/dictionary_ru.json ACTIVE_STATE.md
+            git commit -m "feat(i18n): autonomous dictionary update via AI [skip ci]"
+            git push origin main
+            echo "Successfully published updated dictionary to main! OTA clients will receive it automatically."
+          fi
