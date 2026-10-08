@@ -243,10 +243,21 @@
          - Переведены кнопки и элементы управления: `Install` («Установить»), `Uninstall` («Удалить»), `Configure` («Настроить»), `Built In` («Встроенный»), `Blocked` («Заблокирован»), `Setup required` («Требуется настройка»), `No plugins available.` («Нет доступных плагинов.»), `Customizations views` («Представления кастомизации»).
          - Внедрены динамические шаблоны раскрытия списков: `^\+\s*See\s+(\d+)\s+more$` («+ Показать ещё $1»), `^See\s+(\d+)\s+more$`, `^See\s+(\d+)\s+more\s+(.+)$`, `^\+\s*See\s+more$` («+ Показать больше»), `^See\s+more\s+plugins$`, `^More actions for (.+)$`.
        - Всего в словаре: **1279 точных терминов**, **146 атрибутов**, **192 шаблона** (всего 1617 правил перевода).
+   38. **Локализация страниц детального просмотра плагинов (Plugin Details View, Tabs & Commands)**:
+       - **Баннеры и уведомления**:
+         - Переведено предупреждение режима предпросмотра: `This is a preview of the plugin's source. Nothing below is active until you install it.` («Это предварительный просмотр исходных данных плагина. Ни один из компонентов ниже не активен, пока вы его не установите.»).
+         - Переведено предупреждение отключенного плагина: `This plugin is disabled, so nothing shown below is active. Enable it above to use it.` («Этот плагин отключен, поэтому компоненты ниже не активны. Включите его выше, чтобы использовать.») и `This plugin was force disabled.` («Этот плагин был принудительно отключен.»).
+         - Переведено пустое состояние для неустановленного плагина: `Install this plugin to see the commands it adds, along with its skills, agents and MCP servers.`.
+       - **Заголовки секций и вкладки**:
+         - Переведены секции и вкладки: `Commands` («Команды»), `Agents` («Агенты»), `Skills` («Навыки»), `Rules` («Правила»), `Hooks` («Хуки»), `UI extensions` / `UI Extensions` («UI-расширения»), `Automations` («Автоматизации»), `MCP servers` («MCP-серверы»).
+         - Переведены описания команд и навыков официальных плагинов: `/android-cli`, `gdocs`, `gdrive`, `gsheets`, `gcalendar`, `google-antigravity-sdk`, BigQuery DTS, dbt/Dataform.
+         - Переведены действия: `Copy link` («Копировать ссылку»), `Copied` («Скопировано»), `Plugin details`, `Plugin metadata`, `Context usage`, `Configured servers`.
+         - Внедрены динамические шаблоны: `^Unnamed Agent (\d+)$`, `^UI Extension (\d+)$`, `^Automation (\d+)$`, `^(.+), setup required$`, `^No plugin found for (.+)$`, `^Context usage \(([\d,\s]+)\s+tokens\)$`.
+       - Всего в словаре: **1308 точных терминов**, **155 атрибутов**, **198 шаблонов** (всего 1661 правило перевода).
 ---
 
 ## 4. Следующие шаги и бэклог
-1. Собрать обратную связь пользователя по переводу всплывающего окна и раздела кастомизаций.
+1. Собрать обратную связь пользователя по переводу детальных страниц плагинов и кастомизаций.
 2. Поддержание актуальности словаря при обновлениях Antigravity через `npm run harvest` и `npm run merge`.
 
 ---

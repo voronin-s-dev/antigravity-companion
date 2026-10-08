@@ -1279,7 +1279,36 @@
     "+ See 4 more": "+ Показать ещё 4",
     "+ See more": "+ Показать больше",
     "Customizations views": "Представления кастомизации",
-    "Plugins are packaged collections of skills and MCPs to help the Agent": "Плагины — это пакеты навыков и серверов MCP для помощи агенту"
+    "Plugins are packaged collections of skills and MCPs to help the Agent": "Плагины — это пакеты навыков и серверов MCP для помощи агенту",
+    "Commands": "Команды",
+    "Agents": "Агенты",
+    "MCP servers": "MCP-серверы",
+    "UI extensions": "UI-расширения",
+    "UI Extensions": "UI-расширения",
+    "This is a preview of the plugin's source. Nothing below is active until you install it.": "Это предварительный просмотр исходных данных плагина. Ни один из компонентов ниже не активен, пока вы его не установите.",
+    "This plugin is disabled, so nothing shown below is active. Enable it above to use it.": "Этот плагин отключен, поэтому компоненты ниже не активны. Включите его выше, чтобы использовать.",
+    "This plugin was force disabled.": "Этот плагин был принудительно отключен.",
+    "Install this plugin to see the commands it adds, along with its skills, agents and MCP servers.": "Установите этот плагин, чтобы увидеть добавляемые им команды, навыки, агентов и MCP-серверы.",
+    "Plugin details": "Сведения о плагине",
+    "Plugin metadata": "Метаданные плагина",
+    "Context usage": "Использование контекста",
+    "Configured servers": "Настроенные серверы",
+    "This server needs you to sign in before the agent can use its tools.": "Для использования инструментов этого сервера агентом необходимо войти в систему.",
+    "These servers need you to sign in before the agent can use their tools.": "Для использования инструментов этих серверов агентом необходимо войти в систему.",
+    "MCP Authentication Error:": "Ошибка аутентификации MCP:",
+    "Unnamed MCP Server": "Безымянный MCP-сервер",
+    "Copied": "Скопировано",
+    "Provides instructions for installing and using the 'android' CLI. The 'android' command-line tool is a critical tool for Android development and helps you create new Android projects, run Android apps on devices, manage and interact with Android virtual devices (including screenshots and UI inspection), manage Android SDK components, look up official Android documentation, and discover and install official Android skills.": "Инструкции по установке и использованию CLI 'android'. Инструмент командной строки 'android' необходим для разработки под Android: он помогает создавать новые проекты, запускать приложения на устройствах, управлять эмуляторами (включая скриншоты и инспекцию UI), управлять компонентами Android SDK, искать официальную документацию и устанавливать навыки Android.",
+    "Provides instructions for installing and using the `android` CLI. The `android` command-line tool is a critical tool for Android development and helps you create new Android projects, run Android apps on devices, manage and interact with Android virtual devices (including screenshots and UI inspection), manage Android SDK components, look up official Android documentation, and discover and install official Android skills.": "Инструкции по установке и использованию CLI `android`. Инструмент командной строки `android` необходим для разработки под Android: он помогает создавать новые проекты, запускать приложения на устройствах, управлять эмуляторами (включая скриншоты и инспекцию UI), управлять компонентами Android SDK, искать официальную документацию и устанавливать навыки Android.",
+    "Design, implement, and debug autonomous AI agents and multi-agent systems using the Google Antigravity (AGY) SDK. ACTIVATE this skill when the user wants to create, configure, or orchestrate Google Antigravity agents.": "Проектирование, разработка и отладка автономных ИИ-агентов и мультиагентных систем с помощью Google Antigravity (AGY) SDK. Активируйте этот навык при создании, настройке или оркестрации агентов Antigravity.",
+    "Read, create, edit, and manage Google Docs. Use when the user shares a docs.google.com URL, asks to summarize or extract content from a doc, wants a doc drafted, edited, formatted, or commented on, wants tables, images, or smart chips inserted, wants markdown imported or synchronized with a doc, or wants a doc exported. Requires a known document ID — use the gdrive skill to search for or locate documents. Don't use for Google Sheets, Slides, or Drive file management.": "Чтение, создание, редактирование и управление Google Документами. Используйте при отправке ссылки docs.google.com, для составления саммари, черновиков, форматирования, добавления таблиц, изображений и экспорта.",
+    "Read, write, format, and manage Google Sheets. Use when the user shares a sheets.google.com or docs.google.com/spreadsheets URL, asks to read or summarize spreadsheet data, wants cells written, formatted, sorted, merged, or validated, wants rows/columns inserted or deleted, wants charts, pivot tables, or tables added, wants CSV imported, or wants a spreadsheet created, copied, shared, or exported. Don't use for Google Docs, Slides, or Drive file management.": "Чтение, запись, форматирование и управление Google Таблицами. Используйте при отправке ссылок sheets.google.com, для анализа данных таблиц, редактирования ячеек, формул, строк, столбцов, диаграмм и экспорта.",
+    "Browse, search, and manage Google Drive files and folders. Use when the user shares a drive.google.com URL, asks what is in a folder, wants a file found, downloaded, uploaded, updated in place, moved, copied, or renamed, wants a Google file exported to PDF, Markdown, or CSV, wants comments read or added, wants sharing and permissions checked or changed, or wants Drive activity watched. Don't use for editing the contents of a Doc, Sheet, or Slides deck.": "Просмотр, поиск и управление файлами и папками Google Диска. Используйте при отправке ссылок drive.google.com, для поиска, скачивания, загрузки, перемещения, переименования файлов и проверки прав доступа.",
+    "Read, create, and manage Google Calendar events. Use when the user shares a calendar.google.com URL, asks what is on their schedule, wants an event found, created, updated, deleted, or moved, wants to RSVP, wants free/busy or scheduling conflicts checked before proposing a time, wants focus time or an out-of-office block created, wants an event quick-added from a phrase or imported from an ICS file, or wants to know where someone is working from and which timezone they are in. Don't use for Gmail, Chat, or Tasks.": "Чтение, создание и управление событиями Google Календаря. Используйте при отправке ссылок calendar.google.com, для просмотра расписания, планирования встреч, ответов на приглашения и проверки занятости.",
+    "Discovers and inspects BigQuery Data Transfer Service (DTS) configurations.": "Обнаружение и проверка конфигураций BigQuery Data Transfer Service (DTS).",
+    "Automated data quality and transformation capabilities for Dataform/dbt/BigQuery": "Автоматизированный контроль качества и трансформация данных для Dataform/dbt/BigQuery",
+    "Expert guidance for creating, modifying, and optimizing dbt pipelines": "Экспертное руководство по созданию, модификации и оптимизации конвейеров dbt",
+    "Expertise in generating clean, correct, and efficient Dataform pipeline": "Генерация чистых, корректных и эффективных конвейеров Dataform"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -1427,7 +1456,16 @@
     "Uninstall": "Удалить",
     "Configure": "Настроить",
     "Dismiss": "Понятно",
-    "Customizations views": "Представления кастомизации"
+    "Customizations views": "Представления кастомизации",
+    "Commands": "Команды",
+    "Agents": "Агенты",
+    "UI extensions": "UI-расширения",
+    "UI Extensions": "UI-расширения",
+    "Plugin details": "Сведения о плагине",
+    "Plugin metadata": "Метаданные плагина",
+    "Context usage": "Использование контекста",
+    "Copied": "Скопировано",
+    "Version": "Версия"
   },
   "patterns": [
     {
@@ -2197,6 +2235,30 @@
     {
       "regex": "^More actions for (.+)$",
       "replace": "Другие действия для $1"
+    },
+    {
+      "regex": "^Unnamed Agent (\\d+)$",
+      "replace": "Безымянный агент $1"
+    },
+    {
+      "regex": "^UI Extension (\\d+)$",
+      "replace": "UI-расширение $1"
+    },
+    {
+      "regex": "^Automation (\\d+)$",
+      "replace": "Автоматизация $1"
+    },
+    {
+      "regex": "^(.+), setup required$",
+      "replace": "$1, требуется настройка"
+    },
+    {
+      "regex": "^No plugin found for (.+)$",
+      "replace": "Плагин не найден для $1"
+    },
+    {
+      "regex": "^Context usage \\(([\\d,\\s]+)\\s+tokens\\)$",
+      "replace": "Использование контекста ($1 токенов)"
     }
   ]
 }
