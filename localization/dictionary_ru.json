@@ -1308,7 +1308,12 @@
     "Discovers and inspects BigQuery Data Transfer Service (DTS) configurations.": "Обнаружение и проверка конфигураций BigQuery Data Transfer Service (DTS).",
     "Automated data quality and transformation capabilities for Dataform/dbt/BigQuery": "Автоматизированный контроль качества и трансформация данных для Dataform/dbt/BigQuery",
     "Expert guidance for creating, modifying, and optimizing dbt pipelines": "Экспертное руководство по созданию, модификации и оптимизации конвейеров dbt",
-    "Expertise in generating clean, correct, and efficient Dataform pipeline": "Генерация чистых, корректных и эффективных конвейеров Dataform"
+    "Expertise in generating clean, correct, and efficient Dataform pipeline": "Генерация чистых, корректных и эффективных конвейеров Dataform",
+    "Version 2.21.1": "Версия 2.21.1",
+    "Version:": "Версия:",
+    "You are on the latest version": "У вас установлена последняя версия",
+    "No updates available": "Нет доступных обновлений",
+    "Update available": "Доступно обновление"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -2259,6 +2264,14 @@
     {
       "regex": "^Context usage \\(([\\d,\\s]+)\\s+tokens\\)$",
       "replace": "Использование контекста ($1 токенов)"
+    },
+    {
+      "regex": "^Version\\s+([vV]?\\d+.*)$",
+      "replace": "Версия $1"
+    },
+    {
+      "regex": "^Version:\\s*([vV]?\\d+.*)$",
+      "replace": "Версия: $1"
     }
   ]
 }
