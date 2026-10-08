@@ -217,6 +217,45 @@
     return translatedParts.join(', ');
   }
 
+  // Runtime Miss Collector: тихо буферизует и отправляет пропущенные английские фразы на companion_server
+  const unhandledBuffer = new Set();
+  let unhandledFlushTimer = null;
+
+  function reportUntranslatedString(raw) {
+    if (!raw || typeof raw !== 'string') return;
+    const str = raw.trim();
+    if (str.length < 2 || str.length > 250) return;
+    if (!/[A-Za-z]/.test(str)) return;
+    if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(str)) return;
+    if (/^[0-9+\-.,:;!?()\/\\%\s]+$/.test(str)) return;
+    if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll)$/i.test(str)) return;
+    if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)+/i.test(str)) return;
+    if (/^#[0-9a-fA-F]{3,8}$/.test(str)) return;
+
+    unhandledBuffer.add(str);
+
+    if (!unhandledFlushTimer) {
+      unhandledFlushTimer = setTimeout(flushUnhandledStrings, 4000);
+    }
+  }
+
+  function flushUnhandledStrings() {
+    unhandledFlushTimer = null;
+    if (unhandledBuffer.size === 0) return;
+
+    const list = Array.from(unhandledBuffer);
+    unhandledBuffer.clear();
+
+    try {
+      fetch('http://127.0.0.1:9229/api/collect-untranslated', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ strings: list }),
+        keepalive: true
+      }).catch(() => {});
+    } catch (e) {}
+  }
+
   function getTranslation(rawText) {
     if (!rawText || !window.__agyDictRu) return null;
     const trimmed = rawText.trim();
@@ -363,6 +402,8 @@
         } finally {
           isInternalMutating = false;
         }
+      } else if (!tr && node.__agy_orig) {
+        reportUntranslatedString(node.__agy_orig);
       }
     } else {
       if (trimmedVal === 'Размышление (') {
@@ -468,6 +509,8 @@
           } finally {
             isInternalMutating = false;
           }
+        } else if (!tr && el[cacheProp]) {
+          reportUntranslatedString(el[cacheProp]);
         }
       } else {
         if (el[cacheProp] !== undefined && val !== el[cacheProp]) {

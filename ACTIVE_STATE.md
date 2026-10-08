@@ -45,6 +45,12 @@
   - Добавлена валидация заголовка `Origin` (разрешены только loopback-источники Antigravity/Electron и локальный CLI; внешние сайты получают 403 Forbidden).
 - **Тесты**: создан юнит-тест `test/companion_server_security.test.js`, включен в общий сьют `npm test`.
 
+### Веха 44: Сквозная автоматизация сбора строк (Runtime Miss Collector + Static Bundle Harvester)
+- **Тихий Runtime Collector в `translation_engine.js`**: непереведённые английские фразы при отображении автоматически буферизуются и передаются на фоновый сервер Companion без лагов и без необходимости делать скриншоты.
+- **Эндпоинт `/api/collect-untranslated` в `companion_server.js`**: валидирует входящие строки, фильтрует технический шум и пути, сверяет со словарём и сохраняет новые термины в `localization/untranslated_queue.json`.
+- **Статический экстрактор бандла `localization/bundle_harvester.js`**: сканирует 9.6 МБ React-бандл `main.js` напрямую из language server, извлекая 4300+ UI-литералов компонентов сразу для всех экранов IDE до их открытия пользователем.
+- **Команды CLI**: добавлены `npm run harvest:bundle` и обновлен общий пайплайн `npm run harvest`.
+
 ---
 
 ## 4. Следующие шаги и бэклог

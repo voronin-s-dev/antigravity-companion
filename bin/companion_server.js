@@ -159,6 +159,99 @@ function startServer() {
       }
     }
 
+    // Collect Untranslated Strings from Runtime
+    if (url === '/api/collect-untranslated' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk;
+        if (body.length > 2 * 1024 * 1024) {
+          res.writeHead(413, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'Payload too large' }));
+          req.destroy();
+        }
+      });
+      req.on('end', () => {
+        try {
+          const parsed = JSON.parse(body);
+          const incoming = Array.isArray(parsed.strings) ? parsed.strings : [];
+          if (!incoming.length) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ ok: true, added: 0 }));
+            return;
+          }
+
+          const dictPath = path.join(__dirname, '..', 'localization', 'dictionary_ru.json');
+          const queuePath = path.join(__dirname, '..', 'localization', 'untranslated_queue.json');
+
+          let dict = { exact: {}, attributes: {}, patterns: [] };
+          try {
+            dict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+          } catch (e) {}
+
+          let currentQueue = [];
+          try {
+            if (fs.existsSync(queuePath)) {
+              currentQueue = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
+            }
+          } catch (e) {}
+          if (!Array.isArray(currentQueue)) currentQueue = [];
+
+          const queueSet = new Set(currentQueue);
+          let addedCount = 0;
+
+          const isNoise = (s) => {
+            if (!s || typeof s !== 'string') return true;
+            const t = s.trim();
+            if (t.length < 2 || t.length > 300) return true;
+            if (!/[A-Za-z]/.test(t)) return true;
+            if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(t)) return true;
+            if (/^[a-f0-9]{32,64}$/i.test(t)) return true;
+            if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)+/i.test(t)) return true;
+            if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll)$/i.test(t)) return true;
+            if (/^#?[0-9a-fA-F]{3,8}$/.test(t)) return true;
+            if (/^[0-9+\-.,:;!?()\/\\%\s]+$/.test(t)) return true;
+            return false;
+          };
+
+          for (const item of incoming) {
+            const clean = typeof item === 'string' ? item.trim() : '';
+            if (isNoise(clean)) continue;
+            if (dict.exact && dict.exact[clean]) continue;
+            if (dict.attributes && dict.attributes[clean]) continue;
+            if (dict.patterns && dict.patterns.length) {
+              let matched = false;
+              for (const p of dict.patterns) {
+                try {
+                  if (new RegExp(p.regex).test(clean)) { matched = true; break; }
+                } catch (e) {}
+              }
+              if (matched) continue;
+            }
+            if (!queueSet.has(clean)) {
+              queueSet.add(clean);
+              currentQueue.push(clean);
+              addedCount++;
+            }
+          }
+
+          if (addedCount > 0) {
+            fs.writeFileSync(queuePath, JSON.stringify(currentQueue, null, 2), 'utf8');
+          }
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            ok: true,
+            added: addedCount,
+            totalQueue: currentQueue.length
+          }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: err.message }));
+        }
+      });
+      return;
+    }
+
     // Hot Reload
     if (url === '/api/reload' && req.method === 'POST') {
       try {
