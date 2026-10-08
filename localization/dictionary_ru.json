@@ -1077,7 +1077,7 @@
     "Rejected": "Отклонено",
     "Canceled": "Отменено",
     "Errored": "Ошибка",
-    "Ran command": "Команда выполнена",
+    "Ran command": "Выполнена команда",
     "Used MCP tool": "Использован инструмент MCP",
     "Used tool": "Использован инструмент",
     "Sends after agent finishes working": "Отправится после завершения работы агента",
@@ -1313,7 +1313,78 @@
     "Version:": "Версия:",
     "You are on the latest version": "У вас установлена последняя версия",
     "No updates available": "Нет доступных обновлений",
-    "Update available": "Доступно обновление"
+    "Update available": "Доступно обновление",
+    "Exploring files": "Анализ файлов",
+    "exploring files": "анализ файлов",
+    "Exploring file": "Анализ файла",
+    "exploring file": "анализ файла",
+    "Explored files": "Проанализированы файлы",
+    "explored files": "проанализированы файлы",
+    "Explored file": "Проанализирован файл",
+    "explored file": "проанализирован файл",
+    "Editing file": "Редактирование файла",
+    "editing file": "редактирование файла",
+    "Edited file": "Отредактирован файл",
+    "edited file": "отредактирован файл",
+    "Editing files": "Редактирование файлов",
+    "editing files": "редактирование файлов",
+    "Edited files": "Отредактированы файлы",
+    "edited files": "отредактированы файлы",
+    "Reading file": "Чтение файла",
+    "reading file": "чтение файла",
+    "Read file": "Прочитан файл",
+    "read file": "прочитан файл",
+    "Reading files": "Чтение файлов",
+    "reading files": "чтение файлов",
+    "Read files": "Прочитаны файлы",
+    "read files": "прочитаны файлы",
+    "Exploring files, editing file": "Анализ файлов, редактирование файла",
+    "exploring files, editing file": "анализ файлов, редактирование файла",
+    "Exploring files, editing files": "Анализ файлов, редактирование файлов",
+    "exploring files, editing files": "анализ файлов, редактирование файлов",
+    "Exploring file, editing file": "Анализ файла, редактирование файла",
+    "exploring file, editing file": "анализ файла, редактирование файла",
+    "Exploring file, editing files": "Анализ файла, редактирование файлов",
+    "exploring file, editing files": "анализ файла, редактирование файлов",
+    "Explored files, edited file": "Проанализированы файлы, отредактирован файл",
+    "explored files, edited file": "проанализированы файлы, отредактирован файл",
+    "Explored files, edited files": "Проанализированы файлы, отредактированы файлы",
+    "explored files, edited files": "проанализированы файлы, отредактированы файлы",
+    "Explored file, edited file": "Проанализирован файл, отредактирован файл",
+    "explored file, edited file": "проанализирован файл, отредактирован файл",
+    "Explored file, edited files": "Проанализирован файл, отредактированы файлы",
+    "explored file, edited files": "проанализирован файл, отредактированы файлы",
+    "Exploring files, running command": "Анализ файлов, запуск команды",
+    "exploring files, running command": "анализ файлов, запуск команды",
+    "Exploring files, running commands": "Анализ файлов, запуск команд",
+    "exploring files, running commands": "анализ файлов, запуск команд",
+    "Explored files, ran command": "Проанализированы файлы, выполнена команда",
+    "explored files, ran command": "проанализированы файлы, выполнена команда",
+    "Explored files, ran commands": "Проанализированы файлы, выполнено команд",
+    "explored files, ran commands": "проанализированы файлы, выполнено команд",
+    "Exploring files, reading files": "Анализ файлов, чтение файлов",
+    "exploring files, reading files": "анализ файлов, чтение файлов",
+    "Exploring files, reading file": "Анализ файлов, чтение файла",
+    "exploring files, reading file": "анализ файлов, чтение файла",
+    "Reading files, editing file": "Чтение файлов, редактирование файла",
+    "reading files, editing file": "чтение файлов, редактирование файла",
+    "Reading files, editing files": "Чтение файлов, редактирование файлов",
+    "reading files, editing files": "чтение файлов, редактирование файлов",
+    "Reading file, editing file": "Чтение файла, редактирование файла",
+    "reading file, editing file": "чтение файла, редактирование файла",
+    "Reading file, editing files": "Чтение файла, редактирование файлов",
+    "reading file, editing files": "чтение файла, редактирование файлов",
+    "Reading files, running command": "Чтение файлов, запуск команды",
+    "reading files, running command": "чтение файлов, запуск команды",
+    "Reading files, running commands": "Чтение файлов, запуск команд",
+    "reading files, running commands": "чтение файлов, запуск команд",
+    "Running command": "Запуск команды",
+    "running command": "запуск команды",
+    "Running commands": "Запуск команд",
+    "running commands": "запуск команд",
+    "ran command": "выполнена команда",
+    "Ran commands": "Выполнено команд",
+    "ran commands": "выполнено команд"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -2272,6 +2343,162 @@
     {
       "regex": "^Version:\\s*([vV]?\\d+.*)$",
       "replace": "Версия: $1"
+    },
+    {
+      "regex": "^[Ee]xploring files?, editing file$",
+      "replace": "Анализ файлов, редактирование файла"
+    },
+    {
+      "regex": "^[Ee]xploring files?, editing files$",
+      "replace": "Анализ файлов, редактирование файлов"
+    },
+    {
+      "regex": "^[Ee]xploring files?, editing (\\d+) files?$",
+      "replace": "Анализ файлов, редактирование $1 файлов"
+    },
+    {
+      "regex": "^[Ee]xploring (\\d+) files?, editing file$",
+      "replace": "Анализ $1 файлов, редактирование файла"
+    },
+    {
+      "regex": "^[Ee]xploring (\\d+) files?, editing (\\d+) files?$",
+      "replace": "Анализ $1 файлов, редактирование $2 файлов"
+    },
+    {
+      "regex": "^[Ee]xploring 1 file, editing 1 file$",
+      "replace": "Анализ 1 файла, редактирование 1 файла"
+    },
+    {
+      "regex": "^[Ee]xploring 1 file, editing (\\d+) files?$",
+      "replace": "Анализ 1 файла, редактирование $1 файлов"
+    },
+    {
+      "regex": "^[Ee]xploring (\\d+) files?, editing 1 file$",
+      "replace": "Анализ $1 файлов, редактирование 1 файла"
+    },
+    {
+      "regex": "^[Ee]xplored files?, edited file$",
+      "replace": "Проанализированы файлы, отредактирован файл"
+    },
+    {
+      "regex": "^[Ee]xplored files?, edited files$",
+      "replace": "Проанализированы файлы, отредактированы файлы"
+    },
+    {
+      "regex": "^[Ee]xplored (\\d+) files?, edited file$",
+      "replace": "Проанализировано $1 файлов, отредактирован файл"
+    },
+    {
+      "regex": "^[Ee]xplored (\\d+) files?, edited (\\d+) files?$",
+      "replace": "Проанализировано $1 файлов, отредактировано $2 файлов"
+    },
+    {
+      "regex": "^[Ee]xplored 1 file, edited 1 file$",
+      "replace": "Проанализирован 1 файл, отредактирован 1 файл"
+    },
+    {
+      "regex": "^[Ee]xploring files?, running (\\d+) commands?$",
+      "replace": "Анализ файлов, запуск $1 команд"
+    },
+    {
+      "regex": "^[Ee]xploring files?, running 1 command$",
+      "replace": "Анализ файлов, запуск 1 команды"
+    },
+    {
+      "regex": "^[Ee]xplored files?, ran (\\d+) commands?$",
+      "replace": "Проанализированы файлы, выполнено $1 команд"
+    },
+    {
+      "regex": "^[Ee]xplored files?, ran 1 command$",
+      "replace": "Проанализированы файлы, выполнена 1 команда"
+    },
+    {
+      "regex": "^[Ee]diting (\\d+) files?, running (\\d+) commands?$",
+      "replace": "Редактирование $1 файлов, запуск $2 команд"
+    },
+    {
+      "regex": "^[Ee]diting 1 file, running 1 command$",
+      "replace": "Редактирование 1 файла, запуск 1 команды"
+    },
+    {
+      "regex": "^[Ee]diting (\\d+) files?, running 1 command$",
+      "replace": "Редактирование $1 файлов, запуск 1 команды"
+    },
+    {
+      "regex": "^[Ee]diting 1 file, running (\\d+) commands?$",
+      "replace": "Редактирование 1 файла, запуск $1 команд"
+    },
+    {
+      "regex": "^[Ee]dited (\\d+) files?, ran (\\d+) commands?$",
+      "replace": "Отредактировано $1 файлов, выполнено $2 команд"
+    },
+    {
+      "regex": "^[Ee]dited 1 file, ran 1 command$",
+      "replace": "Отредактирован 1 файл, выполнена 1 команда"
+    },
+    {
+      "regex": "^[Ee]xploring files$",
+      "replace": "Анализ файлов"
+    },
+    {
+      "regex": "^[Ee]xplored files$",
+      "replace": "Проанализированы файлы"
+    },
+    {
+      "regex": "^[Ee]xploring file$",
+      "replace": "Анализ файла"
+    },
+    {
+      "regex": "^[Ee]xplored file$",
+      "replace": "Проанализирован файл"
+    },
+    {
+      "regex": "^[Ee]diting file$",
+      "replace": "Редактирование файла"
+    },
+    {
+      "regex": "^[Ee]diting files$",
+      "replace": "Редактирование файлов"
+    },
+    {
+      "regex": "^[Ee]dited file$",
+      "replace": "Отредактирован файл"
+    },
+    {
+      "regex": "^[Ee]dited files$",
+      "replace": "Отредактированы файлы"
+    },
+    {
+      "regex": "^[Rr]eading file$",
+      "replace": "Чтение файла"
+    },
+    {
+      "regex": "^[Rr]eading files$",
+      "replace": "Чтение файлов"
+    },
+    {
+      "regex": "^[Rr]ead file$",
+      "replace": "Прочитан файл"
+    },
+    {
+      "regex": "^[Rr]ead files$",
+      "replace": "Прочитаны файлы"
+    },
+    {
+      "regex": "^[Rr]eading 1 file$",
+      "replace": "Чтение 1 файла"
+    },
+    {
+      "regex": "^[Rr]eading (\\d+) files?$",
+      "replace": "Чтение $1 файлов"
+    },
+    {
+      "regex": "^[Rr]ead 1 file$",
+      "replace": "Прочитан 1 файл"
+    },
+    {
+      "regex": "^[Rr]ead (\\d+) files?$",
+      "replace": "Прочитано $1 файлов"
     }
   ]
 }
