@@ -17,8 +17,37 @@ const HOST = '127.0.0.1';
 
 let server = null;
 
-function setCorsHeaders(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+function isAllowedHost(host) {
+  if (!host) return true;
+  const cleanHost = host.toLowerCase().trim();
+  return (
+    cleanHost === `127.0.0.1:${PORT}` ||
+    cleanHost === `localhost:${PORT}` ||
+    cleanHost === '127.0.0.1' ||
+    cleanHost === 'localhost'
+  );
+}
+
+function isAllowedOrigin(origin) {
+  if (!origin || origin === 'null') return true;
+  try {
+    const url = new URL(origin);
+    const host = url.hostname.toLowerCase();
+    if (host === '127.0.0.1' || host === 'localhost') return true;
+    if (url.protocol === 'vscode-file:' || url.protocol === 'vscode-webview:') return true;
+  } catch (e) {
+    return false;
+  }
+  return false;
+}
+
+function setCorsHeaders(req, res) {
+  const origin = req.headers.origin;
+  if (origin && isAllowedOrigin(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else if (!origin) {
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1');
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
@@ -27,7 +56,21 @@ function startServer() {
   if (server) return server;
 
   server = http.createServer(async (req, res) => {
-    setCorsHeaders(res);
+    // DNS Rebinding protection
+    if (!isAllowedHost(req.headers.host)) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Forbidden: Invalid Host header (DNS Rebinding protection)' }));
+      return;
+    }
+
+    // CSRF / Cross-Origin protection
+    if (!isAllowedOrigin(req.headers.origin)) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: false, error: 'Forbidden: Untrusted Origin' }));
+      return;
+    }
+
+    setCorsHeaders(req, res);
 
     if (req.method === 'OPTIONS') {
       res.writeHead(204);
@@ -312,5 +355,7 @@ function stopServer() {
 module.exports = {
   startServer,
   stopServer,
-  PORT
+  PORT,
+  isAllowedHost,
+  isAllowedOrigin
 };

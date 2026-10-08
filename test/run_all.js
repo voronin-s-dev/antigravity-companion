@@ -24,6 +24,16 @@ try {
   hasErrors = true;
 }
 
+try {
+  process.stdout.write('3. Проверка безопасности Companion Server (Host/Origin/CORS)... ');
+  const { testSecurityGuards } = require('./companion_server_security.test.js');
+  testSecurityGuards(false);
+  console.log(`✓ УСПЕШНО`);
+} catch (e) {
+  console.log(`✗ ОШИБКА: ${e.message}`);
+  hasErrors = true;
+}
+
 console.log('---------------------------------------------');
 if (hasErrors) {
   console.error('✗ Обнаружены критические ошибки при тестировании.');
