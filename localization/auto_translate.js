@@ -34,7 +34,7 @@ const queuePath = path.resolve(__dirname, 'untranslated_queue.json');
 const mergeSourcePath = path.resolve(__dirname, 'translations_to_merge.json');
 const dictPath = path.resolve(__dirname, 'dictionary_ru.json');
 
-function callGemini(apiKey, prompt, model = 'gemini-2.5-flash') {
+function callGemini(apiKey, prompt, model = 'gemini-3.5-flash') {
   return new Promise((resolve, reject) => {
     const payload = JSON.stringify({
       contents: [{ parts: [{ text: prompt }] }],
@@ -125,10 +125,10 @@ Format: { "English": "Русский" }`;
     try {
       let result;
       try {
-        result = await callGemini(apiKey, prompt, 'gemini-2.5-flash');
+        result = await callGemini(apiKey, prompt, 'gemini-3.5-flash');
       } catch (e) {
-        console.warn(`[Auto-Translate] gemini-2.5-flash недоступен (${e.message}), пробую gemini-1.5-flash...`);
-        result = await callGemini(apiKey, prompt, 'gemini-1.5-flash');
+        console.warn(`[Auto-Translate] gemini-3.5-flash недоступен (${e.message}), пробую gemini-3.5-flash-lite...`);
+        result = await callGemini(apiKey, prompt, 'gemini-3.5-flash-lite');
       }
 
       if (typeof result === 'object' && result !== null) {
