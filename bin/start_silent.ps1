@@ -67,7 +67,7 @@ try {
     $startupInfo.ShowWindow = 0
 
     $proc = [wmiclass]"Win32_Process"
-    $res = $proc.Create("`"$nodePath`" `"antigravity_companion.js`"", $baseDir, $startupInfo)
+    $res = $proc.Create("`"$nodePath`" `"$companionPath`"", $baseDir, $startupInfo)
     if ($res.ReturnValue -eq 0) {
         Start-Sleep -Milliseconds 500
         Write-Host "[+] Antigravity Companion background service started successfully (PID: $($res.ProcessId))!" -ForegroundColor Green

@@ -50,14 +50,24 @@ function Toggle-Startup {
         if (Test-Path $lnk) { Remove-Item $lnk -Force -ErrorAction SilentlyContinue }
         Write-Host "[+] Автозапуск Windows: ОТКЛЮЧЕН" -ForegroundColor Yellow
     } else {
-        $startPs1 = Join-Path $baseDir "start_silent.ps1"
+        $startVbs = Join-Path $baseDir "start_silent.vbs"
+        $wscriptExe = "$env:SystemRoot\System32\wscript.exe"
         try {
-            $cmd = "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$startPs1`""
+            $cmd = "`"$wscriptExe`" `"$startVbs`""
             Set-ItemProperty -Path $regPath -Name $regName -Value $cmd -Force
-            if (Test-Path $lnk) { Remove-Item $lnk -Force -ErrorAction SilentlyContinue }
-            Write-Host "[+] Автозапуск Windows (HKCU Run): ВКЛЮЧЕН (Мгновенный старт без задержек)" -ForegroundColor Green
+
+            # Создание надежного ярлыка в папке Автозагрузки
+            $ws = New-Object -ComObject WScript.Shell
+            $sc = $ws.CreateShortcut($lnk)
+            $sc.TargetPath = $wscriptExe
+            $sc.Arguments = "`"$startVbs`""
+            $sc.WorkingDirectory = $baseDir
+            $sc.Description = "Antigravity Companion Background Service"
+            $sc.Save()
+
+            Write-Host "[+] Автозапуск Windows (Реестр HKCU\Run + Папка Startup): ВКЛЮЧЕН" -ForegroundColor Green
         } catch {
-            Write-Host "[X] Ошибка настройки автозапуска в реестре: $_" -ForegroundColor Red
+            Write-Host "[X] Ошибка настройки автозапуска: $_" -ForegroundColor Red
         }
     }
 }

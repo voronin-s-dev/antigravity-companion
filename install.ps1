@@ -104,23 +104,32 @@ try {
         Write-Host "    - Пропуск завершения процессов." -ForegroundColor Gray
     }
 
-    # 3. Настройка мгновенного автозапуска в реестре Windows (без задержек Startup Delay)
+    # 3. Настройка бесшумного надежного автозапуска в Windows (HKCU Run + Папка Startup)
     Write-Host ""
-    Write-Host "[3/4] Настройка мгновенного фонового автозапуска в Windows (HKCU Run)..." -ForegroundColor Cyan
-    $startPs1 = Join-Path $baseDir "bin\start_silent.ps1"
+    Write-Host "[3/4] Настройка фонового автозапуска в Windows (HKCU Run + Startup)..." -ForegroundColor Cyan
+    $startVbs = Join-Path $baseDir "bin\start_silent.vbs"
+    $wscriptExe = "$env:SystemRoot\System32\wscript.exe"
     $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
     $regName = "AntigravityCompanion"
-    $cmd = "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$startPs1`""
+    $cmd = "`"$wscriptExe`" `"$startVbs`""
 
     try {
         Set-ItemProperty -Path $regPath -Name $regName -Value $cmd -Force
-        # Удаление устаревшего ярлыка из папки Startup, если он существовал
-        $startupFolder = [System.Environment]::GetFolderPath('Startup')
-        $oldShortcut = Join-Path $startupFolder "AntigravityCompanion.lnk"
-        if (Test-Path $oldShortcut) { Remove-Item -Path $oldShortcut -Force -ErrorAction SilentlyContinue }
 
-        Write-Host "[+] Автозапуск успешно зарегистрирован в реестре Windows (HKCU\Run)!" -ForegroundColor Green
-        Write-Host "    Служба будет моментально стартовать при входе в систему без задержек Windows Startup Delay." -ForegroundColor Gray
+        # Создание надежного ярлыка в папке Автозагрузки Windows (Startup folder)
+        $appData = [System.Environment]::GetFolderPath('ApplicationData')
+        $startupFolder = Join-Path $appData 'Microsoft\Windows\Start Menu\Programs\Startup'
+        $startupLnk = Join-Path $startupFolder "AntigravityCompanion.lnk"
+        $ws = New-Object -ComObject WScript.Shell
+        $sc = $ws.CreateShortcut($startupLnk)
+        $sc.TargetPath = $wscriptExe
+        $sc.Arguments = "`"$startVbs`""
+        $sc.WorkingDirectory = Join-Path $baseDir "bin"
+        $sc.Description = "Antigravity Companion Background Service"
+        $sc.Save()
+
+        Write-Host "[+] Автозапуск успешно зарегистрирован (HKCU\Run и папка Автозагрузки)!" -ForegroundColor Green
+        Write-Host "    Служба будет тихо и стабильно стартовать при входе в систему без всплывающих окон." -ForegroundColor Gray
 
         # Создание удобного ярлыка прямого запуска на Рабочем столе
         $desktopFolder = [System.Environment]::GetFolderPath('Desktop')

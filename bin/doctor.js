@@ -79,7 +79,13 @@ process.stdout.write('[6/6] Служба Companion и автозапуск: ');
 try {
   const appData = process.env.APPDATA || path.join(process.env.USERPROFILE, 'AppData', 'Roaming');
   const startupLnk = path.join(appData, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup', 'AntigravityCompanion.lnk');
-  const autostart = fs.existsSync(startupLnk);
+  let autostart = fs.existsSync(startupLnk);
+  if (!autostart) {
+    try {
+      const regOut = execSync('reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run" /v AntigravityCompanion', { stdio: 'pipe' }).toString();
+      autostart = regOut.includes('AntigravityCompanion');
+    } catch {}
+  }
 
   const statusOut = execSync('powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1', { encoding: 'utf8' });
   const isRunning = statusOut.includes('АКТИВНА');
