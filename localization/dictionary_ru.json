@@ -2668,6 +2668,86 @@
     {
       "regex": "^([A-Za-z0-9_.-]+)\\s+inspection$",
       "replace": "Осмотр ($1)"
+    },
+    {
+      "regex": "^(?:Search|Searching)\\s+(.+)$",
+      "replace": "Поиск: $1"
+    },
+    {
+      "regex": "^(?:List|Listing)\\s+(.+)$",
+      "replace": "Список: $1"
+    },
+    {
+      "regex": "^(?:Check|Checking)\\s+(.+)$",
+      "replace": "Проверка: $1"
+    },
+    {
+      "regex": "^(?:Read|Reading)\\s+(.+)$",
+      "replace": "Чтение: $1"
+    },
+    {
+      "regex": "^(?:View|Viewing)\\s+(.+)$",
+      "replace": "Просмотр: $1"
+    },
+    {
+      "regex": "^(?:Inspect|Inspecting)\\s+(.+)$",
+      "replace": "Инспекция: $1"
+    },
+    {
+      "regex": "^(?:Run|Running)\\s+(.+)$",
+      "replace": "Запуск: $1"
+    },
+    {
+      "regex": "^(?:Test|Testing)\\s+(.+)$",
+      "replace": "Тестирование: $1"
+    },
+    {
+      "regex": "^(?:Write|Writing)\\s+(.+)$",
+      "replace": "Запись: $1"
+    },
+    {
+      "regex": "^(?:Edit|Editing)\\s+(.+)$",
+      "replace": "Редактирование: $1"
+    },
+    {
+      "regex": "^(?:Update|Updating)\\s+(.+)$",
+      "replace": "Обновление: $1"
+    },
+    {
+      "regex": "^(?:Fetch|Fetching)\\s+(.+)$",
+      "replace": "Получение: $1"
+    },
+    {
+      "regex": "^(?:Create|Creating)\\s+(.+)$",
+      "replace": "Создание: $1"
+    },
+    {
+      "regex": "^(?:Delete|Deleting)\\s+(.+)$",
+      "replace": "Удаление: $1"
+    },
+    {
+      "regex": "^(?:Execute|Executing)\\s+(.+)$",
+      "replace": "Выполнение: $1"
+    },
+    {
+      "regex": "^(?:Analyze|Analyzing)\\s+(.+)$",
+      "replace": "Анализ: $1"
+    },
+    {
+      "regex": "^(?:Verify|Verifying)\\s+(.+)$",
+      "replace": "Проверка: $1"
+    },
+    {
+      "regex": "^(?:Scan|Scanning)\\s+(.+)$",
+      "replace": "Сканирование: $1"
+    },
+    {
+      "regex": "^(?:Find|Finding)\\s+(.+)$",
+      "replace": "Поиск: $1"
+    },
+    {
+      "regex": "^(?:Build|Building)\\s+(.+)$",
+      "replace": "Сборка: $1"
     }
   ]
 }

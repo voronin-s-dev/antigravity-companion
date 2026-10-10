@@ -225,6 +225,7 @@
     if (!domNode) return false;
     const el = domNode.nodeType === 1 ? domNode : domNode.parentElement;
     if (!el) return false;
+    if (el.closest('.text-muted-foreground, [data-testid*="tool"], [data-testid*="step"], [data-testid*="trajectory"]')) return false;
     if (el.closest('textarea, input, pre, code, .monaco-editor, [contenteditable="true"]')) return true;
     if (el.closest('.chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="conversation"], [data-testid*="message"], [data-testid*="sidebar"]')) return true;
     return false;
