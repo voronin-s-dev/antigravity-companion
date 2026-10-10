@@ -12,6 +12,7 @@
     "merge": "node localization/merge_translations.js",
     "translate:auto": "node localization/auto_translate.js",
     "translate:publish": "node localization/auto_translate.js --publish",
+    "sanitize:queue": "node localization/sanitize_queue.js",
     "check:update": "node bin/updater.js",
     "apply:update": "node bin/updater.js --apply",
     "status": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1",

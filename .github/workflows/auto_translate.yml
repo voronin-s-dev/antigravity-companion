@@ -50,7 +50,7 @@ jobs:
           else
             git config --local user.name "github-actions[bot]"
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
-            git add localization/dictionary_ru.json ACTIVE_STATE.md
+            git add localization/dictionary_ru.json localization/untranslated_queue.json ACTIVE_STATE.md
             git commit -m "feat(i18n): autonomous dictionary update via AI [skip ci]"
             git push origin main
             echo "Successfully published updated dictionary to main! OTA clients will receive it automatically."

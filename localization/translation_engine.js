@@ -221,16 +221,28 @@
   const unhandledBuffer = new Set();
   let unhandledFlushTimer = null;
 
-  function reportUntranslatedString(raw) {
+  function isPrivateContainer(domNode) {
+    if (!domNode) return false;
+    const el = domNode.nodeType === 1 ? domNode : domNode.parentElement;
+    if (!el) return false;
+    if (el.closest('textarea, input, pre, code, .monaco-editor, [contenteditable="true"]')) return true;
+    if (el.closest('.chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="conversation"], [data-testid*="message"], [data-testid*="sidebar"]')) return true;
+    return false;
+  }
+
+  function reportUntranslatedString(raw, domNode) {
+    if (domNode && isPrivateContainer(domNode)) return;
     if (!raw || typeof raw !== 'string') return;
     const str = raw.trim();
-    if (str.length < 2 || str.length > 250) return;
-    if (!/[A-Za-z]/.test(str)) return;
+    if (str.length < 2 || str.length > 80) return;
+    if (/[а-яА-ЯёЁ]/.test(str)) return;
+    if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%]+$/.test(str)) return;
     if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(str)) return;
     if (/^[0-9+\-.,:;!?()\/\\%\s]+$/.test(str)) return;
     if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll)$/i.test(str)) return;
     if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)+/i.test(str)) return;
     if (/^#[0-9a-fA-F]{3,8}$/.test(str)) return;
+    if (/(Error|Proto|Descriptor|Options|Field|Feature|Enum)$/i.test(str)) return;
 
     unhandledBuffer.add(str);
 
@@ -403,7 +415,7 @@
           isInternalMutating = false;
         }
       } else if (!tr && node.__agy_orig) {
-        reportUntranslatedString(node.__agy_orig);
+        reportUntranslatedString(node.__agy_orig, node);
       }
     } else {
       if (trimmedVal === 'Размышление (') {
@@ -510,7 +522,7 @@
             isInternalMutating = false;
           }
         } else if (!tr && el[cacheProp]) {
-          reportUntranslatedString(el[cacheProp]);
+          reportUntranslatedString(el[cacheProp], el);
         }
       } else {
         if (el[cacheProp] !== undefined && val !== el[cacheProp]) {

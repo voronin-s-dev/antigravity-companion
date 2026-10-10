@@ -21,7 +21,6 @@ npm-debug.log*
 .lock_updates
 .env
 .env.*
-localization/untranslated_queue.json
 
 # Builds & Archives
 dist/

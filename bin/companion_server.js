@@ -202,14 +202,17 @@ function startServer() {
           const isNoise = (s) => {
             if (!s || typeof s !== 'string') return true;
             const t = s.trim();
-            if (t.length < 2 || t.length > 300) return true;
-            if (!/[A-Za-z]/.test(t)) return true;
+            if (t.length < 2 || t.length > 80) return true;
+            if (/[а-яА-ЯёЁ]/.test(t)) return true;
+            if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%]+$/.test(t)) return true;
             if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(t)) return true;
             if (/^[a-f0-9]{32,64}$/i.test(t)) return true;
             if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)+/i.test(t)) return true;
+            if (/^(Key[A-Z0-9]|Digit[0-9]|Arrow[A-Za-z]+|Backquote|Backspace)$/i.test(t)) return true;
             if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll)$/i.test(t)) return true;
             if (/^#?[0-9a-fA-F]{3,8}$/.test(t)) return true;
             if (/^[0-9+\-.,:;!?()\/\\%\s]+$/.test(t)) return true;
+            if (/(Error|Proto|Descriptor|Options|Field|Feature|Enum)$/i.test(t)) return true;
             return false;
           };
 
