@@ -131,7 +131,7 @@ async function harvestBundle() {
   }
 
   // 2. JSX строковые дети и литералы в одинарных/двойных кавычках с человекочитаемыми фразами
-  const stringLiteralRegex = /"(?:[A-Z][a-zA-Z0-9' -]{3,60})"/g;
+  const stringLiteralRegex = /"(?:[A-Z][a-zA-Z0-9' ,.:!?-]{3,100})"/g;
   while ((match = stringLiteralRegex.exec(bundleCode)) !== null) {
     const val = match[0].slice(1, -1);
     if (isUIStringCandidate(val)) candidates.add(val.trim());
