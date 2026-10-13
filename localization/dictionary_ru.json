@@ -5323,7 +5323,8 @@
     "Failed to attach pan controller": "Не удалось подключить контроллер панорамирования",
     "Failed to detach pan controller": "Не удалось отключить контроллер панорамирования",
     "Viewer wheel-zoom handler failed": "Ошибка обработчика масштабирования колесиком в просмотрщике",
-    "Viewer keyboard-zoom handler failed": "Ошибка обработчика масштабирования с клавиатуры в просмотрщике"
+    "Viewer keyboard-zoom handler failed": "Ошибка обработчика масштабирования с клавиатуры в просмотрщике",
+    "folder": "папка"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
