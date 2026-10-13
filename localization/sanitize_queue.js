@@ -16,8 +16,8 @@ const isStrictUiString = (s, dictRef) => {
   const t = s.trim();
   const activeDict = dictRef;
 
-  // Длина UI-строк: от 2 до 85 символов (все что длиннее — промпты, логи, фразы диалогов)
-  if (t.length < 2 || t.length > 85) return false;
+  // Длина UI-строк: от 2 символов (лимит увеличен до 2000, чтобы не отсекать длинные описания настроек, баннеров и тултипов)
+  if (t.length < 2 || t.length > 2000) return false;
 
   // Исключить любую кириллицу (названия пользовательских проектов на русском)
   if (/[а-яА-ЯёЁ]/.test(t)) return false;

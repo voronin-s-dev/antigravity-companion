@@ -238,7 +238,7 @@
     if (domNode && isPrivateContainer(domNode)) return;
     if (!raw || typeof raw !== 'string') return;
     const str = raw.trim();
-    if (str.length < 2 || str.length > 80) return;
+    if (str.length < 2 || str.length > 2000) return;
     if (/[а-яА-ЯёЁ]/.test(str)) return;
     if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%]+$/.test(str)) return;
     if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(str)) return;

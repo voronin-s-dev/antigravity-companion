@@ -14,7 +14,7 @@
 ---
 
 ## 2. Архитектурный базис
-- **Словарь**: `localization/dictionary_ru.json` — **1688 точных терминов**, **155 атрибутов**, **283 шаблонов** (всего 2126 правил).
+- **Словарь**: `localization/dictionary_ru.json` — **3941 точных терминов**, **155 атрибутов**, **283 шаблонов** (всего 4379 правил).
 - **Zero-Context Dictionary**: чтение словаря напрямую запрещено; пополнение через `localization/translations_to_merge.json` и `npm run merge`.
 - **Служба Companion**: фоновый процесс Node.js с реактивным супервизором v2.0 (постоянный WebSocket, перехват `DevToolsActivePort`, мгновенная инъекция при перезагрузке, 0% CPU в ожидании).
 - **Виджет лимитов**: встроен в сайдбар Antigravity (`#agy-limits-pill`) и разворачивается во флайаут/настройки без оверлеев. Поддержка звуковых оповещений (Web Audio / кастомные MP3), счетчик шагов сессии (`Шаг X/40`), Pre-flight Paste Guard и точный расчет ETA восстановления квот.
@@ -69,7 +69,13 @@
   3. Бесконфликтное слияние при старте ПК (через 10 сек после загрузки): `mergeDictionaries` и union-merge очереди объединяют ночные переводы из облака и локальные несинхронизированные строки без единого конфликта или перезаписи.
 - **Приоритет LIFO в `auto_translate.js` и `companion_server.js`**: реально открытые на экране пользователя строки перемещаются в конец очереди и переводятся облачным ИИ в самую первую очередь (`queue.slice(-max).reverse()`).
 - **Локализация мастера Автоматизаций и тостов**: добавлены 12 терминов и 4 regex-шаблона (`Set up ...`, `Review permissions for ...`, `Enabled "..."`, `Disabled "..."`).
-- **Тесты**: создан юнит-тест `test/queue_sync_integrity.test.js`, включён в общий прогон `npm test`.
+### Веха 48: Снятие лимита длины фраз в коллекторах и перевод описаний разрешений автоматизаций
+- **Снятие ограничения длины UI-строк (с 80–85 до 2000 символов)**:
+  - В [`localization/sanitize_queue.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/sanitize_queue.js), [`localization/translation_engine.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/translation_engine.js) и [`localization/bundle_harvester.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/bundle_harvester.js) снят жёсткий лимит 80–120 символов, отсекавший длинные системные описания и тултипы. Порог поднят до 2000 символов с сохранением защиты от дампа кода/бинарников.
+- **Локализация прав проектов автоматизаций**:
+  - Добавлены 3 точных перевода для фраз управления проектами агентов (`Agents created by this automation run in a dedicated project with its own permissions...`).
+  - Очищены обрезанные фрагменты с многоточием из очереди.
+- **Тесты и хот-релоад**: `npm test` пройден, хот-релоад успешно применён в активное окно Antigravity.
 
 ---
 

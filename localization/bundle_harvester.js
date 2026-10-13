@@ -73,7 +73,7 @@ function downloadBundle(url) {
 function isUIStringCandidate(str) {
   if (!str || typeof str !== 'string') return false;
   const s = str.trim();
-  if (s.length < 3 || s.length > 120) return false;
+  if (s.length < 3 || s.length > 2000) return false;
   // Должен содержать латиницу и буквы
   if (!/[A-Za-z]/.test(s)) return false;
   // Исключаем чисто технический мусор
