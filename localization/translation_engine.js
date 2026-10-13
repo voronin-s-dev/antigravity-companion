@@ -768,24 +768,26 @@
 
   function buildNativeMenuTemplate(items, clickMap, prefix = 'cmi') {
     if (!Array.isArray(items)) return [];
-    return items.filter(Boolean).map((item, idx) => {
-      const id = item.id || `${prefix}-${idx}`;
-      const onClick = item.onClick || item.click;
-      if (onClick) {
-        clickMap.set(id, onClick);
-      }
-      const entry = {
-        id,
-        label: getTranslatedLabel(item.label),
-        type: item.type === 'separator' ? 'separator' : (item.type === 'submenu' || (item.items && item.items.length > 0)) ? 'submenu' : 'normal',
-        disabled: item.type === 'label' ? true : (item.disabled ?? (item.enabled !== undefined ? !item.enabled : false)),
-        accelerator: item.accelerator
-      };
-      if (item.items && item.items.length > 0) {
-        entry.submenu = buildNativeMenuTemplate(item.items, clickMap, `${id}-sub`);
-      }
-      return entry;
-    });
+    return items
+      .filter(item => item && ((typeof item.label === 'string' && item.label.trim().length > 0) || item.type === 'separator'))
+      .map((item, idx) => {
+        const id = item.id || `${prefix}-${idx}`;
+        const onClick = item.onClick || item.click;
+        if (onClick) {
+          clickMap.set(id, onClick);
+        }
+        const entry = {
+          id,
+          label: item.type === 'separator' ? undefined : getTranslatedLabel(item.label),
+          type: item.type === 'separator' ? 'separator' : (item.type === 'submenu' || (item.items && item.items.length > 0)) ? 'submenu' : 'normal',
+          disabled: item.type === 'label' ? true : (item.disabled ?? (item.enabled !== undefined ? !item.enabled : false)),
+          accelerator: item.accelerator
+        };
+        if (item.items && item.items.length > 0) {
+          entry.submenu = buildNativeMenuTemplate(item.items, clickMap, `${id}-sub`);
+        }
+        return entry;
+      });
   }
 
   if (window.__agyContextMenuHandler) {
@@ -816,8 +818,16 @@
                 ? curr.memoizedProps.items()
                 : curr.memoizedProps.items;
               if (Array.isArray(raw) && raw.length > 0) {
-                foundItems = raw;
-                break;
+                // Строгая валидация: меню ДОЛЖНО содержать реальные пункты со строковым свойством label или разделители!
+                // Это предотвращает ложный захват списков slash-команд (WorkflowSpec) и других React-коллекций.
+                const valid = raw.filter(item => item && (
+                  (typeof item.label === 'string' && item.label.trim().length > 0) ||
+                  item.type === 'separator'
+                ));
+                if (valid.length > 0) {
+                  foundItems = valid;
+                  break;
+                }
               }
             } catch (e) {}
           }
@@ -828,14 +838,19 @@
       el = el.parentElement;
     }
 
-    if (!foundItems || !window.electronNative?.showContextMenu) return;
+    if (!foundItems || foundItems.length === 0 || !window.electronNative?.showContextMenu) return;
+
+    // Не перехватываем, если все элементы меню неактивны (например, disabled "Copy" в чате без выделенного текста)
+    const hasActiveItem = foundItems.some(item => item.type !== 'separator' && item.enabled !== false && !item.disabled);
+    if (!hasActiveItem) return;
+
+    const clickMap = new Map();
+    const template = buildNativeMenuTemplate(foundItems, clickMap);
+    if (!template || template.length === 0) return;
 
     event.preventDefault();
     event.stopPropagation();
     event.stopImmediatePropagation();
-
-    const clickMap = new Map();
-    const template = buildNativeMenuTemplate(foundItems, clickMap);
 
     window.electronNative.showContextMenu(template).then(clickedId => {
       if (clickedId && clickMap.has(clickedId)) {
