@@ -3,7 +3,7 @@ const path = require('path');
 const { loadConfig } = require('../config/companion_config.js');
 
 async function injectWidget() {
-  let pkgVersion = '1.4.0';
+  let pkgVersion = '1.6.1';
   try {
     delete require.cache[require.resolve('../package.json')];
     pkgVersion = require('../package.json').version;

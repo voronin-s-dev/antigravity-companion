@@ -135,7 +135,7 @@ function mergeDictionaries(baseDict, incomingDict) {
   const b = baseDict || {};
   const inc = incomingDict || {};
   const merged = {
-    version: inc.version || b.version || '1.6.0',
+    version: inc.version || b.version || '1.6.1',
     exact: { ...(b.exact || {}), ...(inc.exact || {}) },
     attributes: { ...(b.attributes || {}), ...(inc.attributes || {}) },
     patterns: [...(b.patterns || [])]
