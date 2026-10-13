@@ -888,5 +888,9 @@
   "Compact the conversation now (summarize history to free up the context window).",
   "Customize Sections",
   "Companion App Update Issue",
-  "Cleaning temporary titles from queue"
+  "Cleaning temporary titles from queue",
+  "Use when you have a spec or requirements for a complex multi-step task, before touching code. Adapts to project-specific task trackers (e.g. ACTIVE_TASK.md,",
+  "HANDOFF",
+  "_ACTIVE_STATE.md, implementation_plan.md).",
+  "Handoff Skill Functionality Explained"
 ]
