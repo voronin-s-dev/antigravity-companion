@@ -753,5 +753,6 @@
   "Open Subagent: Translator Subagent",
   "Message from Parent Agent",
   "self",
-  "Message from Translator Subagent (self)"
+  "Message from Translator Subagent (self)",
+  "Committing and pushing translations"
 ]
