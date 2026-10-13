@@ -1,4 +1,5 @@
 [
+  "Companion App Update Issue",
   "\"Agents created by this automation run in a dedicated project with its...",
   "Clone current workspace into a new independent workspace",
   "Chief of Staff voice mode is active",
@@ -886,6 +887,5 @@
   "Use when creating new skills, editing existing skills, or verifying skills work be",
   "btw",
   "Compact the conversation now (summarize history to free up the context window).",
-  "Customize Sections",
-  "Companion App Update Issue"
+  "Customize Sections"
 ]
