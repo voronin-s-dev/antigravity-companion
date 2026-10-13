@@ -196,7 +196,6 @@
   "Add Workspace",
   "New Conversation in Workspace",
   "PanelItemRow",
-  "Customize Sections",
   "Concierge conversation is unavailable",
   "Sidecar",
   "Open in Hub",
@@ -818,5 +817,6 @@
   "Yes, and always allow in this conversation",
   "Yes, and always allow in this project",
   "Yes, and always allow",
-  "Requesting permission to read freewallet.org"
+  "Requesting permission to read freewallet.org",
+  "Customize Sections"
 ]
