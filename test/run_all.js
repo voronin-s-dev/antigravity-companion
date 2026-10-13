@@ -44,6 +44,16 @@ try {
   hasErrors = true;
 }
 
+try {
+  process.stdout.write('5. Проверка Zero-Leak защиты от утечек токенов и секретов... ');
+  const { testSecretGuard } = require('./secret_guard.test.js');
+  testSecretGuard();
+  console.log(`✓ УСПЕШНО`);
+} catch (e) {
+  console.log(`✗ ОШИБКА: ${e.message}`);
+  hasErrors = true;
+}
+
 console.log('---------------------------------------------');
 if (hasErrors) {
   console.error('✗ Обнаружены критические ошибки при тестировании.');

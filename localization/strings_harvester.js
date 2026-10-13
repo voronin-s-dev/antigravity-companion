@@ -27,8 +27,18 @@ async function harvestMissingStrings() {
       method: 'Runtime.evaluate',
       params: {
         expression: `(() => {
-          const excluded = 'script, style, noscript, pre, code, .monaco-editor, .xterm, textarea, [contenteditable="true"], [data-lexical-editor], .prose, [role="log"], #agy-limits-floating-panel, .font-mono, [data-testid="conversation-row-sidebar"] span.truncate';
+          const excluded = [
+            'script', 'style', 'noscript', 'pre', 'code',
+            '.monaco-editor', '.xterm', 'textarea', 'input',
+            '[contenteditable="true"]', '[data-lexical-editor]',
+            '.prose', '.markdown', '[role="log"]', '#agy-limits-floating-panel', '.font-mono',
+            '[data-testid*="conversation"]', '[data-testid*="thread"]', '[data-testid*="session"]',
+            '[data-testid*="user-input"]', '[data-testid*="message"]', '[data-testid$="-step"]',
+            '.chat-message', '.user-message', '.agent-message', '.select-text', '[data-quotable="true"]',
+            '.thread-item', '.conversation-item', '.conversation-title'
+          ].join(', ');
           const items = new Set();
+          const SECRET_RE = /\\b\\d{8,11}:[A-Za-z0-9_-]{35}\\b|\\bAIza[0-9A-Za-z-_]{35}\\b|\\bsk-(proj-)?[a-zA-Z0-9_-]{20,}\\b|\\bsk-ant-[a-zA-Z0-9_-]{20,}\\b|\\b(ghp_|github_pat_|AKIA|ASIA|xox[baprs]-|sk_live_)[a-zA-Z0-9_-]{10,}\\b|\\b[a-f0-9]{32,64}\\b/i;
 
           const walker = document.createTreeWalker(
             document.body,
@@ -46,8 +56,7 @@ async function harvestMissingStrings() {
           let curr;
           while (curr = walker.nextNode()) {
             const val = curr.__agy_orig !== undefined ? curr.__agy_orig.trim() : curr.nodeValue.trim();
-            // Check if looks like English and not purely numbers or single symbols
-            if (val.length > 1 && /[A-Za-z]/.test(val)) {
+            if (val.length > 1 && /[A-Za-z]/.test(val) && !SECRET_RE.test(val)) {
               items.add(val);
             }
           }
@@ -57,7 +66,7 @@ async function harvestMissingStrings() {
             if (el.matches(excluded) || el.closest(excluded)) return;
             ['placeholder', 'title', 'aria-label'].forEach(attr => {
               const orig = el['__agy_orig_' + attr] || el.getAttribute(attr);
-              if (orig && orig.trim().length > 1 && /[A-Za-z]/.test(orig)) {
+              if (orig && orig.trim().length > 1 && /[A-Za-z]/.test(orig) && !SECRET_RE.test(orig)) {
                 items.add(orig.trim());
               }
             });

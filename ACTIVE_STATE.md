@@ -78,16 +78,15 @@
 - **Массовый автоперевод очереди**: через Gemini Flash API переведено и добавлено 1532 термина (словарная база расширена до 5323 терминов и 5761 правила).
 - **Тесты и хот-релоад**: `npm test` (4/4) пройден, хот-релоад успешно применён в активное окно Antigravity.
 
-### Веха 49: Инцидент GitGuardian и внедрение Zero-Leak Secret Guard
+### Веха 49: Инцидент GitGuardian и эшелонированная защита Zero-Leak Defense-in-Depth
 - **Удаление утёкшего секрета**:
-  - Токен Telegram-бота (`8950259669:...`), попавший в словарь из сайдбара соседней беседы, полностью вычищен из `localization/dictionary_ru.json` и бэкапов.
-- **Внедрение фильтрации секретов (Zero-Leak Guard)**:
-  - В [`localization/sanitize_queue.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/sanitize_queue.js), [`localization/translation_engine.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/translation_engine.js) и [`localization/bundle_harvester.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/bundle_harvester.js) добавлены блокирующие регулярные выражения для:
-    - Telegram Bot Tokens (`\b\d{8,10}:[A-Za-z0-9_-]{35}\b`)
-    - Google API & GitHub PAT (`AIza...`, `ghp_...`, `github_pat_...`)
-    - OpenAI / Anthropic Keys (`sk-...`, `sk-ant-...`)
-    - AWS & Slack Tokens (`AKIA...`, `xoxb-...`)
-- **Тесты**: модуль протестирован в `test/queue_sync_integrity.test.js`, все 4 сьюта тестов пройдены успешно.
+  - Токен Telegram-бота (`8950259669:...`), попавший в словарь из сайдбара соседней беседы, полностью вычищен из `localization/dictionary_ru.json` и бэкапов. Пользователь отозвал токен через BotFather.
+- **Архитектура 4-уровневой защиты от утечек секретов (Defense-in-Depth)**:
+  1. *Карантин источников (DOM Scraper Isolation)*: в `strings_harvester.js` и `translation_engine.js` намертво заблокировано сканирование любых диалогов, сессий, тредов, инпутов, промптов и терминалов.
+  2. *Централизованный модуль `localization/secret_guard.js`*: блокирует токены Telegram, Google API, OpenAI, Anthropic, GitHub PAT, AWS, Slack, Stripe, Discord, JWT, SSH/RSA приватные ключи и hex-секреты.
+  3. *Входной и выходной контроль пайплайнов*: `sanitize_queue.js`, `merge_translations.js`, `updater.js` и `auto_translate.js` валидируют структуры и немедленно сбрасывают подозрительные строки.
+  4. *Аппаратный Git-барьер (Pre-Commit & Pre-Push Hooks)*: скрипты `bin/pre_commit_guard.js` и `bin/install_git_hooks.js` перехватывают любые попытки коммита или пуша, физически прерывая операцию Git с кодом 1 при обнаружении секретов.
+- **Тесты**: написан отдельный сьют `test/secret_guard.test.js`, включён в обязательный прогон `npm test` (5/5 сьютов успешно). Добавлена команда `npm run security:scan`.
 
 ---
 

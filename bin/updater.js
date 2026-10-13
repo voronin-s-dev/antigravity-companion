@@ -250,6 +250,17 @@ async function runSilentOtaCheck(logger) {
     const gitDir = path.resolve(repoRoot, '.git');
     if (fs.existsSync(gitDir)) {
       try {
+        const { scanDataStructure } = require('../localization/secret_guard.js');
+        let violations = [];
+        try {
+          if (fs.existsSync(queuePath)) violations.push(...scanDataStructure(JSON.parse(fs.readFileSync(queuePath, 'utf8'))));
+          if (fs.existsSync(dictPath)) violations.push(...scanDataStructure(JSON.parse(fs.readFileSync(dictPath, 'utf8'))));
+        } catch (e) {}
+        if (violations.length > 0) {
+          log(`[SECURITY] Автосинхронизация заблокирована: обнаружены секреты (${violations.length})!`);
+          return false;
+        }
+
         const diffOut = execSync('git status --porcelain localization/untranslated_queue.json localization/dictionary_ru.json', { cwd: repoRoot, timeout: 4000 }).toString().trim();
         if (diffOut) {
           execSync('git add localization/untranslated_queue.json localization/dictionary_ru.json', { cwd: repoRoot, timeout: 4000, stdio: 'ignore' });

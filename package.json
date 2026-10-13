@@ -18,7 +18,9 @@
     "status": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1",
     "doctor": "node bin/doctor.js",
     "doctor:cdp": "node bin/cdp_doctor.js",
-    "build:zip": "node bin/build_release.js"
+    "build:zip": "node bin/build_release.js",
+    "install:hooks": "node bin/install_git_hooks.js",
+    "security:scan": "node -e \"require('./test/secret_guard.test.js').testSecretGuard(); console.log('✓ No secrets found.');\""
   },
   "keywords": [
     "antigravity",

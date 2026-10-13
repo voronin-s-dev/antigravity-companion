@@ -214,6 +214,15 @@ function publishToGit(count) {
       return;
     }
 
+    const { scanDataStructure } = require('./secret_guard.js');
+    const queueData = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
+    const dictData = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+    const violations = [...scanDataStructure(queueData), ...scanDataStructure(dictData)];
+    if (violations.length > 0) {
+      console.error(`\x1b[31m[CRITICAL SECURITY] Публикация в Git отменена: обнаружены секреты (${violations.length})!\x1b[0m`);
+      return;
+    }
+
     console.log('[Auto-Publish] Формирование Git-коммита и отправка в origin main...');
     execSync('git add localization/dictionary_ru.json localization/untranslated_queue.json ACTIVE_STATE.md', { stdio: 'inherit' });
     execSync(`git commit -m "feat(i18n): auto-translated ${count} terms from queue [skip ci]"`, { stdio: 'inherit' });

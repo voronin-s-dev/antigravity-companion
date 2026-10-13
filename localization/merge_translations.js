@@ -28,6 +28,15 @@ function main() {
     process.exit(1);
   }
 
+  // Zero-Leak Secret Guard: полная проверка входящих переводов на утечки токенов/ключей
+  const { containsSecret, scanDataStructure } = require('./secret_guard.js');
+  const violations = scanDataStructure(newItems);
+  if (violations.length > 0) {
+    console.error(`\x1b[31m[SECURITY ALERT] Слияние заблокировано: в переводах обнаружены секреты (${violations.length})!\x1b[0m`);
+    violations.forEach(v => console.error(`  - ${v.type} в ${v.path}: ${v.sample}`));
+    process.exit(1);
+  }
+
   // Load dictionary locally (Node.js does this instantly without wasting LLM tokens)
   const dict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
   dict.exact = dict.exact || {};
