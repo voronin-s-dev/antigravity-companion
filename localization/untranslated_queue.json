@@ -834,5 +834,7 @@
   "Implementation Plan",
   "Repacking ZIP with power plan fix",
   "Validating ArmouryCrateTray.ps1 syntax",
-  "Close Open File"
+  "Close Open File",
+  "ToggleArmouryCrate.bat",
+  "Close Review"
 ]
