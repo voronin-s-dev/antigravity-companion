@@ -1981,5 +1981,7 @@
   "tooljp.com",
   "Translator Subagent",
   "1 subagent running",
-  "Open Subagent: Translator Subagent"
+  "Open Subagent: Translator Subagent",
+  "Message from Parent Agent",
+  "self"
 ]
