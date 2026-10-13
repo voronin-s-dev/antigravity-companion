@@ -78,6 +78,17 @@
 - **Массовый автоперевод очереди**: через Gemini Flash API переведено и добавлено 1532 термина (словарная база расширена до 5323 терминов и 5761 правила).
 - **Тесты и хот-релоад**: `npm test` (4/4) пройден, хот-релоад успешно применён в активное окно Antigravity.
 
+### Веха 49: Инцидент GitGuardian и внедрение Zero-Leak Secret Guard
+- **Удаление утёкшего секрета**:
+  - Токен Telegram-бота (`8950259669:...`), попавший в словарь из сайдбара соседней беседы, полностью вычищен из `localization/dictionary_ru.json` и бэкапов.
+- **Внедрение фильтрации секретов (Zero-Leak Guard)**:
+  - В [`localization/sanitize_queue.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/sanitize_queue.js), [`localization/translation_engine.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/translation_engine.js) и [`localization/bundle_harvester.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/bundle_harvester.js) добавлены блокирующие регулярные выражения для:
+    - Telegram Bot Tokens (`\b\d{8,10}:[A-Za-z0-9_-]{35}\b`)
+    - Google API & GitHub PAT (`AIza...`, `ghp_...`, `github_pat_...`)
+    - OpenAI / Anthropic Keys (`sk-...`, `sk-ant-...`)
+    - AWS & Slack Tokens (`AKIA...`, `xoxb-...`)
+- **Тесты**: модуль протестирован в `test/queue_sync_integrity.test.js`, все 4 сьюта тестов пройдены успешно.
+
 ---
 
 ## 4. Следующие шаги и бэклог

@@ -247,6 +247,13 @@
     if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)+/i.test(str)) return;
     if (/^#[0-9a-fA-F]{3,8}$/.test(str)) return;
     if (/(Error|Proto|Descriptor|Options|Field|Feature|Enum)$/i.test(str)) return;
+    // Исключить токены и секреты (Telegram, Google, OpenAI, GitHub, AWS, Slack, etc.)
+    if (/\b\d{8,10}:[A-Za-z0-9_-]{35}\b/.test(str)) return;
+    if (/\b(AIza[0-9A-Za-z-_]{35}|ghp_[a-zA-Z0-9]{36}|github_pat_[a-zA-Z0-9_]{82})\b/.test(str)) return;
+    if (/\b(sk-[a-zA-Z0-9]{32,64}|sk-ant-[a-zA-Z0-9_-]{32,64})\b/.test(str)) return;
+    if (/\b(AKIA|ASIA)[0-9A-Z]{16}\b/.test(str)) return;
+    if (/\bxox[baprs]-[0-9a-zA-Z-]{10,48}\b/.test(str)) return;
+    if (/^[a-f0-9]{32,64}$/i.test(str)) return;
 
     unhandledBuffer.add(str);
 

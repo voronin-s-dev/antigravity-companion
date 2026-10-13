@@ -27,6 +27,14 @@ const isStrictUiString = (s, dictRef) => {
   if (/[A-Za-z]:[/\\]/.test(t)) return false;
   if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll|yml|yaml|toml|lock)$/i.test(t)) return false;
 
+  // Исключить токены, ключи API и секреты (Telegram, Google, OpenAI, GitHub, AWS, Slack, etc.)
+  if (/\b\d{8,10}:[A-Za-z0-9_-]{35}\b/.test(t)) return false; // Telegram Bot Token
+  if (/\b(AIza[0-9A-Za-z-_]{35}|ghp_[a-zA-Z0-9]{36}|github_pat_[a-zA-Z0-9_]{82})\b/.test(t)) return false; // Google API & GitHub PAT
+  if (/\b(sk-[a-zA-Z0-9]{32,64}|sk-ant-[a-zA-Z0-9_-]{32,64})\b/.test(t)) return false; // OpenAI / Anthropic Keys
+  if (/\b(AKIA|ASIA)[0-9A-Z]{16}\b/.test(t)) return false; // AWS Access Keys
+  if (/\bxox[baprs]-[0-9a-zA-Z-]{10,48}\b/.test(t)) return false; // Slack Tokens
+  if (/^[a-f0-9]{32,64}$/i.test(t)) return false; // Raw MD5/SHA256 hashes / hex secrets
+
   // Исключить сигнатуры разрешений инструментов: command(...), read_file(...), write_file(...)
   if (/^[a-z_]+\(.+\)$/i.test(t)) return false;
 

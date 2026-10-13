@@ -34,6 +34,12 @@ function testQueueAndSyncIntegrity() {
   assert.strictEqual(isStrictUiString('Set up My Automation', merged), false, 'Already translated regex pattern leaked');
   assert.strictEqual(isStrictUiString('Create New Automation', merged), true, 'Valid UI string rejected');
 
+  // Тест защиты от утечек секретов и токенов (GitGuardian Zero-Leak Guard)
+  assert.strictEqual(isStrictUiString('8950259669:AAEfNpsiRpmFmUGiuy5gaLO2vcp5x8r3Re0', merged), false, 'Telegram token leaked');
+  assert.strictEqual(isStrictUiString('AIzaSyD-1234567890abcdef1234567890abcde', merged), false, 'Google API key leaked');
+  assert.strictEqual(isStrictUiString('ghp_abcdefghijklmnopqrstuvwxyz1234567890', merged), false, 'GitHub PAT leaked');
+  assert.strictEqual(isStrictUiString('sk-ant-api03-abcdefghijklmnopqrstuvwxyz', merged), false, 'Anthropic key leaked');
+
   // 3. Тест LIFO-приоритета и защиты от потери локальной очереди при слиянии с облаком
   const remoteQueue = ['Static Bundle Item 1', 'Screen Item Seen Earlier', 'Static Bundle Item 2'];
   const localQueue = ['Screen Item Seen Earlier', 'Brand New Screen Modal'];
