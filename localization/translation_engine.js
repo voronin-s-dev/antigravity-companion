@@ -225,9 +225,12 @@
     if (!domNode) return false;
     const el = domNode.nodeType === 1 ? domNode : domNode.parentElement;
     if (!el) return false;
-    if (el.closest('.text-muted-foreground, [data-testid*="tool"], [data-testid*="step"], [data-testid*="trajectory"]')) return false;
+    // 1. Всегда исключаем редактор кода, инпуты, блоки кода и ответы/сообщения чата
     if (el.closest('textarea, input, pre, code, .monaco-editor, [contenteditable="true"]')) return true;
-    if (el.closest('.chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="conversation"], [data-testid*="message"], [data-testid*="sidebar"]')) return true;
+    // 2. Исключаем приватные названия бесед в сайдбаре, имена папок проектов, блоки текста чата (.md-divider-spacing, .select-text) и одноразовые подписи шагов тулов
+    if (el.closest('[data-testid="conversation-row-sidebar"], [data-testid="lifted-context-menu-trigger"], [data-testid="planner-response-text"], [data-testid*="user-input"], [data-testid$="-step"]')) return true;
+    if (el.closest('.md-divider-spacing, .select-text, .chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="message"]')) return true;
+    // 3. Остальные элементы (включая системные плейсхолдеры сайдбара вроде "No conversations yet", модалки, тосты и настройки) разрешены
     return false;
   }
 

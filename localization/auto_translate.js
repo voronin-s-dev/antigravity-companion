@@ -110,9 +110,12 @@ async function autoTranslate({ max = 50, batchSize = 25, publish = false, dryRun
     return { translatedCount: 0, missingApiKey: true };
   }
 
-  // Приоритет LIFO: берем строки с КОНЦА очереди (то, что реально было открыто на экране пользователя последним)
-  console.log(`[Auto-Translate] Всего в очереди: ${queue.length} строк. Обработка до ${max} самых свежих строк с конца очереди (батчами по ${batchSize})...`);
-  const itemsToProcess = queue.slice(-max).reverse();
+  // Гибридный приоритет (LIFO + FIFO): 50% самых свежих строк с экрана (хвост) + 50% верхних UI-строк очереди (голова)
+  const half = Math.ceil(max / 2);
+  const tailItems = queue.slice(-half).reverse();
+  const headItems = queue.slice(0, max);
+  const itemsToProcess = Array.from(new Set([...tailItems, ...headItems])).slice(0, max);
+  console.log(`[Auto-Translate] Всего в очереди: ${queue.length} строк. Обработка ${itemsToProcess.length} приоритетных строк (батчами по ${batchSize})...`);
   const totalTranslations = {};
 
   for (let i = 0; i < itemsToProcess.length; i += batchSize) {
