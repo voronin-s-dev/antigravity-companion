@@ -3826,7 +3826,6 @@
   "interaction",
   "context.",
   "Status Of Auto Translation",
-  "Google Gemini",
   "Implementation Of Cognitive Navigator Subscription",
   "Implementation of Step 5",
   "5 seconds",
@@ -3835,7 +3834,6 @@
   "Agents folder listing",
   "Select a folder.",
   "Instantly create a new project and folder to start building.",
-  "social",
   "goal",
   "schedule",
   "browser",
@@ -4065,5 +4063,8 @@
   "Merge and sanitize",
   "Committing and pushing zero-loss sync architecture",
   "Commit and push changes",
-  "Restarting Companion service and verifying sync"
+  "Restarting Companion service and verifying sync",
+  "social",
+  "Google Gemini",
+  "Restart service and test sync"
 ]
