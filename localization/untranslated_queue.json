@@ -812,5 +812,11 @@
   "threads",
   "Freewallet",
   "Email_Draft_Ticket_1672546.txt",
-  "Rendering pdf pages as preview images"
+  "Rendering pdf pages as preview images",
+  "Allow reading this URL?",
+  "Yes, allow this time",
+  "Yes, and always allow in this conversation",
+  "Yes, and always allow in this project",
+  "Yes, and always allow",
+  "Requesting permission to read freewallet.org"
 ]
