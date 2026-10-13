@@ -84,18 +84,15 @@ function main() {
 
   // Write updated dictionary formatted
   fs.writeFileSync(dictPath, JSON.stringify(dict, null, 2), 'utf8');
-  console.log(`\x1b[32m[Merge] Успешно добавлено: ${addedExact} точных терминов, ${addedAttributes} атрибутов.\x1b[0m`);
+  console.log(`\x1b[32m[Merge] Успешно добавлено: ${addedExact} точных терминов, ${addedAttributes} атрибутов, ${addedPatterns} шаблонов.\x1b[0m`);
   console.log(`[Merge] Всего в словаре: ${Object.keys(dict.exact).length} точных, ${Object.keys(dict.attributes).length} атрибутов, ${dict.patterns.length} шаблонов.`);
 
-  // Clean queue if present
+  // Clean queue if present (removes translated exact, attributes, patterns, and noise)
   if (fs.existsSync(queuePath)) {
     try {
-      const queue = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
-      if (Array.isArray(queue)) {
-        const remaining = queue.filter(item => !dict.exact[item] && !dict.attributes[item]);
-        fs.writeFileSync(queuePath, JSON.stringify(remaining, null, 2), 'utf8');
-        console.log(`[Merge] Очередь непереведенных строк обновлена (осталось: ${remaining.length}).`);
-      }
+      const { sanitizeQueue } = require('./sanitize_queue.js');
+      const res = sanitizeQueue();
+      console.log(`[Merge] Очередь непереведенных строк обновлена (осталось: ${res.afterCount}).`);
     } catch {}
   }
 

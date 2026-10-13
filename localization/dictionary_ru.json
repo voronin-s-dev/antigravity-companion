@@ -1676,7 +1676,19 @@
     "Enable telemetry in Settings before changing per-conversation telemetry.": "Включите телеметрию в параметрах перед изменением телеметрии для отдельных диалогов.",
     "CitC Clone": "Клон CitC",
     "This undo action will not make any code changes.": "Это действие отмены не внесёт никаких изменений в код.",
-    "Confirming this undo action will make the following changes:": "Подтверждение отмены внесёт следующие изменения:"
+    "Confirming this undo action will make the following changes:": "Подтверждение отмены внесёт следующие изменения:",
+    "needs a few details from you before it can run.": "требует указать несколько параметров перед запуском.",
+    "This extension has no declared permissions requiring user input.": "У этого расширения нет запрашиваемых разрешений, требующих ввода данных.",
+    "Next: Review Permissions": "Далее: Проверка разрешений",
+    "Resolving permissions...": "Проверка разрешений...",
+    "Saving...": "Сохранение...",
+    "No events recorded.": "Событий пока не зафиксировано.",
+    "Loading events...": "Загрузка событий...",
+    "run in a dedicated": "выполняется в отдельном",
+    "with its own permissions, which you can change anytime in the": "со своими собственными разрешениями, которые можно в любой момент изменить на",
+    "settings page.": "странице настроек.",
+    "Sending live confirmation message to Telegram DM": "Отправка проверочного сообщения в личные сообщения Telegram",
+    "Send live confirmation to Telegram DM": "Отправить проверочное сообщение в Telegram"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -2951,6 +2963,22 @@
     {
       "regex": "^(?:Build|Building)\\s+(.+)$",
       "replace": "Сборка: $1"
+    },
+    {
+      "regex": "^Set up (.+)$",
+      "replace": "Настройка $1"
+    },
+    {
+      "regex": "^Review permissions for (.+)$",
+      "replace": "Проверка разрешений для $1"
+    },
+    {
+      "regex": "^Enabled \"(.+)\"\\.$",
+      "replace": "Автоматизация «$1» включена."
+    },
+    {
+      "regex": "^Disabled \"(.+)\"\\.$",
+      "replace": "Автоматизация «$1» отключена."
     }
   ]
 }

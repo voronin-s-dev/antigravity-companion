@@ -34,6 +34,16 @@ try {
   hasErrors = true;
 }
 
+try {
+  process.stdout.write('4. Проверка Zero-Loss синхронизации очереди, LIFO и санитайзера... ');
+  const { testQueueAndSyncIntegrity } = require('./queue_sync_integrity.test.js');
+  testQueueAndSyncIntegrity();
+  console.log(`✓ УСПЕШНО`);
+} catch (e) {
+  console.log(`✗ ОШИБКА: ${e.message}`);
+  hasErrors = true;
+}
+
 console.log('---------------------------------------------');
 if (hasErrors) {
   console.error('✗ Обнаружены критические ошибки при тестировании.');

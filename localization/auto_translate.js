@@ -85,10 +85,16 @@ async function autoTranslate({ max = 50, batchSize = 25, publish = false, dryRun
 
   let queue = [];
   try {
-    queue = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
+    const { sanitizeQueue } = require('./sanitize_queue.js');
+    const sanitized = sanitizeQueue();
+    queue = sanitized.queue;
   } catch (e) {
-    console.error('[Auto-Translate] Ошибка чтения untranslated_queue.json:', e.message);
-    return { translatedCount: 0 };
+    try {
+      queue = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
+    } catch (err) {
+      console.error('[Auto-Translate] Ошибка чтения untranslated_queue.json:', err.message);
+      return { translatedCount: 0 };
+    }
   }
 
   if (!Array.isArray(queue) || queue.length === 0) {
@@ -104,8 +110,9 @@ async function autoTranslate({ max = 50, batchSize = 25, publish = false, dryRun
     return { translatedCount: 0, missingApiKey: true };
   }
 
-  console.log(`[Auto-Translate] Всего в очереди: ${queue.length} строк. Обработка до ${max} строк (батчами по ${batchSize})...`);
-  const itemsToProcess = queue.slice(0, max);
+  // Приоритет LIFO: берем строки с КОНЦА очереди (то, что реально было открыто на экране пользователя последним)
+  console.log(`[Auto-Translate] Всего в очереди: ${queue.length} строк. Обработка до ${max} самых свежих строк с конца очереди (батчами по ${batchSize})...`);
+  const itemsToProcess = queue.slice(-max).reverse();
   const totalTranslations = {};
 
   for (let i = 0; i < itemsToProcess.length; i += batchSize) {

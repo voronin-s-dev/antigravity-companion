@@ -11,47 +11,41 @@ const path = require('path');
 const queuePath = path.join(__dirname, 'untranslated_queue.json');
 const dictPath = path.join(__dirname, 'dictionary_ru.json');
 
-if (!fs.existsSync(queuePath)) {
-  console.log('[Sanitizer] untranslated_queue.json не найден.');
-  process.exit(0);
-}
-
-let queue = [];
-try {
-  queue = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
-} catch (e) {
-  console.error('[Sanitizer Error]', e.message);
-  process.exit(1);
-}
-
-let dict = { exact: {}, attributes: {}, patterns: [] };
-try {
-  dict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
-} catch (e) {}
-
-const isStrictUiString = (s) => {
+const isStrictUiString = (s, dictRef) => {
   if (!s || typeof s !== 'string') return false;
   const t = s.trim();
+  const activeDict = dictRef;
 
-  // Длина UI-строк: от 2 до 80 символов (все что длиннее — промпты, логи, фразы диалогов)
-  if (t.length < 2 || t.length > 80) return false;
+  // Длина UI-строк: от 2 до 85 символов (все что длиннее — промпты, логи, фразы диалогов)
+  if (t.length < 2 || t.length > 85) return false;
 
   // Исключить любую кириллицу (названия пользовательских проектов на русском)
   if (/[а-яА-ЯёЁ]/.test(t)) return false;
 
-  // Исключить пути, URL и файлы
+  // Исключить пути, URL и файлы (включая пути внутри скобок или строк)
   if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(t)) return false;
-  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll)$/i.test(t)) return false;
+  if (/[A-Za-z]:[/\\]/.test(t)) return false;
+  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll|yml|yaml|toml|lock)$/i.test(t)) return false;
+
+  // Исключить сигнатуры разрешений инструментов: command(...), read_file(...), write_file(...)
+  if (/^[a-z_]+\(.+\)$/i.test(t)) return false;
+
+  // Исключить разделители из подчеркиваний/дефисов и технические слоги (kebab-case из 2+ дефисов)
+  if (/^[_=-]{2,}$/.test(t)) return false;
+  if (/^[a-z0-9]+(-[a-z0-9]+){2,}$/.test(t)) return false;
+
+  // Исключить таймзоны вида Europe/Helsinki, America/New_York
+  if (/^(Europe|America|Asia|Africa|Pacific|Australia|Atlantic|Indian|Etc)\/[A-Za-z_]+$/.test(t)) return false;
 
   // Исключить клавиатурные шорткаты и коды клавиш
-  if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)/i.test(t)) return false;
+  if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)+/i.test(t)) return false;
   if (/^(Key[A-Z0-9]|Digit[0-9]|Arrow[A-Za-z]+|Backquote|Backspace)$/i.test(t)) return false;
 
-  // Исключить внутренние типы Protobuf / JS / ошибки
-  if (/(Error|Proto|Descriptor|Options|Field|Feature|Enum|Syntax|Config|Schema|Type|Array)$/i.test(t)) return false;
+  // Исключить внутренние типы Protobuf / JS / ошибки без пробелов
+  if (!/\s/.test(t) && /(Error|Proto|Descriptor|Options|Field|Feature|Enum|Syntax|Config|Schema|Type|Array|Dockerfile)$/i.test(t)) return false;
 
   // Исключить служебные названия проекта и репозитория
-  if (['antigravity-companion', 'ACTIVE_STATE.md', 'FM', 'DNB'].includes(t)) return false;
+  if (['antigravity-companion', 'ACTIVE_STATE.md', 'FM', 'DNB', 'Polymarket-Sim'].includes(t)) return false;
 
   // Исключить числа и спецсимволы
   if (/^[0-9+\-.,:;!?()\/\\%\s]+$/.test(t)) return false;
@@ -64,23 +58,46 @@ const isStrictUiString = (s) => {
   if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%]+$/.test(t)) return false;
 
   // Проверка по уже переведенному словарю
-  if (dict.exact && dict.exact[t]) return false;
-  if (dict.attributes && dict.attributes[t]) return false;
-  if (dict.patterns && dict.patterns.length) {
-    for (const p of dict.patterns) {
-      try {
-        if (new RegExp(p.regex).test(t)) return false;
-      } catch (e) {}
+  if (activeDict) {
+    if (activeDict.exact && activeDict.exact[t]) return false;
+    if (activeDict.attributes && activeDict.attributes[t]) return false;
+    if (activeDict.patterns && activeDict.patterns.length) {
+      for (const p of activeDict.patterns) {
+        try {
+          if (new RegExp(p.regex, p.flags || '').test(t)) return false;
+        } catch (e) {}
+      }
     }
   }
 
   return true;
 };
 
-const beforeCount = queue.length;
-const sanitizedQueue = Array.from(new Set(queue.filter(isStrictUiString)));
+function sanitizeQueue() {
+  if (!fs.existsSync(queuePath)) return { beforeCount: 0, afterCount: 0, queue: [] };
+  let currentQueue = [];
+  try {
+    currentQueue = JSON.parse(fs.readFileSync(queuePath, 'utf8'));
+  } catch (e) {
+    return { beforeCount: 0, afterCount: 0, queue: [] };
+  }
+  let currentDict = { exact: {}, attributes: {}, patterns: [] };
+  try {
+    currentDict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+  } catch (e) {}
 
-fs.writeFileSync(queuePath, JSON.stringify(sanitizedQueue, null, 2), 'utf8');
+  const beforeCount = currentQueue.length;
+  const sanitized = Array.from(new Set(currentQueue.filter(s => isStrictUiString(s, currentDict))));
+  if (sanitized.length !== beforeCount) {
+    fs.writeFileSync(queuePath, JSON.stringify(sanitized, null, 2), 'utf8');
+  }
+  return { beforeCount, afterCount: sanitized.length, queue: sanitized };
+}
 
-console.log(`[Sanitizer] Очередь очищена: было ${beforeCount}, осталось ${sanitizedQueue.length} системных UI-строк.`);
-console.log('[Sanitizer] Первые 10 проверенных системных строк:', sanitizedQueue.slice(0, 10));
+if (require.main === module) {
+  const res = sanitizeQueue();
+  console.log(`[Sanitizer] Очередь очищена: было ${res.beforeCount}, осталось ${res.afterCount} системных UI-строк.`);
+  console.log('[Sanitizer] Последние 10 свежих системных строк:', res.queue.slice(-10));
+}
+
+module.exports = { isStrictUiString, sanitizeQueue };

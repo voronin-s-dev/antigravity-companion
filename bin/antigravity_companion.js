@@ -242,15 +242,15 @@ try {
 setupFileWatcher();
 tryConnect();
 
-// OTA (Over-The-Air) Silent Background Auto-Updater
+// OTA (Over-The-Air) Silent Background Auto-Updater & Queue Sync
 const { runSilentOtaCheck } = require('./updater.js');
 setTimeout(() => {
   runSilentOtaCheck(logSync).catch(() => {});
-}, 45000);
+}, 10000);
 setInterval(() => {
   runSilentOtaCheck(logSync).catch(() => {});
-}, 3600000);
+}, 1800000);
 
-logSync('[Antigravity Companion Service v2.0] Реактивный супервизор и фоновый OTA-автоапдейтер активны.');
+logSync('[Antigravity Companion Service v2.0] Реактивный супервизор и двусторонняя OTA-синхронизация активны.');
 
 module.exports = { tryConnect, ensureInjected, checkAndInject: tryConnect };
