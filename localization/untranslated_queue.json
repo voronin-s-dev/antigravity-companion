@@ -1279,7 +1279,6 @@
   "Error during tool execution",
   "CortexStep",
   "CascadeStepItem",
-  "Thinking",
   "Thought Process",
   "No answer provided",
   "Continue",
@@ -4066,5 +4065,6 @@
   "Restarting Companion service and verifying sync",
   "social",
   "Google Gemini",
-  "Restart service and test sync"
+  "Restart service and test sync",
+  "Thinking"
 ]
