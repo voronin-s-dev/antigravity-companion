@@ -249,7 +249,6 @@
   "Text file size exceeds 1MB limit",
   "Audio file size exceeds 20MB limit",
   "Failed to process image",
-  "Dismiss notification",
   "ToastItem",
   "Notification",
   "Type to search file contents",
@@ -453,8 +452,6 @@
   "Accept all",
   "Welcome to your Chief of Staff",
   "ConversationView",
-  "Main Agent",
-  "Select Agent",
   "ProjectManagementFeature not available",
   "A similar",
   "No matching",
@@ -1946,5 +1943,11 @@
   "or Gmail, Chat, or Tasks.",
   "ile management.",
   "Unread",
-  "Status Of Auto Translation"
+  "Status Of Auto Translation",
+  "Agent permissions preset selector, current: Turbo",
+  "Main Agent",
+  "Select Agent",
+  "Polymarket-Sim Daily Governor",
+  "Dismiss notification",
+  "Started \"Polymarket-Sim Daily Governor\""
 ]
