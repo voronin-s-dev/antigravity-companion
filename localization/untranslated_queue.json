@@ -806,7 +806,6 @@
   "GitHub Actions Free Webhook Setup",
   "Schedule budget checkup",
   "1800 seconds",
-  "Companion App Update Issue",
   "Cleaning up ready folder",
   "Schedule budget checkup: Timer has expired",
   "Implementation Plan",
@@ -887,5 +886,6 @@
   "Use when creating new skills, editing existing skills, or verifying skills work be",
   "btw",
   "Compact the conversation now (summarize history to free up the context window).",
-  "Customize Sections"
+  "Customize Sections",
+  "Companion App Update Issue"
 ]
