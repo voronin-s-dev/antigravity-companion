@@ -1951,5 +1951,7 @@
   "Dismiss notification",
   "Started \"Polymarket-Sim Daily Governor\"",
   "Minion Bot Message Analysis",
-  "Querying database tables"
+  "Querying database tables",
+  "Querying governance events",
+  "Querying governance events via PowerShell here-string"
 ]
