@@ -1953,5 +1953,6 @@
   "Minion Bot Message Analysis",
   "Querying database tables",
   "Querying governance events",
-  "Querying governance events via PowerShell here-string"
+  "Querying governance events via PowerShell here-string",
+  "Querying DB tables"
 ]
