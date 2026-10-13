@@ -16,7 +16,6 @@
   "Copy File Path",
   "Copy File Name",
   "Cancel All Tasks",
-  "Documents",
   "No documents",
   "Stop All Subagents",
   "No uploads",
@@ -144,7 +143,6 @@
   "All Workspaces",
   "Resources",
   "Parent Conversation",
-  "No plugins available",
   "Back to home",
   "Reload app",
   "Best of N mode is not available",
@@ -818,5 +816,8 @@
   "Yes, and always allow in this project",
   "Yes, and always allow",
   "Requesting permission to read freewallet.org",
-  "Customize Sections"
+  "Customize Sections",
+  "No plugins available",
+  "Documents",
+  "Removing temporary script"
 ]
