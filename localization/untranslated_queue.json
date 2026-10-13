@@ -758,7 +758,6 @@
   "Committing lowercase folder",
   "Committing and pushing trade sync",
   "Adding Milestone 49",
-  "Freewallet",
   "goal",
   "Use when encountering any bug, test failure, or unexpected behavior, before proposing",
   "Use when creating new skills, editing existing skills, or verifying skills work be",
@@ -810,5 +809,6 @@
   ".agents",
   "funnels",
   "instagram",
-  "threads"
+  "threads",
+  "Freewallet"
 ]
