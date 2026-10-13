@@ -795,7 +795,6 @@
   "Yes, and always allow in this project",
   "Yes, and always allow",
   "Requesting permission to read freewallet.org",
-  "No plugins available",
   "Documents",
   "Removing temporary script",
   "Dashboard Update Status Check",
@@ -892,5 +891,6 @@
   "Use when you have a spec or requirements for a complex multi-step task, before touching code. Adapts to project-specific task trackers (e.g. ACTIVE_TASK.md,",
   "HANDOFF",
   "_ACTIVE_STATE.md, implementation_plan.md).",
-  "Handoff Skill Functionality Explained"
+  "Handoff Skill Functionality Explained",
+  "No plugins available"
 ]
