@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       max_strings:
-        description: 'Максимальное количество строк для перевода'
+        description: 'Максимальное количество строк для перевода (по умолчанию вся очередь)'
         required: false
-        default: '100'
+        default: '10000'
 
 permissions:
   contents: write
@@ -33,7 +33,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          MAX_COUNT="${{ github.event.inputs.max_strings || '100' }}"
+          MAX_COUNT="${{ github.event.inputs.max_strings || '10000' }}"
           if [ -z "$GEMINI_API_KEY" ]; then
             echo "GEMINI_API_KEY secret is not configured in this repository. Skipping AI translation."
             exit 0

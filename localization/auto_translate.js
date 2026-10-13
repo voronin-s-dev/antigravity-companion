@@ -34,6 +34,10 @@ const queuePath = path.resolve(__dirname, 'untranslated_queue.json');
 const mergeSourcePath = path.resolve(__dirname, 'translations_to_merge.json');
 const dictPath = path.resolve(__dirname, 'dictionary_ru.json');
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function callGemini(apiKey, prompt, model = 'gemini-3.5-flash') {
   return new Promise((resolve, reject) => {
     const payload = JSON.stringify({
@@ -51,7 +55,7 @@ function callGemini(apiKey, prompt, model = 'gemini-3.5-flash') {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(payload)
       },
-      timeout: 25000
+      timeout: 65000
     }, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
@@ -77,7 +81,30 @@ function callGemini(apiKey, prompt, model = 'gemini-3.5-flash') {
   });
 }
 
-async function autoTranslate({ max = 50, batchSize = 25, publish = false, dryRun = false } = {}) {
+async function translateChunkWithRetry(apiKey, prompt) {
+  const models = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-2.5-flash'];
+  let lastErr = null;
+  for (const model of models) {
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        return await callGemini(apiKey, prompt, model);
+      } catch (err) {
+        lastErr = err;
+        const isRateLimit = /HTTP 429|RESOURCE_EXHAUSTED/i.test(err.message);
+        if (isRateLimit && attempt === 1) {
+          console.warn(`[Auto-Translate] Лимит запросов на ${model}, ожидание 15 сек и повтор...`);
+          await sleep(15000);
+          continue;
+        }
+        console.warn(`[Auto-Translate] Переключение с ${model} (${err.message.slice(0, 120)})...`);
+        break;
+      }
+    }
+  }
+  throw lastErr || new Error('Все модели Gemini недоступны');
+}
+
+async function autoTranslate({ max = 10000, batchSize = 150, publish = false, dryRun = false } = {}) {
   if (!fs.existsSync(queuePath)) {
     console.log('[Auto-Translate] Очередь untranslated_queue.json не найдена.');
     return { translatedCount: 0 };
@@ -110,17 +137,17 @@ async function autoTranslate({ max = 50, batchSize = 25, publish = false, dryRun
     return { translatedCount: 0, missingApiKey: true };
   }
 
-  // Гибридный приоритет (LIFO + FIFO): 50% самых свежих строк с экрана (хвост) + 50% верхних UI-строк очереди (голова)
-  const half = Math.ceil(max / 2);
-  const tailItems = queue.slice(-half).reverse();
-  const headItems = queue.slice(0, max);
-  const itemsToProcess = Array.from(new Set([...tailItems, ...headItems])).slice(0, max);
-  console.log(`[Auto-Translate] Всего в очереди: ${queue.length} строк. Обработка ${itemsToProcess.length} приоритетных строк (батчами по ${batchSize})...`);
+  // Переводим ВСЮ очередь целиком без дробления по дням, начиная с самых свежих строк с экрана (хвост), затем весь остальной массив
+  const prioritized = Array.from(new Set([...queue.slice(-200).reverse(), ...queue]));
+  const itemsToProcess = max > 0 ? prioritized.slice(0, max) : prioritized;
+  const totalBatches = Math.ceil(itemsToProcess.length / batchSize);
+  console.log(`[Auto-Translate] Всего в очереди: ${queue.length} строк. Перевод ${itemsToProcess.length} строк за один прогон (${totalBatches} батчей по ${batchSize})...`);
   const totalTranslations = {};
 
   for (let i = 0; i < itemsToProcess.length; i += batchSize) {
+    const batchNum = Math.floor(i / batchSize) + 1;
     const chunk = itemsToProcess.slice(i, i + batchSize);
-    console.log(`[Auto-Translate] Перевод батча ${Math.floor(i / batchSize) + 1} (${chunk.length} строк)...`);
+    console.log(`[Auto-Translate] Перевод батча ${batchNum}/${totalBatches} (${chunk.length} строк)...`);
 
     const prompt = `You are a professional software localization translator for Google Antigravity IDE (VS Code / Electron based AI coding tool).
 Translate the following array of English UI strings into clean, accurate Russian:
@@ -133,14 +160,7 @@ Rules:
 Format: { "English": "Русский" }`;
 
     try {
-      let result;
-      try {
-        result = await callGemini(apiKey, prompt, 'gemini-3.5-flash');
-      } catch (e) {
-        console.warn(`[Auto-Translate] gemini-3.5-flash недоступен (${e.message}), пробую gemini-3.5-flash-lite...`);
-        result = await callGemini(apiKey, prompt, 'gemini-3.5-flash-lite');
-      }
-
+      const result = await translateChunkWithRetry(apiKey, prompt);
       if (typeof result === 'object' && result !== null) {
         for (const [k, v] of Object.entries(result)) {
           if (typeof v === 'string' && v.trim()) {
@@ -148,8 +168,12 @@ Format: { "English": "Русский" }`;
           }
         }
       }
+      // Пауза 4 сек между батчами для соблюдения RPM бесплатного тарифа Gemini API
+      if (i + batchSize < itemsToProcess.length) {
+        await sleep(4000);
+      }
     } catch (err) {
-      console.error(`[Auto-Translate] Ошибка при переводе батча: ${err.message}`);
+      console.error(`[Auto-Translate] Остановка на батче ${batchNum} (${err.message}). Все успешно переведенные батчи (${Object.keys(totalTranslations).length} строк) будут сохранены!`);
       break;
     }
   }
@@ -191,7 +215,7 @@ function publishToGit(count) {
     }
 
     console.log('[Auto-Publish] Формирование Git-коммита и отправка в origin main...');
-    execSync('git add localization/dictionary_ru.json ACTIVE_STATE.md', { stdio: 'inherit' });
+    execSync('git add localization/dictionary_ru.json localization/untranslated_queue.json ACTIVE_STATE.md', { stdio: 'inherit' });
     execSync(`git commit -m "feat(i18n): auto-translated ${count} terms from queue [skip ci]"`, { stdio: 'inherit' });
     execSync('git push origin main', { stdio: 'inherit' });
     console.log('✓ [Auto-Publish] Успешно опубликовано в GitHub! Пользователи получат обновление через OTA.');
@@ -205,7 +229,7 @@ if (require.main === module) {
   const publish = args.includes('--publish');
   const dryRun = args.includes('--dry-run');
   const maxIdx = args.indexOf('--max');
-  const max = maxIdx !== -1 && args[maxIdx + 1] ? parseInt(args[maxIdx + 1], 10) : 50;
+  const max = maxIdx !== -1 && args[maxIdx + 1] ? parseInt(args[maxIdx + 1], 10) : 10000;
 
   autoTranslate({ max, publish, dryRun }).catch(err => {
     console.error('Fatal Auto-Translate Error:', err.message);
