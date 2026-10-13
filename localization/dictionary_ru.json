@@ -3938,7 +3938,10 @@
     "ShrinkTree": "Сжатие дерева",
     "Compaction by shrinking a tree": "Уплотнение путем сжатия дерева",
     "ShrinkTreeLayoutProvider": "Поставщик макета сжатия дерева",
-    "Graph": "Граф"
+    "Graph": "Граф",
+    "Agents created by this automation run in a dedicated project with its own permissions. You can change the permissions in the project settings page.": "Агенты, созданные этой автоматизацией, работают в отдельном проекте со своими правами доступа. Вы можете изменить права на странице настроек проекта.",
+    "Agents created by this automation run in a dedicated project with its own permissions.": "Агенты, созданные этой автоматизацией, работают в отдельном проекте со своими правами доступа.",
+    "You can change the permissions in the project settings page.": "Вы можете изменить права на странице настроек проекта."
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",

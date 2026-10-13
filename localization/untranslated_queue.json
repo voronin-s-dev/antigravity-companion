@@ -1,4 +1,5 @@
 [
+  "\"Agents created by this automation run in a dedicated project with its...",
   "Clone current workspace into a new independent workspace",
   "Chief of Staff voice mode is active",
   "Voice recording is unavailable while the Chief of Staff mic is on",
@@ -1972,7 +1973,7 @@
   "Install Google Antigravity SDK",
   "See more in Build with Google",
   "project",
-  "\"Agents created by this automation run in a dedicated project with its...",
   "Translation Verification And Review",
-  "Evaluating DOM via CDP"
+  "Evaluating DOM via CDP",
+  "Cleaning untranslated queue"
 ]
