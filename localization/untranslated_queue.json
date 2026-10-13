@@ -1956,5 +1956,6 @@
   "Querying governance events via PowerShell here-string",
   "Querying DB tables",
   "Querying events and positions with UTF-8",
-  "Polymarket Sim Project Structure And Monitoring"
+  "Polymarket Sim Project Structure And Monitoring",
+  "Committing and pushing changes"
 ]
