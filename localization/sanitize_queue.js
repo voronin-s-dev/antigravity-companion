@@ -59,7 +59,7 @@ const isStrictUiString = (s, dictRef) => {
   if (!/[A-Za-z]/.test(t)) return false;
 
   // Должно быть допустимо для UI
-  if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%]+$/.test(t)) return false;
+  if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%\`\[\]]+$/.test(t)) return false;
 
   // Проверка по уже переведенному словарю
   if (activeDict) {

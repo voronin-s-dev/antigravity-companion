@@ -32,7 +32,7 @@ async function harvestMissingStrings() {
             '.monaco-editor', '.xterm', 'textarea', 'input',
             '[contenteditable="true"]', '[data-lexical-editor]',
             '.prose', '.markdown', '[role="log"]', '#agy-limits-floating-panel', '.font-mono',
-            '[data-testid*="conversation"]', '[data-testid*="thread"]', '[data-testid*="session"]',
+            '[data-testid="conversation-row-sidebar"]', '[data-testid*="conversation-title"]', '[data-testid*="conversation-item"]', '[data-testid*="thread"]', '[data-testid*="session"]',
             '[data-testid*="user-input"]', '[data-testid*="message"]', '[data-testid$="-step"]',
             '.chat-message', '.user-message', '.agent-message', '.select-text', '[data-quotable="true"]',
             '.thread-item', '.conversation-item', '.conversation-title'
@@ -47,7 +47,10 @@ async function harvestMissingStrings() {
               acceptNode(node) {
                 if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
                 const p = node.parentElement;
-                if (!p || p.matches(excluded) || p.closest(excluded)) return NodeFilter.FILTER_REJECT;
+                if (!p) return NodeFilter.FILTER_REJECT;
+                // Всегда разрешаем меню слэш-команд и навыков
+                if (p.closest('#typeahead-menu, [id^="typeahead-item"], [data-testid^="menu-option-"], [role="listbox"], [role="option"]')) return NodeFilter.FILTER_ACCEPT;
+                if (p.matches(excluded) || p.closest(excluded)) return NodeFilter.FILTER_REJECT;
                 return NodeFilter.FILTER_ACCEPT;
               }
             }

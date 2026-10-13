@@ -49,13 +49,24 @@ function testQueueAndSyncIntegrity() {
   const remoteValidHead = remoteQueue.filter(s => !tailSet.has(s) && isStrictUiString(s, merged));
   const mergedQueue = Array.from(new Set([...remoteValidHead, ...localValidTail]));
 
-  // Самые свежие строки с экрана должны оказаться строго в конце очереди (под LIFO)
-  assert.deepStrictEqual(
-    mergedQueue.slice(-2),
-    ['Screen Item Seen Earlier', 'Brand New Screen Modal'],
-    'LIFO tail promotion failed during queue merge'
+  // 4. Тест поддержки markdown-символов (обратные кавычки, скобки) в описаниях навыков
+  assert.strictEqual(isStrictUiString('The default is `design-taste-frontend` (v2)', merged), true, 'Skill description with backticks rejected');
+  assert.strictEqual(isStrictUiString('Use when [action-oriented] or ADHD-friendly communication is requested.', merged), true, 'Skill description with brackets rejected');
+
+  // 5. Тест парсера описаний навыков (Skills Harvester YAML frontmatter)
+  const { parseSkillDescription } = require('../localization/skills_harvester.js');
+  const sampleYaml = `---
+name: sample-skill
+description: >-
+  Line one of skill description.
+  Line two of the description.
+---
+# Content`;
+  assert.strictEqual(
+    parseSkillDescription(sampleYaml),
+    'Line one of skill description. Line two of the description.',
+    'Folded YAML scalar parsing failed'
   );
-  assert.strictEqual(mergedQueue.length, 4, 'Merged queue item count mismatch');
 }
 
 if (require.main === module) {

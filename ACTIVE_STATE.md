@@ -14,7 +14,7 @@
 ---
 
 ## 2. Архитектурный базис
-- **Словарь**: `localization/dictionary_ru.json` — **5323 точных терминов**, **155 атрибутов**, **283 шаблонов** (всего 5761 правил).
+- **Словарь**: `localization/dictionary_ru.json` — **5330 точных терминов**, **155 атрибутов**, **283 шаблонов** (всего 5768 правил).
 - **Zero-Context Dictionary**: чтение словаря напрямую запрещено; пополнение через `localization/translations_to_merge.json` и `npm run merge`.
 - **Служба Companion**: фоновый процесс Node.js с реактивным супервизором v2.0 (постоянный WebSocket, перехват `DevToolsActivePort`, мгновенная инъекция при перезагрузке, 0% CPU в ожидании).
 - **Виджет лимитов**: встроен в сайдбар Antigravity (`#agy-limits-pill`) и разворачивается во флайаут/настройки без оверлеев. Поддержка звуковых оповещений (Web Audio / кастомные MP3), счетчик шагов сессии (`Шаг X/40`), Pre-flight Paste Guard и точный расчет ETA восстановления квот.
@@ -87,6 +87,24 @@
   3. *Входной и выходной контроль пайплайнов*: `sanitize_queue.js`, `merge_translations.js`, `updater.js` и `auto_translate.js` валидируют структуры и немедленно сбрасывают подозрительные строки.
   4. *Аппаратный Git-барьер (Pre-Commit & Pre-Push Hooks)*: скрипты `bin/pre_commit_guard.js` и `bin/install_git_hooks.js` перехватывают любые попытки коммита или пуша, физически прерывая операцию Git с кодом 1 при обнаружении секретов.
 - **Тесты**: написан отдельный сьют `test/secret_guard.test.js`, включён в обязательный прогон `npm test` (5/5 сьютов успешно). Добавлена команда `npm run security:scan`.
+
+### Веха 50: Локализация меню слэш-команд и статический харвестер навыков (Skills Harvester)
+- **Причина пропуска строк (Диагностика через CDP)**:
+  - Выпадающее меню автодополнения слэш-команд и навыков (`#typeahead-menu`, `typeahead-item-*`) монтируется внутри `[data-testid="conversation-view"]`.
+  - Из-за маски `[data-testid*="conversation"]` функция `isPrivateContainer` в `translation_engine.js` ошибочно помечала меню как приватный контент чата и сбрасывала отправку непереведённых строк в фоновую очередь.
+  - Навыки загружаются динамически из каталогов файловой системы (`~/.gemini/config/skills`, builtin, plugins), поэтому статический экстрактор React-бандла (`bundle_harvester.js`) их не видел.
+- **Устранение ложных блокировок в runtime-коллекторе и DOM-скрейпере**:
+  - В `localization/translation_engine.js` добавлен приоритетный пропуск: `#typeahead-menu`, `[id^="typeahead-item"]`, `[data-testid^="menu-option-"]`, `[role="listbox"]`, `[role="option"]`.
+  - Уточнена маска бесед (вместо оверселектора `[data-testid*="conversation"]` используются точечные `[data-testid="conversation-row-sidebar"]`, `[data-testid*="conversation-title"]`, `[data-testid*="conversation-item"]`), предотвращая блокировку родительского `conversation-view`.
+  - В `sanitize_queue.js` и `reportUntranslatedString` расширен regex-вайтлист символов для поддержки markdown-выделений в описаниях навыков (обратные кавычки `` ` `` и квадратные скобки `[]`).
+- **Статический экстрактор навыков `localization/skills_harvester.js`**:
+  - Разработан модуль `skills_harvester.js`, сканирующий все каталоги навыков (`~/.gemini/config/skills`, `~/.gemini/antigravity/builtin/skills`, `~/.gemini/config/plugins/*/skills`, `<workspace>/.agents/skills`).
+  - Парсит YAML frontmatter файлов `SKILL.md`, разворачивает scalar-модификаторы (`>- `, `> `) и автоматически пополняет `untranslated_queue.json`.
+  - Добавлена команда `npm run harvest:skills`, интегрирована в общий пайплайн `npm run harvest`.
+- **Перевод всех навыков и хот-релоад**:
+  - Добавлены переводы для всех выявленных навыков (`browser-testing-with-devtools`, `changelog-automation`, `design-taste-frontend-v1`, `find-skills`, `i18n`, `memory-leak-debugging`, `adhd`).
+  - Словарь расширен до 5330 точных терминов (всего 5768 правил). Хот-релоад применен в открытом окне Antigravity.
+- **Тесты**: расширен сьют `test/queue_sync_integrity.test.js` с проверкой парсинга YAML frontmatter и markdown-символов (5/5 сьютов успешно).
 
 ---
 

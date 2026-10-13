@@ -225,10 +225,12 @@
     if (!domNode) return false;
     const el = domNode.nodeType === 1 ? domNode : domNode.parentElement;
     if (!el) return false;
+    // 0. Выпадающее меню автодополнения слэш-команд и навыков ВСЕГДА системное
+    if (el.closest('#typeahead-menu, [id^="typeahead-item"], [data-testid^="menu-option-"], [role="listbox"], [role="option"]')) return false;
     // 1. Всегда исключаем редактор кода, инпуты, блоки кода и ответы/сообщения чата
     if (el.closest('textarea, input, pre, code, .monaco-editor, [contenteditable="true"]')) return true;
     // 2. Исключаем приватные названия бесед в сайдбаре, имена папок проектов, блоки текста чата (.md-divider-spacing, .select-text) и одноразовые подписи шагов тулов
-    if (el.closest('[data-testid*="conversation"], [data-testid*="thread"], [data-testid*="session"], [data-testid="lifted-context-menu-trigger"], [data-testid="planner-response-text"], [data-testid*="user-input"], [data-testid$="-step"]')) return true;
+    if (el.closest('[data-testid="conversation-row-sidebar"], [data-testid*="conversation-title"], [data-testid*="conversation-item"], [data-testid*="thread"], [data-testid*="session"], [data-testid="lifted-context-menu-trigger"], [data-testid="planner-response-text"], [data-testid*="user-input"], [data-testid$="-step"]')) return true;
     if (el.closest('.md-divider-spacing, .select-text, .chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="message"]')) return true;
     // 3. Остальные элементы (включая системные плейсхолдеры сайдбара вроде "No conversations yet", модалки, тосты и настройки) разрешены
     return false;
@@ -240,7 +242,7 @@
     const str = raw.trim();
     if (str.length < 2 || str.length > 2000) return;
     if (/[а-яА-ЯёЁ]/.test(str)) return;
-    if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%]+$/.test(str)) return;
+    if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%\`\[\]]+$/.test(str)) return;
     if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(str)) return;
     if (/^[0-9+\-.,:;!?()\/\\%\s]+$/.test(str)) return;
     if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll)$/i.test(str)) return;
