@@ -36,6 +36,8 @@ function buildRelease() {
     'start.bat',
     'uninstall.bat',
     'uninstall.ps1',
+    'update.bat',
+    'update.ps1',
     'update_dictionary.bat',
     'update_dictionary.ps1',
     'README.md',

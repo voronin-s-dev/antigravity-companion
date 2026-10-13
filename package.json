@@ -16,6 +16,7 @@
     "sanitize:queue": "node localization/sanitize_queue.js",
     "check:update": "node bin/updater.js",
     "apply:update": "node bin/updater.js --apply",
+    "update:app": "node bin/updater.js --app",
     "status": "powershell -NoProfile -ExecutionPolicy Bypass -File bin/status.ps1",
     "doctor": "node bin/doctor.js",
     "doctor:cdp": "node bin/cdp_doctor.js",

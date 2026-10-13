@@ -265,80 +265,13 @@ function startServer() {
       return;
     }
 
-    // Check updates
+    // Check updates (both dictionary and full app)
     if (url === '/api/check-update' && (req.method === 'GET' || req.method === 'POST')) {
       try {
-        const pkg = require('../package.json');
-        const lockFile = path.join(__dirname, '..', '.lock_updates');
-        const isLocked = fs.existsSync(lockFile);
-
-        const dictPath = path.join(__dirname, '..', 'localization', 'dictionary_ru.json');
-        let localTerms = 0;
-        try {
-          const dict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
-          localTerms = Object.keys(dict.exact || {}).length;
-        } catch (e) {}
-
-        if (isLocked) {
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({
-            ok: true,
-            locked: true,
-            currentVersion: pkg.version,
-            localTerms,
-            hasUpdate: false,
-            message: 'Обновления заморожены (.lock_updates)'
-          }));
-          return;
-        }
-
-        const gitDir = path.join(__dirname, '..', '.git');
-        const hasGit = fs.existsSync(gitDir);
-        let gitBehind = 0;
-        let hasGitUpdate = false;
-
-        if (hasGit) {
-          try {
-            execSync('git fetch origin', { timeout: 6000, stdio: 'ignore' });
-            const behind = execSync('git rev-list HEAD..origin/main --count', { timeout: 4000 }).toString().trim();
-            gitBehind = parseInt(behind, 10) || 0;
-            hasGitUpdate = gitBehind > 0;
-          } catch (e) {}
-        }
-
-        // Check remote GitHub dictionary via HTTP (works for both Git and standalone ZIP users)
-        let remoteTerms = localTerms;
-        let hasDictUpdate = false;
-        try {
-          const dictResp = await fetch('https://raw.githubusercontent.com/voronin-s-dev/antigravity-companion/main/localization/dictionary_ru.json', {
-            signal: AbortSignal.timeout(6000)
-          });
-          if (dictResp.ok) {
-            const remoteDict = await dictResp.json();
-            if (remoteDict && remoteDict.exact) {
-              remoteTerms = Object.keys(remoteDict.exact).length;
-              if (remoteTerms > localTerms) {
-                hasDictUpdate = true;
-              }
-            }
-          }
-        } catch (e) {}
-
-        const hasUpdate = hasGitUpdate || hasDictUpdate;
-
+        const { checkForUpdates } = require('./updater.js');
+        const result = await checkForUpdates();
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-          ok: true,
-          locked: false,
-          currentVersion: pkg.version,
-          localTerms,
-          remoteTerms,
-          diffTerms: Math.max(0, remoteTerms - localTerms),
-          hasUpdate,
-          hasGit,
-          behindCommits: gitBehind,
-          updateMode: hasGit ? (hasGitUpdate ? 'git' : (hasDictUpdate ? 'http_dict' : 'none')) : (hasDictUpdate ? 'http_dict' : 'none')
-        }));
+        res.end(JSON.stringify(result));
       } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: false, error: err.message }));
@@ -346,71 +279,37 @@ function startServer() {
       return;
     }
 
-    // Apply updates
+    // Apply updates (auto-detects app update vs dictionary update)
     if (url === '/api/apply-update' && req.method === 'POST') {
       try {
-        const lockFile = path.join(__dirname, '..', '.lock_updates');
-        if (fs.existsSync(lockFile)) {
-          res.writeHead(403, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ ok: false, error: 'Обновления заморожены (.lock_updates)' }));
-          return;
-        }
-
-        const gitDir = path.join(__dirname, '..', '.git');
-        const hasGit = fs.existsSync(gitDir);
-        let updatedVia = 'dict';
-        let termsCount = 0;
-
-        if (hasGit) {
-          try {
-            execSync('git pull --ff-only origin main', { timeout: 15000, stdio: 'ignore' });
-            updatedVia = 'git';
-          } catch (gitErr) {
-            console.warn('[Apply Update] Git pull failed, falling back to HTTP download:', gitErr.message);
-          }
-        }
-
-        if (updatedVia !== 'git') {
-          // Download dictionary directly via HTTP
-          const resp = await fetch('https://raw.githubusercontent.com/voronin-s-dev/antigravity-companion/main/localization/dictionary_ru.json', {
-            signal: AbortSignal.timeout(12000)
-          });
-          if (!resp.ok) throw new Error(`HTTP ${resp.status} при загрузке словаря с GitHub`);
-          const newDict = await resp.json();
-          if (!newDict || !newDict.exact) throw new Error('Некорректная структура словаря');
-
-          const dictPath = path.join(__dirname, '..', 'localization', 'dictionary_ru.json');
-          const backupPath = path.join(__dirname, '..', 'localization', 'dictionary_ru.json.bak');
-
-          if (fs.existsSync(dictPath)) {
-            fs.copyFileSync(dictPath, backupPath);
-          }
-          fs.writeFileSync(dictPath, JSON.stringify(newDict, null, 2), 'utf8');
-          termsCount = Object.keys(newDict.exact).length;
+        const { checkForUpdates, applyUpdates, applyAppUpdate } = require('./updater.js');
+        const status = await checkForUpdates();
+        let result;
+        if (status.hasAppUpdate) {
+          result = await applyAppUpdate();
         } else {
-          const dictPath = path.join(__dirname, '..', 'localization', 'dictionary_ru.json');
-          try {
-            const d = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
-            termsCount = Object.keys(d.exact || {}).length;
-          } catch (e) {}
+          result = await applyUpdates();
         }
-
-        const { injectTranslator } = require('../localization/inject_translator.js');
-        const { injectWidget } = require('../limits_widget/inject_panel.js');
-        await injectTranslator();
-        await injectWidget();
-
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({
-          ok: true,
-          updatedVia,
-          terms: termsCount,
-          message: updatedVia === 'git'
-            ? 'Репозиторий успешно обновлён и перезагружен!'
-            : `Словарь успешно обновлён с GitHub (${termsCount} слов) и применён на лету!`
-        }));
+        res.end(JSON.stringify(result));
       } catch (err) {
-        res.writeHead(500, { 'Content-Type': 'application/json' });
+        const status = err.message && err.message.includes('заморожены') ? 403 : 500;
+        res.writeHead(status, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
+
+    // Explicit App Update endpoint
+    if (url === '/api/apply-app-update' && req.method === 'POST') {
+      try {
+        const { applyAppUpdate } = require('./updater.js');
+        const result = await applyAppUpdate();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(result));
+      } catch (err) {
+        const status = err.message && err.message.includes('заморожены') ? 403 : 500;
+        res.writeHead(status, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ ok: false, error: err.message }));
       }
       return;

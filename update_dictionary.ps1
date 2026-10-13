@@ -27,9 +27,10 @@ if ($isLocked) {
 } else {
     Write-Host "[4] Заморозить обновления (заблокировать любые сетевые загрузки)" -ForegroundColor Yellow
 }
+Write-Host "[5] Обновить Antigravity Companion целиком до последней версии (App Update)" -ForegroundColor Cyan
 Write-Host ""
 
-$choice = Read-Host "Выберите действие (1-4, по умолчанию 1)"
+$choice = Read-Host "Выберите действие (1-5, по умолчанию 1)"
 if (-not $choice) { $choice = "1" }
 
 if ($choice -eq "1") {
@@ -101,6 +102,13 @@ if ($choice -eq "4") {
         Write-Host "[+] Обновления ЗАМОРОЖЕНЫ. Создан файл .lock_updates." -ForegroundColor Yellow
         Write-Host "    Служба работает в 100% автономном режиме без сетевых запросов." -ForegroundColor Gray
     }
+}
+
+if ($choice -eq "5") {
+    Write-Host ""
+    $appUpdateScript = Join-Path $baseDir "update.ps1"
+    & "$appUpdateScript"
+    exit 0
 }
 
 Write-Host ""

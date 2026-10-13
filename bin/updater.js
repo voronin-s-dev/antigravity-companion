@@ -9,6 +9,22 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const DICT_URL = 'https://raw.githubusercontent.com/voronin-s-dev/antigravity-companion/main/localization/dictionary_ru.json';
+const PKG_URL = 'https://raw.githubusercontent.com/voronin-s-dev/antigravity-companion/main/package.json';
+const REPO_ZIP_URL = 'https://github.com/voronin-s-dev/antigravity-companion/archive/refs/heads/main.zip';
+
+function isNewerVersion(remote, local) {
+  if (!remote || !local) return false;
+  const parse = v => String(v).replace(/^v/, '').split('.').map(n => parseInt(n, 10) || 0);
+  const r = parse(remote);
+  const l = parse(local);
+  for (let i = 0; i < Math.max(r.length, l.length); i++) {
+    const rNum = r[i] || 0;
+    const lNum = l[i] || 0;
+    if (rNum > lNum) return true;
+    if (rNum < lNum) return false;
+  }
+  return false;
+}
 
 function getLocalTermsCount() {
   const dictPath = path.resolve(__dirname, '../localization/dictionary_ru.json');
@@ -32,6 +48,9 @@ async function checkForUpdates() {
       ok: true,
       locked: true,
       currentVersion: pkg.version,
+      remoteVersion: pkg.version,
+      hasAppUpdate: false,
+      hasDictUpdate: false,
       localTerms,
       remoteTerms: localTerms,
       diffTerms: 0,
@@ -54,6 +73,26 @@ async function checkForUpdates() {
     } catch (e) {}
   }
 
+  // Проверка актуальной версии приложения на GitHub
+  let remoteVersion = pkg.version;
+  let hasAppUpdate = false;
+  try {
+    const pkgResp = await fetch(PKG_URL, {
+      signal: AbortSignal.timeout(6000)
+    });
+    if (pkgResp.ok) {
+      const remotePkg = await pkgResp.json();
+      if (remotePkg && remotePkg.version) {
+        remoteVersion = remotePkg.version;
+        hasAppUpdate = isNewerVersion(remoteVersion, pkg.version);
+      }
+    }
+  } catch (e) {}
+
+  if (hasGitUpdate) {
+    hasAppUpdate = true;
+  }
+
   let remoteTerms = localTerms;
   let hasDictUpdate = false;
   try {
@@ -71,19 +110,22 @@ async function checkForUpdates() {
     }
   } catch (e) {}
 
-  const hasUpdate = hasGitUpdate || hasDictUpdate;
+  const hasUpdate = hasAppUpdate || hasDictUpdate;
 
   return {
     ok: true,
     locked: false,
     currentVersion: pkg.version,
+    remoteVersion,
+    hasAppUpdate,
+    hasDictUpdate,
+    hasUpdate,
     localTerms,
     remoteTerms,
     diffTerms: Math.max(0, remoteTerms - localTerms),
-    hasUpdate,
     hasGit,
     behindCommits: gitBehind,
-    updateMode: hasGit ? (hasGitUpdate ? 'git' : (hasDictUpdate ? 'http_dict' : 'none')) : (hasDictUpdate ? 'http_dict' : 'none')
+    updateMode: hasGit ? (hasGitUpdate ? 'git' : (hasDictUpdate ? 'http_dict' : 'none')) : (hasAppUpdate ? 'zip_app' : (hasDictUpdate ? 'http_dict' : 'none'))
   };
 }
 
@@ -220,6 +262,141 @@ async function applyUpdates() {
 }
 
 /**
+ * Полное обновление приложения (скриптов, виджета, словаря, конфигурации):
+ * - Для Git-пользователей: синхронизация ветки origin/main через git pull
+ * - Для Standalone ZIP-пользователей: скачивание архива с GitHub, распаковка и обновление файлов
+ */
+async function applyAppUpdate() {
+  const repoRoot = path.resolve(__dirname, '..');
+  const lockFile = path.resolve(repoRoot, '.lock_updates');
+  if (fs.existsSync(lockFile)) {
+    throw new Error('Обновления заморожены (.lock_updates)');
+  }
+
+  const gitDir = path.resolve(repoRoot, '.git');
+  const hasGit = fs.existsSync(gitDir);
+  let updatedVia = 'zip';
+  const pkg = require('../package.json');
+  let targetVersion = pkg.version;
+
+  // Проверка актуальной версии на GitHub
+  try {
+    const pResp = await fetch(PKG_URL, { signal: AbortSignal.timeout(6000) });
+    if (pResp.ok) {
+      const pData = await pResp.json();
+      if (pData && pData.version) targetVersion = pData.version;
+    }
+  } catch (e) {}
+
+  if (hasGit) {
+    try {
+      execSync('git checkout HEAD -- localization/dictionary_ru.json localization/untranslated_queue.json', { cwd: repoRoot, timeout: 5000, stdio: 'ignore' });
+      execSync('git pull --ff-only origin main', { cwd: repoRoot, timeout: 15000, stdio: 'ignore' });
+      updatedVia = 'git';
+    } catch (gitErr) {
+      // При конфликте или ошибке git pull переключаемся на безопасную загрузку архива
+      updatedVia = 'zip';
+    }
+  }
+
+  if (updatedVia === 'zip') {
+    const tempZip = path.resolve(repoRoot, '_temp_update.zip');
+    const tempExtract = path.resolve(repoRoot, '_temp_extract');
+
+    try {
+      // 1. Попытка загрузить официальный релизный ZIP, затем запасной архив ветки main
+      const releaseZipUrl = `https://github.com/voronin-s-dev/antigravity-companion/releases/download/v${targetVersion}/antigravity-companion-v${targetVersion}.zip`;
+      let zipResp = null;
+      try {
+        zipResp = await fetch(releaseZipUrl, { signal: AbortSignal.timeout(15000) });
+      } catch (e) {}
+
+      if (!zipResp || !zipResp.ok) {
+        zipResp = await fetch(REPO_ZIP_URL, { signal: AbortSignal.timeout(30000) });
+      }
+      if (!zipResp || !zipResp.ok) {
+        throw new Error(`Не удалось загрузить архив обновления с GitHub (HTTP ${zipResp ? zipResp.status : 'ERR'})`);
+      }
+
+      const buffer = Buffer.from(await zipResp.arrayBuffer());
+      fs.writeFileSync(tempZip, buffer);
+
+      if (fs.existsSync(tempExtract)) {
+        fs.rmSync(tempExtract, { recursive: true, force: true });
+      }
+      fs.mkdirSync(tempExtract, { recursive: true });
+
+      // Распаковка через встроенный PowerShell Expand-Archive
+      execSync(`powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -LiteralPath '${tempZip}' -DestinationPath '${tempExtract}' -Force"`, { cwd: repoRoot, timeout: 45000, stdio: 'ignore' });
+
+      // Определение корня распакованных файлов (ветка main распаковывается в подпапку antigravity-companion-main)
+      let srcRoot = tempExtract;
+      const entries = fs.readdirSync(tempExtract);
+      if (entries.length === 1 && fs.statSync(path.join(tempExtract, entries[0])).isDirectory()) {
+        srcRoot = path.join(tempExtract, entries[0]);
+      }
+
+      // Сохраняем локальные данные пользователя
+      let localQueue = [];
+      const qPath = path.resolve(repoRoot, 'localization/untranslated_queue.json');
+      if (fs.existsSync(qPath)) {
+        try { localQueue = JSON.parse(fs.readFileSync(qPath, 'utf8')); } catch (e) {}
+      }
+
+      const filesToUpdate = [
+        'bin', 'limits_widget', 'localization', 'skills', 'config',
+        'package.json', 'install.bat', 'install.ps1', 'start.bat',
+        'companion.bat', 'launch_antigravity.bat', 'uninstall.bat', 'uninstall.ps1',
+        'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'CHANGELOG.md'
+      ];
+
+      for (const item of filesToUpdate) {
+        const srcItem = path.join(srcRoot, item);
+        const destItem = path.join(repoRoot, item);
+        if (fs.existsSync(srcItem)) {
+          fs.cpSync(srcItem, destItem, { recursive: true, force: true });
+        }
+      }
+
+      // Восстанавливаем и объединяем очередь непереведённых строк
+      if (Array.isArray(localQueue) && localQueue.length > 0 && fs.existsSync(qPath)) {
+        try {
+          const newQ = JSON.parse(fs.readFileSync(qPath, 'utf8'));
+          const mergedQ = Array.from(new Set([...(Array.isArray(newQ) ? newQ : []), ...localQueue]));
+          fs.writeFileSync(qPath, JSON.stringify(mergedQ, null, 2) + '\n', 'utf8');
+        } catch (e) {}
+      }
+    } finally {
+      // Удаляем временные файлы
+      try { if (fs.existsSync(tempZip)) fs.unlinkSync(tempZip); } catch (e) {}
+      try { if (fs.existsSync(tempExtract)) fs.rmSync(tempExtract, { recursive: true, force: true }); } catch (e) {}
+    }
+  }
+
+  // Очистка кэша require
+  try {
+    delete require.cache[require.resolve('../package.json')];
+    delete require.cache[require.resolve('../limits_widget/inject_panel.js')];
+    delete require.cache[require.resolve('../localization/inject_translator.js')];
+  } catch (e) {}
+
+  // Горячее применение обновленного виджета и словаря
+  try {
+    const { injectTranslator } = require('../localization/inject_translator.js');
+    const { injectWidget } = require('../limits_widget/inject_panel.js');
+    await injectTranslator();
+    await injectWidget();
+  } catch (e) {}
+
+  return {
+    ok: true,
+    updatedVia,
+    newVersion: targetVersion,
+    message: `Компаньон успешно обновлён до версии v${targetVersion} (${updatedVia === 'git' ? 'Git' : 'ZIP'})!`
+  };
+}
+
+/**
  * Двусторонняя фоновая синхронизация без потерь:
  * 1) Подтягивает свежие переводы с GitHub и применяет их на лету (OTA Pull).
  * 2) Автоматически очищает и отправляет (git push) новые захваченные с экрана строки в GitHub (Queue Push),
@@ -230,6 +407,8 @@ async function runSilentOtaCheck(logger) {
   isSyncInProgress = true;
   const log = typeof logger === 'function' ? logger : console.log;
   const repoRoot = path.resolve(__dirname, '..');
+  const queuePath = path.resolve(repoRoot, 'localization/untranslated_queue.json');
+  const dictPath = path.resolve(repoRoot, 'localization/dictionary_ru.json');
 
   try {
     const lockFile = path.resolve(repoRoot, '.lock_updates');
@@ -289,6 +468,8 @@ if (require.main === module) {
   const args = process.argv.slice(2);
   if (args.includes('--apply')) {
     applyUpdates().then(r => console.log('✓', r.message)).catch(e => console.error('✗', e.message));
+  } else if (args.includes('--app')) {
+    applyAppUpdate().then(r => console.log('✓', r.message)).catch(e => console.error('✗', e.message));
   } else if (args.includes('--sync')) {
     runSilentOtaCheck(console.log).then(() => process.exit(0)).catch(e => { console.error(e); process.exit(1); });
   } else {
@@ -296,5 +477,6 @@ if (require.main === module) {
   }
 }
 
-module.exports = { checkForUpdates, applyUpdates, runSilentOtaCheck, getLocalTermsCount, mergeDictionaries };
+module.exports = { checkForUpdates, applyUpdates, applyAppUpdate, isNewerVersion, runSilentOtaCheck, getLocalTermsCount, mergeDictionaries };
+
 

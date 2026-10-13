@@ -969,7 +969,7 @@ async function injectWidget() {
           <div style="padding-top: 5px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 4px;">
             <div style="display: flex; align-items: center; justify-content: space-between;">
               <span style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${currentLang === 'ru' ? 'Управление и обновления' : 'Controls & Updates'}</span>
-              <span style="font-size: 9px; color: #22c55e;">● \${COMPANION_VERSION}</span>
+              <span id="agy-settings-version-badge" style="font-size: 9px; color: #22c55e;">● \${COMPANION_VERSION}</span>
             </div>
             <div style="display: flex; gap: 4px;">
               <button id="agy-settings-reload-btn" class="agy-tactile-btn" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 4px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer;">
@@ -1273,17 +1273,41 @@ async function injectWidget() {
             try {
               const res = await fetch('http://127.0.0.1:9229/api/check-update', { method: 'POST', signal: AbortSignal.timeout(8000) });
               const data = await res.json();
+              const versionBadge = settingsPanel.querySelector('#agy-settings-version-badge');
               if (data.locked) {
                 if (updateMsg) {
                   updateMsg.style.background = 'rgba(234, 179, 8, 0.15)';
                   updateMsg.style.color = '#fde047';
                   updateMsg.textContent = currentLang === 'ru' ? 'Заморожено (.lock_updates)' : 'Frozen (.lock_updates)';
                 }
-              } else if (data.hasUpdate) {
+              } else if (data.hasAppUpdate) {
                 if (updateMsg) {
                   updateMsg.style.background = 'rgba(59, 130, 246, 0.15)';
                   updateMsg.style.color = '#93c5fd';
-                  updateMsg.textContent = currentLang === 'ru' ? 'Загрузка с GitHub...' : 'Downloading update...';
+                  updateMsg.textContent = currentLang === 'ru' ? \`Загрузка v\${data.remoteVersion} с GitHub...\` : \`Downloading v\${data.remoteVersion}...\`;
+                }
+                const applyRes = await fetch('http://127.0.0.1:9229/api/apply-app-update', { method: 'POST', signal: AbortSignal.timeout(60000) });
+                const applyData = await applyRes.json();
+                if (updateMsg) {
+                  if (applyData.ok) {
+                    const newVer = applyData.newVersion || data.remoteVersion;
+                    updateMsg.style.background = 'rgba(34, 197, 94, 0.15)';
+                    updateMsg.style.color = '#86efac';
+                    updateMsg.textContent = currentLang === 'ru' ? \`✓ Обновлено до v\${newVer}! Перезапустите UI\` : \`✓ Updated to v\${newVer}! Reload UI\`;
+                    if (versionBadge) {
+                      versionBadge.textContent = \`● v\${newVer}\`;
+                    }
+                  } else {
+                    updateMsg.style.background = 'rgba(239, 68, 68, 0.15)';
+                    updateMsg.style.color = '#fca5a5';
+                    updateMsg.textContent = applyData.error || (currentLang === 'ru' ? 'Ошибка обновления' : 'Update failed');
+                  }
+                }
+              } else if (data.hasDictUpdate) {
+                if (updateMsg) {
+                  updateMsg.style.background = 'rgba(59, 130, 246, 0.15)';
+                  updateMsg.style.color = '#93c5fd';
+                  updateMsg.textContent = currentLang === 'ru' ? 'Обновление словаря...' : 'Updating dictionary...';
                 }
                 const applyRes = await fetch('http://127.0.0.1:9229/api/apply-update', { method: 'POST', signal: AbortSignal.timeout(15000) });
                 const applyData = await applyRes.json();
@@ -1292,7 +1316,7 @@ async function injectWidget() {
                     updateMsg.style.background = 'rgba(34, 197, 94, 0.15)';
                     updateMsg.style.color = '#86efac';
                     const words = applyData.terms || data.remoteTerms || data.localTerms;
-                    updateMsg.textContent = currentLang === 'ru' ? \`✓ Обновлено (\${words} сл.)\` : \`✓ Updated (\${words} terms)\`;
+                    updateMsg.textContent = currentLang === 'ru' ? \`✓ Словарь обновлён (\${words} сл.)\` : \`✓ Dictionary updated (\${words} terms)\`;
                   } else {
                     updateMsg.style.background = 'rgba(239, 68, 68, 0.15)';
                     updateMsg.style.color = '#fca5a5';
@@ -1303,7 +1327,8 @@ async function injectWidget() {
                 if (updateMsg) {
                   updateMsg.style.background = 'rgba(34, 197, 94, 0.15)';
                   updateMsg.style.color = '#86efac';
-                  updateMsg.textContent = currentLang === 'ru' ? \`✓ Актуально (\${data.localTerms} сл.)\` : \`✓ Up to date (\${data.localTerms} terms)\`;
+                  const curVer = data.currentVersion || COMPANION_VERSION.replace(/^v/, '');
+                  updateMsg.textContent = currentLang === 'ru' ? \`✓ Всё актуально (v\${curVer}, \${data.localTerms} сл.)\` : \`✓ Up to date (v\${curVer}, \${data.localTerms} terms)\`;
                 }
               }
             } catch (err) {
@@ -1314,7 +1339,7 @@ async function injectWidget() {
               }
             } finally {
               checkUpdateBtn.style.opacity = '1';
-              setTimeout(() => { if (updateMsg) updateMsg.style.display = 'none'; }, 3500);
+              setTimeout(() => { if (updateMsg) updateMsg.style.display = 'none'; }, 4500);
             }
           });
         }
