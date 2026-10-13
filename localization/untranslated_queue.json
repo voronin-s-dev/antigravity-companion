@@ -795,7 +795,6 @@
   "Yes, and always allow in this project",
   "Yes, and always allow",
   "Requesting permission to read freewallet.org",
-  "Customize Sections",
   "No plugins available",
   "Documents",
   "Removing temporary script",
@@ -887,5 +886,6 @@
   "Show what happened in recent past sessions on this project as a clean timeline. Use when the user asks \"what did we do last time\", \"session history\", \"past sessions\", or wants an overview o",
   "Use when creating new skills, editing existing skills, or verifying skills work be",
   "btw",
-  "Compact the conversation now (summarize history to free up the context window)."
+  "Compact the conversation now (summarize history to free up the context window).",
+  "Customize Sections"
 ]
