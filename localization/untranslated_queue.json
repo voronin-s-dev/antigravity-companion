@@ -802,11 +802,8 @@
   "Wait and check pages deployment",
   "Watch run 38446253953",
   "Optimize 3_IDP_Certificate to under 3 MB",
-  "GitHub Actions Free Webhook Setup",
   "Schedule budget checkup",
-  "1800 seconds",
   "Cleaning up ready folder",
-  "Schedule budget checkup: Timer has expired",
   "Implementation Plan",
   "Repacking ZIP with power plan fix",
   "Validating ArmouryCrateTray.ps1 syntax",
@@ -892,5 +889,8 @@
   "HANDOFF",
   "_ACTIVE_STATE.md, implementation_plan.md).",
   "Handoff Skill Functionality Explained",
-  "No plugins available"
+  "No plugins available",
+  "GitHub Actions Free Webhook Setup",
+  "1800 seconds",
+  "Schedule budget checkup: Timer has expired"
 ]
