@@ -285,7 +285,6 @@
   "ButtonLink",
   "Action Required",
   "Canceling",
-  "Unread",
   "Forked conversation",
   "No groups yet",
   "Telemetry",
@@ -1858,7 +1857,6 @@
   "workflow",
   "interaction",
   "context.",
-  "Status Of Auto Translation",
   "Implementation Of Cognitive Navigator Subscription",
   "Implementation of Step 5",
   "5 seconds",
@@ -1946,5 +1944,7 @@
   "ast their hero image or main content renders.",
   "Use when",
   "or Gmail, Chat, or Tasks.",
-  "ile management."
+  "ile management.",
+  "Unread",
+  "Status Of Auto Translation"
 ]
