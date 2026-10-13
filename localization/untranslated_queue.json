@@ -785,5 +785,11 @@
   "Cloudflare Security Audit Skill Evaluation",
   "Widget Autostart Troubleshooting",
   "Translate And Update Git",
-  "more..."
+  "more...",
+  "40 seconds",
+  "Schedule 40s wait for cloud job: Timer has expired",
+  "25 seconds",
+  "Schedule 25s wait for completion: Timer has expired",
+  "15 seconds",
+  "Schedule 15s wait: Timer has expired"
 ]
