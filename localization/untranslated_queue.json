@@ -833,5 +833,6 @@
   "Schedule budget checkup: Timer has expired",
   "Implementation Plan",
   "Repacking ZIP with power plan fix",
-  "Validating ArmouryCrateTray.ps1 syntax"
+  "Validating ArmouryCrateTray.ps1 syntax",
+  "Close Open File"
 ]
