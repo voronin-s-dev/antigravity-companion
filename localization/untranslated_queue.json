@@ -474,7 +474,6 @@
   "go/jetski-projects-migration",
   "Project 4K interface without developer tooling.",
   "permissioned-github",
-  "Merging translations",
   "Closing typeahead menu",
   "c:",
   "Antigravity projects",
@@ -639,15 +638,13 @@
   "e verifiable success criteria.",
   "find",
   "-skills",
-  "Customize Sections",
   "Improving Translation And Context Menu",
-  "No plugins available",
-  "Documents",
   "Applying hot reload",
   "Message queued. Sends after agent finishes working. Actions available: Send Now, Edit, Delete",
   "Counting numeric keys in dictionary",
   "Purging numeric keys from dictionary",
   "Committing Milestone 54",
   "Pushing to origin main",
-  "Reloading translation engine in UI"
+  "Reloading translation engine in UI",
+  "Merging translations"
 ]

@@ -5330,7 +5330,14 @@
     "Oriya": "Ория",
     "Agent can": "Агент может",
     "Agent can run": "Агент может запустить",
-    "Workflow files": "Файлы рабочих процессов"
+    "Workflow files": "Файлы рабочих процессов",
+    "No plugins available": "Нет доступных плагинов",
+    "Customize Sections": "Настроить разделы",
+    "Customize sections": "Настроить разделы",
+    "Documents": "Документы",
+    "No plugins installed": "Плагины не установлены",
+    "No plugin available": "Нет доступных плагинов",
+    "Custom sections": "Пользовательские разделы"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
