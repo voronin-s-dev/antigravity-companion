@@ -652,5 +652,7 @@
   "Cleaning temporary merge file",
   "Install nature-polishing skill",
   "Copying to gemini config skills",
-  "Harvesting skill descriptions"
+  "Harvesting skill descriptions",
+  "Refining sentence boundary detection",
+  "Auditing dictionary again"
 ]
