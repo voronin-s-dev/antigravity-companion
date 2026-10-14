@@ -149,14 +149,31 @@ async function autoTranslate({ max = 10000, batchSize = 150, publish = false, dr
     const chunk = itemsToProcess.slice(i, i + batchSize);
     console.log(`[Auto-Translate] Перевод батча ${batchNum}/${totalBatches} (${chunk.length} строк)...`);
 
-    const prompt = `You are a professional software localization translator for Google Antigravity IDE (VS Code / Electron based AI coding tool).
-Translate the following array of English UI strings into clean, accurate Russian:
+    const prompt = `You are an elite software localization specialist and technical editor adhering to the Nature-Polishing academic translation standard for Google Antigravity IDE (VS Code / Electron based AI coding tool).
+
+Translate the following array of English UI strings into pristine, idiomatic, and technically accurate Russian:
 ${JSON.stringify(chunk, null, 2)}
 
-Rules:
-1. Technical precision: use established developer terminology (e.g. "Terminal" -> "Терминал", "Code Search" -> "Поиск по коду", "New Tab" -> "Новая вкладка").
-2. Preserve placeholders ({0}, %s, etc.), symbols, and punctuation.
-3. Return ONLY a JSON object mapping each English string to its Russian translation.
+Strict "Nature-Polishing" Translation Standards:
+1. No Literal Calques (Устранение буквализмов):
+   - Never translate word-for-word if it creates awkward Russian phrasing. Translate the intended meaning into natural developer language.
+   - Example: "Message queued. Sends after agent finishes working." -> "Сообщение добавлено в очередь. Будет отправлено после завершения работы агента." (NOT "отправляет после того как").
+   - Example: "Customize Sections" -> "Настроить разделы" (NOT "Секции").
+2. Contextual Grammar & Morphology:
+   - Action buttons / Menu items: Use standard Russian UI infinitive ("Сохранить", "Создать", "Отправить", "Очистить").
+   - Completed statuses: Use past passive participles / perfective verbs ("Файл сохранён", "Удалено", "Успешно обновлено").
+   - Ongoing operations: Use verbal nouns or clear process terms ("Поиск по кодовой базе", "Анализ файлов", "Выполнение команды").
+   - Empty / Unavailable states: "Нет доступных плагинов", "Нет активных задач".
+3. Terminological Rigor & Boundaries:
+   - Keep standard AI / Developer terms intact or translate with official conventions: "Sidebar" -> "Сайдбар", "Workspace" -> "Рабочая область", "Branch" -> "Ветка", "Commit" -> "Коммит", "Artifact" -> "Артефакт", "Subagent" -> "Субагент", "Prompt" -> "Промпт".
+   - Do NOT translate established brand or protocol names: "Google Antigravity", "Gemini", "Model Context Protocol (MCP)", "GitHub", "DevTools", "VS Code", "Electron", "Python", "Node.js".
+4. Capitalization & Punctuation:
+   - Russian UI titles use sentence case, NOT English Title Case (e.g. "Manage Permissions" -> "Управление разрешениями", NOT "Управление Разрешениями").
+   - Do not add trailing periods to button labels or menu headers. Preserve trailing periods in full sentences and tooltips.
+   - Exactly preserve all placeholders ({0}, %s, $1), quotes, punctuation, and markdown code formatting.
+5. Output Format:
+   - Return strictly a valid JSON object mapping each original English key to its Russian translation.
+   - Do NOT output arrays or numeric keys.
 Format: { "English": "Русский" }`;
 
     try {

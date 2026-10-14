@@ -11,6 +11,8 @@
     "harvest:bundle": "node localization/bundle_harvester.js",
     "harvest:skills": "node localization/skills_harvester.js",
     "merge": "node localization/merge_translations.js",
+    "audit:dictionary": "node localization/polish_dictionary.js --audit",
+    "polish": "node localization/polish_dictionary.js --fix && node localization/merge_translations.js",
     "translate:auto": "node localization/auto_translate.js",
     "translate:publish": "node localization/auto_translate.js --publish",
     "sanitize:queue": "node localization/sanitize_queue.js",
