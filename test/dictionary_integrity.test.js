@@ -53,6 +53,12 @@ function testDictionaryIntegrity() {
     throw new Error(`Обнаружено ${emptyExactKeys} пустых ключей в секции exact`);
   }
 
+  // 3. Защита от мусорных числовых ключей (остатки от парсинга массивов вместо объектов)
+  const numericExactKeys = Object.keys(dict.exact).filter(k => /^\d+$/.test(k.trim()));
+  if (numericExactKeys.length > 0) {
+    throw new Error(`Обнаружено ${numericExactKeys.length} числовых ключей в секции exact (индексы массивов): ${numericExactKeys.slice(0, 10).join(', ')}`);
+  }
+
   return {
     exactCount,
     attrCount,

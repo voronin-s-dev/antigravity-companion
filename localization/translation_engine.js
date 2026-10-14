@@ -44,7 +44,11 @@
     '[role="log"]',
     '#agy-limits-floating-panel',
     '.font-mono',
-    '[data-testid="conversation-row-sidebar"] span.truncate'
+    '[data-testid="conversation-row-sidebar"] span.truncate',
+    '[data-testid="user-input-step"]',
+    '.leading-relaxed.select-text.break-words',
+    '.animate-markdown',
+    '.markdown-alert'
   ].join(', ');
 
   const EXCLUDED_ATTR_SELECTORS = [
@@ -284,7 +288,7 @@
   function getTranslation(rawText) {
     if (!rawText || !window.__agyDictRu) return null;
     const trimmed = rawText.trim();
-    if (!trimmed || trimmed.length < 2) return null;
+    if (!trimmed || trimmed.length < 2 || /^\d+$/.test(trimmed)) return null;
 
     const dict = window.__agyDictRu;
 

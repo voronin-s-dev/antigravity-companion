@@ -162,9 +162,17 @@ Format: { "English": "Русский" }`;
     try {
       const result = await translateChunkWithRetry(apiKey, prompt);
       if (typeof result === 'object' && result !== null) {
-        for (const [k, v] of Object.entries(result)) {
-          if (typeof v === 'string' && v.trim()) {
-            totalTranslations[k] = v.trim();
+        if (Array.isArray(result)) {
+          result.forEach((v, idx) => {
+            if (chunk[idx] && typeof v === 'string' && v.trim()) {
+              totalTranslations[chunk[idx]] = v.trim();
+            }
+          });
+        } else {
+          for (const [k, v] of Object.entries(result)) {
+            if (typeof v === 'string' && v.trim() && !/^\d+$/.test(k.trim())) {
+              totalTranslations[k] = v.trim();
+            }
           }
         }
       }

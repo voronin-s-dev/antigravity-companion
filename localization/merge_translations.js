@@ -51,6 +51,7 @@ function main() {
   if (newItems.exact || newItems.attributes || newItems.patterns) {
     if (newItems.exact) {
       for (const [k, v] of Object.entries(newItems.exact)) {
+        if (/^\d+$/.test(k.trim())) continue;
         if (dict.exact[k] !== v) {
           dict.exact[k] = v;
           addedExact++;
@@ -84,6 +85,7 @@ function main() {
   } else {
     // Flat key-value pairs default to exact
     for (const [k, v] of Object.entries(newItems)) {
+      if (/^\d+$/.test(k.trim())) continue;
       if (typeof v === 'string' && dict.exact[k] !== v) {
         dict.exact[k] = v;
         addedExact++;
