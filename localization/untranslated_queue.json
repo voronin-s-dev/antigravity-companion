@@ -646,5 +646,8 @@
   "Committing Milestone 54",
   "Pushing to origin main",
   "Reloading translation engine in UI",
-  "Merging translations"
+  "Merging translations",
+  "Committing new translations",
+  "Git commit and push translations",
+  "Cleaning temporary merge file"
 ]
