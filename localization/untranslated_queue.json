@@ -562,7 +562,6 @@
   "xing interfaces, including pages, components, design systems, accessibility, interaction, responsive layout, typography, color, charts, and stack-specific UI implementation. Searchable local data: 79 searchable styles (50 active), 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, 105 icons, 17 GSAP presets, 25 chart types, and 22 stacks.",
   "Uni",
   "Copying skills to workspace",
-  "Customize Sections",
   "Handoff Skill Functionality Explained",
   "goal",
   "compact",
@@ -641,5 +640,7 @@
   "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and de",
   "e verifiable success criteria.",
   "find",
-  "-skills"
+  "-skills",
+  "Customize Sections",
+  "Improving Translation And Context Menu"
 ]
