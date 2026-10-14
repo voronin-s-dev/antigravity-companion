@@ -656,5 +656,8 @@
   "Refining sentence boundary detection",
   "Auditing dictionary again",
   "Auditing dictionary after fixes",
-  "Merging polished terms"
+  "Merging polished terms",
+  "Committing Milestone 55",
+  "Commit and push Milestone 55",
+  "Auditing dictionary via npm script"
 ]
