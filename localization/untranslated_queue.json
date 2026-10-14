@@ -640,5 +640,6 @@
   "Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and de",
   "e verifiable success criteria.",
   "find",
-  "-skills"
+  "-skills",
+  "Copying skills to workspace"
 ]
