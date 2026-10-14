@@ -604,5 +604,6 @@
   "Querying portfolio_state and positions",
   "Pulling latest cloud commits",
   "Querying governance_events",
-  "Querying governance events with utf-8"
+  "Querying governance events with utf-8",
+  "Reviewing status report diff"
 ]
