@@ -517,7 +517,6 @@
   "Use when you have a spec or requirements for a complex multi-step task, before touching code. Adapts to project-specific task trackers (e.g. ACTIVE_TASK.md,",
   "HANDOFF",
   "_ACTIVE_STATE.md, implementation_plan.md).",
-  "Handoff Skill Functionality Explained",
   "No plugins available",
   "GitHub Actions Free Webhook Setup",
   "1800 seconds",
@@ -641,5 +640,6 @@
   "find",
   "-skills",
   "Copying skills to workspace",
-  "Customize Sections"
+  "Customize Sections",
+  "Handoff Skill Functionality Explained"
 ]
