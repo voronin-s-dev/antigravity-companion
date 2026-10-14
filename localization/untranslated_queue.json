@@ -642,5 +642,7 @@
   "Customize Sections",
   "Improving Translation And Context Menu",
   "No plugins available",
-  "Documents"
+  "Documents",
+  "Applying hot reload",
+  "Message queued. Sends after agent finishes working. Actions available: Send Now, Edit, Delete"
 ]
