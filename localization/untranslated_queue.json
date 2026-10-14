@@ -605,5 +605,7 @@
   "Pulling latest cloud commits",
   "Querying governance_events",
   "Querying governance events with utf-8",
-  "Reviewing status report diff"
+  "Reviewing status report diff",
+  "Gemini 4 Argon",
+  "Gemini 4 Argon is currently available to Ultra plan subscribers."
 ]
