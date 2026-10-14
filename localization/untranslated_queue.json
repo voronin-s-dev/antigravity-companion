@@ -599,5 +599,10 @@
   "Adding v3 risk unit tests",
   "Rebasing and pushing",
   "Aborting rebase",
-  "System Status Check During Shutdown"
+  "System Status Check During Shutdown",
+  "Querying database with py",
+  "Querying portfolio_state and positions",
+  "Pulling latest cloud commits",
+  "Querying governance_events",
+  "Querying governance events with utf-8"
 ]
