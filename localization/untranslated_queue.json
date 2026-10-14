@@ -607,5 +607,7 @@
   "Querying governance events with utf-8",
   "Reviewing status report diff",
   "Gemini 4 Argon",
-  "Gemini 4 Argon is currently available to Ultra plan subscribers."
+  "Gemini 4 Argon is currently available to Ultra plan subscribers.",
+  "Locating dictionary_ru.json in .gemini",
+  "Grep for translation in companion"
 ]
