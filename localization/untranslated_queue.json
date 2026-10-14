@@ -614,5 +614,6 @@
   "Count numeric keys in dictionary",
   "Cleaning numeric keys from dictionary",
   "Reloading translator",
-  "The task 2e1f20b7-1bc2-4199-81e9-547a1dfb5310/task-83 is still running. I will wait for it to complete"
+  "The task 2e1f20b7-1bc2-4199-81e9-547a1dfb5310/task-83 is still running. I will wait for it to complete",
+  "Reloading translator in live UI"
 ]
