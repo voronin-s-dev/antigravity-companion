@@ -495,7 +495,6 @@
   "Yes, and always allow in this project",
   "Yes, and always allow",
   "Requesting permission to read freewallet.org",
-  "Documents",
   "Removing temporary script",
   "Dashboard Update Status Check",
   "Watching triggered workflow run",
@@ -516,7 +515,6 @@
   "Use when you have a spec or requirements for a complex multi-step task, before touching code. Adapts to project-specific task trackers (e.g. ACTIVE_TASK.md,",
   "HANDOFF",
   "_ACTIVE_STATE.md, implementation_plan.md).",
-  "No plugins available",
   "GitHub Actions Free Webhook Setup",
   "1800 seconds",
   "Schedule budget checkup: Timer has expired",
@@ -642,5 +640,7 @@
   "find",
   "-skills",
   "Customize Sections",
-  "Improving Translation And Context Menu"
+  "Improving Translation And Context Menu",
+  "No plugins available",
+  "Documents"
 ]
