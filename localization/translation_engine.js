@@ -844,13 +844,13 @@
 
     if (!foundItems || foundItems.length === 0 || !window.electronNative?.showContextMenu) return;
 
-    // Не перехватываем, если все элементы меню неактивны (например, disabled "Copy" в чате без выделенного текста)
-    const hasActiveItem = foundItems.some(item => item.type !== 'separator' && item.enabled !== false && !item.disabled);
-    if (!hasActiveItem) return;
-
     const clickMap = new Map();
     const template = buildNativeMenuTemplate(foundItems, clickMap);
     if (!template || template.length === 0) return;
+
+    // Меню должно содержать хотя бы один реальный пункт с непустой строковой меткой (не только разделители)
+    const hasRealItems = template.some(item => item.type !== 'separator' && typeof item.label === 'string' && item.label.trim().length > 0);
+    if (!hasRealItems) return;
 
     event.preventDefault();
     event.stopPropagation();

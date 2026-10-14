@@ -134,9 +134,13 @@ let isSyncInProgress = false;
 function mergeDictionaries(baseDict, incomingDict) {
   const b = baseDict || {};
   const inc = incomingDict || {};
+  const mergedExact = { ...(b.exact || {}), ...(inc.exact || {}) };
+  for (const k of Object.keys(mergedExact)) {
+    if (/^\d+$/.test(k.trim())) delete mergedExact[k];
+  }
   const merged = {
     version: inc.version || b.version || '1.6.1',
-    exact: { ...(b.exact || {}), ...(inc.exact || {}) },
+    exact: mergedExact,
     attributes: { ...(b.attributes || {}), ...(inc.attributes || {}) },
     patterns: [...(b.patterns || [])]
   };
