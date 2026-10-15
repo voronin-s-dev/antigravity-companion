@@ -39,5 +39,6 @@
   "6 seconds",
   "Error while running: wait for task-101",
   "Wait for pytest: Timer has expired",
-  "Copying trilingual-i18n to agents skills"
+  "Copying trilingual-i18n to agents skills",
+  "Cursor"
 ]
