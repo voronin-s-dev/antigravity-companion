@@ -44,5 +44,10 @@
   "Resizing Project Custom Cursors",
   "Copying comparison to project folder",
   "Simplify D2",
-  "Sampling link select halo color"
+  "Sampling link select halo color",
+  "Rendering Remotion still",
+  "Render still with Remotion",
+  "Rendering Remotion busy frames",
+  "Rendering frames as PNGs",
+  "Rendering PNG frame range"
 ]
