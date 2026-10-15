@@ -69,5 +69,8 @@
   "xes, and security validation for Telegram Mini Apps (TWA) and Aiogram bot integration. Use when developing, styling, or troubleshooting Telegram Web Apps.",
   "ne content through iteration, and verify the doc works for readers. Trigger when user mentions writing docs, creating proposals, drafting specs, or similar documentation tasks.",
   "cations while preserving factual accuracy and precise terminology boundaries. For UI buttons, toasts, and short interface copy, see microcopy. For developer guides and documentation, see writing-guidelines. For marketing or social media copy, see social.",
-  "guring Supabase, writing database models, handling Storage buckets for dashboards, or creating migrations."
+  "guring Supabase, writing database models, handling Storage buckets for dashboards, or creating migrations.",
+  "Install baoyu-translate",
+  "10 seconds",
+  "Install humanizer-ru"
 ]
