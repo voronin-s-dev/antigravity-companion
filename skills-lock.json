@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "microcopy": {
+      "source": "local",
+      "sourceType": "custom",
+      "skillPath": ".agents/skills/microcopy/SKILL.md",
+      "version": "1.0.0"
+    },
+    "nature-polishing": {
+      "source": "yuan1z0825/nature-skills",
+      "sourceType": "github",
+      "skillPath": "skills/nature-polishing/SKILL.md",
+      "computedHash": "0ccc367104bf51d472037ed14781f63bae7597539e52a698b49e16fdbef0009d"
+    },
+    "writing-guidelines": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/writing-guidelines/SKILL.md",
+      "computedHash": "25aa3a33a97bddbcb1847ce4a6169106ec25e5b19b15b99c66e75ab383866ef2"
+    }
+  }
+}

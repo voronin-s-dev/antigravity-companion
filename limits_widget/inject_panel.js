@@ -106,13 +106,13 @@ async function injectWidget() {
             return \`Сброс через \${m}м \${s}с\`;
           },
           resetsNow: 'Сброс прямо сейчас',
-          intervalTitle: 'ПЕРИОД АВТООБНОВЛЕНИЯ',
-          colorTitle: 'ОТТЕНОК И ЦВЕТ',
-          langTitle: 'ЯЗЫК / LANGUAGE',
-          placementTitle: 'РЕЖИМ ОТОБРАЖЕНИЯ',
+          intervalTitle: 'Интервал обновления',
+          colorTitle: 'Оттенок и цвет',
+          langTitle: 'Язык / Language',
+          placementTitle: 'Режим отображения',
           placementSidebar: 'В боковой панели',
           placementFloating: 'Плавающий виджет',
-          pillItemsTitle: 'ЭЛЕМЕНТЫ В МИНИАТЮРЕ',
+          pillItemsTitle: 'Элементы в миниатюре',
           gemini5h: 'Gemini (5ч)',
           geminiWeekly: 'Gemini (нед)',
           claude5h: 'Claude (5ч)',
@@ -128,7 +128,7 @@ async function injectWidget() {
           off: 'Выкл',
           native: 'РОДНОЙ',
           serviceErr: 'Сервис недоступен',
-          scaleTitle: 'МАСШТАБ ВИДЖЕТА',
+          scaleTitle: 'Масштаб виджета',
           scaleCompact: 'Мини',
           scaleNormal: 'Обычный',
           scaleLarge: 'Крупный',
@@ -141,7 +141,7 @@ async function injectWidget() {
           reportCancelBtn: 'Отмена',
           reportCopiedNotice: 'Скриншот скопирован в буфер обмена! Вставьте его через Ctrl+V в открывшемся GitHub Issue.',
           reportRemoveImg: 'Удалить снимок',
-          soundTitle: 'ЗВУКОВЫЕ СИГНАЛЫ СБРОСА',
+          soundTitle: 'Звуковые сигналы сброса',
           sound5hLabel: '5-часовой лимит',
           soundWeeklyLabel: 'Недельный лимит',
           soundTest: 'Тест',
@@ -154,8 +154,8 @@ async function injectWidget() {
           settingsSaveBtn: 'Сохранить',
           settingsSavedNotice: '✓ Сохранено',
           settingsCancelBtn: 'Отмена',
-          previewTitle: 'ПРЕДПРОСМОТР ВИДЖЕТА',
-          themeTitle: 'ТЕМА И ОФОРМЛЕНИЕ',
+          previewTitle: 'Предпросмотр виджета',
+          themeTitle: 'Тема и оформление',
           themeNative: 'Нативный',
           themeGraphite: 'Графит',
           themeBlue: 'Сапфир',
@@ -181,13 +181,13 @@ async function injectWidget() {
             return \`Resets in \${m}m \${s}s\`;
           },
           resetsNow: 'Resets right now',
-          intervalTitle: 'REFRESH INTERVAL',
-          colorTitle: 'TINT & COLOR',
-          langTitle: 'LANGUAGE',
-          placementTitle: 'DISPLAY MODE',
+          intervalTitle: 'Refresh interval',
+          colorTitle: 'Tint & color',
+          langTitle: 'Language',
+          placementTitle: 'Display mode',
           placementSidebar: 'In Sidebar (docked)',
           placementFloating: 'Floating Widget',
-          pillItemsTitle: 'MINIATURE ITEMS',
+          pillItemsTitle: 'Miniature items',
           gemini5h: 'Gemini (5h)',
           geminiWeekly: 'Gemini (wk)',
           claude5h: 'Claude (5h)',
@@ -203,7 +203,7 @@ async function injectWidget() {
           off: 'Off',
           native: 'NATIVE',
           serviceErr: 'Service unavailable',
-          scaleTitle: 'WIDGET SCALE',
+          scaleTitle: 'Widget scale',
           scaleCompact: 'Mini',
           scaleNormal: 'Normal',
           scaleLarge: 'Large',
@@ -216,7 +216,7 @@ async function injectWidget() {
           reportCancelBtn: 'Cancel',
           reportCopiedNotice: 'Screenshot copied to clipboard! Paste it via Ctrl+V into the GitHub Issue description.',
           reportRemoveImg: 'Remove image',
-          soundTitle: 'RESET SOUND ALERTS',
+          soundTitle: 'Reset sound alerts',
           sound5hLabel: '5-hour limit reset alert',
           soundWeeklyLabel: 'Weekly limit reset alert',
           soundTest: 'Test',
@@ -229,8 +229,8 @@ async function injectWidget() {
           settingsSaveBtn: 'Save',
           settingsSavedNotice: '✓ Saved',
           settingsCancelBtn: 'Cancel',
-          previewTitle: 'WIDGET PREVIEW',
-          themeTitle: 'THEME & COLOR',
+          previewTitle: 'Widget preview',
+          themeTitle: 'Theme & color',
           themeNative: 'Native',
           themeGraphite: 'Graphite',
           themeBlue: 'Sapphire',
@@ -775,7 +775,7 @@ async function injectWidget() {
             </svg>
           </button>
           <button id="agy-collapse-btn" title="Свернуть / Развернуть" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 12px; line-height: 1; transition: background 0.12s, color 0.12s;">─</button>
-          <button id="agy-close-btn" title="\${currentLang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)'}" style="background: none; border: none; color: #6b6b72; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 13px; line-height: 1; transition: background 0.12s, color 0.12s;">×</button>
+          <button id="agy-close-btn" title="\${currentLang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)'}" aria-label="\${currentLang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)'}" style="background: none; border: none; color: #6b6b72; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 13px; line-height: 1; transition: background 0.12s, color 0.12s;">×</button>
         </div>
       \`;
 
@@ -796,13 +796,18 @@ async function injectWidget() {
         window.dispatchEvent(new CustomEvent('agy-language-change', { detail: { lang } }));
         header.querySelector('#agy-title-text').textContent = isSettingsOpen ? t('settingsModalTitle') : t('title');
         const cBtn = header.querySelector('#agy-close-btn');
-        if (cBtn) cBtn.title = lang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)';
+        if (cBtn) {
+          cBtn.title = lang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)';
+          cBtn.setAttribute('aria-label', lang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)');
+        }
         updateSidebarButtonState(isVisible);
         updateLimits();
       }
 
       const settingsPanel = document.createElement('div');
       settingsPanel.id = 'agy-panel-settings';
+      settingsPanel.setAttribute('role', 'dialog');
+      settingsPanel.setAttribute('aria-modal', 'true');
       settingsPanel.style.cssText = \`
         display: none;
         flex-direction: column;
@@ -986,7 +991,7 @@ async function injectWidget() {
 
           <!-- Footer Actions -->
           <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 2px;">
-            <button id="agy-settings-cancel-btn" class="agy-tactile-btn" style="padding: 4px 10px; border-radius: 5px; font-size: 10.5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #a1a1aa; cursor: pointer;">
+            <button id="agy-settings-cancel-btn" class="agy-tactile-btn" aria-label="\${t('settingsCancelBtn')}" style="padding: 4px 10px; border-radius: 5px; font-size: 10.5px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #a1a1aa; cursor: pointer;">
               \${t('settingsCancelBtn')}
             </button>
             <button id="agy-settings-save-btn" class="agy-tactile-btn" style="padding: 4px 14px; border-radius: 5px; font-size: 10.5px; font-weight: 600; background: #2563eb; border: 1px solid rgba(255,255,255,0.2); color: #ffffff; cursor: pointer; display: flex; align-items: center; gap: 4.5px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);">
@@ -1782,6 +1787,17 @@ async function injectWidget() {
             e.stopPropagation();
             hideBadgeTooltip();
           });
+          badge.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              e.stopPropagation();
+              if (activeBadge === badge) {
+                hideBadgeTooltip();
+              } else {
+                showBadgeTooltip(badge);
+              }
+            }
+          });
         });
       }
 
@@ -1926,6 +1942,8 @@ async function injectWidget() {
       // Feedback & Bug Reporting Modal
       const reportModal = document.createElement('div');
       reportModal.id = 'agy-report-modal';
+      reportModal.setAttribute('role', 'dialog');
+      reportModal.setAttribute('aria-modal', 'true');
       reportModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.72); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 10000002; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;';
 
       let reportPastedImage = null;
@@ -1942,7 +1960,7 @@ async function injectWidget() {
                 </div>
                 <div style="font-size: 11px; color: #a1a1aa; margin-top: 2px;">\${t('reportModalDesc')}</div>
               </div>
-              <button id="agy-report-close-btn" class="agy-tactile-btn" style="background: none; border: none; color: #71717a; cursor: pointer; padding: 2px 4px; display: inline-flex; align-items: center; border-radius: 4px;">\${CLOSE_ICON_SVG}</button>
+              <button id="agy-report-close-btn" class="agy-tactile-btn" aria-label="\${t('reportCancelBtn')}" style="background: none; border: none; color: #71717a; cursor: pointer; padding: 2px 4px; display: inline-flex; align-items: center; border-radius: 4px;">\${CLOSE_ICON_SVG}</button>
             </div>
 
             <!-- Paste / Drop Area -->
@@ -1965,7 +1983,7 @@ async function injectWidget() {
 
             <!-- Comment Input -->
             <div>
-              <div style="font-size: 10px; color: #a1a1aa; margin-bottom: 4px; font-weight: 500;">КОММЕНТАРИЙ / COMMENT</div>
+              <div style="font-size: 10px; color: #a1a1aa; margin-bottom: 4px; font-weight: 500;">Комментарий / Comment</div>
               <textarea id="agy-report-comment" placeholder="\${t('reportCommentPlaceholder')}" style="width: 100%; height: 60px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; color: #f4f4f5; font-size: 11px; padding: 7px 9px; box-sizing: border-box; resize: none; font-family: inherit;"></textarea>
             </div>
 
@@ -2313,7 +2331,7 @@ async function injectWidget() {
                 const resetSec = b.resetTime?.seconds || '';
 
                 const badgeItem = \`
-                  <span class="agy-pill-badge agy-tabular-nums" data-reset="\${resetSec}" data-title="\${fullMetricTitle}" style="display: inline-flex; align-items: baseline; justify-content: center; gap: 2px; padding: 1px 4px; min-width: 44px; border-radius: 3px; cursor: pointer; background: rgba(255, 255, 255, 0.05); transition: background 0.12s;">
+                  <span class="agy-pill-badge agy-tabular-nums" role="button" tabindex="0" data-reset="\${resetSec}" data-title="\${fullMetricTitle}" style="display: inline-flex; align-items: baseline; justify-content: center; gap: 2px; padding: 1px 4px; min-width: 44px; border-radius: 3px; cursor: pointer; background: rgba(255, 255, 255, 0.05); transition: background 0.12s;">
                     <b style="color: \${color}; font-weight: 600; font-size: 11px; pointer-events: none;" class="agy-tabular-nums">\${pct}%</b>
                     <span style="font-size: 8.5px; color: #8a8784; font-weight: 500; pointer-events: none;">\${badgeLabel}</span>
                   </span>
@@ -2431,6 +2449,17 @@ async function injectWidget() {
               e.stopPropagation();
               hideBadgeTooltip();
             });
+            badge.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.stopPropagation();
+                if (activeBadge === badge) {
+                  hideBadgeTooltip();
+                } else {
+                  showBadgeTooltip(badge);
+                }
+              }
+            });
           });
 
           applyCollapseState();
@@ -2456,11 +2485,11 @@ async function injectWidget() {
 
       function updateSessionStepDisplays() {
         const steps = getSessionStepCount();
-        const color = steps >= 35 ? '#ef4444' : (steps >= 25 ? '#f59e0b' : '#9ca3af');
-        const text = \`\${currentLang === 'ru' ? 'Шаг' : 'Step'} \${steps}/40\`;
+        const color = steps >= 30 ? '#ef4444' : (steps >= 22 ? '#f59e0b' : '#9ca3af');
+        const text = \`\${currentLang === 'ru' ? 'Шаг' : 'Step'} \${steps}/35\`;
         const tipTitle = currentLang === 'ru'
-          ? \`Текущая сессия: \${steps} шагов из 40 рекомендованных. Нажмите, чтобы скопировать команду /handoff для перехода в свежий диалог.\`
-          : \`Current session: \${steps} of 40 recommended turns. Click to copy /handoff command to start a fresh chat.\`;
+          ? \`Текущая сессия: \${steps} шагов из 35 рекомендованных. Нажмите, чтобы скопировать команду /handoff для перехода в свежий диалог.\`
+          : \`Current session: \${steps} of 35 recommended turns. Click to copy /handoff command to start a fresh chat.\`;
 
         function styleStepBadge(el) {
           if (!el) return;
@@ -2468,11 +2497,11 @@ async function injectWidget() {
           el.style.color = color;
           el.title = tipTitle;
           el.style.cursor = 'pointer';
-          if (steps >= 35) {
+          if (steps >= 30) {
             el.classList.add('agy-pulse-badge');
             el.style.borderColor = 'rgba(239, 68, 68, 0.4)';
             el.style.background = 'rgba(239, 68, 68, 0.12)';
-          } else if (steps >= 25) {
+          } else if (steps >= 22) {
             el.classList.remove('agy-pulse-badge');
             el.style.borderColor = 'rgba(245, 158, 11, 0.3)';
             el.style.background = 'rgba(245, 158, 11, 0.1)';

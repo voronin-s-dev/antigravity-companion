@@ -14,7 +14,7 @@
 ---
 
 ## 2. Архитектурный базис
-- **Словарь**: `localization/dictionary_ru.json` — **5337 точных терминов**, **155 атрибутов**, **283 шаблонов** (всего 5775 правил).
+- **Словарь**: `localization/dictionary_ru.json` — **6024 точных термина**, **155 атрибутов**, **283 шаблона** (всего 6462 правила).
 - **Zero-Context Dictionary**: чтение словаря напрямую запрещено; пополнение через `localization/translations_to_merge.json` и `npm run merge`.
 - **Служба Companion**: фоновый процесс Node.js с реактивным супервизором v2.0 (постоянный WebSocket, перехват `DevToolsActivePort`, мгновенная инъекция при перезагрузке, 0% CPU в ожидании).
 - **Виджет лимитов**: встроен в сайдбар Antigravity (`#agy-limits-pill`) и разворачивается во флайаут/настройки без оверлеев. Поддержка звуковых оповещений (Web Audio / кастомные MP3), счетчик шагов сессии (`Шаг X/40`), Pre-flight Paste Guard и точный расчет ETA восстановления квот.
@@ -180,8 +180,27 @@
 
 ---
 
+### Веха 56: Тотальная Nature-Polishing & Microcopy калибровка словаря и аудит Компаньона с новыми скиллами
+- **Лингвистическая калибровка и перепроверка словаря (`localization/polish_dictionary.js`)**:
+  - Расширен модуль аудита: внедрён реестр `KNOWN_CALQUES` (устранение калек вроде «шеринг» -> «совместный доступ», «инстанс» -> «экземпляр», «дефолтный» -> «по умолчанию», «секций» -> «разделов», «бег процессов» -> «выполнение процессов», тавтологий «документов Документов» и «таблицами Google Таблиц»).
+  - Внедрена проверка `IMPERATIVE_ACTION_RULES` по скиллу Microcopy: строгий инфинитив для кнопок действий («Копировать», «Перезагрузить», «Сохранить»).
+  - Перепроверены все 6024 термина: устранены 11 дефектов, текущий аудит показывает 0 замечаний (100% чистота).
+- **Очистка очереди и перевод свежих строк**:
+  - 23 строки из `untranslated_queue.json` (новые скиллы, копирайтинг, аудит) переведены по стандарту Nature-Polishing и слиты в словарь.
+  - База расширена до 6024 точных терминов (6462 правила), очередь очищена до 0.
+- **Стандартизация будущих переводов (`localization/auto_translate.js`)**:
+  - В системный промпт модуля автоперевода навсегда зафиксирован строгий кодекс Nature-Polishing + Microcopy + Anti-Slop (с официальной терминологической матрицей, запретом на жаргонизмы и сохранением системных сущностей IDE).
+- **Реализованные архитектурные улучшения**:
+  - `memory-leak-debugging` ([`localization/translation_engine.js`](file:///c:/Antigravity%20projects/antigravity-companion/localization/translation_engine.js)): внедрён `window.__agyTranslatorCleanup()`, именованные глобальные обработчики (`__agyLangChangeHandler`, `__agyPointerEnterHandler`, `__agyMouseOverHandler`, `__agyContextMenuHandler`), очистка `requestAnimationFrame` и сброс `scheduledNodes` при горячей перезагрузке.
+  - `token-budget-guard` ([`limits_widget/inject_panel.js`](file:///c:/Antigravity%20projects/antigravity-companion/limits_widget/inject_panel.js)): шкала счётчика сессий синхронизирована с `AGENTS.md` (35 шагов вместо 40, предупреждение на 22 шагах, критический пульсирующий бейдж на 30 шагах).
+  - `microcopy` ([`limits_widget/inject_panel.js`](file:///c:/Antigravity%20projects/antigravity-companion/limits_widget/inject_panel.js)): заголовки секций переведены из кричащего ALL CAPS в естественный Sentence case («Оттенок и цвет», «Режим отображения», «Элементы в миниатюре», «Звуковые сигналы сброса», «Интервал обновления»).
+  - `a11y-debugging` ([`limits_widget/inject_panel.js`](file:///c:/Antigravity%20projects/antigravity-companion/limits_widget/inject_panel.js)): добавлены атрибуты доступности (`role="dialog"`, `aria-modal="true"`, `aria-label`), бейджи лимитов получили `role="button"`, `tabindex="0"` и поддержку активации с клавиатуры (`Enter` / `Space`).
+- **Тесты и хот-релоад**: все 6 сьютов тестов пройдены успешно (`npm test` — 6/6 PASS), хот-релоад применен на лету (`npm run reload`).
+
+---
+
 ## 4. Следующие шаги и бэклог
-1. Собрать обратную связь пользователя по точности формулировок и переводов в активном интерфейсе.
+1. Собрать обратную связь пользователя по обновлённым академическим формулировкам и эргономике виджета.
 2. Поддержание актуальности словаря при обновлениях Antigravity через команду `npm run harvest`.
 
 ---

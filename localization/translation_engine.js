@@ -9,6 +9,10 @@
  */
 
 (function() {
+  if (typeof window !== 'undefined' && window.__agyTranslatorCleanup) {
+    try { window.__agyTranslatorCleanup(); } catch (e) {}
+  }
+
   let ls = null;
   try {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -731,22 +735,24 @@
     walkAndTranslate(document.body, currentLang);
   };
 
-  window.addEventListener('agy-language-change', (e) => {
+  window.__agyLangChangeHandler = function(e) {
     if (e.detail && e.detail.lang) {
       window.setAgyLanguage(e.detail.lang);
     }
-  });
+  };
+  window.addEventListener('agy-language-change', window.__agyLangChangeHandler);
 
   // Dynamic Tooltip Interceptor
-  document.addEventListener('pointerenter', (e) => {
+  window.__agyPointerEnterHandler = function(e) {
     if (e.target && e.target.nodeType === Node.ELEMENT_NODE) {
       if (e.target.hasAttribute && e.target.hasAttribute('data-tooltip-id')) {
         translateReactTooltipRegistry();
       }
     }
-  }, true);
+  };
+  document.addEventListener('pointerenter', window.__agyPointerEnterHandler, true);
 
-  document.addEventListener('mouseover', (e) => {
+  window.__agyMouseOverHandler = function(e) {
     if (e.target && e.target.nodeType === Node.ELEMENT_NODE) {
       if (e.target.closest && (e.target.closest('[data-tooltip-id]') || e.target.closest('.compact-tooltip, [role="tooltip"]'))) {
         translateReactTooltipRegistry();
@@ -754,7 +760,8 @@
         if (tip) walkAndTranslate(tip, currentLang);
       }
     }
-  }, true);
+  };
+  document.addEventListener('mouseover', window.__agyMouseOverHandler, true);
 
   // Native & Custom Context Menu Interceptor (Capture Phase)
   function getTranslatedLabel(label) {
@@ -870,6 +877,32 @@
   };
 
   window.addEventListener('contextmenu', window.__agyContextMenuHandler, true);
+
+  window.__agyTranslatorCleanup = function() {
+    if (window.__agyTranslatorObserver) {
+      try { window.__agyTranslatorObserver.disconnect(); } catch (e) {}
+      window.__agyTranslatorObserver = null;
+    }
+    if (window.__agyContextMenuHandler) {
+      try { window.removeEventListener('contextmenu', window.__agyContextMenuHandler, true); } catch (e) {}
+    }
+    if (window.__agyLangChangeHandler) {
+      try { window.removeEventListener('agy-language-change', window.__agyLangChangeHandler); } catch (e) {}
+    }
+    if (window.__agyPointerEnterHandler) {
+      try { document.removeEventListener('pointerenter', window.__agyPointerEnterHandler, true); } catch (e) {}
+    }
+    if (window.__agyMouseOverHandler) {
+      try { document.removeEventListener('mouseover', window.__agyMouseOverHandler, true); } catch (e) {}
+    }
+    if (rafId) {
+      try { cancelAnimationFrame(rafId); } catch (e) {}
+      rafId = null;
+    }
+    if (scheduledNodes) {
+      scheduledNodes.clear();
+    }
+  };
 
   // Initial translation run
   translateReactTooltipRegistry();
