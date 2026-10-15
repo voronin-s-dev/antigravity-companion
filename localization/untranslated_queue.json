@@ -49,5 +49,6 @@
   "Render still with Remotion",
   "Rendering Remotion busy frames",
   "Rendering frames as PNGs",
-  "Rendering PNG frame range"
+  "Rendering PNG frame range",
+  "Appending runner"
 ]
