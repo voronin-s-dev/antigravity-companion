@@ -28,8 +28,8 @@ function runGuard() {
   const violations = [];
 
   for (const relFile of stagedFiles) {
-    // Пропускаем тесты самого guard-модуля и файлы документации/примеров
-    if (relFile.startsWith('test/') || relFile.endsWith('.example') || relFile === 'localization/secret_guard.js') {
+    // Пропускаем тесты самого guard-модуля, файлы документации/примеров и lock-файлы с хешами целостности
+    if (relFile.startsWith('test/') || relFile.endsWith('.example') || relFile === 'localization/secret_guard.js' || relFile.endsWith('-lock.json') || relFile.endsWith('.lock')) {
       continue;
     }
 
