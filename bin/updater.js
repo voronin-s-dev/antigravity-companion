@@ -139,7 +139,7 @@ function mergeDictionaries(baseDict, incomingDict) {
     if (/^\d+$/.test(k.trim())) delete mergedExact[k];
   }
   const merged = {
-    version: inc.version || b.version || '1.6.1',
+    version: inc.version || b.version || '1.6.2',
     exact: mergedExact,
     attributes: { ...(b.attributes || {}), ...(inc.attributes || {}) },
     patterns: [...(b.patterns || [])]
