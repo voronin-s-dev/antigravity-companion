@@ -47,11 +47,20 @@ function main() {
   let addedAttributes = 0;
   let addedPatterns = 0;
 
+  const PROTECTED_COMMANDS = new Set(['goal', 'btw', 'self', 'compact']);
+  const isInvalidKey = (k) => {
+    if (/^\d+$/.test(k.trim())) return true;
+    if (PROTECTED_COMMANDS.has(k)) return true;
+    if (/^[a-z0-9]+-$/i.test(k) || /^-[a-z0-9]+/i.test(k)) return true;
+    if (k.length <= 3 && !/^[A-Z0-9]+$/.test(k)) return true;
+    return false;
+  };
+
   // Check if structure has explicit sections or flat
   if (newItems.exact || newItems.attributes || newItems.patterns) {
     if (newItems.exact) {
       for (const [k, v] of Object.entries(newItems.exact)) {
-        if (/^\d+$/.test(k.trim())) continue;
+        if (isInvalidKey(k)) continue;
         if (dict.exact[k] !== v) {
           dict.exact[k] = v;
           addedExact++;
@@ -85,7 +94,7 @@ function main() {
   } else {
     // Flat key-value pairs default to exact
     for (const [k, v] of Object.entries(newItems)) {
-      if (/^\d+$/.test(k.trim())) continue;
+      if (isInvalidKey(k)) continue;
       if (typeof v === 'string' && dict.exact[k] !== v) {
         dict.exact[k] = v;
         addedExact++;

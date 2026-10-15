@@ -48,8 +48,8 @@ async function harvestMissingStrings() {
                 if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
                 const p = node.parentElement;
                 if (!p) return NodeFilter.FILTER_REJECT;
-                // Всегда разрешаем меню слэш-команд и навыков
-                if (p.closest('#typeahead-menu, [id^="typeahead-item"], [data-testid^="menu-option-"], [role="listbox"], [role="option"]')) return NodeFilter.FILTER_ACCEPT;
+                // Меню слэш-команд и навыков исключаем из DOM-сбора (навыки собираются статически через skills_harvester.js)
+                if (p.closest('#typeahead-menu, [id^="typeahead-item"], [data-testid^="menu-option-"], [data-mention-menu]')) return NodeFilter.FILTER_REJECT;
                 if (p.matches(excluded) || p.closest(excluded)) return NodeFilter.FILTER_REJECT;
                 return NodeFilter.FILTER_ACCEPT;
               }

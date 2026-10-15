@@ -59,6 +59,25 @@ function testDictionaryIntegrity() {
     throw new Error(`Обнаружено ${numericExactKeys.length} числовых ключей в секции exact (индексы массивов): ${numericExactKeys.slice(0, 10).join(', ')}`);
   }
 
+  // 4. Защита от системных слэш-команд (они должны оставаться английскими командами)
+  const forbiddenCommands = ['goal', 'btw', 'self', 'compact'];
+  const violatedCommands = forbiddenCommands.filter(c => dict.exact[c] && dict.exact[c] !== c);
+  if (violatedCommands.length > 0) {
+    throw new Error(`Обнаружены переводы системных слэш-команд в exact: ${violatedCommands.join(', ')}`);
+  }
+
+  // 5. Защита от битых фрагментов слов и висячих дефисов (остатки подсветки поиска)
+  const forbiddenFragments = ['fi', 'pd', 'ig', 'wa', 'ys', 'ser', 'bro', 'ork', 'ork.', 'xes', 'fin', 'les.', 'lows', 'veri', 'g path.', 'ails.', 'agentmemory-con', 'nd-skills'];
+  const presentFragments = forbiddenFragments.filter(f => dict.exact[f]);
+  if (presentFragments.length > 0) {
+    throw new Error(`Обнаружены мусорные фрагменты слов в exact: ${presentFragments.join(', ')}`);
+  }
+
+  const hyphenKeys = Object.keys(dict.exact).filter(k => (/^[a-z0-9]+-$/i.test(k) || /^-[a-z0-9]+/i.test(k)) && k !== '-');
+  if (hyphenKeys.length > 0) {
+    throw new Error(`Обнаружены ключи с висячими дефисами в exact: ${hyphenKeys.join(', ')}`);
+  }
+
   return {
     exactCount,
     attrCount,

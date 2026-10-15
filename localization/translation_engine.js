@@ -64,7 +64,11 @@
     '[data-testid="user-input-step"]',
     '.leading-relaxed.select-text.break-words',
     '.animate-markdown',
-    '.markdown-alert'
+    '.markdown-alert',
+    '[data-testid="menu-option-label"]',
+    '[data-testid="hover-card-title"]',
+    '[data-testid="menu-option-trailing-label"]',
+    '#typeahead-menu li.item > span.text'
   ].join(', ');
 
   const EXCLUDED_ATTR_SELECTORS = [
@@ -245,8 +249,11 @@
     if (!domNode) return false;
     const el = domNode.nodeType === 1 ? domNode : domNode.parentElement;
     if (!el) return false;
-    // 0. Выпадающее меню автодополнения слэш-команд и навыков ВСЕГДА системное
-    if (el.closest('#typeahead-menu, [id^="typeahead-item"], [data-testid^="menu-option-"], [role="listbox"], [role="option"]')) return false;
+    // 0. Меню автодополнения слэш-команд и навыков:
+    // Никогда не собираем строки из typeahead меню через runtime collector, так как подсветка поиска (AA/matches)
+    // динамически нарезает слова на неполные фрагменты (fi, veri, le, etc.).
+    // Описания навыков извлекаются чисто и централизованно через skills_harvester.js из YAML frontmatter.
+    if (el.closest('#typeahead-menu, [id^="typeahead-item"], [data-testid^="menu-option-"], [data-mention-menu], [role="listbox"]')) return true;
     // 1. Всегда исключаем редактор кода, инпуты, блоки кода и ответы/сообщения чата
     if (el.closest('textarea, input, pre, code, .monaco-editor, [contenteditable="true"]')) return true;
     // 2. Исключаем приватные названия бесед в сайдбаре, имена папок проектов, блоки текста чата (.md-divider-spacing, .select-text) и одноразовые подписи шагов тулов
@@ -271,6 +278,11 @@
     if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)+/i.test(str)) return;
     if (/^#[0-9a-fA-F]{3,8}$/.test(str)) return;
     if (/(Error|Proto|Descriptor|Options|Field|Feature|Enum)$/i.test(str)) return;
+    // Исключить обрезанные осколки слов (с дефисом на конце/начале, обрывки предложений после подсветки поиска)
+    if (/^[a-z0-9]+-$/i.test(str) || /^-[a-z0-9]+/i.test(str)) return;
+    if (/^[a-z]{1,4}[,.]/.test(str)) return;
+    if (str.length <= 3 && !/^[A-Z0-9]+$/.test(str)) return;
+    if (['goal', 'btw', 'self', 'plan', 'browser', 'schedule', 'automation', 'find-skills'].includes(str)) return;
     // Исключить токены и секреты (Telegram, Google, OpenAI, GitHub, AWS, Slack, etc.)
     if (/\b\d{8,10}:[A-Za-z0-9_-]{35}\b/.test(str)) return;
     if (/\b(AIza[0-9A-Za-z-_]{35}|ghp_[a-zA-Z0-9]{36}|github_pat_[a-zA-Z0-9_]{82})\b/.test(str)) return;

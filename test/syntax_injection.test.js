@@ -77,12 +77,24 @@ function testProjectIsolationGuard() {
   }
 }
 
-module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard };
+function testSkillCommandIsolationGuard() {
+  const engineSource = fs.readFileSync(path.resolve(__dirname, '../localization/translation_engine.js'), 'utf8');
+  if (!engineSource.includes('[data-testid="menu-option-label"]')) {
+    throw new Error('Безопасность нарушена: menu-option-label отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
+  }
+  if (!engineSource.includes('[data-testid="hover-card-title"]')) {
+    throw new Error('Безопасность нарушена: hover-card-title отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
+  }
+}
+
+module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard };
 
 if (require.main === module) {
   try {
     testInjectionCodeExtraction();
-    console.log('✓ Синтаксис всех скриптов и инъекций корректен!');
+    testProjectIsolationGuard();
+    testSkillCommandIsolationGuard();
+    console.log('✓ Синтаксис всех скриптов, изоляция проектов и команд скилов корректны!');
   } catch (e) {
     console.error('✗ Ошибка синтаксиса:', e.message);
     process.exit(1);

@@ -38,6 +38,12 @@ const isStrictUiString = (s, dictRef) => {
   if (/^[_=-]{2,}$/.test(t)) return false;
   if (/^[a-z0-9]+(-[a-z0-9]+){2,}$/.test(t)) return false;
 
+  // Исключить обрезанные осколки слов (с дефисом на конце/начале, обрывки предложений после подсветки поиска)
+  if (/^[a-z0-9]+-$/i.test(t) || /^-[a-z0-9]+/i.test(t)) return false;
+  if (/^[a-z]{1,4}[,.]/.test(t)) return false;
+  if (t.length <= 3 && !/^[A-Z0-9]+$/.test(t)) return false;
+  if (['goal', 'btw', 'self', 'compact', 'plan', 'browser', 'schedule', 'automation', 'find-skills'].includes(t)) return false;
+
   // Исключить таймзоны вида Europe/Helsinki, America/New_York
   if (/^(Europe|America|Asia|Africa|Pacific|Australia|Atlantic|Indian|Etc)\/[A-Za-z_]+$/.test(t)) return false;
 
