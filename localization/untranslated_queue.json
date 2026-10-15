@@ -34,5 +34,6 @@
   "Install baoyu-translate",
   "10 seconds",
   "Install humanizer-ru",
-  "Copying skills to Antigravity config"
+  "Copying skills to Antigravity config",
+  "Wait for pytest task"
 ]
