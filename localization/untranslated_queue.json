@@ -35,5 +35,7 @@
   "10 seconds",
   "Install humanizer-ru",
   "Copying skills to Antigravity config",
-  "Wait for pytest task"
+  "Wait for pytest task",
+  "6 seconds",
+  "Error while running: wait for task-101"
 ]
