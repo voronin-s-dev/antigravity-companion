@@ -16,10 +16,12 @@ async function main() {
   }
 
   try {
-    process.stdout.write('2. Проверка синтаксиса модулей и инъекций CDP... ');
+    process.stdout.write('2. Проверка синтаксиса модулей, инъекций CDP и изоляции проектов... ');
+    const { testProjectIsolationGuard } = require('./syntax_injection.test.js');
     testInjectionCodeExtraction();
+    testProjectIsolationGuard();
     console.log(`✓ УСПЕШНО`);
-    console.log(`   Все JS-скрипты, службы и браузерные пейлоады синтаксически валидны.`);
+    console.log(`   Все JS-скрипты синтаксически валидны, изоляция названий проектов активна.`);
   } catch (e) {
     console.log(`✗ ОШИБКА: ${e.message}`);
     hasErrors = true;

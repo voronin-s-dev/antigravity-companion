@@ -14,7 +14,7 @@
 ---
 
 ## 2. Архитектурный базис
-- **Словарь**: `localization/dictionary_ru.json` — **6024 точных термина**, **155 атрибутов**, **283 шаблона** (всего 6462 правила).
+- **Словарь**: `localization/dictionary_ru.json` — **6022 точных термина**, **155 атрибутов**, **283 шаблона** (всего 6460 правил).
 - **Zero-Context Dictionary**: чтение словаря напрямую запрещено; пополнение через `localization/translations_to_merge.json` и `npm run merge`.
 - **Служба Companion**: фоновый процесс Node.js с реактивным супервизором v2.0 (постоянный WebSocket, перехват `DevToolsActivePort`, мгновенная инъекция при перезагрузке, 0% CPU в ожидании).
 - **Виджет лимитов**: встроен в сайдбар Antigravity (`#agy-limits-pill`) и разворачивается во флайаут/настройки без оверлеев. Поддержка звуковых оповещений (Web Audio / кастомные MP3), счетчик шагов сессии (`Шаг X/40`), Pre-flight Paste Guard и точный расчет ETA восстановления квот.
@@ -195,12 +195,27 @@
   - `token-budget-guard` ([`limits_widget/inject_panel.js`](file:///c:/Antigravity%20projects/antigravity-companion/limits_widget/inject_panel.js)): шкала счётчика сессий синхронизирована с `AGENTS.md` (35 шагов вместо 40, предупреждение на 22 шагах, критический пульсирующий бейдж на 30 шагах).
   - `microcopy` ([`limits_widget/inject_panel.js`](file:///c:/Antigravity%20projects/antigravity-companion/limits_widget/inject_panel.js)): заголовки секций переведены из кричащего ALL CAPS в естественный Sentence case («Оттенок и цвет», «Режим отображения», «Элементы в миниатюре», «Звуковые сигналы сброса», «Интервал обновления»).
   - `a11y-debugging` ([`limits_widget/inject_panel.js`](file:///c:/Antigravity%20projects/antigravity-companion/limits_widget/inject_panel.js)): добавлены атрибуты доступности (`role="dialog"`, `aria-modal="true"`, `aria-label`), бейджи лимитов получили `role="button"`, `tabindex="0"` и поддержку активации с клавиатуры (`Enter` / `Space`).
-- **Тесты и хот-релоад**: все 6 сьютов тестов пройдены успешно (`npm test` — 6/6 PASS), хот-релоад применен на лету (`npm run reload`).
+---
+
+### Веха 57: Изоляция пользовательских проектов и устранение ошибочного перевода «Threads -> ветки»
+- **Диагностика и расследование инцидента**:
+  - Пользователь сообщил, что проект с названием `Threads` отображался как `ветки`.
+  - При анализе кодовой базы выявлены две взаимосвязанные проблемы:
+    1. *Словарная ошибка*: ранее из-за неконтролируемого сбора строк и автоперевода в словарь попало одиночное правило `"threads": "ветки"` (модель перепутала discussion threads / execution threads с git branches).
+    2. *Отсутствие селекторной изоляции проектов в DOM*: в `EXCLUDED_SELECTORS` движка `translation_engine.js` отсутствовали селекторы заголовков проектов (`[data-testid="project-header"]`, `[data-project-card]`, `[data-project-label]`) и дерева файлов. Движок обходил сайдбар и переводил любые проекты, чьи названия совпадали с терминами словаря (`Threads` -> `ветки`, `social` -> `социальные сети`, `Analyzing` -> `Анализ`).
+- **Устранение дефекта**:
+  - Из `localization/dictionary_ru.json` вычищены мусорные одиночные ключи `"threads": "ветки"` и `"social": "социальные сети"`.
+  - В `EXCLUDED_SELECTORS` и `isPrivateContainer` в `localization/translation_engine.js` внедрена исчерпывающая изоляция проектов и файлового дерева:
+    `[data-testid="project-header"]`, `[data-project-card]`, `[data-project-label]`, `[data-testid*="project-name"]`, `[data-testid*="project-title"]`, `[data-testid*="workspace-name"]`, `[data-testid*="workspace-title"]`, `[data-testid*="file-tree"]`, `[data-testid*="file-node"]`, `[data-testid*="explorer-item"]`, `[data-testid*="tab-label"]`, `.monaco-list-row`.
+  - Реализован механизм самовосстановления `restoreProjectHeaders()`: восстанавливает оригинальные названия проектов по атрибуту `data-project-label` или кэшу `__agy_orig` при инициализации и смене языка.
+- **Тесты и верификация через CDP**:
+  - В `test/syntax_injection.test.js` и общий сьют `npm test` добавлен юнит-тест `testProjectIsolationGuard()`. Все 6 сьютов пройдены успешно (6460 правил).
+  - Через CDP подтверждено: в реальном окне Antigravity проект `social` и `Analyzing` мгновенно вернулись к исходным именам, а проект `Threads` гарантированно защищён от перевода.
 
 ---
 
 ## 4. Следующие шаги и бэклог
-1. Собрать обратную связь пользователя по обновлённым академическим формулировкам и эргономике виджета.
+1. Собрать обратную связь пользователя по исправлению названий проектов.
 2. Поддержание актуальности словаря при обновлениях Antigravity через команду `npm run harvest`.
 
 ---

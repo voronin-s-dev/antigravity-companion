@@ -64,7 +64,20 @@ function testInjectionCodeExtraction() {
   }
 }
 
-module.exports = { testFileSyntax, testInjectionCodeExtraction };
+function testProjectIsolationGuard() {
+  const engineSource = fs.readFileSync(path.resolve(__dirname, '../localization/translation_engine.js'), 'utf8');
+  if (!engineSource.includes('[data-testid="project-header"]')) {
+    throw new Error('Безопасность нарушена: project-header отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
+  }
+  if (!engineSource.includes('[data-project-card]')) {
+    throw new Error('Безопасность нарушена: data-project-card отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
+  }
+  if (!engineSource.includes('restoreProjectHeaders')) {
+    throw new Error('Отсутствует функция самовосстановления restoreProjectHeaders в translation_engine.js!');
+  }
+}
+
+module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard };
 
 if (require.main === module) {
   try {

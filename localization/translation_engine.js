@@ -49,6 +49,18 @@
     '#agy-limits-floating-panel',
     '.font-mono',
     '[data-testid="conversation-row-sidebar"] span.truncate',
+    '[data-testid="project-header"]',
+    '[data-project-card]',
+    '[data-project-label]',
+    '[data-testid*="project-name"]',
+    '[data-testid*="project-title"]',
+    '[data-testid*="workspace-name"]',
+    '[data-testid*="workspace-title"]',
+    '[data-testid*="file-tree"]',
+    '[data-testid*="file-node"]',
+    '[data-testid*="explorer-item"]',
+    '[data-testid*="tab-label"]',
+    '.monaco-list-row',
     '[data-testid="user-input-step"]',
     '.leading-relaxed.select-text.break-words',
     '.animate-markdown',
@@ -240,7 +252,9 @@
     // 2. Исключаем приватные названия бесед в сайдбаре, имена папок проектов, блоки текста чата (.md-divider-spacing, .select-text) и одноразовые подписи шагов тулов
     if (el.closest('[data-testid="conversation-row-sidebar"], [data-testid*="conversation-title"], [data-testid*="conversation-item"], [data-testid*="thread"], [data-testid*="session"], [data-testid="lifted-context-menu-trigger"], [data-testid="planner-response-text"], [data-testid*="user-input"], [data-testid$="-step"]')) return true;
     if (el.closest('.md-divider-spacing, .select-text, .chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="message"]')) return true;
-    // 3. Остальные элементы (включая системные плейсхолдеры сайдбара вроде "No conversations yet", модалки, тосты и настройки) разрешены
+    // 3. Исключаем карточки и заголовки проектов, имена файлов и веток пользователя
+    if (el.closest('[data-testid="project-header"], [data-project-card], [data-project-label], [data-testid*="project-name"], [data-testid*="project-title"], [data-testid*="workspace-name"], [data-testid*="workspace-title"], [data-testid*="file-tree"], [data-testid*="file-node"], [data-testid*="explorer-item"], .monaco-list-row')) return true;
+    // 4. Остальные элементы (включая системные плейсхолдеры сайдбара вроде "No conversations yet", модалки, тосты и настройки) разрешены
     return false;
   }
 
@@ -718,6 +732,24 @@
   window.__agyTranslatorObserver = observer;
   window.__agyTranslatorActive = true;
 
+  // Self-healing: гарантирует, что пользовательские имена проектов и рабочих областей не изменяются
+  function restoreProjectHeaders() {
+    try {
+      const pHeaders = document.querySelectorAll('[data-testid="project-header"], [data-project-card], [data-project-label]');
+      for (const ph of pHeaders) {
+        const origLabel = ph.getAttribute('data-project-label');
+        const span = ph.querySelector('span.truncate') || ph.querySelector('.truncate');
+        if (span && span.firstChild) {
+          if (span.firstChild.__agy_orig) {
+            span.firstChild.nodeValue = span.firstChild.__agy_orig;
+          } else if (origLabel && span.textContent !== origLabel) {
+            span.textContent = origLabel;
+          }
+        }
+      }
+    } catch (e) {}
+  }
+
   // Global Language Switcher API
   window.setAgyLanguage = function(lang) {
     if (lang !== 'ru' && lang !== 'en') return;
@@ -727,12 +759,14 @@
     console.log(`[Antigravity Translator] Language switched to: ${lang.toUpperCase()}`);
     translateReactTooltipRegistry();
     walkAndTranslate(document.body, currentLang);
+    restoreProjectHeaders();
   };
 
   window.__agyTranslatorRefresh = function() {
     cachedRev = null;
     translateReactTooltipRegistry();
     walkAndTranslate(document.body, currentLang);
+    restoreProjectHeaders();
   };
 
   window.__agyLangChangeHandler = function(e) {
@@ -907,5 +941,6 @@
   // Initial translation run
   translateReactTooltipRegistry();
   walkAndTranslate(document.body, currentLang);
+  restoreProjectHeaders();
   console.log(`[Antigravity Translator] Engine initialized successfully. Active: ${currentLang.toUpperCase()}`);
 })();
