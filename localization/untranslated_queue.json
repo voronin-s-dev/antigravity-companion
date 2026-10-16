@@ -100,5 +100,9 @@
   "Adding contract price check",
   "Adding profit recovery rule",
   "Regenerating reports",
-  "Explored. I'm letting the test cycle complete in the background and will analyze the execution results immediately upon completion"
+  "Explored. I'm letting the test cycle complete in the background and will analyze the execution results immediately upon completion",
+  "Closing positions 29 and 30",
+  "Logging exits 29 and 30",
+  "Adding MIN_ESTIMATED_PROB constant",
+  "Enforcing minimum win probability"
 ]
