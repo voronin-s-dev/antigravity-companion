@@ -92,5 +92,12 @@
   "Querying positions table",
   "Evaluating Seoul weather market",
   "Closing risky positions",
-  "Logging exits to trades.txt"
+  "Logging exits to trades.txt",
+  "Calibrating oracle weight",
+  "Refactoring CryptoOracle feed",
+  "Tightening trader risk limits",
+  "Protecting Crypto from OBI guessing",
+  "Adding contract price check",
+  "Adding profit recovery rule",
+  "Regenerating reports"
 ]
