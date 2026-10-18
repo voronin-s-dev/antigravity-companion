@@ -1,4 +1,5 @@
 [
   "Installing telethon",
-  "Install telethon library"
+  "Install telethon library",
+  "Installing qrcode and pillow"
 ]
