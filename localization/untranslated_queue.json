@@ -12,5 +12,6 @@
   "Querying Gamma market resolution",
   "Detecting encoding of grok file",
   "Printing with backslashreplace",
-  "Installing Remotion"
+  "Installing Remotion",
+  "Counting installed packages"
 ]
