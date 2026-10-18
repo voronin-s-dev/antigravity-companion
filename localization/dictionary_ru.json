@@ -5982,7 +5982,9 @@
     "Subagent wakeup schedule": "Расписание пробуждения субагента",
     "Reloading companion in Antigravity": "Перезагрузка компаньона в Antigravity",
     "Deduplicating backlog in ACTIVE_STATE": "Дедупликация бэклога в ACTIVE_STATE",
-    "Adding Milestone 56 to ACTIVE_STATE": "Добавление этапа 56 в ACTIVE_STATE"
+    "Adding Milestone 56 to ACTIVE_STATE": "Добавление этапа 56 в ACTIVE_STATE",
+    "Superpowers Skill for Projects": "Навык «Superpowers» для проектов",
+    "Send Message Enter": "Отправка сообщения по Enter"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
