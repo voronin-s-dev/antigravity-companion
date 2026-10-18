@@ -15,5 +15,6 @@
   "Installing Remotion",
   "Counting installed packages",
   "Anthropic Multi-Agent Pattern Execution",
-  "Killing background search"
+  "Killing background search",
+  "Getting project full paths in utf8"
 ]
