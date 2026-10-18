@@ -3,5 +3,7 @@
   "Install telethon library",
   "Installing qrcode and pillow",
   "Telegram Login Qr",
-  "Restarting QR login"
+  "Restarting QR login",
+  "Saving active code hash",
+  "Requesting fresh code"
 ]
