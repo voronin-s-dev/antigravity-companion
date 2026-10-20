@@ -1,4 +1,14 @@
 [
   "Grep search for server unavailable message",
-  "list files in workspace"
+  "list files in workspace",
+  "inspect workspace structure",
+  "list files in ChatExport_2026-10-20",
+  "list video files in ChatExport_2026-10-20",
+  "check Python dependencies",
+  "Locate Python environment",
+  "locate Python environment",
+  "find python command path",
+  "test Python 3.12 with bs4",
+  "check faster_whisper",
+  "check ffmpeg"
 ]
