@@ -73,8 +73,6 @@
   "test graphify with --code-only and --no-label",
   "generate graph report and visualization",
   "Analysis Export 2026 10 20",
-  "run npm test",
-  "reload companion UI",
   "CDP verification of widget in DOM",
   "git diff stat",
   "git status",
@@ -128,5 +126,15 @@
   "git log check",
   "git reflog check",
   "find commit in reflog",
-  "check branches containing 701587f"
+  "check branches containing 701587f",
+  "Reload companion UI",
+  "git log -n 20",
+  "check origin/main log",
+  "check package.json version",
+  "list git tags",
+  "run npm test",
+  "commit release v1.6.3",
+  "create git tag v1.6.3",
+  "push main and tags to origin",
+  "reload companion UI"
 ]
