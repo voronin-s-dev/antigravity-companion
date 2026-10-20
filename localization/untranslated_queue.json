@@ -110,5 +110,6 @@
   "Model unavailable, retrying in 4s (attempt 2/9)",
   "Model unavailable, retrying in 3s (attempt 2/9)",
   "Model unavailable, retrying in 2s (attempt 2/9)",
-  "Model unavailable, retrying in 1s (attempt 2/9)"
+  "Model unavailable, retrying in 1s (attempt 2/9)",
+  "run detailed_analysis.py with positions table"
 ]
