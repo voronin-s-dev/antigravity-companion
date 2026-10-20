@@ -10,5 +10,7 @@
   "find python command path",
   "test Python 3.12 with bs4",
   "check faster_whisper",
-  "check ffmpeg"
+  "check ffmpeg",
+  "Transcribe and extract export items",
+  "transcribe and extract export items"
 ]
