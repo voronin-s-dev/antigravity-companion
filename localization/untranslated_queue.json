@@ -21,7 +21,6 @@
   "list bin files",
   "search inject_panel in bin/",
   "\"google\" github repo agent self improve harness or \"harness\"",
-  "Slow Chat Processing Reason",
   "Listed",
   "subagents",
   "test getQuotaService fiber search",
@@ -71,5 +70,6 @@
   "Git log of companion",
   "git log of companion",
   "check auto-sync commit details",
-  "check non-autosync commits"
+  "check non-autosync commits",
+  "Slow Chat Processing Reason"
 ]
