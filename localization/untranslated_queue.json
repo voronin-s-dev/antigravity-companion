@@ -143,5 +143,6 @@
   "check open positions in db",
   "test Fact Oracle logic on live markets",
   "Trading Bot Financial Losses",
-  "check current simulation status"
+  "check current simulation status",
+  "run one full cycle of Strategy 2"
 ]
