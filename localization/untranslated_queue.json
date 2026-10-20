@@ -123,5 +123,7 @@
   "pull latest cloud data from origin/main",
   "run detailed_analysis.py on fresh data",
   "Worked for 1h 48m",
-  "Worked for 2h 24m"
+  "Worked for 2h 24m",
+  "Git log check",
+  "git log check"
 ]
