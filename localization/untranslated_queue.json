@@ -91,7 +91,6 @@
   "Worked for 2h 6m",
   "google gemini outage down status \"october 20\" 2026 OR \"october 2026\"",
   "Worked for 1h 20m",
-  "Trading Bot Financial Losses",
   "list files in Polymarket-Sim workspace",
   "list files in data directory",
   "find python path",
@@ -142,5 +141,7 @@
   "run test_actionable_fact.py on live CLOB books",
   "run existing test suite",
   "check open positions in db",
-  "test Fact Oracle logic on live markets"
+  "test Fact Oracle logic on live markets",
+  "Trading Bot Financial Losses",
+  "check current simulation status"
 ]
