@@ -73,5 +73,7 @@
   "check non-autosync commits",
   "Slow Chat Processing Reason",
   "check commit 9f0fa5c",
-  "check active node/python processes"
+  "check active node/python processes",
+  "check previous export",
+  "check export session from 18.10"
 ]
