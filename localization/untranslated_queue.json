@@ -60,7 +60,6 @@
   "git log of companion",
   "check auto-sync commit details",
   "check non-autosync commits",
-  "Slow Chat Processing Reason",
   "check commit 9f0fa5c",
   "check active node/python processes",
   "check previous export",
@@ -144,5 +143,6 @@
   "test Fact Oracle logic on live markets",
   "Trading Bot Financial Losses",
   "check current simulation status",
-  "run one full cycle of Strategy 2"
+  "run one full cycle of Strategy 2",
+  "Slow Chat Processing Reason"
 ]
