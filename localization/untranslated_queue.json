@@ -125,5 +125,8 @@
   "Worked for 1h 48m",
   "Worked for 2h 24m",
   "Git log check",
-  "git log check"
+  "git log check",
+  "git reflog check",
+  "find commit in reflog",
+  "check branches containing 701587f"
 ]
