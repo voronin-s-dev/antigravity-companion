@@ -104,5 +104,11 @@
   "Model unavailable, retrying in 3s (attempt 1/9)",
   "Model unavailable, retrying in 2s (attempt 1/9)",
   "Model unavailable, retrying in 1s (attempt 1/9)",
-  "check table names in polymarket_sim.db"
+  "check table names in polymarket_sim.db",
+  "Model unavailable, retrying in 6s (attempt 2/9)",
+  "Model unavailable, retrying in 5s (attempt 2/9)",
+  "Model unavailable, retrying in 4s (attempt 2/9)",
+  "Model unavailable, retrying in 3s (attempt 2/9)",
+  "Model unavailable, retrying in 2s (attempt 2/9)",
+  "Model unavailable, retrying in 1s (attempt 2/9)"
 ]
