@@ -72,5 +72,6 @@
   "check auto-sync commit details",
   "check non-autosync commits",
   "Slow Chat Processing Reason",
-  "check commit 9f0fa5c"
+  "check commit 9f0fa5c",
+  "check active node/python processes"
 ]
