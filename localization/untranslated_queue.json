@@ -69,5 +69,7 @@
   "install graphifyy with uv",
   "find past companion conversations",
   "Git log of companion",
-  "git log of companion"
+  "git log of companion",
+  "check auto-sync commit details",
+  "check non-autosync commits"
 ]
