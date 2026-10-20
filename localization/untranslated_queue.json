@@ -136,5 +136,11 @@
   "commit release v1.6.3",
   "create git tag v1.6.3",
   "push main and tags to origin",
-  "reload companion UI"
+  "reload companion UI",
+  "check git autocrlf",
+  "run test_new_strategy.py on live CLOB books",
+  "run test_actionable_fact.py on live CLOB books",
+  "run existing test suite",
+  "check open positions in db",
+  "test Fact Oracle logic on live markets"
 ]
