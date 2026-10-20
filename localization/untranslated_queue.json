@@ -15,5 +15,6 @@
   "transcribe and extract export items",
   "threads.com/share/_frrCinbS",
   "check cached models",
-  "check download size"
+  "check download size",
+  "check if output file exists"
 ]
