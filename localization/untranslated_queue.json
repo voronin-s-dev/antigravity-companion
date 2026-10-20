@@ -25,7 +25,6 @@
   "check previous sessions",
   "check latest status of active sessions",
   "check last step of 44149",
-  "Model unavailable, retrying in 1s (attempt 1/9)",
   "Worked for 1h 31m",
   "Worked for 1h 32m",
   "Apple Music MCP Integration",
@@ -99,5 +98,10 @@
   "list files in data directory",
   "find python path",
   "list installed Python versions via py launcher",
-  "run analyze_trades.py with py"
+  "run analyze_trades.py with py",
+  "Model unavailable, retrying in 1757s (attempt 1/9)",
+  "Model unavailable, retrying in 4s (attempt 1/9)",
+  "Model unavailable, retrying in 3s (attempt 1/9)",
+  "Model unavailable, retrying in 2s (attempt 1/9)",
+  "Model unavailable, retrying in 1s (attempt 1/9)"
 ]
