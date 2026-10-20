@@ -17,5 +17,7 @@
   "check cached models",
   "check download size",
   "check if output file exists",
-  "graphify code tokens cursor claude github"
+  "graphify code tokens cursor claude github",
+  "list bin files",
+  "search inject_panel in bin/"
 ]
