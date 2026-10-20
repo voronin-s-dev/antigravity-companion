@@ -115,5 +115,11 @@
   "check if bot process is currently running",
   "check recent git commits",
   "check GitHub workflows",
-  "check git status"
+  "check git status",
+  "check position 34 and portfolio state",
+  "check remote commits from GitHub Actions",
+  "Worked for 1h 1m",
+  "Pull latest cloud data from origin/main",
+  "pull latest cloud data from origin/main",
+  "run detailed_analysis.py on fresh data"
 ]
