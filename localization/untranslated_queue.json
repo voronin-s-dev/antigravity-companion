@@ -96,5 +96,8 @@
   "Worked for 1h 20m",
   "Trading Bot Financial Losses",
   "list files in Polymarket-Sim workspace",
-  "list files in data directory"
+  "list files in data directory",
+  "find python path",
+  "list installed Python versions via py launcher",
+  "run analyze_trades.py with py"
 ]
