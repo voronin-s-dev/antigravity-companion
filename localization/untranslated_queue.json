@@ -113,5 +113,6 @@
   "Model unavailable, retrying in 1s (attempt 2/9)",
   "run detailed_analysis.py with positions table",
   "check if bot process is currently running",
-  "check recent git commits"
+  "check recent git commits",
+  "check GitHub workflows"
 ]
