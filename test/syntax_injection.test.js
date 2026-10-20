@@ -87,14 +87,28 @@ function testSkillCommandIsolationGuard() {
   }
 }
 
-module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard };
+function testStartupRetryGuard() {
+  const panelSource = fs.readFileSync(path.resolve(__dirname, '../limits_widget/inject_panel.js'), 'utf8');
+  if (!panelSource.includes('scheduleInitRetry')) {
+    throw new Error('Отсутствует механизм scheduleInitRetry в inject_panel.js!');
+  }
+  if (!panelSource.includes('hasLoadedQuota')) {
+    throw new Error('Отсутствует флаг hasLoadedQuota в inject_panel.js!');
+  }
+  if (!panelSource.includes('serviceConnecting')) {
+    throw new Error('Отсутствует статус serviceConnecting в inject_panel.js!');
+  }
+}
+
+module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard };
 
 if (require.main === module) {
   try {
     testInjectionCodeExtraction();
     testProjectIsolationGuard();
     testSkillCommandIsolationGuard();
-    console.log('✓ Синтаксис всех скриптов, изоляция проектов и команд скилов корректны!');
+    testStartupRetryGuard();
+    console.log('✓ Синтаксис всех скриптов, изоляция проектов, команд скилов и авто-ретрай лимитов корректны!');
   } catch (e) {
     console.error('✗ Ошибка синтаксиса:', e.message);
     process.exit(1);

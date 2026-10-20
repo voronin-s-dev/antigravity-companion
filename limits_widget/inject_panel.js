@@ -127,6 +127,7 @@ async function injectWidget() {
           m15: '15 мин',
           off: 'Выкл',
           native: 'РОДНОЙ',
+          serviceConnecting: 'Подключение к сервису...',
           serviceErr: 'Сервис недоступен',
           scaleTitle: 'Масштаб виджета',
           scaleCompact: 'Мини',
@@ -202,6 +203,7 @@ async function injectWidget() {
           m15: '15m',
           off: 'Off',
           native: 'NATIVE',
+          serviceConnecting: 'Connecting to service...',
           serviceErr: 'Service unavailable',
           scaleTitle: 'Widget scale',
           scaleCompact: 'Mini',
@@ -1426,6 +1428,7 @@ async function injectWidget() {
       const pillSummary = document.createElement('div');
       pillSummary.id = 'agy-panel-pill';
       pillSummary.style.cssText = 'display: none; align-items: center; gap: 6px; font-size: 11px; cursor: pointer; padding: 2px 0;';
+      pillSummary.innerHTML = \`<span style="color: #a1a1aa; font-size: 10px; display: inline-flex; align-items: center; gap: 4px;"><span class="agy-pulse-badge" style="display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #eab308;"></span><span>\${t('serviceConnecting')}</span></span>\`;
 
       container.appendChild(header);
       container.appendChild(content);
@@ -1648,6 +1651,11 @@ async function injectWidget() {
       let isVisible = localStorage.getItem('agy_limits_visible') !== 'false';
       let lastGeminiPillItems = [];
       let lastClaudePillItems = [];
+      let hasLoadedQuota = false;
+      let initRetryCount = 0;
+      const MAX_INIT_RETRIES = 25;
+      let initRetryTimer = null;
+      let isUpdatingLimits = false;
 
       function toggleLimitsWidget(forceState) {
         isVisible = forceState !== undefined ? forceState : !isVisible;
@@ -1753,7 +1761,11 @@ async function injectWidget() {
               '</div>' +
             '</div>';
           } else {
-            singleHtml = '<span style="font-size: 11px; color: #71717a;">' + t('title') + '</span>';
+            const statusLabel = !hasLoadedQuota ? t('serviceConnecting') : t('title');
+            singleHtml = '<span style="font-size: 11px; color: #71717a; display: inline-flex; align-items: center; gap: 5px;">' +
+              (!hasLoadedQuota ? '<span class="agy-pulse-badge" style="display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #eab308;"></span>' : '') +
+              statusLabel +
+            '</span>';
           }
 
           btn.innerHTML = '<div style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 0; gap: 6px;">' +
@@ -2247,7 +2259,7 @@ async function injectWidget() {
       function setupInterval(ms) {
         if (window.__agyLimitsInterval) clearInterval(window.__agyLimitsInterval);
         if (ms > 0) {
-          window.__agyLimitsInterval = setInterval(updateLimits, ms);
+          window.__agyLimitsInterval = setInterval(() => updateLimits(false), ms);
         }
       }
 
@@ -2265,7 +2277,18 @@ async function injectWidget() {
         \`;
       }
 
-      async function updateLimits() {
+      async function updateLimits(isManual = false) {
+        if (isUpdatingLimits) return;
+        isUpdatingLimits = true;
+
+        if (isManual) {
+          initRetryCount = 0;
+          if (initRetryTimer) {
+            clearTimeout(initRetryTimer);
+            initRetryTimer = null;
+          }
+        }
+
         // Spin ONLY the SVG inside refresh button (hover box remains stationary)
         const refreshSvg = refreshBtn.querySelector('svg');
         if (refreshSvg) {
@@ -2278,15 +2301,49 @@ async function injectWidget() {
           }, 450);
         }
 
+        if (!hasLoadedQuota && (!content.innerHTML || content.innerHTML.trim() === '')) {
+          content.innerHTML = \`<div style="color: #a1a1aa; font-size: 11px; padding: 6px 8px; display: flex; align-items: center; gap: 6px;"><span class="agy-pulse-badge" style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #eab308;"></span><span>\${t('serviceConnecting')}</span></div>\`;
+        }
+
+        function scheduleInitRetry() {
+          if (!hasLoadedQuota && initRetryCount < MAX_INIT_RETRIES) {
+            initRetryCount++;
+            const delay = Math.min(2500, 800 + initRetryCount * 100);
+            if (initRetryTimer) clearTimeout(initRetryTimer);
+            initRetryTimer = setTimeout(() => {
+              initRetryTimer = null;
+              updateLimits(false);
+            }, delay);
+            return true;
+          }
+          return false;
+        }
+
         try {
           const service = getQuotaService();
           if (!service) {
+            if (scheduleInitRetry()) {
+              return;
+            }
             content.innerHTML = \`<div style="color: #ef4444; padding: 4px;">\${t('serviceErr')}</div>\`;
             return;
           }
 
           const res = await service.retrieveUserQuotaSummary();
           const groups = res?.response?.groups || [];
+
+          if (groups.length === 0) {
+            if (scheduleInitRetry()) {
+              return;
+            }
+          }
+
+          hasLoadedQuota = true;
+          initRetryCount = 0;
+          if (initRetryTimer) {
+            clearTimeout(initRetryTimer);
+            initRetryTimer = null;
+          }
 
           let html = '';
           const geminiPillItems = [];
@@ -2464,7 +2521,16 @@ async function injectWidget() {
 
           applyCollapseState();
         } catch (e) {
-          content.innerHTML = \`<div style="color: #ef4444; font-size: 10px; padding: 4px;">\${t('serviceErr')}: \${e.message}</div>\`;
+          if (scheduleInitRetry()) {
+            return;
+          }
+          if (hasLoadedQuota) {
+            console.warn('[Companion Limits] Transient quota fetch error:', e.message);
+          } else {
+            content.innerHTML = \`<div style="color: #ef4444; font-size: 10px; padding: 4px;">\${t('serviceErr')}: \${e.message}</div>\`;
+          }
+        } finally {
+          isUpdatingLimits = false;
         }
       }
 
@@ -2638,12 +2704,21 @@ async function injectWidget() {
       }
       window.addEventListener('paste', handleInputPaste, true);
 
-      refreshBtn.addEventListener('click', () => updateLimits());
+      refreshBtn.addEventListener('click', () => updateLimits(true));
 
-      updateLimits();
+      function handleWindowFocus() {
+        if (!hasLoadedQuota) {
+          updateLimits(false);
+        }
+      }
+      window.addEventListener('focus', handleWindowFocus);
+
+      updateLimits(false);
       setupInterval(currentIntervalMs);
 
       window.__agyLimitsCleanup = () => {
+        if (initRetryTimer) clearTimeout(initRetryTimer);
+        window.removeEventListener('focus', handleWindowFocus);
         window.removeEventListener('mousemove', handleMouseMove);
         window.removeEventListener('mouseup', handleMouseUp);
         window.removeEventListener('resize', onViewportResize);

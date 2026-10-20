@@ -16,13 +16,14 @@ async function main() {
   }
 
   try {
-    process.stdout.write('2. Проверка синтаксиса модулей, инъекций CDP, изоляции проектов и команд... ');
-    const { testProjectIsolationGuard, testSkillCommandIsolationGuard } = require('./syntax_injection.test.js');
+    process.stdout.write('2. Проверка синтаксиса модулей, инъекций CDP, изоляции проектов, команд и авто-ретрая... ');
+    const { testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard } = require('./syntax_injection.test.js');
     testInjectionCodeExtraction();
     testProjectIsolationGuard();
     testSkillCommandIsolationGuard();
+    testStartupRetryGuard();
     console.log(`✓ УСПЕШНО`);
-    console.log(`   Все JS-скрипты синтаксически валидны, изоляция названий проектов и команд активна.`);
+    console.log(`   Все JS-скрипты синтаксически валидны, изоляция названий проектов, команд и авто-ретрай лимитов активны.`);
   } catch (e) {
     console.log(`✗ ОШИБКА: ${e.message}`);
     hasErrors = true;
