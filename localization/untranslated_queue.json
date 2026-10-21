@@ -227,5 +227,6 @@
   "generate preview dashboard HTML",
   "check test_issue handler",
   "search buy_core handler",
-  "check test expectations"
+  "check test expectations",
+  "run pytest suite to verify changes"
 ]
