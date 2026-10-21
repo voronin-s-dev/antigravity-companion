@@ -126,9 +126,7 @@
   "Explored files, ran commands, edited files. Working",
   "list profiles/26.03.2005 directory",
   "Working. Working",
-  "5s timer: Timer has expired",
   "update graphify knowledge graph",
-  "Astrological Birth Chart Analysis",
   "Calculate with female gender",
   "dashboard.html",
   "Close dashboard.html",
@@ -178,5 +176,17 @@
   "inspect 29.07.2005 analysis file stats",
   "Compare text stats between 29.07.2005 and 26.03.2005",
   "compare text stats between 29.07.2005 and 26.03.2005",
-  "scan transcript user inputs and model responses"
+  "scan transcript user inputs and model responses",
+  "read transcript steps",
+  "Astrological Birth Chart Analysis",
+  "5s timer: Timer has expired",
+  "Print transcript conversation steps",
+  "print transcript conversation steps",
+  "check transcript line count",
+  "Print user messages",
+  "print user messages",
+  "Print last assistant response",
+  "print last assistant response",
+  "Print last assistant response utf8",
+  "print last assistant response utf8"
 ]
