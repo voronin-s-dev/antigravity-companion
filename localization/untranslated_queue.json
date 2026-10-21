@@ -274,5 +274,8 @@
   "Launch updated bot daemon with time import",
   "launch updated bot daemon with time import",
   "verify grant_passport_access execution",
-  "Accumulated Translation Status"
+  "Accumulated Translation Status",
+  "Mobile Version Analysis Clarification",
+  "list files in project root",
+  "check templates folder"
 ]
