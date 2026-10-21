@@ -25,5 +25,6 @@
   "inspect Oschadbank bank statement",
   "inspect IDP certificate",
   "read remaining response txt files",
-  "read docx summary"
+  "read docx summary",
+  "check statement_2026-10-10.pdf"
 ]
