@@ -218,7 +218,6 @@
   "Start unbuffered Telegram bot daemon",
   "start unbuffered Telegram bot daemon",
   "check sample HTML dashboard",
-  "test report builder",
   "Generate preview dashboard HTML",
   "generate preview dashboard HTML",
   "check test_issue handler",
@@ -281,5 +280,7 @@
   "search fulfill_order in bot code",
   "find all tab ids",
   "run pytest via python -m pytest",
-  "check python binaries"
+  "check python binaries",
+  "test report builder",
+  "test pdf service"
 ]
