@@ -70,7 +70,6 @@
   "Full diff between mobile_dashboard_template in both projects",
   "full diff between mobile_dashboard_template in both projects",
   "search for FINANCE_CODE in mobile_dashboard_template.html",
-  "Writing",
   "test import report_builder",
   "test report_builder generation",
   "run make_profile with export-all",
@@ -122,5 +121,6 @@
   "test export_profile_docx",
   "test export_profile_pdf",
   "inspect meta level functions",
-  "check python environment"
+  "check python environment",
+  "Writing"
 ]
