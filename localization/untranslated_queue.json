@@ -46,5 +46,22 @@
   "clean temporary dump files",
   "Supabase Project Pause Notification",
   "list projects in Antigravity projects",
-  "search agentmemory for numerology"
+  "search agentmemory for numerology",
+  "Compare template files",
+  "compare template files",
+  "Diff templates stat",
+  "diff templates stat",
+  "Diff templates first 60 lines",
+  "diff templates first 60 lines",
+  "list recent conversations in brain",
+  "read transcript head from db6adedc",
+  "read transcript head from e14e7607",
+  "read transcript head from 4c10fe7c",
+  "search transcripts for exact phrase",
+  "search transcripts for numerology bot task IDs",
+  "read transcript head from bbbcecb4",
+  "search transcripts for separation step",
+  "read user input from 294eb80a",
+  "find all user inputs in 294eb80a",
+  "read last lines of 294eb80a"
 ]
