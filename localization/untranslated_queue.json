@@ -26,5 +26,7 @@
   "inspect IDP certificate",
   "read remaining response txt files",
   "read docx summary",
-  "check statement_2026-10-10.pdf"
+  "check statement_2026-10-10.pdf",
+  "find MCP configs in .gemini",
+  "check agentmemory process and port 3111"
 ]
