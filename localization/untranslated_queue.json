@@ -23,5 +23,7 @@
   "render PDF to image",
   "read txt files in wallet info",
   "inspect Oschadbank bank statement",
-  "inspect IDP certificate"
+  "inspect IDP certificate",
+  "read remaining response txt files",
+  "read docx summary"
 ]
