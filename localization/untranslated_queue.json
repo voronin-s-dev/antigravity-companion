@@ -260,5 +260,7 @@
   "Stop python",
   "stop python",
   "Start updated bot daemon",
-  "start updated bot daemon"
+  "start updated bot daemon",
+  "check cloudflared version",
+  "test cloudflared tunnel URL extraction"
 ]
