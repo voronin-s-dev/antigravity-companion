@@ -76,11 +76,9 @@
   "check generated profile files",
   "search for NAME in template",
   "test make_profile for new date 14.07.1990",
-  "Astrological Birth Chart Analysis",
   "User cancelled agent execution.",
   "User cancelled agent execution",
   "run deterministic numerology calculator",
-  "Calculate with female gender",
   "calculate with female gender",
   "list existing profiles",
   "list root directory",
@@ -131,5 +129,7 @@
   "list profiles/26.03.2005 directory",
   "Working. Working",
   "5s timer: Timer has expired",
-  "update graphify knowledge graph"
+  "update graphify knowledge graph",
+  "Astrological Birth Chart Analysis",
+  "Calculate with female gender"
 ]
