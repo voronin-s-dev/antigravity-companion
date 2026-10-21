@@ -44,7 +44,6 @@
   "dump steps 225-244",
   "Clean temporary dump files",
   "clean temporary dump files",
-  "Supabase Project Pause Notification",
   "list projects in Antigravity projects",
   "search agentmemory for numerology",
   "Compare template files",
@@ -152,5 +151,6 @@
   "Fold lines 52-54",
   "Fold lines 56-57",
   "open_dashboard.bat",
-  "Close open_dashboard.bat"
+  "Close open_dashboard.bat",
+  "Supabase Project Pause Notification"
 ]
