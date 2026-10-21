@@ -102,5 +102,15 @@
   "read lines 50-120 of build_analysis_markdown",
   "check analysis.md sizes across profiles",
   "check template_structure.md length",
-  "list files in profiles/30.08.2005"
+  "list files in profiles/30.08.2005",
+  "test export modules import",
+  "test export modules with sys.path",
+  "check export_pdf dependencies",
+  "check test assertions on psychology_synthesis",
+  "verify test_calculate",
+  "read start of build_dashboard_html",
+  "read lines 60-130 of build_dashboard_html",
+  "inspect destiny_matrix for 26.03.2005",
+  "read calculate_destiny_matrix source",
+  "check render_destiny_mandala_svg"
 ]
