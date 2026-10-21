@@ -117,7 +117,6 @@
   "test export_profile_pdf",
   "inspect meta level functions",
   "check python environment",
-  "Writing",
   "check environment",
   "Export all formats for 26.03.2005",
   "export all formats for 26.03.2005",
@@ -262,5 +261,6 @@
   "Start updated bot daemon",
   "start updated bot daemon",
   "check cloudflared version",
-  "test cloudflared tunnel URL extraction"
+  "test cloudflared tunnel URL extraction",
+  "Writing"
 ]
