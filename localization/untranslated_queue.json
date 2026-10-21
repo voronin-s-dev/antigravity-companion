@@ -146,8 +146,6 @@
   "Fold lines 45-50",
   "Fold lines 52-54",
   "Fold lines 56-57",
-  "open_dashboard.bat",
-  "Close open_dashboard.bat",
   "Supabase Project Pause Notification",
   "mobile_dashboard_template.html",
   "compare lines count between 30.08 and 26.03",
@@ -196,5 +194,7 @@
   "test python environment",
   "check existing 26.03.2005 tools",
   "check working directory",
-  "verify readiness to expand builder"
+  "verify readiness to expand builder",
+  "open_dashboard.bat",
+  "Close open_dashboard.bat"
 ]
