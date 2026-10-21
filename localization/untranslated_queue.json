@@ -269,5 +269,10 @@
   "Start bot with integrated TWA server and Cloudflare tunnel",
   "start bot with integrated TWA server and Cloudflare tunnel",
   "test live TWA HTTPS tunnel",
-  "test preview endpoint"
+  "test preview endpoint",
+  "Clean processes",
+  "clean processes",
+  "Launch updated bot daemon with time import",
+  "launch updated bot daemon with time import",
+  "verify grant_passport_access execution"
 ]
