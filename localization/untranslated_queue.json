@@ -130,7 +130,6 @@
   "Calculate with female gender",
   "dashboard.html",
   "Close dashboard.html",
-  "profiles",
   "Fold lines 4-62",
   "Fold lines 9-18",
   "Fold lines 10-18",
@@ -188,5 +187,7 @@
   "Print last assistant response",
   "print last assistant response",
   "Print last assistant response utf8",
-  "print last assistant response utf8"
+  "print last assistant response utf8",
+  "profiles",
+  "list headings with utf-8 reconfigure"
 ]
