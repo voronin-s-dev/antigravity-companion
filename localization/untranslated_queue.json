@@ -194,5 +194,6 @@
   "check 29.07.2005 dashboard.html length",
   "verify deterministic calculation for 26.03.2005",
   "test python environment",
-  "check existing 26.03.2005 tools"
+  "check existing 26.03.2005 tools",
+  "check working directory"
 ]
