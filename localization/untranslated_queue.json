@@ -66,5 +66,7 @@
   "read last lines of 294eb80a",
   "test core/calculate.py compact output",
   "test core/calculate.py pair output",
-  "list services in bot/services"
+  "list services in bot/services",
+  "Full diff between mobile_dashboard_template in both projects",
+  "full diff between mobile_dashboard_template in both projects"
 ]
