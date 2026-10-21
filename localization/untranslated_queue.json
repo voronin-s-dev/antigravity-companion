@@ -226,5 +226,6 @@
   "Generate preview dashboard HTML",
   "generate preview dashboard HTML",
   "check test_issue handler",
-  "search buy_core handler"
+  "search buy_core handler",
+  "check test expectations"
 ]
