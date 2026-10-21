@@ -74,5 +74,6 @@
   "test import report_builder",
   "test report_builder generation",
   "run make_profile with export-all",
-  "check generated profile files"
+  "check generated profile files",
+  "search for NAME in template"
 ]
