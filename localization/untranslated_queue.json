@@ -212,5 +212,17 @@
   "check Python 3.12 and aiogram",
   "check environment variables",
   "check Bot get_me",
-  "run pytest suite"
+  "run pytest suite",
+  "Start Telegram bot daemon",
+  "start Telegram bot daemon",
+  "check python process",
+  "Killing task Start Telegram bot daemon",
+  "Stop any python process",
+  "stop any python process",
+  "Start unbuffered Telegram bot daemon",
+  "start unbuffered Telegram bot daemon",
+  "check sample HTML dashboard",
+  "test report builder",
+  "Generate preview dashboard HTML",
+  "generate preview dashboard HTML"
 ]
