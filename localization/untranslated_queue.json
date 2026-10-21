@@ -63,5 +63,8 @@
   "search transcripts for separation step",
   "read user input from 294eb80a",
   "find all user inputs in 294eb80a",
-  "read last lines of 294eb80a"
+  "read last lines of 294eb80a",
+  "test core/calculate.py compact output",
+  "test core/calculate.py pair output",
+  "list services in bot/services"
 ]
