@@ -282,5 +282,6 @@
   "run pytest via python -m pytest",
   "check python binaries",
   "test report builder",
-  "test pdf service"
+  "test pdf service",
+  "run all non-pdf tests quickly"
 ]
