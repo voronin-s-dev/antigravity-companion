@@ -204,7 +204,6 @@
   "build updated mobile dashboard",
   "check size of updated mobile_dashboard.html",
   "run tests",
-  "Local Bot Testing And Analysis",
   "list project structure",
   "check environment configuration",
   "check python version",
@@ -255,5 +254,11 @@
   "test pinggy tunnel via ssh",
   "run localtunnel with -y",
   "test localtunnel URL",
-  "check preview_dashboard.html"
+  "check preview_dashboard.html",
+  "Local Bot Testing And Analysis",
+  "Killing task Restart updated Telegram bot daemon",
+  "Stop python",
+  "stop python",
+  "Start updated bot daemon",
+  "start updated bot daemon"
 ]
