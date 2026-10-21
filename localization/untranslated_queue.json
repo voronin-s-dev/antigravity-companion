@@ -9,5 +9,19 @@
   "find OTA check schedule",
   "check local .env file",
   "Get file list with UTF-8 encoding",
-  "get file list with UTF-8 encoding"
+  "get file list with UTF-8 encoding",
+  "check PDF libraries in Python",
+  "check python version",
+  "find python executable",
+  "run Python 3.12",
+  "check installed pip packages",
+  "Extract text from the residence extract PDF",
+  "extract text from the residence extract PDF",
+  "Extract text with pypdf to file",
+  "extract text with pypdf to file",
+  "Render PDF to image",
+  "render PDF to image",
+  "read txt files in wallet info",
+  "inspect Oschadbank bank statement",
+  "inspect IDP certificate"
 ]
