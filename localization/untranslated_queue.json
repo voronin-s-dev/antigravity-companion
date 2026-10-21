@@ -224,5 +224,7 @@
   "check sample HTML dashboard",
   "test report builder",
   "Generate preview dashboard HTML",
-  "generate preview dashboard HTML"
+  "generate preview dashboard HTML",
+  "check test_issue handler",
+  "search buy_core handler"
 ]
