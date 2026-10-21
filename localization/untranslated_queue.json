@@ -98,5 +98,8 @@
   "check build_analysis_markdown structure",
   "check lines in calculate_numerology",
   "inspect calculate_numerology psych_profile section",
-  "run pytest suite"
+  "run pytest suite",
+  "read lines 50-120 of build_analysis_markdown",
+  "check analysis.md sizes across profiles",
+  "check template_structure.md length"
 ]
