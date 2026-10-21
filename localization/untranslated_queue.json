@@ -101,5 +101,6 @@
   "run pytest suite",
   "read lines 50-120 of build_analysis_markdown",
   "check analysis.md sizes across profiles",
-  "check template_structure.md length"
+  "check template_structure.md length",
+  "list files in profiles/30.08.2005"
 ]
