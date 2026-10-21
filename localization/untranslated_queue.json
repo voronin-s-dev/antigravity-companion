@@ -195,5 +195,6 @@
   "verify deterministic calculation for 26.03.2005",
   "test python environment",
   "check existing 26.03.2005 tools",
-  "check working directory"
+  "check working directory",
+  "verify readiness to expand builder"
 ]
