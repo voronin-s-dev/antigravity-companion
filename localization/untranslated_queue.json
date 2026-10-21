@@ -112,5 +112,7 @@
   "read lines 60-130 of build_dashboard_html",
   "inspect destiny_matrix for 26.03.2005",
   "read calculate_destiny_matrix source",
-  "check render_destiny_mandala_svg"
+  "check render_destiny_mandala_svg",
+  "find return statement in calculate_financial_code",
+  "run pytest to verify calculate.py changes"
 ]
