@@ -191,5 +191,8 @@
   "profiles",
   "list headings with utf-8 reconfigure",
   "list files in profiles/29.07.2005",
-  "check 29.07.2005 dashboard.html length"
+  "check 29.07.2005 dashboard.html length",
+  "verify deterministic calculation for 26.03.2005",
+  "test python environment",
+  "check existing 26.03.2005 tools"
 ]
