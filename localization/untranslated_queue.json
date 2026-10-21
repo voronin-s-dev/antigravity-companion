@@ -41,5 +41,7 @@
   "Save steps 232-236 to files",
   "save steps 232-236 to files",
   "Dump steps 225-244",
-  "dump steps 225-244"
+  "dump steps 225-244",
+  "Clean temporary dump files",
+  "clean temporary dump files"
 ]
