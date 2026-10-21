@@ -28,5 +28,18 @@
   "read docx summary",
   "check statement_2026-10-10.pdf",
   "find MCP configs in .gemini",
-  "check agentmemory process and port 3111"
+  "check agentmemory process and port 3111",
+  "search for Variant B in project files",
+  "search across transcripts for Variant B",
+  "search recent transcripts for Freewallet and Variant B",
+  "find Variant B in other Freewallet conversations",
+  "Extract lines mentioning Variant B",
+  "extract lines mentioning Variant B",
+  "read exact steps with Variant B",
+  "Print matching lines for Option B",
+  "print matching lines for Option B",
+  "Save steps 232-236 to files",
+  "save steps 232-236 to files",
+  "Dump steps 225-244",
+  "dump steps 225-244"
 ]
