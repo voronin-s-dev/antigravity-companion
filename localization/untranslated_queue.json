@@ -202,5 +202,8 @@
   "re-export PDF and DOCX for 26.03.2005",
   "update graphify knowledge graph",
   "check 26.03.2005 mobile_dashboard.html stats",
-  "check mobile_preview.html size"
+  "check mobile_preview.html size",
+  "build updated mobile dashboard",
+  "check size of updated mobile_dashboard.html",
+  "run tests"
 ]
