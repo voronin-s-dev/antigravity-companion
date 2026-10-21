@@ -279,5 +279,7 @@
   "list files in project root",
   "check templates folder",
   "search fulfill_order in bot code",
-  "find all tab ids"
+  "find all tab ids",
+  "run pytest via python -m pytest",
+  "check python binaries"
 ]
