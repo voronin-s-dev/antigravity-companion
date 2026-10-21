@@ -233,5 +233,18 @@
   "Ensure clean exit",
   "ensure clean exit",
   "Restart updated Telegram bot daemon",
-  "restart updated Telegram bot daemon"
+  "restart updated Telegram bot daemon",
+  "inspect Supabase response headers",
+  "inspect SyncBucket.upload source",
+  "inspect b.upload source",
+  "inspect FileOptions source",
+  "inspect _upload_or_update",
+  "test upload with text/html",
+  "check test_mime.html headers",
+  "supabase storage html file text/plain sandbox",
+  "check URLs",
+  "check for supabase / npx CLI",
+  "check tunnel tools",
+  "\"supabase storage\" serve html \"text/html\"",
+  "test localtunnel"
 ]
