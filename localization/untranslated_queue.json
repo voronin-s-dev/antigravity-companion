@@ -118,5 +118,7 @@
   "test make_profile for 26.03.2005 female",
   "list files in profiles/26.03.2005",
   "Compare dashboard headers",
-  "compare dashboard headers"
+  "compare dashboard headers",
+  "test export_profile_docx",
+  "test export_profile_pdf"
 ]
