@@ -262,5 +262,10 @@
   "check cloudflared version",
   "test cloudflared tunnel URL extraction",
   "Writing",
-  "run pytest suite"
+  "run pytest suite",
+  "Killing task Start updated bot daemon",
+  "Ensure python is stopped",
+  "ensure python is stopped",
+  "Start bot with integrated TWA server and Cloudflare tunnel",
+  "start bot with integrated TWA server and Cloudflare tunnel"
 ]
