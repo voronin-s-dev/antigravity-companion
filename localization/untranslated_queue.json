@@ -278,5 +278,6 @@
   "Mobile Version Analysis Clarification",
   "list files in project root",
   "check templates folder",
-  "search fulfill_order in bot code"
+  "search fulfill_order in bot code",
+  "find all tab ids"
 ]
