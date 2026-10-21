@@ -7,5 +7,7 @@
   "check GitHub Actions runs",
   "inspect updater references",
   "find OTA check schedule",
-  "check local .env file"
+  "check local .env file",
+  "Get file list with UTF-8 encoding",
+  "get file list with UTF-8 encoding"
 ]
