@@ -210,7 +210,6 @@
   "check Python 3.12 and aiogram",
   "check environment variables",
   "check Bot get_me",
-  "run pytest suite",
   "Start Telegram bot daemon",
   "start Telegram bot daemon",
   "check python process",
@@ -262,5 +261,6 @@
   "start updated bot daemon",
   "check cloudflared version",
   "test cloudflared tunnel URL extraction",
-  "Writing"
+  "Writing",
+  "run pytest suite"
 ]
