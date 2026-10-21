@@ -189,5 +189,7 @@
   "Print last assistant response utf8",
   "print last assistant response utf8",
   "profiles",
-  "list headings with utf-8 reconfigure"
+  "list headings with utf-8 reconfigure",
+  "list files in profiles/29.07.2005",
+  "check 29.07.2005 dashboard.html length"
 ]
