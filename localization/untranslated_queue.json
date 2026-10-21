@@ -252,5 +252,8 @@
   "check cloudflared download URL",
   "check for ssh",
   "\"supabase/storage-api\" \"text/html\" OR \"html\" content-type",
-  "test pinggy tunnel via ssh"
+  "test pinggy tunnel via ssh",
+  "run localtunnel with -y",
+  "test localtunnel URL",
+  "check preview_dashboard.html"
 ]
