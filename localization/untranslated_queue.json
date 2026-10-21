@@ -122,5 +122,6 @@
   "test export_profile_pdf",
   "inspect meta level functions",
   "check python environment",
-  "Writing"
+  "Writing",
+  "check environment"
 ]
