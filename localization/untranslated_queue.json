@@ -231,5 +231,7 @@
   "run pytest suite to verify changes",
   "run pytest after fix",
   "Ensure clean exit",
-  "ensure clean exit"
+  "ensure clean exit",
+  "Restart updated Telegram bot daemon",
+  "restart updated Telegram bot daemon"
 ]
