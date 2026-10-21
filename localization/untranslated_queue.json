@@ -75,5 +75,6 @@
   "test report_builder generation",
   "run make_profile with export-all",
   "check generated profile files",
-  "search for NAME in template"
+  "search for NAME in template",
+  "test make_profile for new date 14.07.1990"
 ]
