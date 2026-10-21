@@ -228,5 +228,8 @@
   "check test_issue handler",
   "search buy_core handler",
   "check test expectations",
-  "run pytest suite to verify changes"
+  "run pytest suite to verify changes",
+  "run pytest after fix",
+  "Ensure clean exit",
+  "ensure clean exit"
 ]
