@@ -246,5 +246,11 @@
   "check for supabase / npx CLI",
   "check tunnel tools",
   "\"supabase storage\" serve html \"text/html\"",
-  "test localtunnel"
+  "test localtunnel",
+  "check Supabase Edge Functions",
+  "check git remote",
+  "check cloudflared download URL",
+  "check for ssh",
+  "\"supabase/storage-api\" \"text/html\" OR \"html\" content-type",
+  "test pinggy tunnel via ssh"
 ]
