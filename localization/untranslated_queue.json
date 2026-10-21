@@ -267,5 +267,7 @@
   "Ensure python is stopped",
   "ensure python is stopped",
   "Start bot with integrated TWA server and Cloudflare tunnel",
-  "start bot with integrated TWA server and Cloudflare tunnel"
+  "start bot with integrated TWA server and Cloudflare tunnel",
+  "test live TWA HTTPS tunnel",
+  "test preview endpoint"
 ]
