@@ -68,5 +68,6 @@
   "test core/calculate.py pair output",
   "list services in bot/services",
   "Full diff between mobile_dashboard_template in both projects",
-  "full diff between mobile_dashboard_template in both projects"
+  "full diff between mobile_dashboard_template in both projects",
+  "search for FINANCE_CODE in mobile_dashboard_template.html"
 ]
