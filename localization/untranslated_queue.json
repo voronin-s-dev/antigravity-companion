@@ -69,5 +69,8 @@
   "list services in bot/services",
   "Full diff between mobile_dashboard_template in both projects",
   "full diff between mobile_dashboard_template in both projects",
-  "search for FINANCE_CODE in mobile_dashboard_template.html"
+  "search for FINANCE_CODE in mobile_dashboard_template.html",
+  "Writing",
+  "test import report_builder",
+  "test report_builder generation"
 ]
