@@ -2538,7 +2538,7 @@ async function injectWidget() {
       let lastKnownStepCount = 1;
 
       function getSessionStepCount() {
-        // 1. Поиск канонического массива turns в React Fiber активного диалога
+        // 1. Извлечение канонических шагов агента из trajectorySlice в React Fiber активного диалога
         try {
           const candidates = [
             document.querySelector('[data-testid="autoscroll-viewport"]'),
@@ -2553,23 +2553,37 @@ async function injectWidget() {
             let f = el[key];
             while (f) {
               const p = f.memoizedProps;
-              if (p && Array.isArray(p.turns)) {
-                const count = p.turns.length;
-                const convId = p.conversationId;
-                if (convId && convId !== currentSessionConvId) {
-                  currentSessionConvId = convId;
-                  lastKnownStepCount = Math.max(1, count);
-                } else if (count > 0) {
-                  lastKnownStepCount = count;
+              if (p) {
+                const convId = p.conversationId || p.trajectorySlice?.conversationId;
+                const ts = p.trajectorySlice;
+                if (ts) {
+                  const genCount = Number(ts.totalGeneratorMetadataLength) || 0;
+                  const totalSteps = Number(ts.totalStepsLength) || 0;
+                  const count = genCount > 0 ? genCount : (totalSteps > 0 ? Math.ceil(totalSteps / 2) : 0);
+                  if (convId && convId !== currentSessionConvId) {
+                    currentSessionConvId = convId;
+                    lastKnownStepCount = Math.max(1, count);
+                  } else if (count > 0) {
+                    lastKnownStepCount = count;
+                  }
+                  return lastKnownStepCount;
                 }
-                return lastKnownStepCount;
+                if (Array.isArray(p.turns) && p.turns.length > 0) {
+                  if (convId && convId !== currentSessionConvId) {
+                    currentSessionConvId = convId;
+                    lastKnownStepCount = p.turns.length;
+                  } else {
+                    lastKnownStepCount = Math.max(lastKnownStepCount, p.turns.length);
+                  }
+                  return lastKnownStepCount;
+                }
               }
               f = f.return;
             }
           }
         } catch (e) {}
 
-        // 2. Резервный подсчет по DOM-узлам шагов пользователя
+        // 2. Резервный подсчет по DOM-узлам сообщений
         const userSteps = document.querySelectorAll('[data-testid="user-input-step"]').length;
         if (userSteps > 0) {
           lastKnownStepCount = Math.max(lastKnownStepCount, userSteps);
@@ -2638,7 +2652,19 @@ async function injectWidget() {
         }
       }
 
-      const sessionStepInterval = setInterval(updateSessionStepDisplays, 3000);
+      const sessionStepInterval = setInterval(updateSessionStepDisplays, 1000);
+
+      // Мгновенная реакция при переключении бесед в сайдбаре
+      function handleConversationSwitchTrigger() {
+        setTimeout(updateSessionStepDisplays, 150);
+        setTimeout(updateSessionStepDisplays, 600);
+      }
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('[data-testid*="conversation"]')) {
+          handleConversationSwitchTrigger();
+        }
+      }, true);
+      window.addEventListener('popstate', handleConversationSwitchTrigger, true);
 
       // Pre-flight Paste Guard (Clipboard Bloat Check)
       let pasteToastTimer = null;
