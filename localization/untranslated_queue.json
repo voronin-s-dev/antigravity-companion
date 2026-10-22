@@ -1759,5 +1759,9 @@
   "check .env file existence",
   "find python binary",
   "locate Python installations",
-  "run pytest with Python 3.12"
+  "run pytest with Python 3.12",
+  "Get start time of process 39856",
+  "check running bot processes",
+  "get command line of process 39856",
+  "get start time of process 39856"
 ]
