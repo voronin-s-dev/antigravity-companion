@@ -1736,5 +1736,7 @@
   "Clean queue from debug command noise",
   "check step count in live window",
   "clean queue from debug command noise",
-  "sanitize untranslated queue"
+  "sanitize untranslated queue",
+  "Translate fresh strings from queue",
+  "translate fresh strings from queue"
 ]
