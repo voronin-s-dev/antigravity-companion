@@ -66,7 +66,6 @@
   "test agent-input-box fiber for turns",
   "test conversation-view fiber for turns",
   "test button.sr-only fiber for turns",
-  "Fix Widget Step Counter Bug",
   "Queue Message",
   "run strings harvester",
   "check untranslated strings found",
@@ -1730,5 +1729,6 @@
   "check .env file for GEMINI_API_KEY",
   "test step counter logic via CDP",
   "check tests for getSessionStepCount",
-  "find inject_panel in test/"
+  "find inject_panel in test/",
+  "Fix Widget Step Counter Bug"
 ]
