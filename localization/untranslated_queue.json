@@ -1753,5 +1753,6 @@
   "test steps on 2nd row",
   "switch back to 1st row",
   "test steps on 1st row",
-  "run syntax test"
+  "run syntax test",
+  "Local Bot Testing Resumption"
 ]
