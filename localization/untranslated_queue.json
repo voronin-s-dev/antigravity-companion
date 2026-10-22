@@ -60,7 +60,6 @@
   "run strings harvester",
   "run bundle harvester",
   "Sanitize untranslated queue",
-  "sanitize untranslated queue",
   "test step counter logic via CDP",
   "check tests for getSessionStepCount",
   "Get totalStepsLength",
@@ -1736,5 +1735,6 @@
   "Fix Widget Step Counter Bug",
   "Clean queue from debug command noise",
   "check step count in live window",
-  "clean queue from debug command noise"
+  "clean queue from debug command noise",
+  "sanitize untranslated queue"
 ]
