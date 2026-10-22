@@ -1790,5 +1790,6 @@
   "find birth date processing in bot",
   "test calculate_numerology with 08.11.95",
   "find calculate_numerology definition",
-  "run pytest test suite"
+  "run pytest test suite",
+  "verify normalized dates"
 ]
