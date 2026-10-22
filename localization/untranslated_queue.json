@@ -1785,5 +1785,8 @@
   "Measure report_builder output for 08.11.1995",
   "measure report_builder output for 08.11.1995",
   "run python with full path",
-  "inspect generated dashboard lines"
+  "inspect generated dashboard lines",
+  "check git log for sample_08_11_1995.html",
+  "find birth date processing in bot",
+  "test calculate_numerology with 08.11.95"
 ]
