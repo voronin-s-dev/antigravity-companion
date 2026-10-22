@@ -3,7 +3,7 @@ const path = require('path');
 const { loadConfig } = require('../config/companion_config.js');
 
 async function injectWidget() {
-  let pkgVersion = '1.6.3';
+  let pkgVersion = '1.6.4';
   try {
     delete require.cache[require.resolve('../package.json')];
     pkgVersion = require('../package.json').version;
@@ -2534,19 +2534,49 @@ async function injectWidget() {
         }
       }
 
+      let currentSessionConvId = null;
+      let lastKnownStepCount = 1;
+
       function getSessionStepCount() {
-        const btns = Array.from(document.querySelectorAll('button'));
-        for (const b of btns) {
-          const l = b.getAttribute('aria-label') || '';
-          const m = l.match(/(\\d+)\\s*(?:из|of)\\s*(\\d+)/i);
-          if (m) {
-            const totalMessages = parseInt(m[2], 10);
-            return Math.max(1, Math.ceil(totalMessages / 2));
+        // 1. Поиск канонического массива turns в React Fiber активного диалога
+        try {
+          const candidates = [
+            document.querySelector('[data-testid="autoscroll-viewport"]'),
+            document.querySelector('[data-testid="user-input-step"]'),
+            document.querySelector('button.sr-only'),
+            document.querySelector('[data-testid="conversation-view"]')
+          ];
+          for (const el of candidates) {
+            if (!el) continue;
+            const key = Object.keys(el).find(k => k.startsWith('__reactFiber'));
+            if (!key) continue;
+            let f = el[key];
+            while (f) {
+              const p = f.memoizedProps;
+              if (p && Array.isArray(p.turns)) {
+                const count = p.turns.length;
+                const convId = p.conversationId;
+                if (convId && convId !== currentSessionConvId) {
+                  currentSessionConvId = convId;
+                  lastKnownStepCount = Math.max(1, count);
+                } else if (count > 0) {
+                  lastKnownStepCount = count;
+                }
+                return lastKnownStepCount;
+              }
+              f = f.return;
+            }
           }
-        }
+        } catch (e) {}
+
+        // 2. Резервный подсчет по DOM-узлам шагов пользователя
         const userSteps = document.querySelectorAll('[data-testid="user-input-step"]').length;
-        if (userSteps > 0) return userSteps;
-        return 1;
+        if (userSteps > 0) {
+          lastKnownStepCount = Math.max(lastKnownStepCount, userSteps);
+          return lastKnownStepCount;
+        }
+
+        return lastKnownStepCount || 1;
       }
 
       function updateSessionStepDisplays() {

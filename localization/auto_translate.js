@@ -82,7 +82,7 @@ function callGemini(apiKey, prompt, model = 'gemini-3.5-flash') {
 }
 
 async function translateChunkWithRetry(apiKey, prompt) {
-  const models = ['gemini-3.5-flash', 'gemini-3.5-flash-lite', 'gemini-2.5-flash'];
+  const models = ['gemini-3.8-flash', 'gemini-3.8-flash-lite', 'gemini-3.5-flash', 'gemini-3.5-flash-lite'];
   let lastErr = null;
   for (const model of models) {
     for (let attempt = 1; attempt <= 2; attempt++) {

@@ -28,4 +28,5 @@ dist/
 
 # Local Agent Workspace
 .gemini/
+graphify-out/
 

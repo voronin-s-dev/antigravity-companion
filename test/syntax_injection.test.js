@@ -100,7 +100,17 @@ function testStartupRetryGuard() {
   }
 }
 
-module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard };
+function testStepCounterIntegrity() {
+  const panelSource = fs.readFileSync(path.resolve(__dirname, '../limits_widget/inject_panel.js'), 'utf8');
+  if (panelSource.includes('Math.ceil(totalMessages / 2)')) {
+    throw new Error('Обнаружен устаревший баг подсчета шагов: Math.ceil(totalMessages / 2) приводит к скачку до 100+ шагов!');
+  }
+  if (!panelSource.includes('p.turns') || !panelSource.includes('autoscroll-viewport')) {
+    throw new Error('Отсутствует канонический подсчет ходов диалога через turns в React Fiber!');
+  }
+}
+
+module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard, testStepCounterIntegrity };
 
 if (require.main === module) {
   try {
@@ -108,7 +118,8 @@ if (require.main === module) {
     testProjectIsolationGuard();
     testSkillCommandIsolationGuard();
     testStartupRetryGuard();
-    console.log('✓ Синтаксис всех скриптов, изоляция проектов, команд скилов и авто-ретрай лимитов корректны!');
+    testStepCounterIntegrity();
+    console.log('✓ Синтаксис всех скриптов, изоляция проектов, команд скилов, авто-ретрай лимитов и счетчик шагов сессии корректны!');
   } catch (e) {
     console.error('✗ Ошибка синтаксиса:', e.message);
     process.exit(1);
