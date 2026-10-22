@@ -1832,5 +1832,8 @@
   "Install mpazaryna yoga skills in project",
   "install mpazaryna yoga skills in project",
   "verify installed skills",
-  "list files in installed skills"
+  "list files in installed skills",
+  "check git status in Yoga-Workouts",
+  "Commit initial project setup",
+  "commit initial project setup"
 ]
