@@ -1712,5 +1712,10 @@
   "run polish dictionary",
   "audit dictionary quality",
   "check occurrences of 1.6.3",
-  "final git status check"
+  "final git status check",
+  "inspect turns and conversationId in current live window",
+  "check text in all step badges",
+  "find conversation tabs and elements",
+  "inspect conversation rows in sidebar",
+  "check propsList on autoscroll-viewport in Fiber"
 ]
