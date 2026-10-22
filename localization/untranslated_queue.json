@@ -1768,5 +1768,6 @@
   "stop old bot and cloudflared processes",
   "verify old processes terminated",
   "start Telegram Numerology bot",
-  "Start Telegram Numerology bot"
+  "Start Telegram Numerology bot",
+  "Restart bot daemon with fresh tunnel"
 ]
