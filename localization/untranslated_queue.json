@@ -1,4 +1,5 @@
 [
   "Fix Widget Step Counter Bug",
-  "find step/turn occurrences"
+  "find step/turn occurrences",
+  "CDP inspect button aria-labels and userSteps"
 ]
