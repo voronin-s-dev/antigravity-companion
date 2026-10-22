@@ -1754,5 +1754,7 @@
   "switch back to 1st row",
   "test steps on 1st row",
   "run syntax test",
-  "Local Bot Testing Resumption"
+  "Local Bot Testing Resumption",
+  "git status check",
+  "check .env file existence"
 ]
