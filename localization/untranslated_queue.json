@@ -1,5 +1,12 @@
 [
   "Fix Widget Step Counter Bug",
   "find step/turn occurrences",
-  "CDP inspect button aria-labels and userSteps"
+  "CDP inspect button aria-labels and userSteps",
+  "Get button aria-labels",
+  "CDP check document.title",
+  "count user-input-step in DOM",
+  "get button aria-labels",
+  "inspect older messages button",
+  "Evaluate getSessionStepCount in CDP",
+  "evaluate getSessionStepCount in CDP"
 ]
