@@ -1822,5 +1822,9 @@
   "filter yoga/fitness skills",
   "site:github.com \"SKILL.md\" yoga workout OR sequence OR asana",
   "fetch yoga-instructor SKILL.md preview",
-  "site:github.com/aiunlocked1412/claude-skill-unlock \"yoga-instructor\""
+  "site:github.com/aiunlocked1412/claude-skill-unlock \"yoga-instructor\"",
+  "check existing Antigravity projects",
+  "Init Yoga-Workouts repo",
+  "init Yoga-Workouts repo",
+  "list skills in mpazaryna repo"
 ]
