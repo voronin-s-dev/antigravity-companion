@@ -1795,5 +1795,18 @@
   "Copy sample_08_11_1995.html to preview_dashboard.html",
   "copy sample_08_11_1995.html to preview_dashboard.html",
   "test build_dashboard_html with various date formats",
-  "run pytest"
+  "run pytest",
+  "find files in 22.10.26 folder",
+  "Extract text from Monobank statements",
+  "extract text from Monobank statements",
+  "Render Monobank PDFs to PNG",
+  "render Monobank PDFs to PNG",
+  "check passport files",
+  "check passport image dimensions",
+  "Generate passport thumbnail",
+  "generate passport thumbnail",
+  "Clean temporary preview images",
+  "clean temporary preview images",
+  "Copy Monobank statement to ready folder",
+  "copy Monobank statement to ready folder"
 ]
