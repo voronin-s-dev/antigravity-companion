@@ -1791,5 +1791,9 @@
   "test calculate_numerology with 08.11.95",
   "find calculate_numerology definition",
   "run pytest test suite",
-  "verify normalized dates"
+  "verify normalized dates",
+  "Copy sample_08_11_1995.html to preview_dashboard.html",
+  "copy sample_08_11_1995.html to preview_dashboard.html",
+  "test build_dashboard_html with various date formats",
+  "run pytest"
 ]
