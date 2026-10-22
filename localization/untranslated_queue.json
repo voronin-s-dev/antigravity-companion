@@ -1756,5 +1756,8 @@
   "run syntax test",
   "Local Bot Testing Resumption",
   "git status check",
-  "check .env file existence"
+  "check .env file existence",
+  "find python binary",
+  "locate Python installations",
+  "run pytest with Python 3.12"
 ]
