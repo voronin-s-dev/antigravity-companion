@@ -63,7 +63,6 @@
   "sanitize untranslated queue",
   "test step counter logic via CDP",
   "check tests for getSessionStepCount",
-  "Fix Widget Step Counter Bug",
   "Get totalStepsLength",
   "Get bundle path via bundle_harvester",
   "inspect React State on conversation-view",
@@ -1733,5 +1732,9 @@
   "find inject_panel in test/",
   "run syntax_injection test",
   "Reload injection in Antigravity window",
-  "reload injection in Antigravity window"
+  "reload injection in Antigravity window",
+  "Fix Widget Step Counter Bug",
+  "Clean queue from debug command noise",
+  "check step count in live window",
+  "clean queue from debug command noise"
 ]
