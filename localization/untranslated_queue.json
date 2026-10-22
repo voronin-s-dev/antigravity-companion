@@ -1779,5 +1779,11 @@
   "find build_dashboard_html calls",
   "check preview_dashboard.html git history",
   "Diff sample_08_11_1995.html and preview_dashboard.html",
-  "diff sample_08_11_1995.html and preview_dashboard.html"
+  "diff sample_08_11_1995.html and preview_dashboard.html",
+  "Measure sample_08_11_1995.html lines and words",
+  "measure sample_08_11_1995.html lines and words",
+  "Measure report_builder output for 08.11.1995",
+  "measure report_builder output for 08.11.1995",
+  "run python with full path",
+  "inspect generated dashboard lines"
 ]
