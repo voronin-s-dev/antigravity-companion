@@ -1883,5 +1883,8 @@
   "verify git status and log",
   "question",
   "Playwright Integration For Google Flow",
-  "create GitHub repo and push initial commit"
+  "create GitHub repo and push initial commit",
+  "verify GitHub repository details",
+  "Set GitHub repo description and topics",
+  "set GitHub repo description and topics"
 ]
