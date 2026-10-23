@@ -1891,5 +1891,9 @@
   "Tag and push v1.7.0",
   "commit and push v1.7.0 to main",
   "tag and push v1.7.0",
-  "check GitHub Actions runs for v1.7.0"
+  "check GitHub Actions runs for v1.7.0",
+  "Reload local UI",
+  "check release v1.7.0",
+  "check updater output",
+  "reload local UI"
 ]
