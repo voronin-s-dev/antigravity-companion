@@ -1697,5 +1697,6 @@
   "Failed to load text layer:",
   "Unhandled error from fetchTextLayerData:",
   "Failed to load pdfjs-dist:",
-  "Unhandled error from renderPdfJsTextLayer:"
+  "Unhandled error from renderPdfJsTextLayer:",
+  "run npx skills --help"
 ]
