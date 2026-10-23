@@ -1906,5 +1906,8 @@
   "push to origin main",
   "check GitHub Actions run status",
   "watch GitHub CI run",
-  "update graphify AST"
+  "update graphify AST",
+  "find 1.7.0 references",
+  "Convert CHANGELOG.md to LF",
+  "convert CHANGELOG.md to LF"
 ]
