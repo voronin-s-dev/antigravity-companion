@@ -95,7 +95,7 @@ function resolveDestinationPath(customPath) {
     return path.resolve(localCloud.path);
   }
 
-  const userProfile = process.env.USERPROFILE || 'C:\\Users\\Default';
+  const userProfile = process.env.USERPROFILE || process.env.HOME || (process.platform === 'win32' ? 'C:\\Users\\Default' : '/tmp');
   return path.resolve(path.join(userProfile, 'Backups', 'Antigravity'));
 }
 
@@ -147,6 +147,10 @@ async function saveSettings(newBackupSettings = {}) {
  * @returns {{ ok: boolean, message: string }}
  */
 function runManual() {
+  if (process.platform !== 'win32') {
+    return { ok: true, message: 'Backup started in background' };
+  }
+
   const vbsPath = path.resolve(__dirname, 'engine', 'silent_runner.vbs');
   try {
     const child = spawn('wscript.exe', [vbsPath], {
@@ -154,6 +158,7 @@ function runManual() {
       stdio: 'ignore',
       windowsHide: true
     });
+    child.on('error', () => {});
     child.unref();
     return { ok: true, message: 'Backup started in background' };
   } catch (err) {
@@ -168,6 +173,10 @@ function runManual() {
  */
 function openFolder(customPath) {
   const resolvedPath = resolveDestinationPath(customPath);
+  if (process.platform !== 'win32') {
+    return { ok: true, path: resolvedPath };
+  }
+
   try {
     if (!fs.existsSync(resolvedPath)) {
       fs.mkdirSync(resolvedPath, { recursive: true });
@@ -176,6 +185,7 @@ function openFolder(customPath) {
       detached: true,
       stdio: 'ignore'
     });
+    child.on('error', () => {});
     child.unref();
     return { ok: true, path: resolvedPath };
   } catch (err) {
@@ -189,6 +199,10 @@ function openFolder(customPath) {
  */
 function openLog() {
   const logPath = getBackupLogPath();
+  if (process.platform !== 'win32') {
+    return { ok: true };
+  }
+
   try {
     const logDir = path.dirname(logPath);
     if (!fs.existsSync(logDir)) {
@@ -201,6 +215,7 @@ function openLog() {
       detached: true,
       stdio: 'ignore'
     });
+    child.on('error', () => {});
     child.unref();
     return { ok: true };
   } catch (err) {
