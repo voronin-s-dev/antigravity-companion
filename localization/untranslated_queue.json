@@ -1934,5 +1934,7 @@
   "check running powershell/tar processes",
   "run run_backup.ps1 directly",
   "read lockfile content",
-  "run run_backup.ps1 cleanly to observe behavior"
+  "run run_backup.ps1 cleanly to observe behavior",
+  "check backup status via CDP",
+  "read panel.innerText safely"
 ]
