@@ -1843,5 +1843,7 @@
   "run flow_client.py test generation",
   "click New Project and take screenshot",
   "test background generation without bring_to_front",
-  "list user skills directory"
+  "list user skills directory",
+  "verify LocalAppData path",
+  "create skill directory structure"
 ]
