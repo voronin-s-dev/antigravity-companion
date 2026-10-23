@@ -1766,5 +1766,6 @@
   "10:00 AM",
   "On top of those defaults, Weekly Skills Auto-Update requests the access below.",
   "Commands, 1 grant",
-  "Enabled \"Weekly Skills Auto-Update\".: Agents created by this automation run in a dedicated project with its own permissions. You can change the permissions in the project settings page"
+  "Enabled \"Weekly Skills Auto-Update\".: Agents created by this automation run in a dedicated project with its own permissions. You can change the permissions in the project settings page",
+  "workouts"
 ]
