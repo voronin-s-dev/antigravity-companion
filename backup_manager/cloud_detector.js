@@ -15,8 +15,16 @@ const { execSync } = require('child_process');
  */
 function getVolumeFreeSpaceGB(targetPath) {
   try {
-    if (!targetPath) return 0;
+    if (!targetPath || typeof targetPath !== 'string') return 0;
+    // On POSIX (e.g. Linux CI runner), Windows drive paths like Z:\ are not native and must return 0
+    if (process.platform !== 'win32' && /^[a-zA-Z]:[\\/]/.test(targetPath)) {
+      return 0;
+    }
     let checkPath = path.resolve(targetPath);
+    const parsed = path.parse(checkPath);
+    if (!parsed.root || !fs.existsSync(parsed.root)) {
+      return 0;
+    }
     while (checkPath && !fs.existsSync(checkPath)) {
       const parent = path.dirname(checkPath);
       if (parent === checkPath) break;
@@ -37,7 +45,7 @@ function getVolumeFreeSpaceGB(targetPath) {
  * @returns {Array<{id: string, name: string, path: string, available: boolean, freeSpaceGB: number}>}
  */
 function detectAvailableClouds() {
-  const userProfile = process.env.USERPROFILE || 'C:\\Users\\Default';
+  const userProfile = process.env.USERPROFILE || process.env.HOME || (process.platform === 'win32' ? 'C:\\Users\\Default' : '/tmp');
   const clouds = [];
 
   // 1. OneDrive
@@ -99,17 +107,19 @@ function detectAvailableClouds() {
 
   // 3. Yandex.Disk
   let yandexRoot = null;
-  try {
-    const regOutput = execSync('reg query "HKCU\\Software\\Yandex\\Yandex.Disk\\Settings" /v SyncDirectory', {
-      encoding: 'utf8',
-      stdio: ['pipe', 'pipe', 'ignore'],
-      windowsHide: true
-    });
-    const match = regOutput.match(/SyncDirectory\s+REG_\w+\s+(.*)/i);
-    if (match && match[1]) {
-      yandexRoot = match[1].trim();
-    }
-  } catch (e) {}
+  if (process.platform === 'win32') {
+    try {
+      const regOutput = execSync('reg query "HKCU\\Software\\Yandex\\Yandex.Disk\\Settings" /v SyncDirectory', {
+        encoding: 'utf8',
+        stdio: ['pipe', 'pipe', 'ignore'],
+        windowsHide: true
+      });
+      const match = regOutput.match(/SyncDirectory\s+REG_\w+\s+(.*)/i);
+      if (match && match[1]) {
+        yandexRoot = match[1].trim();
+      }
+    } catch (e) {}
+  }
 
   if (!yandexRoot) {
     const fallbacks = [

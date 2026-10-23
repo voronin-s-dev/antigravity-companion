@@ -111,7 +111,7 @@ async function testBackupManager() {
   console.log('  ✓ detectAvailableClouds passed: detected providers count = ' + clouds.length);
 
   // 3. Test getVolumeFreeSpaceGB
-  const userProfile = process.env.USERPROFILE || 'C:\\';
+  const userProfile = process.env.USERPROFILE || process.env.HOME || (process.platform === 'win32' ? 'C:\\' : '/');
   const freeGB = getVolumeFreeSpaceGB(userProfile);
   assert(typeof freeGB === 'number', 'getVolumeFreeSpaceGB must return number');
   assert(freeGB > 0, 'Free space for USERPROFILE should be > 0 GB');
@@ -132,92 +132,98 @@ async function testBackupManager() {
   assert(fs.existsSync(psPath), 'run_backup.ps1 must exist');
   assert(fs.existsSync(vbsPath), 'silent_runner.vbs must exist');
 
-  // 4.1 Validate PowerShell syntax using AST parser
-  const psSyntaxCmd = `powershell.exe -NoProfile -Command "$errors = $null; [System.Management.Automation.Language.Parser]::ParseFile('${psPath.replace(/\\/g, '\\\\')}', [ref]$null, [ref]$errors); if ($errors.Count -gt 0) { throw ($errors | Out-String) }"`;
-  execSync(psSyntaxCmd, { stdio: 'pipe' });
-  console.log('  ✓ PowerShell AST syntax check passed for run_backup.ps1');
+  const isWindows = process.platform === 'win32';
 
-  // 4.2 Integration Test: End-to-end backup, exclusions, smart skip, status persistence
-  const lockFilePath = path.join(os.tmpdir(), 'antigravity_companion_backup.lock');
-  try { if (fs.existsSync(lockFilePath)) fs.unlinkSync(lockFilePath); } catch (e) {}
+  if (isWindows) {
+    // 4.1 Validate PowerShell syntax using AST parser
+    const psSyntaxCmd = `powershell.exe -NoProfile -Command "$errors = $null; [System.Management.Automation.Language.Parser]::ParseFile('${psPath.replace(/\\/g, '\\\\')}', [ref]$null, [ref]$errors); if ($errors.Count -gt 0) { throw ($errors | Out-String) }"`;
+    execSync(psSyntaxCmd, { stdio: 'pipe' });
+    console.log('  ✓ PowerShell AST syntax check passed for run_backup.ps1');
 
-  const mockRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agy-mock-backup-'));
-  const mockProjects = path.join(mockRoot, 'Projects');
-  const mockScratch = path.join(mockRoot, 'Scratch');
-  const mockDest = path.join(mockRoot, 'Destination');
-  const mockAppData = path.join(mockRoot, 'AppData');
-  const mockGemini = path.join(mockRoot, 'Gemini');
+    // 4.2 Integration Test: End-to-end backup, exclusions, smart skip, status persistence
+    const lockFilePath = path.join(os.tmpdir(), 'antigravity_companion_backup.lock');
+    try { if (fs.existsSync(lockFilePath)) fs.unlinkSync(lockFilePath); } catch (e) {}
 
-  try {
-    fs.mkdirSync(mockProjects, { recursive: true });
-    fs.mkdirSync(mockScratch, { recursive: true });
-    fs.mkdirSync(mockDest, { recursive: true });
-    fs.mkdirSync(mockAppData, { recursive: true });
-    fs.mkdirSync(mockGemini, { recursive: true });
+    const mockRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agy-mock-backup-'));
+    const mockProjects = path.join(mockRoot, 'Projects');
+    const mockScratch = path.join(mockRoot, 'Scratch');
+    const mockDest = path.join(mockRoot, 'Destination');
+    const mockAppData = path.join(mockRoot, 'AppData');
+    const mockGemini = path.join(mockRoot, 'Gemini');
 
-    // Create a mock project
-    const projAlpha = path.join(mockProjects, 'AlphaApp');
-    const projAlphaModules = path.join(projAlpha, 'node_modules', 'some-lib');
-    fs.mkdirSync(projAlphaModules, { recursive: true });
-    fs.writeFileSync(path.join(projAlpha, 'index.js'), 'console.log("Alpha App");', 'utf8');
-    fs.writeFileSync(path.join(projAlphaModules, 'lib.js'), 'module.exports = {};', 'utf8');
+    try {
+      fs.mkdirSync(mockProjects, { recursive: true });
+      fs.mkdirSync(mockScratch, { recursive: true });
+      fs.mkdirSync(mockDest, { recursive: true });
+      fs.mkdirSync(mockAppData, { recursive: true });
+      fs.mkdirSync(mockGemini, { recursive: true });
 
-    // Run 1: First backup run
-    const run1Cmd = `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "${psPath}" -ProjectsRoot "${mockProjects}" -ScratchRoot "${mockScratch}" -BackupDestination "${mockDest}" -GeminiConfigDir "${mockGemini}"`;
-    execSync(run1Cmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
+      // Create a mock project
+      const projAlpha = path.join(mockProjects, 'AlphaApp');
+      const projAlphaModules = path.join(projAlpha, 'node_modules', 'some-lib');
+      fs.mkdirSync(projAlphaModules, { recursive: true });
+      fs.writeFileSync(path.join(projAlpha, 'index.js'), 'console.log("Alpha App");', 'utf8');
+      fs.writeFileSync(path.join(projAlphaModules, 'lib.js'), 'module.exports = {};', 'utf8');
 
-    // Verify zip was created
-    const archives1 = fs.readdirSync(mockDest).filter(f => f.startsWith('AlphaApp_') && f.endsWith('.zip'));
-    assert.strictEqual(archives1.length, 1, 'Should create exactly 1 archive for AlphaApp');
-    const zipPath = path.join(mockDest, archives1[0]);
+      // Run 1: First backup run
+      const run1Cmd = `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "${psPath}" -ProjectsRoot "${mockProjects}" -ScratchRoot "${mockScratch}" -BackupDestination "${mockDest}" -GeminiConfigDir "${mockGemini}"`;
+      execSync(run1Cmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
 
-    // Verify exclusions via tar.exe -tf
-    const archiveListing = execSync(`tar.exe -tf "${zipPath}"`, { encoding: 'utf8' });
-    assert(archiveListing.includes('index.js'), 'Archive must contain index.js');
-    assert(!archiveListing.includes('node_modules'), 'Archive must NOT contain node_modules');
-    assert(!archiveListing.includes('some-lib'), 'Archive must NOT contain excluded dependencies');
+      // Verify zip was created
+      const archives1 = fs.readdirSync(mockDest).filter(f => f.startsWith('AlphaApp_') && f.endsWith('.zip'));
+      assert.strictEqual(archives1.length, 1, 'Should create exactly 1 archive for AlphaApp');
+      const zipPath = path.join(mockDest, archives1[0]);
 
-    // Verify backup_status.json was created
-    const statusFile = path.join(mockAppData, 'AntigravityCompanion', 'backup_status.json');
-    assert(fs.existsSync(statusFile), 'backup_status.json must be created');
-    const readStatusJson = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, ''));
+      // Verify exclusions via tar.exe -tf
+      const archiveListing = execSync(`tar.exe -tf "${zipPath}"`, { encoding: 'utf8' });
+      assert(archiveListing.includes('index.js'), 'Archive must contain index.js');
+      assert(!archiveListing.includes('node_modules'), 'Archive must NOT contain node_modules');
+      assert(!archiveListing.includes('some-lib'), 'Archive must NOT contain excluded dependencies');
 
-    const status1 = readStatusJson(statusFile);
-    assert.strictEqual(status1.status, 'success', 'Status should be success');
-    assert.strictEqual(status1.projectsProcessed, 1);
-    assert.strictEqual(status1.archivesCreated, 1);
-    assert.strictEqual(status1.archivesSkipped, 0);
-    assert(status1.totalSizeBytes > 0, 'totalSizeBytes should be > 0');
+      // Verify backup_status.json was created
+      const statusFile = path.join(mockAppData, 'AntigravityCompanion', 'backup_status.json');
+      assert(fs.existsSync(statusFile), 'backup_status.json must be created');
+      const readStatusJson = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, ''));
 
-    // Run 2: Second backup run without ForceArchive -> Smart Skip
-    execSync(run1Cmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
-    const status2 = readStatusJson(statusFile);
-    assert.strictEqual(status2.status, 'success');
-    assert.strictEqual(status2.projectsProcessed, 1);
-    assert.strictEqual(status2.archivesCreated, 0, 'No new archives should be created on unchanged run');
-    assert.strictEqual(status2.archivesSkipped, 1, 'Smart skip should count 1 skipped project');
+      const status1 = readStatusJson(statusFile);
+      assert.strictEqual(status1.status, 'success', 'Status should be success');
+      assert.strictEqual(status1.projectsProcessed, 1);
+      assert.strictEqual(status1.archivesCreated, 1);
+      assert.strictEqual(status1.archivesSkipped, 0);
+      assert(status1.totalSizeBytes > 0, 'totalSizeBytes should be > 0');
 
-    // Run 3: Run via silent_runner.vbs with -ForceArchive
-    const vbsCmd = `cscript.exe //nologo "${vbsPath}" -ProjectsRoot "${mockProjects}" -ScratchRoot "${mockScratch}" -BackupDestination "${mockDest}" -GeminiConfigDir "${mockGemini}" -ForceArchive`;
-    execSync(vbsCmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
-    // Allow background powershell spawned by silent_runner.vbs to finish and release lock
-    const startWait = Date.now();
-    while (Date.now() - startWait < 8000) {
-      if (!fs.existsSync(lockFilePath)) break;
-      await new Promise(r => setTimeout(r, 100));
+      // Run 2: Second backup run without ForceArchive -> Smart Skip
+      execSync(run1Cmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
+      const status2 = readStatusJson(statusFile);
+      assert.strictEqual(status2.status, 'success');
+      assert.strictEqual(status2.projectsProcessed, 1);
+      assert.strictEqual(status2.archivesCreated, 0, 'No new archives should be created on unchanged run');
+      assert.strictEqual(status2.archivesSkipped, 1, 'Smart skip should count 1 skipped project');
+
+      // Run 3: Run via silent_runner.vbs with -ForceArchive
+      const vbsCmd = `cscript.exe //nologo "${vbsPath}" -ProjectsRoot "${mockProjects}" -ScratchRoot "${mockScratch}" -BackupDestination "${mockDest}" -GeminiConfigDir "${mockGemini}" -ForceArchive`;
+      execSync(vbsCmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
+      // Allow background powershell spawned by silent_runner.vbs to finish and release lock
+      const startWait = Date.now();
+      while (Date.now() - startWait < 8000) {
+        if (!fs.existsSync(lockFilePath)) break;
+        await new Promise(r => setTimeout(r, 100));
+      }
+      const status3 = readStatusJson(statusFile);
+      assert.strictEqual(status3.status, 'success');
+      assert.strictEqual(status3.archivesCreated, 1, 'ForceArchive must create an archive even without changes');
+
+      console.log('  ✓ Integration Test: Backup creation, tar exclusion, Smart Skip & silent_runner.vbs passed.');
+    } finally {
+      try {
+        if (fs.existsSync(lockFilePath)) fs.unlinkSync(lockFilePath);
+      } catch (e) {}
+      try {
+        fs.rmSync(mockRoot, { recursive: true, force: true });
+      } catch (e) {}
     }
-    const status3 = readStatusJson(statusFile);
-    assert.strictEqual(status3.status, 'success');
-    assert.strictEqual(status3.archivesCreated, 1, 'ForceArchive must create an archive even without changes');
-
-    console.log('  ✓ Integration Test: Backup creation, tar exclusion, Smart Skip & silent_runner.vbs passed.');
-  } finally {
-    try {
-      if (fs.existsSync(lockFilePath)) fs.unlinkSync(lockFilePath);
-    } catch (e) {}
-    try {
-      fs.rmSync(mockRoot, { recursive: true, force: true });
-    } catch (e) {}
+  } else {
+    console.log('  [CI: Non-Windows platform] Skipping live Windows PowerShell AST & execution integration tests.');
   }
 
   // 5. Test Scheduler Integration & Backup Controller Service
@@ -226,23 +232,27 @@ async function testBackupManager() {
   process.env.APPDATA = tempAppData;
 
   try {
-    // 5.1 Test scheduler.getTaskStatus structure
-    const initialTaskStatus = scheduler.getTaskStatus();
-    assert(typeof initialTaskStatus.exists === 'boolean', 'scheduler.getTaskStatus must return exists boolean');
+    if (isWindows) {
+      // 5.1 Test scheduler.getTaskStatus structure
+      const initialTaskStatus = scheduler.getTaskStatus();
+      assert(typeof initialTaskStatus.exists === 'boolean', 'scheduler.getTaskStatus must return exists boolean');
 
-    // Test register & unregister roundtrip
-    const regResult = scheduler.registerDailyTask('04:30');
-    assert.strictEqual(regResult.ok, true, 'registerDailyTask should succeed');
-    assert.strictEqual(regResult.time, '04:30');
+      // Test register & unregister roundtrip
+      const regResult = scheduler.registerDailyTask('04:30');
+      assert.strictEqual(regResult.ok, true, 'registerDailyTask should succeed');
+      assert.strictEqual(regResult.time, '04:30');
 
-    const regStatus = scheduler.getTaskStatus();
-    assert.strictEqual(regStatus.exists, true, 'Task should exist after registration');
-    assert.strictEqual(regStatus.state, 'Ready');
+      const regStatus = scheduler.getTaskStatus();
+      assert.strictEqual(regStatus.exists, true, 'Task should exist after registration');
+      assert.strictEqual(regStatus.state, 'Ready');
 
-    const unregResult = scheduler.unregisterDailyTask();
-    assert.strictEqual(unregResult.ok, true, 'unregisterDailyTask should succeed');
-    const afterUnregStatus = scheduler.getTaskStatus();
-    assert.strictEqual(afterUnregStatus.exists, false, 'Task should not exist after unregister');
+      const unregResult = scheduler.unregisterDailyTask();
+      assert.strictEqual(unregResult.ok, true, 'unregisterDailyTask should succeed');
+      const afterUnregStatus = scheduler.getTaskStatus();
+      assert.strictEqual(afterUnregStatus.exists, false, 'Task should not exist after unregister');
+    } else {
+      console.log('  [CI: Non-Windows platform] Skipping live Windows Task Scheduler registration tests.');
+    }
 
     // 5.2 Test backup_service.getStatus()
     const svcStatus = await backup_service.getStatus();
@@ -275,7 +285,9 @@ async function testBackupManager() {
     console.log('  ✓ Scheduler Integration & Backup Controller Service unit tests passed.');
   } finally {
     process.env.APPDATA = prevAppData;
-    scheduler.unregisterDailyTask();
+    if (isWindows) {
+      scheduler.unregisterDailyTask();
+    }
     try {
       fs.rmSync(tempAppData, { recursive: true, force: true });
     } catch (e) {}

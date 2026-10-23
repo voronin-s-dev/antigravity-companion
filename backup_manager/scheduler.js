@@ -14,6 +14,9 @@ const TASK_NAME = 'AntigravityCompanionBackup';
  * @returns {string} Вывод команды
  */
 function runPowerShell(script) {
+  if (process.platform !== 'win32') {
+    return '';
+  }
   const b64 = Buffer.from(script, 'utf16le').toString('base64');
   return execSync(`powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -EncodedCommand ${b64}`, {
     encoding: 'utf8',
@@ -31,6 +34,10 @@ function registerDailyTask(timeStr) {
   let validTime = '22:00';
   if (typeof timeStr === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(timeStr.trim())) {
     validTime = timeStr.trim();
+  }
+
+  if (process.platform !== 'win32') {
+    return { ok: false, taskName: TASK_NAME, time: validTime, error: 'Task Scheduler is only supported on Windows' };
   }
 
   const vbsPath = path.resolve(__dirname, 'engine', 'silent_runner.vbs');
@@ -57,6 +64,9 @@ Register-ScheduledTask -TaskName '${TASK_NAME}' -Action $action -Trigger $trigge
  * @returns {{ ok: boolean, error?: string }}
  */
 function unregisterDailyTask() {
+  if (process.platform !== 'win32') {
+    return { ok: true };
+  }
   const psScript = `Unregister-ScheduledTask -TaskName '${TASK_NAME}' -Confirm:$false -ErrorAction SilentlyContinue`;
   try {
     runPowerShell(psScript);
@@ -71,6 +81,10 @@ function unregisterDailyTask() {
  * @returns {{ exists: boolean, state?: string|null, nextRunTime?: string|null, lastRunTime?: string|null, lastTaskResult?: number|null }}
  */
 function getTaskStatus() {
+  if (process.platform !== 'win32') {
+    return { exists: false };
+  }
+
   const psScript = `
 $task = Get-ScheduledTask -TaskName '${TASK_NAME}' -ErrorAction SilentlyContinue
 if ($null -eq $task) {
@@ -101,9 +115,9 @@ if ($null -eq $task) {
       state: data.state || null,
       nextRunTime: data.nextRunTime || null,
       lastRunTime: data.lastRunTime || null,
-      lastTaskResult: data.lastTaskResult !== undefined ? data.lastTaskResult : null
+      lastTaskResult: typeof data.lastTaskResult === 'number' ? data.lastTaskResult : null
     };
-  } catch (e) {
+  } catch (err) {
     return { exists: false };
   }
 }

@@ -23,6 +23,7 @@ function buildRelease() {
   console.log(`[Архивация] Формирование ${archiveName}...`);
 
   const filesToInclude = [
+    'backup_manager',
     'bin',
     'config',
     'limits_widget',
