@@ -1848,5 +1848,11 @@
   "Copy files, create ZIP and sync profile",
   "copy files, create ZIP and sync profile",
   "check packaged skill files",
-  "Implementing New Feature Task"
+  "Implementing New Feature Task",
+  "push main to origin",
+  "delete merged feature branch",
+  "Clean up SDD plan workspace",
+  "clean up SDD plan workspace",
+  "check final git status",
+  "check diff of queue"
 ]
