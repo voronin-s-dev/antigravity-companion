@@ -1871,5 +1871,8 @@
   "check GitHub Actions runs list",
   "check local git status",
   "Commit and push final queue update",
-  "commit and push final queue update"
+  "commit and push final queue update",
+  "check recent GitHub Actions runs",
+  "view failed run 3317694",
+  "view success run 845b06a"
 ]
