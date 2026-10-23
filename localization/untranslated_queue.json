@@ -1825,5 +1825,9 @@
   "Click New Project and take screenshot",
   "check open tabs",
   "inspect project page elements and screenshot",
-  "inspect inputs and buttons on project page"
+  "inspect inputs and buttons on project page",
+  "Type prompt and click generate button",
+  "type prompt and click generate button",
+  "Monitor generation status",
+  "monitor generation status"
 ]
