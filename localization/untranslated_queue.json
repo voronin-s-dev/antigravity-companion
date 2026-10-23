@@ -1876,5 +1876,7 @@
   "view failed run 3317694",
   "view success run 845b06a",
   "list files in google-flow-mcp",
-  "check GitHub CLI status"
+  "check GitHub CLI status",
+  "find secret-scanner scripts",
+  "list secret scanner scripts dir"
 ]
