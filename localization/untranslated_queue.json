@@ -1917,5 +1917,7 @@
   "test process.kill with dead pid",
   "check companion CDP status",
   "Query backup status endpoint via CDP",
-  "query backup status endpoint via CDP"
+  "query backup status endpoint via CDP",
+  "check active settings tab in localStorage",
+  "run existing npm test suite"
 ]
