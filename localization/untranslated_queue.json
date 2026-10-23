@@ -1756,5 +1756,9 @@
   "check recent backup logs",
   "test silent VBS backup runner",
   "check if log updated",
-  "run cscript to see errors"
+  "run cscript to see errors",
+  "check backup log after silent run",
+  "update Task Scheduler to wscript",
+  "test ScheduledTask start",
+  "verify scheduled task completion"
 ]
