@@ -2,6 +2,7 @@ const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { execSync } = require('child_process');
 const { DEFAULT_CONFIG, loadConfig, saveConfig, getConfigPath } = require('../config/companion_config');
 const { detectAvailableClouds, getVolumeFreeSpaceGB } = require('../backup_manager/cloud_detector');
 
@@ -120,6 +121,90 @@ function testBackupManager() {
   assert.strictEqual(invalidFree, 0, 'Non-existent path must return 0 GB');
 
   console.log('  ✓ getVolumeFreeSpaceGB passed: user drive free space = ' + freeGB + ' GB');
+
+  // 4. Test Core PowerShell Engine & Silent Runner
+  const engineDir = path.join(__dirname, '..', 'backup_manager', 'engine');
+  const psPath = path.join(engineDir, 'run_backup.ps1');
+  const vbsPath = path.join(engineDir, 'silent_runner.vbs');
+
+  assert(fs.existsSync(psPath), 'run_backup.ps1 must exist');
+  assert(fs.existsSync(vbsPath), 'silent_runner.vbs must exist');
+
+  // 4.1 Validate PowerShell syntax using AST parser
+  const psSyntaxCmd = `powershell.exe -NoProfile -Command "$errors = $null; [System.Management.Automation.Language.Parser]::ParseFile('${psPath.replace(/\\/g, '\\\\')}', [ref]$null, [ref]$errors); if ($errors.Count -gt 0) { throw ($errors | Out-String) }"`;
+  execSync(psSyntaxCmd, { stdio: 'pipe' });
+  console.log('  ✓ PowerShell AST syntax check passed for run_backup.ps1');
+
+  // 4.2 Integration Test: End-to-end backup, exclusions, smart skip, status persistence
+  const mockRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agy-mock-backup-'));
+  const mockProjects = path.join(mockRoot, 'Projects');
+  const mockScratch = path.join(mockRoot, 'Scratch');
+  const mockDest = path.join(mockRoot, 'Destination');
+  const mockAppData = path.join(mockRoot, 'AppData');
+  const mockGemini = path.join(mockRoot, 'Gemini');
+
+  try {
+    fs.mkdirSync(mockProjects, { recursive: true });
+    fs.mkdirSync(mockScratch, { recursive: true });
+    fs.mkdirSync(mockDest, { recursive: true });
+    fs.mkdirSync(mockAppData, { recursive: true });
+    fs.mkdirSync(mockGemini, { recursive: true });
+
+    // Create a mock project
+    const projAlpha = path.join(mockProjects, 'AlphaApp');
+    const projAlphaModules = path.join(projAlpha, 'node_modules', 'some-lib');
+    fs.mkdirSync(projAlphaModules, { recursive: true });
+    fs.writeFileSync(path.join(projAlpha, 'index.js'), 'console.log("Alpha App");', 'utf8');
+    fs.writeFileSync(path.join(projAlphaModules, 'lib.js'), 'module.exports = {};', 'utf8');
+
+    // Run 1: First backup run
+    const run1Cmd = `powershell.exe -NoProfile -ExecutionPolicy Bypass -File "${psPath}" -ProjectsRoot "${mockProjects}" -ScratchRoot "${mockScratch}" -BackupDestination "${mockDest}" -GeminiConfigDir "${mockGemini}"`;
+    execSync(run1Cmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
+
+    // Verify zip was created
+    const archives1 = fs.readdirSync(mockDest).filter(f => f.startsWith('AlphaApp_') && f.endsWith('.zip'));
+    assert.strictEqual(archives1.length, 1, 'Should create exactly 1 archive for AlphaApp');
+    const zipPath = path.join(mockDest, archives1[0]);
+
+    // Verify exclusions via tar.exe -tf
+    const archiveListing = execSync(`tar.exe -tf "${zipPath}"`, { encoding: 'utf8' });
+    assert(archiveListing.includes('index.js'), 'Archive must contain index.js');
+    assert(!archiveListing.includes('node_modules'), 'Archive must NOT contain node_modules');
+    assert(!archiveListing.includes('some-lib'), 'Archive must NOT contain excluded dependencies');
+
+    // Verify backup_status.json was created
+    const statusFile = path.join(mockAppData, 'AntigravityCompanion', 'backup_status.json');
+    assert(fs.existsSync(statusFile), 'backup_status.json must be created');
+    const readStatusJson = (filePath) => JSON.parse(fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, ''));
+
+    const status1 = readStatusJson(statusFile);
+    assert.strictEqual(status1.status, 'success', 'Status should be success');
+    assert.strictEqual(status1.projectsProcessed, 1);
+    assert.strictEqual(status1.archivesCreated, 1);
+    assert.strictEqual(status1.archivesSkipped, 0);
+    assert(status1.totalSizeBytes > 0, 'totalSizeBytes should be > 0');
+
+    // Run 2: Second backup run without ForceArchive -> Smart Skip
+    execSync(run1Cmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
+    const status2 = readStatusJson(statusFile);
+    assert.strictEqual(status2.status, 'success');
+    assert.strictEqual(status2.projectsProcessed, 1);
+    assert.strictEqual(status2.archivesCreated, 0, 'No new archives should be created on unchanged run');
+    assert.strictEqual(status2.archivesSkipped, 1, 'Smart skip should count 1 skipped project');
+
+    // Run 3: Run via silent_runner.vbs with -ForceArchive
+    const vbsCmd = `cscript.exe //nologo "${vbsPath}" -ProjectsRoot "${mockProjects}" -ScratchRoot "${mockScratch}" -BackupDestination "${mockDest}" -GeminiConfigDir "${mockGemini}" -ForceArchive`;
+    execSync(vbsCmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
+    const status3 = readStatusJson(statusFile);
+    assert.strictEqual(status3.status, 'success');
+    assert.strictEqual(status3.archivesCreated, 1, 'ForceArchive must create an archive even without changes');
+
+    console.log('  ✓ Integration Test: Backup creation, tar exclusion, Smart Skip & silent_runner.vbs passed.');
+  } finally {
+    try {
+      fs.rmSync(mockRoot, { recursive: true, force: true });
+    } catch (e) {}
+  }
 }
 
 if (require.main === module) {
