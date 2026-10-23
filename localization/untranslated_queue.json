@@ -1746,5 +1746,15 @@
   "list skills in szkocot/andrej-karpathy-skills",
   "find security-auditor",
   "list skills in rmyndharis/antigravity-skills",
-  "inspect task configuration"
+  "inspect task configuration",
+  "check wscript availability",
+  "check pythonw availability",
+  "test vbs execution",
+  "test silent PowerShell via VBS",
+  "check cmd string",
+  "test VBS script execution",
+  "check recent backup logs",
+  "test silent VBS backup runner",
+  "check if log updated",
+  "run cscript to see errors"
 ]
