@@ -1930,5 +1930,9 @@
   "open settings backup tab via CDP",
   "check backup status endpoint via CDP",
   "check status endpoint now",
-  "check tail of backup.log"
+  "check tail of backup.log",
+  "check running powershell/tar processes",
+  "run run_backup.ps1 directly",
+  "read lockfile content",
+  "run run_backup.ps1 cleanly to observe behavior"
 ]
