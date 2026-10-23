@@ -1854,5 +1854,6 @@
   "Clean up SDD plan workspace",
   "clean up SDD plan workspace",
   "check final git status",
-  "check diff of queue"
+  "check diff of queue",
+  "update scratch skill folder and zip archive"
 ]
