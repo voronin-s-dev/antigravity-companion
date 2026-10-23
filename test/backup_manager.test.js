@@ -5,8 +5,10 @@ const os = require('os');
 const { execSync } = require('child_process');
 const { DEFAULT_CONFIG, loadConfig, saveConfig, getConfigPath } = require('../config/companion_config');
 const { detectAvailableClouds, getVolumeFreeSpaceGB } = require('../backup_manager/cloud_detector');
+const scheduler = require('../backup_manager/scheduler');
+const backup_service = require('../backup_manager/backup_service');
 
-function testBackupManager() {
+async function testBackupManager() {
   console.log('[Test: Backup Manager] Starting unit tests...');
 
   // 1. Test Config Schema & Persistence with temp APPDATA isolation
@@ -205,11 +207,78 @@ function testBackupManager() {
       fs.rmSync(mockRoot, { recursive: true, force: true });
     } catch (e) {}
   }
+
+  // 5. Test Scheduler Integration & Backup Controller Service
+  const tempAppData = fs.mkdtempSync(path.join(os.tmpdir(), 'agy-companion-service-test-'));
+  const prevAppData = process.env.APPDATA;
+  process.env.APPDATA = tempAppData;
+
+  try {
+    // 5.1 Test scheduler.getTaskStatus structure
+    const initialTaskStatus = scheduler.getTaskStatus();
+    assert(typeof initialTaskStatus.exists === 'boolean', 'scheduler.getTaskStatus must return exists boolean');
+
+    // Test register & unregister roundtrip
+    const regResult = scheduler.registerDailyTask('04:30');
+    assert.strictEqual(regResult.ok, true, 'registerDailyTask should succeed');
+    assert.strictEqual(regResult.time, '04:30');
+
+    const regStatus = scheduler.getTaskStatus();
+    assert.strictEqual(regStatus.exists, true, 'Task should exist after registration');
+    assert.strictEqual(regStatus.state, 'Ready');
+
+    const unregResult = scheduler.unregisterDailyTask();
+    assert.strictEqual(unregResult.ok, true, 'unregisterDailyTask should succeed');
+    const afterUnregStatus = scheduler.getTaskStatus();
+    assert.strictEqual(afterUnregStatus.exists, false, 'Task should not exist after unregister');
+
+    // 5.2 Test backup_service.getStatus()
+    const svcStatus = await backup_service.getStatus();
+    assert(svcStatus.config, 'getStatus must return config');
+    assert.strictEqual(typeof svcStatus.config.enabled, 'boolean');
+    assert(Array.isArray(svcStatus.clouds), 'getStatus must return clouds array');
+    assert(svcStatus.scheduler, 'getStatus must return scheduler status');
+    assert(typeof svcStatus.scheduler.exists === 'boolean');
+    assert.strictEqual(svcStatus.lastBackup, null, 'No last backup initially in fresh dir');
+    assert(Array.isArray(svcStatus.recentLogs), 'recentLogs must be array');
+
+    // 5.3 Test backup_service.saveSettings()
+    const updatedStatus = await backup_service.saveSettings({
+      retentionDays: 14,
+      cloudProvider: 'onedrive',
+      backupTime: '02:15'
+    });
+    assert.strictEqual(updatedStatus.config.retentionDays, 14);
+    assert.strictEqual(updatedStatus.config.cloudProvider, 'onedrive');
+    assert.strictEqual(updatedStatus.config.backupTime, '02:15');
+
+    const verifiedConfig = loadConfig();
+    assert.strictEqual(verifiedConfig.backup.retentionDays, 14);
+    assert.strictEqual(verifiedConfig.backup.cloudProvider, 'onedrive');
+
+    // 5.4 Test resolveDestinationPath
+    const resolvedCustom = backup_service.resolveDestinationPath('D:\\MyCustomBackups');
+    assert.strictEqual(resolvedCustom, path.resolve('D:\\MyCustomBackups'));
+
+    console.log('  ✓ Scheduler Integration & Backup Controller Service unit tests passed.');
+  } finally {
+    process.env.APPDATA = prevAppData;
+    scheduler.unregisterDailyTask();
+    try {
+      fs.rmSync(tempAppData, { recursive: true, force: true });
+    } catch (e) {}
+  }
 }
 
 if (require.main === module) {
-  testBackupManager();
-  console.log('✓ backup_manager.test.js: All tests passed successfully!');
+  testBackupManager()
+    .then(() => {
+      console.log('✓ backup_manager.test.js: All tests passed successfully!');
+    })
+    .catch((err) => {
+      console.error('✗ backup_manager.test.js failed:', err);
+      process.exit(1);
+    });
 }
 
 module.exports = {

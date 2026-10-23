@@ -73,7 +73,7 @@ async function main() {
   try {
     process.stdout.write('7. Проверка Backup Manager и детектора облачных дисков... ');
     const { testBackupManager } = require('./backup_manager.test.js');
-    testBackupManager();
+    await testBackupManager();
     console.log(`✓ УСПЕШНО`);
   } catch (e) {
     console.log(`✗ ОШИБКА: ${e.message}`);
