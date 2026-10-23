@@ -1936,5 +1936,6 @@
   "read lockfile content",
   "run run_backup.ps1 cleanly to observe behavior",
   "check backup status via CDP",
-  "read panel.innerText safely"
+  "read panel.innerText safely",
+  "update run_backup.ps1 concurrency check"
 ]
