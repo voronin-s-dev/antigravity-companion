@@ -1845,5 +1845,8 @@
   "test background generation without bring_to_front",
   "list user skills directory",
   "verify LocalAppData path",
-  "create skill directory structure"
+  "create skill directory structure",
+  "Copy files, create ZIP and sync profile",
+  "copy files, create ZIP and sync profile",
+  "check packaged skill files"
 ]
