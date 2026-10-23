@@ -1787,5 +1787,8 @@
   "search Gemini docs for Imagen and Veo",
   "read Veo documentation from python SDK",
   "google flow limits daily limit rate limit flow.google",
-  "search Gemini rate limits and quota for Imagen and Veo"
+  "search Gemini rate limits and quota for Imagen and Veo",
+  "list files in current workspace",
+  "search for social files in projects",
+  "list files in Numerology-Bot/social"
 ]
