@@ -1829,5 +1829,9 @@
   "Type prompt and click generate button",
   "type prompt and click generate button",
   "Monitor generation status",
-  "monitor generation status"
+  "monitor generation status",
+  "Dump page text",
+  "dump page text",
+  "Dump lines 28-80",
+  "dump lines 28-80"
 ]
