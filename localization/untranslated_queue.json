@@ -1760,5 +1760,6 @@
   "check backup log after silent run",
   "update Task Scheduler to wscript",
   "test ScheduledTask start",
-  "verify scheduled task completion"
+  "verify scheduled task completion",
+  "question"
 ]
