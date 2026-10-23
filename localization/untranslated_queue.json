@@ -1770,7 +1770,6 @@
   "Artifact updated by agent",
   "Artifact Viewer header",
   "Dismiss artifact update notice",
-  "Implementing New Feature Task",
   "list conversation artifacts",
   "create feature branch",
   "\"Deug9oGN2XJ\" instagram",
@@ -1848,5 +1847,6 @@
   "create skill directory structure",
   "Copy files, create ZIP and sync profile",
   "copy files, create ZIP and sync profile",
-  "check packaged skill files"
+  "check packaged skill files",
+  "Implementing New Feature Task"
 ]
