@@ -833,8 +833,6 @@
   "Blocked, needs input",
   "OverviewToggleIconButton",
   "Remote Control isn't active on this instance. Enable it in",
-  "Artifact updated by agent",
-  "Dismiss artifact update notice",
   "Failed to export file:",
   "UploadToDrive returned an empty link.",
   "Upload to Google Drive",
@@ -1767,5 +1765,9 @@
   "On top of those defaults, Weekly Skills Auto-Update requests the access below.",
   "Commands, 1 grant",
   "Enabled \"Weekly Skills Auto-Update\".: Agents created by this automation run in a dedicated project with its own permissions. You can change the permissions in the project settings page",
-  "workouts"
+  "workouts",
+  "Close Task",
+  "Artifact updated by agent",
+  "Artifact Viewer header",
+  "Dismiss artifact update notice"
 ]
