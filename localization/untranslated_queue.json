@@ -1781,7 +1781,6 @@
   "search page.html for caption",
   "Extract caption text",
   "extract caption text",
-  "Playwright Integration For Google Flow",
   "google flow generate photo video",
   "google flow url website flow.google",
   "search Gemini docs for Imagen and Veo",
@@ -1833,5 +1832,12 @@
   "Dump page text",
   "dump page text",
   "Dump lines 28-80",
-  "dump lines 28-80"
+  "dump lines 28-80",
+  "Playwright Integration For Google Flow",
+  "check textbox content and submit button",
+  "check generation result and screenshot",
+  "inspect panda elements parent HTML",
+  "inspect tiles for img and video src",
+  "Download generated images from Google Flow",
+  "download generated images from Google Flow"
 ]
