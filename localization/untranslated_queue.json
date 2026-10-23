@@ -1919,5 +1919,6 @@
   "Query backup status endpoint via CDP",
   "query backup status endpoint via CDP",
   "check active settings tab in localStorage",
-  "run existing npm test suite"
+  "run existing npm test suite",
+  "check test output"
 ]
