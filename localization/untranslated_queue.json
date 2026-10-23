@@ -1826,7 +1826,6 @@
   "Copy files, create ZIP and sync profile",
   "copy files, create ZIP and sync profile",
   "check packaged skill files",
-  "Implementing New Feature Task",
   "push main to origin",
   "delete merged feature branch",
   "Clean up SDD plan workspace",
@@ -1895,5 +1894,6 @@
   "Use when implementing any feature or bugfix, before writing implementation code",
   "using-superpowers",
   "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
-  "Use when you have a spec or requirements for a multi-step task, before touching code"
+  "Use when you have a spec or requirements for a multi-step task, before touching code",
+  "Implementing New Feature Task"
 ]
