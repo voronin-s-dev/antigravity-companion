@@ -8,7 +8,9 @@ async function injectWidget() {
     delete require.cache[require.resolve('../package.json')];
     pkgVersion = require('../package.json').version;
   } catch (e) {}
-  const diskConfig = loadConfig().limits;
+  const fullConfig = loadConfig();
+  const diskConfig = fullConfig.limits;
+  const diskBackupConfig = fullConfig.backup;
   const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Roaming');
   const activePortFile = path.join(appData, 'Antigravity', 'DevToolsActivePort');
   if (!fs.existsSync(activePortFile)) {
@@ -32,6 +34,7 @@ async function injectWidget() {
     ws.onopen = () => {
     const injectionCode = `(() => {
       const diskConfig = ${JSON.stringify(diskConfig)};
+      const diskBackupConfig = ${JSON.stringify(diskBackupConfig)};
       const COMPANION_VERSION = ${JSON.stringify('v' + pkgVersion)};
       let ls = null;
       try {
@@ -163,7 +166,27 @@ async function injectWidget() {
           themeEmerald: 'Изумруд',
           themePurple: 'Аметист',
           themeAmber: 'Янтарь',
-          themeCustom: 'Свой цвет'
+          themeCustom: 'Свой цвет',
+          tabLimits: 'Виджет',
+          tabBackup: 'Резервное копирование',
+          backupEnableToggle: 'Автоматическое резервное копирование',
+          backupCloudTitle: 'Место сохранения (облако)',
+          backupCustomPathPlaceholder: 'Свой путь к папке бэкапа...',
+          backupTimeTitle: 'Время запуска',
+          backupRetentionTitle: 'Срок хранения архивов',
+          backupNeverDeleteLabel: 'Всегда хранить последние копии неактивных проектов',
+          backupStatusTitle: 'Статус бэкапа',
+          backupLastRun: 'Последний запуск',
+          backupNever: 'Никогда',
+          backupSuccess: 'Успешно',
+          backupProjectsCount: 'Проектов',
+          backupSize: 'Размер',
+          backupSchedulerActive: 'Планировщик активен',
+          backupSchedulerInactive: 'Планировщик отключен',
+          backupRunNowBtn: 'Сделать бэкап сейчас',
+          backupRunning: 'Создание архивов...',
+          backupOpenFolderBtn: 'Открыть папку',
+          backupOpenLogBtn: 'Лог бэкапа'
         },
         en: {
           title: 'Model Limits',
@@ -239,7 +262,27 @@ async function injectWidget() {
           themeEmerald: 'Emerald',
           themePurple: 'Amethyst',
           themeAmber: 'Amber',
-          themeCustom: 'Custom'
+          themeCustom: 'Custom',
+          tabLimits: 'Widget',
+          tabBackup: 'Backup Manager',
+          backupEnableToggle: 'Automatic backup',
+          backupCloudTitle: 'Backup destination (Cloud)',
+          backupCustomPathPlaceholder: 'Custom backup folder path...',
+          backupTimeTitle: 'Scheduled time',
+          backupRetentionTitle: 'Retention period',
+          backupNeverDeleteLabel: 'Always keep latest copy of inactive projects',
+          backupStatusTitle: 'Backup status',
+          backupLastRun: 'Last run',
+          backupNever: 'Never',
+          backupSuccess: 'Success',
+          backupProjectsCount: 'Projects',
+          backupSize: 'Size',
+          backupSchedulerActive: 'Scheduler active',
+          backupSchedulerInactive: 'Scheduler disabled',
+          backupRunNowBtn: 'Run backup now',
+          backupRunning: 'Creating archives...',
+          backupOpenFolderBtn: 'Open folder',
+          backupOpenLogBtn: 'Backup log'
         }
       };
 
@@ -790,6 +833,24 @@ async function injectWidget() {
       let isSettingsOpen = false;
       let wasCollapsedBeforeSettings = false;
       let draftSettings = null;
+      let draftBackupSettings = null;
+      let activeSettingsTab = 'limits';
+      let backupStatusData = null;
+      let isBackupRunning = false;
+
+      async function fetchBackupStatus() {
+        try {
+          const res = await fetch('http://127.0.0.1:9229/api/backup/status').then(r => r.json());
+          if (res && res.ok && res.status) {
+            backupStatusData = res.status;
+            if (activeSettingsTab === 'backup') {
+              renderSettingsContent();
+            }
+          }
+        } catch (e) {
+          console.warn('[Backup Status] Error fetching status:', e.message);
+        }
+      }
 
       function switchLanguage(lang) {
         currentLang = lang;
@@ -827,8 +888,70 @@ async function injectWidget() {
       function renderSettingsContent() {
         if (!draftSettings) return;
         const d = draftSettings;
+        const b = draftBackupSettings || {
+          enabled: false,
+          cloudProvider: 'auto',
+          customPath: '',
+          backupTime: '22:00',
+          retentionDays: 7,
+          neverDeleteInactiveLastVersions: true
+        };
+
+        const clouds = (backupStatusData && backupStatusData.clouds) || [
+          { id: 'onedrive', name: 'OneDrive', available: false },
+          { id: 'gdrive', name: 'Google Drive', available: false },
+          { id: 'yandex', name: 'Yandex.Disk', available: false },
+          { id: 'dropbox', name: 'Dropbox', available: false },
+          { id: 'local', name: 'Local Fallback', available: true }
+        ];
+
+        const lastBackup = backupStatusData && backupStatusData.lastBackup;
+        let lastRunFormatted = t('backupNever');
+        let statusBadgeColor = '#71717a';
+        let statusBadgeIcon = '○';
+        if (lastBackup && lastBackup.lastRunTime) {
+          try {
+            const dt = new Date(lastBackup.lastRunTime);
+            lastRunFormatted = dt.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { day: '2-digit', month: '2-digit' }) + ' ' + dt.toLocaleTimeString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { hour: '2-digit', minute: '2-digit' });
+          } catch (e) {
+            lastRunFormatted = String(lastBackup.lastRunTime);
+          }
+          if (lastBackup.status === 'success') {
+            statusBadgeColor = '#22c55e';
+            statusBadgeIcon = '✓';
+          } else if (lastBackup.status === 'warning') {
+            statusBadgeColor = '#eab308';
+            statusBadgeIcon = '▲';
+          } else {
+            statusBadgeColor = '#ef4444';
+            statusBadgeIcon = '✕';
+          }
+        }
+
+        const projectsCount = (lastBackup && (lastBackup.projectsProcessed !== undefined ? lastBackup.projectsProcessed : lastBackup.archivesCreated)) || (diskBackupConfig && diskBackupConfig.lastBackupCount) || 0;
+        const totalBytes = (lastBackup && lastBackup.totalSizeBytes) || 0;
+        let sizeText = '0 MB';
+        if (totalBytes > 0) {
+          sizeText = (totalBytes / (1024 * 1024)).toFixed(1) + ' MB';
+        } else if (diskBackupConfig && diskBackupConfig.lastBackupSizeMb) {
+          sizeText = diskBackupConfig.lastBackupSizeMb + ' MB';
+        }
+
+        const schedStatusActive = Boolean(b.enabled && (!backupStatusData || !backupStatusData.scheduler || backupStatusData.scheduler.exists));
+        const schedStatusText = schedStatusActive ? t('backupSchedulerActive') : t('backupSchedulerInactive');
 
         settingsPanel.innerHTML = \`
+          <!-- Settings Flyout Tabs -->
+          <div style="display: flex; gap: 4px; padding-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 6px;">
+            <button id="agy-tab-limits" class="agy-tactile-btn" style="flex: 1; padding: 4px 6px; border-radius: 5px; font-size: 10px; font-weight: \${activeSettingsTab === 'limits' ? '600' : '400'}; background: \${activeSettingsTab === 'limits' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${activeSettingsTab === 'limits' ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)'}; color: \${activeSettingsTab === 'limits' ? '#fff' : '#a1a1aa'}; cursor: pointer; text-align: center;">
+              \${t('tabLimits')}
+            </button>
+            <button id="agy-tab-backup" class="agy-tactile-btn" style="flex: 1; padding: 4px 6px; border-radius: 5px; font-size: 10px; font-weight: \${activeSettingsTab === 'backup' ? '600' : '400'}; background: \${activeSettingsTab === 'backup' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${activeSettingsTab === 'backup' ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.06)'}; color: \${activeSettingsTab === 'backup' ? '#fff' : '#a1a1aa'}; cursor: pointer; text-align: center;">
+              \${t('tabBackup')}
+            </button>
+          </div>
+
+          \${activeSettingsTab === 'limits' ? \`
           <!-- Section 1: Themes & Colors -->
           <div>
             <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 5px;">\${t('themeTitle')}</div>
@@ -990,6 +1113,103 @@ async function injectWidget() {
             </div>
             <div id="agy-settings-update-msg" style="display: none; font-size: 9.5px; padding: 2px 4px; border-radius: 3px; margin-top: 1px; text-align: center;"></div>
           </div>
+          \` : \`
+          <!-- Tab 2: Backup Manager Section -->
+          <div id="agy-backup-panel-tab-content" style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- Auto-backup toggle switch -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px;">
+              <span style="font-size: 10px; font-weight: 500; color: #f4f4f5;">\${t('backupEnableToggle')}</span>
+              <button id="agy-backup-enable-toggle" class="agy-tactile-btn" style="width: 34px; height: 18px; border-radius: 10px; background: \${b.enabled ? '#22c55e' : 'rgba(255,255,255,0.15)'}; position: relative; border: none; cursor: pointer; transition: background 0.2s;">
+                <span style="position: absolute; top: 2px; left: \${b.enabled ? '18px' : '2px'}; width: 14px; height: 14px; border-radius: 50%; background: #ffffff; transition: left 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.3);"></span>
+              </button>
+            </div>
+
+            <!-- Cloud destination selector -->
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${t('backupCloudTitle')}</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                <button class="agy-backup-cloud-btn agy-tactile-btn" data-cloud="auto" style="padding: 3px 6px; border-radius: 4px; font-size: 9.5px; cursor: pointer; background: \${b.cloudProvider === 'auto' ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${b.cloudProvider === 'auto' ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.07)'}; color: \${b.cloudProvider === 'auto' ? '#fff' : '#a1a1aa'};">
+                  <span>\${currentLang === 'ru' ? 'Авто' : 'Auto'}</span>
+                </button>
+                \${clouds.map(c => {
+                  const isSel = b.cloudProvider === c.id;
+                  const statusColor = c.available ? '#22c55e' : '#71717a';
+                  return \`
+                    <button class="agy-backup-cloud-btn agy-tactile-btn" data-cloud="\${c.id}" style="display: flex; align-items: center; gap: 4px; padding: 3px 6px; border-radius: 4px; font-size: 9.5px; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.07)'}; color: \${isSel ? '#fff' : (c.available ? '#d4d4d8' : '#71717a')};">
+                      <span style="width: 5px; height: 5px; border-radius: 50%; background: \${statusColor};"></span>
+                      <span>\${c.name}</span>
+                    </button>
+                  \`;
+                }).join('')}
+              </div>
+              <input type="text" id="agy-backup-custom-path" value="\${b.customPath || ''}" placeholder="\${t('backupCustomPathPlaceholder')}" style="width: 100%; box-sizing: border-box; padding: 4px 6px; font-size: 9.5px; background: rgba(0,0,0,0.25); border: 1px solid \${b.cloudProvider === 'custom' ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.08)'}; border-radius: 4px; color: #fff; outline: none; margin-top: 2px;">
+            </div>
+
+            <!-- Scheduled time & Retention days -->
+            <div style="display: flex; gap: 8px;">
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${t('backupTimeTitle')}</div>
+                <input type="time" id="agy-backup-time" value="\${b.backupTime || '22:00'}" style="padding: 3px 6px; font-size: 10px; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 4px; color: #fff; outline: none;">
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                <div style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${t('backupRetentionTitle')}</div>
+                <div style="display: flex; gap: 3px;">
+                  \${[7, 14, 30].map(days => {
+                    const isSel = Number(b.retentionDays) === days;
+                    return \`
+                      <button class="agy-backup-retention-btn agy-tactile-btn" data-days="\${days}" style="flex: 1; padding: 3px 0; border-radius: 4px; font-size: 9.5px; text-align: center; cursor: pointer; background: \${isSel ? 'rgba(255,255,255,0.14)' : 'rgba(255,255,255,0.03)'}; border: 1px solid \${isSel ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0.07)'}; color: \${isSel ? '#fff' : '#a1a1aa'};">
+                        \${days}\${currentLang === 'ru' ? ' дн' : 'd'}
+                      </button>
+                    \`;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Zero-loss checkbox -->
+            <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 9.5px; color: #d4d4d8; padding: 2px 0;">
+              <input type="checkbox" id="agy-backup-never-delete" \${b.neverDeleteInactiveLastVersions ? 'checked' : ''} style="cursor: pointer; accent-color: #22c55e;">
+              <span>\${t('backupNeverDeleteLabel')}</span>
+            </label>
+
+            <!-- Status card -->
+            <div style="padding: 6px 8px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="color: #a1a1aa; font-size: 9.5px; font-weight: 600; letter-spacing: 0.5px;">\${t('backupStatusTitle')}</span>
+                <span style="font-size: 9px; color: \${schedStatusActive ? '#22c55e' : '#71717a'}; display: flex; align-items: center; gap: 3px;">
+                  <span>\${schedStatusActive ? '●' : '○'}</span>
+                  <span>\${schedStatusText}</span>
+                </span>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9.5px;">
+                <span style="color: #a1a1aa;">\${t('backupLastRun')}:</span>
+                <span style="display: flex; align-items: center; gap: 4px; color: \${statusBadgeColor};">
+                  <span>\${statusBadgeIcon}</span>
+                  <span>\${lastRunFormatted}</span>
+                </span>
+              </div>
+              <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9.5px;">
+                <span style="color: #a1a1aa;">\${t('backupProjectsCount')} / \${t('backupSize')}:</span>
+                <span style="color: #f4f4f5;">\${projectsCount} / \${sizeText}</span>
+              </div>
+            </div>
+
+            <!-- Action buttons -->
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <button id="agy-backup-run-now" class="agy-tactile-btn" style="width: 100%; padding: 5px 8px; border-radius: 4px; background: rgba(37,99,235,0.2); border: 1px solid rgba(37,99,235,0.5); color: #93c5fd; font-size: 10px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                <span>\${isBackupRunning ? t('backupRunning') : t('backupRunNowBtn')}</span>
+              </button>
+              <div style="display: flex; gap: 4px;">
+                <button id="agy-backup-open-folder" class="agy-tactile-btn" style="flex: 1; padding: 4px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; text-align: center;">
+                  \${t('backupOpenFolderBtn')}
+                </button>
+                <button id="agy-backup-open-log" class="agy-tactile-btn" style="flex: 1; padding: 4px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; text-align: center;">
+                  \${t('backupOpenLogBtn')}
+                </button>
+              </div>
+            </div>
+          </div>
+          \`}
 
           <!-- Footer Actions -->
           <div style="display: flex; align-items: center; justify-content: flex-end; gap: 6px; padding-top: 6px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 2px;">
@@ -1004,6 +1224,22 @@ async function injectWidget() {
         \`;
 
         // Bind event listeners inside settingsPanel:
+        const tabLimitsBtn = settingsPanel.querySelector('#agy-tab-limits');
+        if (tabLimitsBtn) {
+          tabLimitsBtn.addEventListener('click', () => {
+            activeSettingsTab = 'limits';
+            renderSettingsContent();
+          });
+        }
+        const tabBackupBtn = settingsPanel.querySelector('#agy-tab-backup');
+        if (tabBackupBtn) {
+          tabBackupBtn.addEventListener('click', () => {
+            activeSettingsTab = 'backup';
+            renderSettingsContent();
+            fetchBackupStatus();
+          });
+        }
+
         const cancelBtn = settingsPanel.querySelector('#agy-settings-cancel-btn');
         if (cancelBtn) {
           cancelBtn.addEventListener('click', () => closeSettings(true));
@@ -1041,10 +1277,113 @@ async function injectWidget() {
 
             await saveAllSettingsToDisk(d);
 
+            if (draftBackupSettings) {
+              try {
+                await fetch('http://127.0.0.1:9229/api/backup/save', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(draftBackupSettings)
+                });
+              } catch (e) {
+                console.warn('[Backup Sync] Failed to save backup settings:', e.message);
+              }
+            }
+
             setTimeout(() => {
               closeSettings(false);
             }, 350);
           });
+        }
+
+        if (activeSettingsTab === 'backup') {
+          const backupToggle = settingsPanel.querySelector('#agy-backup-enable-toggle');
+          if (backupToggle) {
+            backupToggle.addEventListener('click', () => {
+              b.enabled = !b.enabled;
+              renderSettingsContent();
+            });
+          }
+
+          settingsPanel.querySelectorAll('.agy-backup-cloud-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              b.cloudProvider = btn.dataset.cloud;
+              renderSettingsContent();
+            });
+          });
+
+          const customPathInput = settingsPanel.querySelector('#agy-backup-custom-path');
+          if (customPathInput) {
+            customPathInput.addEventListener('input', (e) => {
+              b.customPath = e.target.value;
+            });
+          }
+
+          const timeInput = settingsPanel.querySelector('#agy-backup-time');
+          if (timeInput) {
+            timeInput.addEventListener('change', (e) => {
+              b.backupTime = e.target.value;
+            });
+            timeInput.addEventListener('input', (e) => {
+              b.backupTime = e.target.value;
+            });
+          }
+
+          settingsPanel.querySelectorAll('.agy-backup-retention-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              b.retentionDays = Number(btn.dataset.days);
+              renderSettingsContent();
+            });
+          });
+
+          const neverDeleteCb = settingsPanel.querySelector('#agy-backup-never-delete');
+          if (neverDeleteCb) {
+            neverDeleteCb.addEventListener('change', (e) => {
+              b.neverDeleteInactiveLastVersions = e.target.checked;
+            });
+          }
+
+          const runNowBtn = settingsPanel.querySelector('#agy-backup-run-now');
+          if (runNowBtn) {
+            runNowBtn.addEventListener('click', async () => {
+              if (isBackupRunning) return;
+              isBackupRunning = true;
+              runNowBtn.disabled = true;
+              runNowBtn.style.opacity = '0.6';
+              runNowBtn.textContent = t('backupRunning');
+              try {
+                await fetch('http://127.0.0.1:9229/api/backup/run', { method: 'POST' });
+              } catch (e) {
+                console.warn('[Backup Run] Error:', e.message);
+              }
+              setTimeout(async () => {
+                isBackupRunning = false;
+                await fetchBackupStatus();
+                renderSettingsContent();
+              }, 3000);
+            });
+          }
+
+          const openFolderBtn = settingsPanel.querySelector('#agy-backup-open-folder');
+          if (openFolderBtn) {
+            openFolderBtn.addEventListener('click', async () => {
+              try {
+                await fetch('http://127.0.0.1:9229/api/backup/open-folder', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ folderPath: b.customPath || '' })
+                });
+              } catch (e) {}
+            });
+          }
+
+          const openLogBtn = settingsPanel.querySelector('#agy-backup-open-log');
+          if (openLogBtn) {
+            openLogBtn.addEventListener('click', async () => {
+              try {
+                await fetch('http://127.0.0.1:9229/api/backup/open-log', { method: 'POST' });
+              } catch (e) {}
+            });
+          }
         }
 
         // Placement mode buttons
@@ -1361,6 +1700,7 @@ async function injectWidget() {
         isCollapsed = false;
         isSettingsOpen = true;
 
+        activeSettingsTab = 'limits';
         draftSettings = {
           placement: currentPlacement,
           tint: currentTint,
@@ -1375,6 +1715,16 @@ async function injectWidget() {
           soundWeeklyCustomName: soundWeeklyCustomName,
           lang: currentLang
         };
+
+        draftBackupSettings = {
+          enabled: (diskBackupConfig && diskBackupConfig.enabled) || false,
+          cloudProvider: (diskBackupConfig && diskBackupConfig.cloudProvider) || 'auto',
+          customPath: (diskBackupConfig && diskBackupConfig.customPath) || '',
+          backupTime: (diskBackupConfig && diskBackupConfig.backupTime) || '22:00',
+          retentionDays: (diskBackupConfig && diskBackupConfig.retentionDays) || 7,
+          neverDeleteInactiveLastVersions: (diskBackupConfig && diskBackupConfig.neverDeleteInactiveLastVersions !== undefined) ? diskBackupConfig.neverDeleteInactiveLastVersions : true
+        };
+        fetchBackupStatus();
 
         renderSettingsContent();
         applyCollapseState();

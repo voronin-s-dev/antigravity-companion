@@ -11,16 +11,20 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const { loadConfig, saveConfig } = require('../config/companion_config.js');
+const backupService = require('../backup_manager/backup_service.js');
 
 const PORT = 9229;
 const HOST = '127.0.0.1';
 
 let server = null;
 
-function isAllowedHost(host) {
+function isAllowedHost(host, customPort) {
   if (!host) return true;
+  const portToCheck = customPort || PORT;
   const cleanHost = host.toLowerCase().trim();
   return (
+    cleanHost === `127.0.0.1:${portToCheck}` ||
+    cleanHost === `localhost:${portToCheck}` ||
     cleanHost === `127.0.0.1:${PORT}` ||
     cleanHost === `localhost:${PORT}` ||
     cleanHost === '127.0.0.1' ||
@@ -52,12 +56,12 @@ function setCorsHeaders(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
 
-function startServer() {
-  if (server) return server;
+function createRequestHandler(options = {}) {
+  const allowedPort = options.port || PORT;
 
-  server = http.createServer(async (req, res) => {
+  return async function requestHandler(req, res) {
     // DNS Rebinding protection
-    if (!isAllowedHost(req.headers.host)) {
+    if (!isAllowedHost(req.headers.host, allowedPort)) {
       res.writeHead(403, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ ok: false, error: 'Forbidden: Invalid Host header (DNS Rebinding protection)' }));
       return;
@@ -315,35 +319,173 @@ function startServer() {
       return;
     }
 
+    // Backup: Detect available clouds
+    if (url === '/api/backup/detect' && req.method === 'GET') {
+      try {
+        const clouds = typeof backupService.detectAvailableClouds === 'function'
+          ? await backupService.detectAvailableClouds()
+          : require('../backup_manager/cloud_detector.js').detectAvailableClouds();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, clouds }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
+
+    // Backup: Status
+    if (url === '/api/backup/status' && req.method === 'GET') {
+      try {
+        const status = await backupService.getStatus();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, status }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
+
+    // Backup: Save Settings
+    if (url === '/api/backup/save' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk;
+        if (body.length > 1024 * 1024) { // 1MB limit
+          res.writeHead(413, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'Payload too large' }));
+          req.destroy();
+        }
+      });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const settings = parsed.config || parsed;
+          const status = await backupService.saveSettings(settings);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, status }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: e.message }));
+        }
+      });
+      return;
+    }
+
+    // Backup: Manual Run
+    if (url === '/api/backup/run' && req.method === 'POST') {
+      try {
+        const result = backupService.runManual();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, result }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
+
+    // Backup: Open Folder
+    if (url === '/api/backup/open-folder' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => {
+        body += chunk;
+        if (body.length > 64 * 1024) {
+          res.writeHead(413, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: 'Payload too large' }));
+          req.destroy();
+        }
+      });
+      req.on('end', () => {
+        try {
+          let folderPath;
+          if (body && body.trim().length > 0) {
+            try {
+              const parsed = JSON.parse(body);
+              folderPath = parsed?.path;
+            } catch (_) {}
+          }
+          const result = backupService.openFolder(folderPath);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, result }));
+        } catch (err) {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ ok: false, error: err.message }));
+        }
+      });
+      return;
+    }
+
+    // Backup: Open Log
+    if (url === '/api/backup/open-log' && req.method === 'POST') {
+      try {
+        const result = backupService.openLog();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, result }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
+
+    // Backup: Log content
+    if (url === '/api/backup/log' && req.method === 'GET') {
+      try {
+        const status = await backupService.getStatus();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, logs: status.recentLogs || [] }));
+      } catch (err) {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: err.message }));
+      }
+      return;
+    }
+
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Not Found' }));
-  });
+  };
+}
 
-  server.on('error', (err) => {
+function startServer(customPort) {
+  const portToUse = customPort || PORT;
+  if (server && !customPort) return server;
+
+  const currentServer = http.createServer(createRequestHandler({ port: portToUse }));
+
+  currentServer.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
-      console.log(`[Config Server] Порт ${PORT} уже используется другим процессом Companion.`);
+      console.log(`[Config Server] Порт ${portToUse} уже используется другим процессом Companion.`);
     } else {
       console.warn('[Config Server Error]', err.message);
     }
   });
 
-  server.listen(PORT, HOST, () => {
-    console.log(`[Config Server] HTTP API запущен на http://${HOST}:${PORT}`);
+  currentServer.listen(portToUse, HOST, () => {
+    console.log(`[Config Server] HTTP API запущен на http://${HOST}:${portToUse}`);
   });
 
-  return server;
+  if (!customPort) {
+    server = currentServer;
+  }
+  return currentServer;
 }
 
-function stopServer() {
-  if (server) {
-    server.close();
-    server = null;
+function stopServer(targetServer) {
+  const s = targetServer || server;
+  if (s) {
+    s.close();
+    if (s === server) {
+      server = null;
+    }
   }
 }
 
 module.exports = {
   startServer,
   stopServer,
+  createRequestHandler,
   PORT,
   isAllowedHost,
   isAllowedOrigin

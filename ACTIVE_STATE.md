@@ -14,7 +14,7 @@
 ---
 
 ## 2. Архитектурный базис
-- **Словарь**: `localization/dictionary_ru.json` — **6464 точных термина**, **155 атрибутов**, **283 шаблона** (всего 6902 правила).
+- **Словарь**: `localization/dictionary_ru.json` — **6630 точных терминов**, **155 атрибутов**, **283 шаблона** (всего 7068 правил).
 - **Zero-Context Dictionary**: чтение словаря напрямую запрещено; пополнение через `localization/translations_to_merge.json` и `npm run merge`.
 - **Служба Companion**: фоновый процесс Node.js с реактивным супервизором v2.0 (постоянный WebSocket, перехват `DevToolsActivePort`, мгновенная инъекция при перезагрузке, 0% CPU в ожидании).
 - **Виджет лимитов**: встроен в сайдбар Antigravity (`#agy-limits-pill`) и разворачивается во флайаут/настройки без оверлеев. Поддержка звуковых оповещений (Web Audio / кастомные MP3), счетчик шагов сессии (`Шаг X/40`), Pre-flight Paste Guard и точный расчет ETA восстановления квот.
@@ -280,6 +280,29 @@
   - В `test/syntax_injection.test.js` и общий сьют `npm test` добавлен юнит-тест `testStepCounterIntegrity()`.
   - Все 6 сьютов тестов пройдены успешно (6902 правила).
   - Хот-релоад успешно применен на лету через `npm run reload` в активном окне Antigravity. Счетчик стабильно и точно показывает фактический ход сессии («Шаг 1/35»).
+
+### Веха 61: Модуль автоматического резервного копирования проектов (Project Backup Manager)
+- **Zero-Config детектор хранилищ (`backup_manager/cloud_detector.js`)**:
+  - Автоматическое обнаружение установленных облачных клиентов: OneDrive (`$env:OneDrive`, `HKCU\Software\Microsoft\OneDrive`), Google Диск (`G:\`, `DriveFS`), Яндекс.Диск (`HKCU\Software\Yandex\Yandex.Disk\Settings`), Dropbox (`info.json`) и локальной резервной папки `%USERPROFILE%\Antigravity Backups\`.
+  - Динамический расчет свободного дискового пространства целевого тома через `fs.statfsSync`.
+- **Бесшумный архиватор и защита данных (`backup_manager/engine/run_backup.ps1` & `silent_runner.vbs`)**:
+  - Архивация в `.zip` через встроенный в Windows `tar.exe` без необходимости внешних архиваторов.
+  - Строгие фильтры исключения мусора: `node_modules`, `.venv`, `venv`, `env`, `__pycache__`, `.next`, `.nuxt`, `dist`, `build`, `.turbo`, `.cache`, `*.tmp`, `*.log`.
+  - Защита от одновременных запусков через lock-файл в `$env:TEMP` и проверка свободного места (> 1 ГБ).
+  - Скрытый запуск в стиле окна `0` (SW_HIDE) через Windows Script Host.
+- **Smart Skip и Zero-Loss Retention**:
+  - *Change Detection*: если файлы проекта не менялись с момента создания последнего архива, проект пропускается.
+  - *Zero-Loss Retention*: скользящее окно хранения (7 / 14 / 30 дней) гарантированно оставляет последние копии (до 7 шт.) неактивных проектов навсегда.
+- **Интеграция с Планировщиком заданий Windows (`backup_manager/scheduler.js`)**:
+  - Автоматическая регистрация/снятие задачи `AntigravityCompanionBackup` на ежедневный запуск в указанное время (22:00) без прав Администратора (`-AllowStartIfOnBatteries -StartWhenAvailable`).
+- **REST API сервера Companion (`bin/companion_server.js`)**:
+  - Добавлены эндпоинты `/api/backup/detect`, `/api/backup/status`, `/api/backup/save`, `/api/backup/run`, `/api/backup/open-folder`, `/api/backup/open-log`, `/api/backup/log` с DNS Rebinding и CORS-защитой.
+- **Табовый UI настроек виджета (`limits_widget/inject_panel.js`)**:
+  - В окне настроек внедрено переключение табов: `[Виджет]` и `[Резервное копирование]`.
+  - Вкладка резервного копирования содержит тумблер авто-бэкапа, выбор облака/пути, настройку времени и срока хранения, чекбокс Zero-Loss, карточку живого статуса и кнопки «Сделать бэкап сейчас», «Папка бэкапов», «Лог бэкапа».
+- **Тесты и верификация**:
+  - Создан полный тестовый сьют `test/backup_manager.test.js`, включен в общий запуск `npm test` (7/7 сьютов успешно).
+  - Хот-релоад применен в активном окне Antigravity, работа подтверждена через CDP.
 
 ---
 
