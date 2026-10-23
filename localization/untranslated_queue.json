@@ -1769,5 +1769,7 @@
   "Close Task",
   "Artifact updated by agent",
   "Artifact Viewer header",
-  "Dismiss artifact update notice"
+  "Dismiss artifact update notice",
+  "Implementing New Feature Task",
+  "list conversation artifacts"
 ]
