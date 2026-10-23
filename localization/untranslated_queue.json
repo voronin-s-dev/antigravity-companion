@@ -1909,5 +1909,7 @@
   "update graphify AST",
   "find 1.7.0 references",
   "Convert CHANGELOG.md to LF",
-  "convert CHANGELOG.md to LF"
+  "convert CHANGELOG.md to LF",
+  "find backup endpoints in server",
+  "list backup_manager files"
 ]
