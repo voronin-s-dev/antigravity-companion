@@ -52,6 +52,7 @@ function testInjectionCodeExtraction() {
       // Вычисляем шаблонную строку так же, как это делает Node.js в рантайме
       const evaluatedPayload = vm.runInNewContext(templateExpr, {
         diskConfig: { intervalMs: 60000, tint: 'native' },
+        diskBackupConfig: { enabled: true, cloudProvider: 'auto', customPath: '', backupTime: '22:00', retentionDays: 7, neverDeleteInactiveLastVersions: true },
         pkgVersion: '1.4.0'
       });
       // Проверяем полученный JavaScript-код на синтаксические ошибки в браузере
@@ -110,7 +111,20 @@ function testStepCounterIntegrity() {
   }
 }
 
-module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard, testStepCounterIntegrity };
+function testBackupPanelSyntaxGuard() {
+  const panelSource = fs.readFileSync(path.resolve(__dirname, '../limits_widget/inject_panel.js'), 'utf8');
+  if (!panelSource.includes('agy-tab-backup')) {
+    throw new Error('Отсутствует селектор agy-tab-backup в inject_panel.js!');
+  }
+  if (!panelSource.includes('agy-backup-enable-toggle')) {
+    throw new Error('Отсутствует селектор agy-backup-enable-toggle в inject_panel.js!');
+  }
+  if (!panelSource.includes('agy-backup-panel-tab-content')) {
+    throw new Error('Отсутствует селектор agy-backup-panel-tab-content в inject_panel.js!');
+  }
+}
+
+module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard, testStepCounterIntegrity, testBackupPanelSyntaxGuard };
 
 if (require.main === module) {
   try {
@@ -119,7 +133,8 @@ if (require.main === module) {
     testSkillCommandIsolationGuard();
     testStartupRetryGuard();
     testStepCounterIntegrity();
-    console.log('✓ Синтаксис всех скриптов, изоляция проектов, команд скилов, авто-ретрай лимитов и счетчик шагов сессии корректны!');
+    testBackupPanelSyntaxGuard();
+    console.log('✓ Синтаксис всех скриптов, изоляция проектов, команд скилов, авто-ретрай лимитов, счетчик шагов и панель бэкапа корректны!');
   } catch (e) {
     console.error('✗ Ошибка синтаксиса:', e.message);
     process.exit(1);
