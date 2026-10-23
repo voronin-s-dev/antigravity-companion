@@ -1920,5 +1920,11 @@
   "query backup status endpoint via CDP",
   "check active settings tab in localStorage",
   "run existing npm test suite",
-  "check test output"
+  "check test output",
+  "Hot reload companion into Antigravity",
+  "check syntax_injection tests for inject_panel",
+  "run syntax_injection tests",
+  "run full npm test suite",
+  "check test task output",
+  "hot reload companion into Antigravity"
 ]
