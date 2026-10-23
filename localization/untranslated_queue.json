@@ -1831,7 +1831,6 @@
   "dump page text",
   "Dump lines 28-80",
   "dump lines 28-80",
-  "Playwright Integration For Google Flow",
   "check textbox content and submit button",
   "check generation result and screenshot",
   "inspect panda elements parent HTML",
@@ -1882,5 +1881,7 @@
   "check git status again",
   "stage files and make initial commit",
   "verify git status and log",
-  "question"
+  "question",
+  "Playwright Integration For Google Flow",
+  "create GitHub repo and push initial commit"
 ]
