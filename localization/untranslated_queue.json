@@ -1911,5 +1911,6 @@
   "Convert CHANGELOG.md to LF",
   "convert CHANGELOG.md to LF",
   "find backup endpoints in server",
-  "list backup_manager files"
+  "list backup_manager files",
+  "check backup status and logs in AppData"
 ]
