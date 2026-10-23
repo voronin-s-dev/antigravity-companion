@@ -1895,5 +1895,8 @@
   "using-superpowers",
   "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
   "Use when you have a spec or requirements for a multi-step task, before touching code",
-  "Implementing New Feature Task"
+  "Implementing New Feature Task",
+  "check config.json content",
+  "find agy-backup- element IDs",
+  "find updateLimits definition"
 ]
