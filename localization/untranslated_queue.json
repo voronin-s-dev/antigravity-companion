@@ -1798,5 +1798,6 @@
   "Locate Chrome executable",
   "locate Chrome executable",
   "check uv version",
-  "create venv and install playwright"
+  "create venv and install playwright",
+  "find Instagram architecture file"
 ]
