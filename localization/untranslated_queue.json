@@ -1858,5 +1858,11 @@
   "update scratch skill folder and zip archive",
   "check gh workflow runs",
   "view failed CI log",
-  "run npm test locally"
+  "run npm test locally",
+  "Commit and push CI fix",
+  "commit and push CI fix",
+  "check GitHub Actions status",
+  "Watch GitHub Actions run",
+  "watch GitHub Actions run",
+  "check failure log in 39964018249"
 ]
