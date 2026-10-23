@@ -1759,7 +1759,6 @@
   "update Task Scheduler to wscript",
   "test ScheduledTask start",
   "verify scheduled task completion",
-  "question",
   "Weekly Skills Auto-Update",
   "10:00 AM",
   "On top of those defaults, Weekly Skills Auto-Update requests the access below.",
@@ -1878,5 +1877,10 @@
   "list files in google-flow-mcp",
   "check GitHub CLI status",
   "find secret-scanner scripts",
-  "list secret scanner scripts dir"
+  "list secret scanner scripts dir",
+  "initialize git and check status",
+  "check git status again",
+  "stage files and make initial commit",
+  "verify git status and log",
+  "question"
 ]
