@@ -1790,5 +1790,11 @@
   "search Gemini rate limits and quota for Imagen and Veo",
   "list files in current workspace",
   "search for social files in projects",
-  "list files in Numerology-Bot/social"
+  "list files in Numerology-Bot/social",
+  "check Python and Playwright installation",
+  "check Python version and path",
+  "list Python versions",
+  "check Python 3.12 and uv",
+  "Locate Chrome executable",
+  "locate Chrome executable"
 ]
