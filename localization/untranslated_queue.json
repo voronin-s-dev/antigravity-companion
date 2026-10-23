@@ -1839,5 +1839,6 @@
   "inspect panda elements parent HTML",
   "inspect tiles for img and video src",
   "Download generated images from Google Flow",
-  "download generated images from Google Flow"
+  "download generated images from Google Flow",
+  "run flow_client.py test generation"
 ]
