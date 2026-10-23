@@ -1857,5 +1857,6 @@
   "check diff of queue",
   "update scratch skill folder and zip archive",
   "check gh workflow runs",
-  "view failed CI log"
+  "view failed CI log",
+  "run npm test locally"
 ]
