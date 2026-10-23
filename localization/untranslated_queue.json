@@ -1855,5 +1855,7 @@
   "clean up SDD plan workspace",
   "check final git status",
   "check diff of queue",
-  "update scratch skill folder and zip archive"
+  "update scratch skill folder and zip archive",
+  "check gh workflow runs",
+  "view failed CI log"
 ]
