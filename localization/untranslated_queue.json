@@ -1898,5 +1898,7 @@
   "Implementing New Feature Task",
   "check config.json content",
   "find agy-backup- element IDs",
-  "find updateLimits definition"
+  "find updateLimits definition",
+  "Model unavailable, retrying in 202s (attempt 1/9)",
+  "search openSettings usages"
 ]
