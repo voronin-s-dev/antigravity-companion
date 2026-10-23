@@ -834,7 +834,18 @@ async function injectWidget() {
       let wasCollapsedBeforeSettings = false;
       let draftSettings = null;
       let draftBackupSettings = null;
-      let activeSettingsTab = 'limits';
+      let currentBackupConfig = (function() {
+        try {
+          const cached = localStorage.getItem('agy_backup_config');
+          if (cached) {
+            return Object.assign({}, diskBackupConfig || {}, JSON.parse(cached));
+          }
+        } catch (e) {}
+        return Object.assign({}, diskBackupConfig || {});
+      })();
+      let activeSettingsTab = (function() {
+        try { return localStorage.getItem('agy_settings_active_tab') || 'limits'; } catch(e) { return 'limits'; }
+      })();
       let backupStatusData = null;
       let isBackupRunning = false;
 
@@ -843,7 +854,21 @@ async function injectWidget() {
           const res = await fetch('http://127.0.0.1:9229/api/backup/status').then(r => r.json());
           if (res && res.ok && res.status) {
             backupStatusData = res.status;
-            if (activeSettingsTab === 'backup') {
+            if (res.status.config) {
+              currentBackupConfig = Object.assign({}, currentBackupConfig, res.status.config);
+              try {
+                localStorage.setItem('agy_backup_config', JSON.stringify(currentBackupConfig));
+              } catch (e) {}
+              if (draftBackupSettings) {
+                draftBackupSettings.enabled = currentBackupConfig.enabled;
+                draftBackupSettings.cloudProvider = currentBackupConfig.cloudProvider;
+                draftBackupSettings.customPath = currentBackupConfig.customPath;
+                draftBackupSettings.backupTime = currentBackupConfig.backupTime;
+                draftBackupSettings.retentionDays = currentBackupConfig.retentionDays;
+                draftBackupSettings.neverDeleteInactiveLastVersions = currentBackupConfig.neverDeleteInactiveLastVersions;
+              }
+            }
+            if (activeSettingsTab === 'backup' && isSettingsOpen) {
               renderSettingsContent();
             }
           }
@@ -888,7 +913,7 @@ async function injectWidget() {
       function renderSettingsContent() {
         if (!draftSettings) return;
         const d = draftSettings;
-        const b = draftBackupSettings || {
+        const b = draftBackupSettings || currentBackupConfig || {
           enabled: false,
           cloudProvider: 'auto',
           customPath: '',
@@ -1228,6 +1253,7 @@ async function injectWidget() {
         if (tabLimitsBtn) {
           tabLimitsBtn.addEventListener('click', () => {
             activeSettingsTab = 'limits';
+            try { localStorage.setItem('agy_settings_active_tab', 'limits'); } catch (e) {}
             renderSettingsContent();
           });
         }
@@ -1235,6 +1261,7 @@ async function injectWidget() {
         if (tabBackupBtn) {
           tabBackupBtn.addEventListener('click', () => {
             activeSettingsTab = 'backup';
+            try { localStorage.setItem('agy_settings_active_tab', 'backup'); } catch (e) {}
             renderSettingsContent();
             fetchBackupStatus();
           });
@@ -1270,28 +1297,72 @@ async function injectWidget() {
             applyCollapseState();
             renderSidebarButtonContent();
 
+            // Extract live DOM input values for backup if active
+            if (draftBackupSettings) {
+              const customPathInput = settingsPanel.querySelector('#agy-backup-custom-path');
+              if (customPathInput) draftBackupSettings.customPath = customPathInput.value;
+
+              const timeInput = settingsPanel.querySelector('#agy-backup-time');
+              if (timeInput) draftBackupSettings.backupTime = timeInput.value;
+
+              const neverDeleteCb = settingsPanel.querySelector('#agy-backup-never-delete');
+              if (neverDeleteCb) draftBackupSettings.neverDeleteInactiveLastVersions = neverDeleteCb.checked;
+
+              currentBackupConfig = Object.assign({}, draftBackupSettings);
+              try {
+                localStorage.setItem('agy_backup_config', JSON.stringify(currentBackupConfig));
+              } catch (e) {}
+            }
+
             saveBtn.style.background = '#16a34a';
             saveBtn.querySelector('#agy-settings-save-icon').innerHTML = CHECK_ICON_SVG;
-            saveBtn.querySelector('#agy-settings-save-text').textContent = t('settingsSavedNotice');
             saveBtn.querySelector('#agy-settings-save-text').textContent = t('settingsSavedNotice');
 
             await saveAllSettingsToDisk(d);
 
             if (draftBackupSettings) {
               try {
-                await fetch('http://127.0.0.1:9229/api/backup/save', {
+                const bRes = await fetch('http://127.0.0.1:9229/api/backup/save', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(draftBackupSettings)
-                });
+                }).then(r => r.json());
+
+                if (bRes && bRes.ok && bRes.status) {
+                  backupStatusData = bRes.status;
+                  if (bRes.status.config) {
+                    currentBackupConfig = Object.assign({}, bRes.status.config);
+                    draftBackupSettings = Object.assign({}, currentBackupConfig);
+                    try {
+                      localStorage.setItem('agy_backup_config', JSON.stringify(currentBackupConfig));
+                    } catch (e) {}
+                  }
+                }
               } catch (e) {
                 console.warn('[Backup Sync] Failed to save backup settings:', e.message);
               }
             }
 
-            setTimeout(() => {
-              closeSettings(false);
-            }, 350);
+            if (activeSettingsTab === 'backup') {
+              renderSettingsContent();
+              const refreshedSaveBtn = settingsPanel.querySelector('#agy-settings-save-btn');
+              if (refreshedSaveBtn) {
+                refreshedSaveBtn.style.background = '#16a34a';
+                refreshedSaveBtn.querySelector('#agy-settings-save-icon').innerHTML = CHECK_ICON_SVG;
+                refreshedSaveBtn.querySelector('#agy-settings-save-text').textContent = t('settingsSavedNotice');
+                setTimeout(() => {
+                  refreshedSaveBtn.style.background = '#2563eb';
+                  const textSpan = refreshedSaveBtn.querySelector('#agy-settings-save-text');
+                  if (textSpan) textSpan.textContent = t('settingsSaveBtn');
+                  const iconSpan = refreshedSaveBtn.querySelector('#agy-settings-save-icon');
+                  if (iconSpan) iconSpan.innerHTML = SAVE_ICON_SVG;
+                }, 1500);
+              }
+            } else {
+              setTimeout(() => {
+                closeSettings(false);
+              }, 600);
+            }
           });
         }
 
@@ -1700,7 +1771,9 @@ async function injectWidget() {
         isCollapsed = false;
         isSettingsOpen = true;
 
-        activeSettingsTab = 'limits';
+        activeSettingsTab = (function() {
+          try { return localStorage.getItem('agy_settings_active_tab') || 'limits'; } catch(e) { return 'limits'; }
+        })();
         draftSettings = {
           placement: currentPlacement,
           tint: currentTint,
@@ -1717,12 +1790,12 @@ async function injectWidget() {
         };
 
         draftBackupSettings = {
-          enabled: (diskBackupConfig && diskBackupConfig.enabled) || false,
-          cloudProvider: (diskBackupConfig && diskBackupConfig.cloudProvider) || 'auto',
-          customPath: (diskBackupConfig && diskBackupConfig.customPath) || '',
-          backupTime: (diskBackupConfig && diskBackupConfig.backupTime) || '22:00',
-          retentionDays: (diskBackupConfig && diskBackupConfig.retentionDays) || 7,
-          neverDeleteInactiveLastVersions: (diskBackupConfig && diskBackupConfig.neverDeleteInactiveLastVersions !== undefined) ? diskBackupConfig.neverDeleteInactiveLastVersions : true
+          enabled: (currentBackupConfig && currentBackupConfig.enabled !== undefined) ? currentBackupConfig.enabled : false,
+          cloudProvider: (currentBackupConfig && currentBackupConfig.cloudProvider) || 'auto',
+          customPath: (currentBackupConfig && currentBackupConfig.customPath) || '',
+          backupTime: (currentBackupConfig && currentBackupConfig.backupTime) || '22:00',
+          retentionDays: (currentBackupConfig && currentBackupConfig.retentionDays !== undefined) ? currentBackupConfig.retentionDays : 7,
+          neverDeleteInactiveLastVersions: (currentBackupConfig && currentBackupConfig.neverDeleteInactiveLastVersions !== undefined) ? currentBackupConfig.neverDeleteInactiveLastVersions : true
         };
         fetchBackupStatus();
 
@@ -1766,8 +1839,10 @@ async function injectWidget() {
         const refreshBtn = header.querySelector('#agy-refresh-btn');
         if (refreshBtn) refreshBtn.style.display = 'flex';
 
-        if (wasCollapsedBeforeSettings) {
+        if (wasCollapsedBeforeSettings && shouldRevert) {
           isCollapsed = true;
+        } else if (!shouldRevert) {
+          isCollapsed = false;
         }
         applyCollapseState();
       }
@@ -3121,6 +3196,7 @@ async function injectWidget() {
 
       updateLimits(false);
       setupInterval(currentIntervalMs);
+      fetchBackupStatus();
 
       window.__agyLimitsCleanup = () => {
         if (initRetryTimer) clearTimeout(initRetryTimer);
