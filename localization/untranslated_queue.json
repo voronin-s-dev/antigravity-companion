@@ -1821,5 +1821,6 @@
   "Use when starting any conversation - establishes how to find and use skills, requiring skill invocation before ANY response including clarifying questions",
   "Use when you have a spec or requirements for a multi-step task, before touching code",
   "Toggle Gemini API",
-  "inspect Google Flow page via Playwright CDP"
+  "inspect Google Flow page via Playwright CDP",
+  "Click New Project and take screenshot"
 ]
