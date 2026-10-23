@@ -1721,5 +1721,17 @@
   "Google Cloud guidance for coding agents: first-project onboarding, authentication and credential selection, and safety-critical validation for gcloud CLI commands. Includes the Google Developer Knowledge MCP server for grounded, up-to-date Google Cloud documentation.",
   "Install Google Cloud Developer",
   "check omelyanchuk2593/humanizer-ua",
-  "list skills in Leonxlnx/taste-skill"
+  "list skills in Leonxlnx/taste-skill",
+  "list skills in microsoft/playwright-cli",
+  "inspect headers of remaining skills",
+  "\"safishamsi\" graphify github",
+  "list skills in safishamsi/graphify",
+  "\"At a high level, the process of creating a skill goes like this\" OR \"MCP Server Development Guide\" \"Process\" \"Phase 1: Deep Research and Planning\"",
+  "site:github.com \"MCP Server Development Guide\" \"Phase 1: Deep Research and Planning\"",
+  "\"mcp-builder\" \"FastMCP\" site:github.com",
+  "list skills in anthropics/skills",
+  "find secret-scanner via skills CLI",
+  "list skills in levnikolaevich/claude-code-skills",
+  "find scanning-for-hardcoded-secrets",
+  "list skills in tons-of-skills-marketplace"
 ]
