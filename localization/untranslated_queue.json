@@ -1887,5 +1887,9 @@
   "verify GitHub repository details",
   "Set GitHub repo description and topics",
   "set GitHub repo description and topics",
-  "search for 1.6.4 references"
+  "search for 1.6.4 references",
+  "Tag and push v1.7.0",
+  "commit and push v1.7.0 to main",
+  "tag and push v1.7.0",
+  "check GitHub Actions runs for v1.7.0"
 ]
