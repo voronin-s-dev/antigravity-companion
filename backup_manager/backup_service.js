@@ -209,6 +209,7 @@ function openLog() {
 }
 
 module.exports = {
+  detectAvailableClouds,
   getStatus,
   saveSettings,
   runManual,

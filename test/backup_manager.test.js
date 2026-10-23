@@ -138,6 +138,9 @@ async function testBackupManager() {
   console.log('  ✓ PowerShell AST syntax check passed for run_backup.ps1');
 
   // 4.2 Integration Test: End-to-end backup, exclusions, smart skip, status persistence
+  const lockFilePath = path.join(os.tmpdir(), 'antigravity_companion_backup.lock');
+  try { if (fs.existsSync(lockFilePath)) fs.unlinkSync(lockFilePath); } catch (e) {}
+
   const mockRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agy-mock-backup-'));
   const mockProjects = path.join(mockRoot, 'Projects');
   const mockScratch = path.join(mockRoot, 'Scratch');
@@ -197,12 +200,21 @@ async function testBackupManager() {
     // Run 3: Run via silent_runner.vbs with -ForceArchive
     const vbsCmd = `cscript.exe //nologo "${vbsPath}" -ProjectsRoot "${mockProjects}" -ScratchRoot "${mockScratch}" -BackupDestination "${mockDest}" -GeminiConfigDir "${mockGemini}" -ForceArchive`;
     execSync(vbsCmd, { env: { ...process.env, APPDATA: mockAppData }, stdio: 'pipe' });
+    // Allow background powershell spawned by silent_runner.vbs to finish and release lock
+    const startWait = Date.now();
+    while (Date.now() - startWait < 8000) {
+      if (!fs.existsSync(lockFilePath)) break;
+      await new Promise(r => setTimeout(r, 100));
+    }
     const status3 = readStatusJson(statusFile);
     assert.strictEqual(status3.status, 'success');
     assert.strictEqual(status3.archivesCreated, 1, 'ForceArchive must create an archive even without changes');
 
     console.log('  ✓ Integration Test: Backup creation, tar exclusion, Smart Skip & silent_runner.vbs passed.');
   } finally {
+    try {
+      if (fs.existsSync(lockFilePath)) fs.unlinkSync(lockFilePath);
+    } catch (e) {}
     try {
       fs.rmSync(mockRoot, { recursive: true, force: true });
     } catch (e) {}
@@ -267,6 +279,99 @@ async function testBackupManager() {
     try {
       fs.rmSync(tempAppData, { recursive: true, force: true });
     } catch (e) {}
+  }
+
+  // 6. Test Companion Server API Endpoints
+  const { startServer, stopServer, createRequestHandler } = require('../bin/companion_server');
+  const http = require('http');
+
+  function requestJson(port, endpoint, method = 'GET', data = null) {
+    return new Promise((resolve, reject) => {
+      const postData = data ? JSON.stringify(data) : null;
+      const req = http.request({
+        hostname: '127.0.0.1',
+        port,
+        path: endpoint,
+        method,
+        headers: {
+          'Host': `127.0.0.1:${port}`,
+          'Origin': 'http://127.0.0.1',
+          ...(postData ? {
+            'Content-Type': 'application/json',
+            'Content-Length': Buffer.byteLength(postData)
+          } : {})
+        }
+      }, (res) => {
+        let raw = '';
+        res.on('data', chunk => raw += chunk);
+        res.on('end', () => {
+          try {
+            const parsed = JSON.parse(raw);
+            resolve({ status: res.statusCode, headers: res.headers, body: parsed });
+          } catch (e) {
+            resolve({ status: res.statusCode, headers: res.headers, body: raw });
+          }
+        });
+      });
+      req.on('error', reject);
+      if (postData) req.write(postData);
+      req.end();
+    });
+  }
+
+  const testPort = 9235;
+  const testServer = startServer(testPort);
+  await new Promise(r => setTimeout(r, 150));
+
+  try {
+    // 6.1 Test GET /api/backup/detect
+    const detectRes = await requestJson(testPort, '/api/backup/detect');
+    assert.strictEqual(detectRes.status, 200, 'GET /api/backup/detect status must be 200');
+    assert.strictEqual(detectRes.body.ok, true, 'GET /api/backup/detect must return ok: true');
+    assert(Array.isArray(detectRes.body.clouds), 'detect response must include clouds array');
+    assert(detectRes.body.clouds.length >= 5, 'detect response clouds count >= 5');
+
+    // 6.2 Test GET /api/backup/status
+    const statusRes = await requestJson(testPort, '/api/backup/status');
+    assert.strictEqual(statusRes.status, 200, 'GET /api/backup/status status must be 200');
+    assert.strictEqual(statusRes.body.ok, true, 'GET /api/backup/status must return ok: true');
+    assert(statusRes.body.status && statusRes.body.status.config, 'status response must include config');
+
+    // 6.3 Test POST /api/backup/save
+    const saveRes = await requestJson(testPort, '/api/backup/save', 'POST', {
+      config: {
+        retentionDays: 10
+      }
+    });
+    assert.strictEqual(saveRes.status, 200, 'POST /api/backup/save status must be 200');
+    assert.strictEqual(saveRes.body.ok, true);
+    assert.strictEqual(saveRes.body.status.config.retentionDays, 10);
+
+    // 6.4 Test POST /api/backup/run
+    const runRes = await requestJson(testPort, '/api/backup/run', 'POST');
+    assert.strictEqual(runRes.status, 200);
+    assert.strictEqual(runRes.body.ok, true);
+    assert(typeof runRes.body.result === 'object');
+
+    // 6.5 Test POST /api/backup/open-folder
+    const openFolderRes = await requestJson(testPort, '/api/backup/open-folder', 'POST', { path: '' });
+    assert.strictEqual(openFolderRes.status, 200);
+    assert.strictEqual(openFolderRes.body.ok, true);
+
+    // 6.6 Test POST /api/backup/open-log
+    const openLogRes = await requestJson(testPort, '/api/backup/open-log', 'POST');
+    assert.strictEqual(openLogRes.status, 200);
+    assert.strictEqual(openLogRes.body.ok, true);
+
+    // 6.7 Test GET /api/backup/log
+    const logRes = await requestJson(testPort, '/api/backup/log');
+    assert.strictEqual(logRes.status, 200);
+    assert.strictEqual(logRes.body.ok, true);
+    assert(Array.isArray(logRes.body.logs));
+
+    console.log('  ✓ Companion Server Backup HTTP API endpoints integration tests passed.');
+  } finally {
+    stopServer(testServer);
   }
 }
 
