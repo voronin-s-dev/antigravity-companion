@@ -70,6 +70,16 @@ async function main() {
     hasErrors = true;
   }
 
+  try {
+    process.stdout.write('7. Проверка Backup Manager и детектора облачных дисков... ');
+    const { testBackupManager } = require('./backup_manager.test.js');
+    testBackupManager();
+    console.log(`✓ УСПЕШНО`);
+  } catch (e) {
+    console.log(`✗ ОШИБКА: ${e.message}`);
+    hasErrors = true;
+  }
+
   console.log('---------------------------------------------');
   if (hasErrors) {
     console.error('✗ Обнаружены критические ошибки при тестировании.');
