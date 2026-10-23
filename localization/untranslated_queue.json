@@ -1796,5 +1796,7 @@
   "list Python versions",
   "check Python 3.12 and uv",
   "Locate Chrome executable",
-  "locate Chrome executable"
+  "locate Chrome executable",
+  "check uv version",
+  "create venv and install playwright"
 ]
