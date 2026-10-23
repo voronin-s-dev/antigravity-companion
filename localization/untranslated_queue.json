@@ -1926,5 +1926,9 @@
   "run syntax_injection tests",
   "run full npm test suite",
   "check test task output",
-  "hot reload companion into Antigravity"
+  "hot reload companion into Antigravity",
+  "open settings backup tab via CDP",
+  "check backup status endpoint via CDP",
+  "check status endpoint now",
+  "check tail of backup.log"
 ]
