@@ -1840,5 +1840,7 @@
   "inspect tiles for img and video src",
   "Download generated images from Google Flow",
   "download generated images from Google Flow",
-  "run flow_client.py test generation"
+  "run flow_client.py test generation",
+  "click New Project and take screenshot",
+  "test background generation without bring_to_front"
 ]
