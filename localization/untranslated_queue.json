@@ -1785,5 +1785,7 @@
   "google flow generate photo video",
   "google flow url website flow.google",
   "search Gemini docs for Imagen and Veo",
-  "read Veo documentation from python SDK"
+  "read Veo documentation from python SDK",
+  "google flow limits daily limit rate limit flow.google",
+  "search Gemini rate limits and quota for Imagen and Veo"
 ]
