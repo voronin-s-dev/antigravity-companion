@@ -1842,5 +1842,6 @@
   "download generated images from Google Flow",
   "run flow_client.py test generation",
   "click New Project and take screenshot",
-  "test background generation without bring_to_front"
+  "test background generation without bring_to_front",
+  "list user skills directory"
 ]
