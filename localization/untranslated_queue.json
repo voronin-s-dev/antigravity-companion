@@ -1957,5 +1957,8 @@
   "check running processes and CPU",
   "check lock file content",
   "test tar on antigravity-companion",
-  "test isBackupRunning on dead lockfile"
+  "test isBackupRunning on dead lockfile",
+  "run backup_manager unit test",
+  "check test log tail",
+  "check test completion"
 ]
