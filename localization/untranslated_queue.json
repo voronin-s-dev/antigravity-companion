@@ -1050,5 +1050,6 @@
   "check 8080 port",
   "verify preview_dashboard.html",
   "Graphify update",
-  "graphify update"
+  "graphify update",
+  "find V5 and standard occurrences in code"
 ]
