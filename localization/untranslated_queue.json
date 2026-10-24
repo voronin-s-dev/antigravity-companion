@@ -936,5 +936,6 @@
   "Start bot daemon with formal delay",
   "check size of 08.11.1995 master files",
   "check original 08.11.1995 profile",
-  "inspect module details of 08.11.1995_male.html"
+  "inspect module details of 08.11.1995_male.html",
+  "verify build_dashboard_html for 08.11.95 male"
 ]
