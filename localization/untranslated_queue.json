@@ -887,5 +887,21 @@
   "list files in 29.07.2005 profile",
   "check python scripts in parent project",
   "check subdirectories in parent project",
-  "check tools directory"
+  "check tools directory",
+  "list templates in parent project",
+  "list templates components",
+  "find master builders",
+  "list all profiles in parent project",
+  "check dashboards in all profiles",
+  "check 14.07.1990 gender",
+  "check client dict in 14.07.1990",
+  "check size of all dashboard.html files in profiles",
+  "check layout in profiles",
+  "check 30.08.2005 layout",
+  "check 14.07.1990 layout",
+  "Copy master profiles to dashboards cache",
+  "copy master profiles to dashboards cache",
+  "verify dashboards directory",
+  "verify master cache retrieval for all cases",
+  "test master cache retrieval"
 ]
