@@ -1054,5 +1054,14 @@
   "Reviewing Calculations And Formulas",
   "Google Flow MCP Integration",
   "Master Analysis 08 11 1995",
-  "Start bot daemon with TWA server and Cloudflare"
+  "Start bot daemon with TWA server and Cloudflare",
+  "Missing HTML Dashboard Recovery",
+  "check git status and recent commits",
+  "list files in templates directory",
+  "check recent generated dashboard",
+  "inspect first 30 lines of recent dashboard",
+  "search for dashboards pattern in bot code",
+  "search for dashboard rendering and serving in bot main",
+  "list all dashboard files for user 316694821",
+  "find titles in all user 316694821 dashboards"
 ]
