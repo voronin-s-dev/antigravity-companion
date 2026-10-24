@@ -855,5 +855,6 @@
   "list skills in social sub-workspace",
   "check references in social skill",
   "\"Jakeschincariol/instagram-agent-skill\" files tree OR \"skills/\" OR \"scripts/\" OR \".claude\"",
-  "\"Jakeschincariol/instagram-agent-skill\" \"skills/\" list"
+  "\"Jakeschincariol/instagram-agent-skill\" \"skills/\" list",
+  "Message from Quality and Skeptic Critic (flow-quality-critic)"
 ]
