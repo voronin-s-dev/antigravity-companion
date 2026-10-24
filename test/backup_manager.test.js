@@ -282,6 +282,11 @@ async function testBackupManager() {
     const resolvedCustom = backup_service.resolveDestinationPath('D:\\MyCustomBackups');
     assert.strictEqual(resolvedCustom, path.resolve('D:\\MyCustomBackups'));
 
+    // 5.5 Test isBackupRunning
+    assert.strictEqual(typeof backup_service.isBackupRunning, 'function');
+    assert.strictEqual(backup_service.isBackupRunning(), false);
+    assert.strictEqual(typeof updatedStatus.isRunning, 'boolean');
+
     console.log('  ✓ Scheduler Integration & Backup Controller Service unit tests passed.');
   } finally {
     process.env.APPDATA = prevAppData;
@@ -348,6 +353,7 @@ async function testBackupManager() {
     assert.strictEqual(statusRes.status, 200, 'GET /api/backup/status status must be 200');
     assert.strictEqual(statusRes.body.ok, true, 'GET /api/backup/status must return ok: true');
     assert(statusRes.body.status && statusRes.body.status.config, 'status response must include config');
+    assert.strictEqual(typeof statusRes.body.status.isRunning, 'boolean');
 
     // 6.3 Test POST /api/backup/save
     const saveRes = await requestJson(testPort, '/api/backup/save', 'POST', {
@@ -359,11 +365,17 @@ async function testBackupManager() {
     assert.strictEqual(saveRes.body.ok, true);
     assert.strictEqual(saveRes.body.status.config.retentionDays, 10);
 
-    // 6.4 Test POST /api/backup/run
-    const runRes = await requestJson(testPort, '/api/backup/run', 'POST');
-    assert.strictEqual(runRes.status, 200);
-    assert.strictEqual(runRes.body.ok, true);
-    assert(typeof runRes.body.result === 'object');
+    // 6.4 Test POST /api/backup/run (stubbed to prevent orphan background processes during unit test)
+    const origRunManual = backup_service.runManual;
+    backup_service.runManual = () => ({ ok: true, message: 'Mock backup initiated' });
+    try {
+      const runRes = await requestJson(testPort, '/api/backup/run', 'POST');
+      assert.strictEqual(runRes.status, 200);
+      assert.strictEqual(runRes.body.ok, true);
+      assert(typeof runRes.body.result === 'object');
+    } finally {
+      backup_service.runManual = origRunManual;
+    }
 
     // 6.5 Test POST /api/backup/open-folder
     const openFolderRes = await requestJson(testPort, '/api/backup/open-folder', 'POST', { path: '' });

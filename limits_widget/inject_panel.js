@@ -185,6 +185,11 @@ async function injectWidget() {
           backupSchedulerInactive: 'Планировщик отключен',
           backupRunNowBtn: 'Сделать бэкап сейчас',
           backupRunning: 'Создание архивов...',
+          backupStatusRunning: 'Архивация выполняется...',
+          backupStatusSuccess: 'Успешно',
+          backupStatusWarning: 'С предупреждением',
+          backupStatusError: 'Ошибка архивации',
+          backupCompleted: '✓ Бэкап завершен!',
           backupOpenFolderBtn: 'Открыть папку',
           backupOpenLogBtn: 'Лог бэкапа'
         },
@@ -281,6 +286,11 @@ async function injectWidget() {
           backupSchedulerInactive: 'Scheduler disabled',
           backupRunNowBtn: 'Run backup now',
           backupRunning: 'Creating archives...',
+          backupStatusRunning: 'Archiving in progress...',
+          backupStatusSuccess: 'Success',
+          backupStatusWarning: 'With warnings',
+          backupStatusError: 'Backup error',
+          backupCompleted: '✓ Backup completed!',
           backupOpenFolderBtn: 'Open folder',
           backupOpenLogBtn: 'Backup log'
         }
@@ -848,12 +858,20 @@ async function injectWidget() {
       })();
       let backupStatusData = null;
       let isBackupRunning = false;
+      let backupPollInterval = null;
+      let backupJustFinishedAt = 0;
+      let backupCompletedNotice = null;
 
       async function fetchBackupStatus() {
         try {
           const res = await fetch('http://127.0.0.1:9229/api/backup/status').then(r => r.json());
           if (res && res.ok && res.status) {
             backupStatusData = res.status;
+            if (res.status.isRunning) {
+              isBackupRunning = true;
+            } else if (isBackupRunning && !backupPollInterval) {
+              isBackupRunning = false;
+            }
             if (res.status.config) {
               currentBackupConfig = Object.assign({}, currentBackupConfig, res.status.config);
               try {
@@ -931,17 +949,41 @@ async function injectWidget() {
         ];
 
         const lastBackup = backupStatusData && backupStatusData.lastBackup;
+        const isRunning = Boolean((backupStatusData && backupStatusData.isRunning) || isBackupRunning);
+        const isJustFinished = Boolean(backupJustFinishedAt && (Date.now() - backupJustFinishedAt < 3500));
+
         let lastRunFormatted = t('backupNever');
         let statusBadgeColor = '#71717a';
         let statusBadgeIcon = '○';
+
         if (lastBackup && lastBackup.lastRunTime) {
           try {
             const dt = new Date(lastBackup.lastRunTime);
-            lastRunFormatted = dt.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { day: '2-digit', month: '2-digit' }) + ' ' + dt.toLocaleTimeString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { hour: '2-digit', minute: '2-digit' });
+            const now = new Date();
+            const isToday = dt.toDateString() === now.toDateString();
+            const timeStr = dt.toLocaleTimeString(currentLang === 'ru' ? 'ru-RU' : 'en-US', {
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit'
+            });
+
+            if (isToday) {
+              lastRunFormatted = (currentLang === 'ru' ? 'Сегодня, ' : 'Today, ') + timeStr;
+            } else {
+              const dateStr = dt.toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', {
+                day: '2-digit',
+                month: '2-digit'
+              });
+              lastRunFormatted = dateStr + ', ' + timeStr;
+            }
           } catch (e) {
             lastRunFormatted = String(lastBackup.lastRunTime);
           }
-          if (lastBackup.status === 'success') {
+
+          if (isRunning) {
+            statusBadgeColor = '#3b82f6';
+            statusBadgeIcon = '⏳';
+          } else if (lastBackup.status === 'success') {
             statusBadgeColor = '#22c55e';
             statusBadgeIcon = '✓';
           } else if (lastBackup.status === 'warning') {
@@ -951,6 +993,40 @@ async function injectWidget() {
             statusBadgeColor = '#ef4444';
             statusBadgeIcon = '✕';
           }
+        } else if (isRunning) {
+          statusBadgeColor = '#3b82f6';
+          statusBadgeIcon = '⏳';
+          lastRunFormatted = t('backupStatusRunning');
+        }
+
+        let noticeHtml = '';
+        if (backupCompletedNotice) {
+          noticeHtml = '<div style="margin-top: 3px; padding: 4px 6px; border-radius: 4px; font-size: 9px; background: ' + backupCompletedNotice.bg + '; border: 1px solid ' + backupCompletedNotice.border + '; color: ' + backupCompletedNotice.color + '; display: flex; align-items: center; gap: 4px; line-height: 1.3;">'
+            + '<span style="font-weight: 600;">' + backupCompletedNotice.icon + '</span>'
+            + '<span>' + backupCompletedNotice.text + '</span>'
+            + '</div>';
+        } else if (isRunning) {
+          noticeHtml = '<div style="margin-top: 3px; padding: 4px 6px; border-radius: 4px; font-size: 9px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); color: #93c5fd; display: flex; align-items: center; gap: 4px; line-height: 1.3;">'
+            + '<span>⏳</span>'
+            + '<span>' + (currentLang === 'ru' ? 'Идет сканирование и архивация проектов...' : 'Scanning and compressing projects...') + '</span>'
+            + '</div>';
+        }
+
+        let runBtnText = t('backupRunNowBtn');
+        let runBtnBg = 'rgba(37,99,235,0.2)';
+        let runBtnBorder = 'rgba(37,99,235,0.5)';
+        let runBtnColor = '#93c5fd';
+
+        if (isJustFinished) {
+          runBtnText = t('backupCompleted');
+          runBtnBg = 'rgba(34,197,94,0.25)';
+          runBtnBorder = 'rgba(34,197,94,0.55)';
+          runBtnColor = '#86efac';
+        } else if (isRunning) {
+          runBtnText = t('backupRunning');
+          runBtnBg = 'rgba(255,255,255,0.06)';
+          runBtnBorder = 'rgba(255,255,255,0.15)';
+          runBtnColor = '#a1a1aa';
         }
 
         const projectsCount = (lastBackup && (lastBackup.projectsProcessed !== undefined ? lastBackup.projectsProcessed : lastBackup.archivesCreated)) || (diskBackupConfig && diskBackupConfig.lastBackupCount) || 0;
@@ -1208,7 +1284,7 @@ async function injectWidget() {
               </div>
               <div style="display: flex; align-items: center; justify-content: space-between; font-size: 9.5px;">
                 <span style="color: #a1a1aa;">\${t('backupLastRun')}:</span>
-                <span style="display: flex; align-items: center; gap: 4px; color: \${statusBadgeColor};">
+                <span style="display: flex; align-items: center; gap: 4px; color: \${statusBadgeColor}; font-weight: 500;">
                   <span>\${statusBadgeIcon}</span>
                   <span>\${lastRunFormatted}</span>
                 </span>
@@ -1217,12 +1293,13 @@ async function injectWidget() {
                 <span style="color: #a1a1aa;">\${t('backupProjectsCount')} / \${t('backupSize')}:</span>
                 <span style="color: #f4f4f5;">\${projectsCount} / \${sizeText}</span>
               </div>
+              \${noticeHtml}
             </div>
 
             <!-- Action buttons -->
             <div style="display: flex; flex-direction: column; gap: 4px;">
-              <button id="agy-backup-run-now" class="agy-tactile-btn" style="width: 100%; padding: 5px 8px; border-radius: 4px; background: rgba(37,99,235,0.2); border: 1px solid rgba(37,99,235,0.5); color: #93c5fd; font-size: 10px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px;">
-                <span>\${isBackupRunning ? t('backupRunning') : t('backupRunNowBtn')}</span>
+              <button id="agy-backup-run-now" class="agy-tactile-btn" \${isRunning ? 'disabled' : ''} style="width: 100%; padding: 5px 8px; border-radius: 4px; background: \${runBtnBg}; border: 1px solid \${runBtnBorder}; color: \${runBtnColor}; font-size: 10px; font-weight: 500; cursor: \${isRunning ? 'wait' : 'pointer'}; display: flex; align-items: center; justify-content: center; gap: 5px; transition: all 0.2s;">
+                <span>\${runBtnText}</span>
               </button>
               <div style="display: flex; gap: 4px;">
                 <button id="agy-backup-open-folder" class="agy-tactile-btn" style="flex: 1; padding: 4px 6px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); color: #d4d4d8; font-size: 9.5px; cursor: pointer; text-align: center;">
@@ -1418,19 +1495,106 @@ async function injectWidget() {
             runNowBtn.addEventListener('click', async () => {
               if (isBackupRunning) return;
               isBackupRunning = true;
-              runNowBtn.disabled = true;
-              runNowBtn.style.opacity = '0.6';
-              runNowBtn.textContent = t('backupRunning');
+              backupCompletedNotice = null;
+              renderSettingsContent();
+
+              const prevLastRunTime = (backupStatusData && backupStatusData.lastBackup && backupStatusData.lastBackup.lastRunTime) || null;
+
               try {
                 await fetch('http://127.0.0.1:9229/api/backup/run', { method: 'POST' });
               } catch (e) {
                 console.warn('[Backup Run] Error:', e.message);
               }
-              setTimeout(async () => {
-                isBackupRunning = false;
-                await fetchBackupStatus();
-                renderSettingsContent();
-              }, 3000);
+
+              if (backupPollInterval) clearInterval(backupPollInterval);
+
+              let attempts = 0;
+              const maxAttempts = 60;
+
+              backupPollInterval = setInterval(async () => {
+                attempts++;
+                try {
+                  const res = await fetch('http://127.0.0.1:9229/api/backup/status').then(r => r.json());
+                  if (res && res.ok && res.status) {
+                    backupStatusData = res.status;
+                    const isStillRunning = Boolean(res.status.isRunning);
+                    const newLastRunTime = (res.status.lastBackup && res.status.lastBackup.lastRunTime) || null;
+                    const hasNewRun = newLastRunTime && newLastRunTime !== prevLastRunTime;
+
+                    if (!isStillRunning && (hasNewRun || attempts > 6)) {
+                      clearInterval(backupPollInterval);
+                      backupPollInterval = null;
+                      isBackupRunning = false;
+
+                      const lb = res.status.lastBackup;
+                      if (lb) {
+                        const created = lb.archivesCreated || 0;
+                        const skipped = lb.archivesSkipped || 0;
+                        const errorsCount = (lb.errors && lb.errors.length) || 0;
+
+                        if (errorsCount > 0) {
+                          backupCompletedNotice = {
+                            bg: 'rgba(239, 68, 68, 0.12)',
+                            border: 'rgba(239, 68, 68, 0.3)',
+                            color: '#fca5a5',
+                            icon: '✕',
+                            text: (currentLang === 'ru' ? 'Ошибка: ' : 'Error: ') + (lb.errors[0] || t('backupStatusError'))
+                          };
+                        } else if (created > 0) {
+                          backupCompletedNotice = {
+                            bg: 'rgba(34, 197, 94, 0.12)',
+                            border: 'rgba(34, 197, 94, 0.3)',
+                            color: '#86efac',
+                            icon: '✓',
+                            text: currentLang === 'ru'
+                              ? ('Создано новых архивов: ' + created + ', без изменений: ' + skipped)
+                              : ('New archives created: ' + created + ', unchanged: ' + skipped)
+                          };
+                        } else {
+                          backupCompletedNotice = {
+                            bg: 'rgba(34, 197, 94, 0.12)',
+                            border: 'rgba(34, 197, 94, 0.3)',
+                            color: '#86efac',
+                            icon: '✓',
+                            text: currentLang === 'ru'
+                              ? ('Все ' + (lb.projectsProcessed || skipped) + ' проектов актуальны (без изменений)')
+                              : ('All ' + (lb.projectsProcessed || skipped) + ' projects are up-to-date')
+                          };
+                        }
+                      }
+
+                      backupJustFinishedAt = Date.now();
+                      if (activeSettingsTab === 'backup' && isSettingsOpen) {
+                        renderSettingsContent();
+                      }
+
+                      setTimeout(() => {
+                        backupJustFinishedAt = 0;
+                        if (activeSettingsTab === 'backup' && isSettingsOpen) {
+                          renderSettingsContent();
+                        }
+                      }, 3500);
+
+                      return;
+                    }
+                  }
+                } catch (e) {
+                  console.warn('[Backup Poll] Error:', e.message);
+                }
+
+                if (attempts >= maxAttempts) {
+                  clearInterval(backupPollInterval);
+                  backupPollInterval = null;
+                  isBackupRunning = false;
+                  if (activeSettingsTab === 'backup' && isSettingsOpen) {
+                    renderSettingsContent();
+                  }
+                } else {
+                  if (activeSettingsTab === 'backup' && isSettingsOpen) {
+                    renderSettingsContent();
+                  }
+                }
+              }, 800);
             });
           }
 
@@ -3216,6 +3380,7 @@ async function injectWidget() {
         if (tooltipTimer) clearInterval(tooltipTimer);
         if (window.__agyLimitsInterval) clearInterval(window.__agyLimitsInterval);
         if (sessionStepInterval) clearInterval(sessionStepInterval);
+        if (backupPollInterval) clearInterval(backupPollInterval);
         window.removeEventListener('paste', handleInputPaste, true);
         const pgt = document.getElementById('agy-paste-guard-toast');
         if (pgt) pgt.remove();

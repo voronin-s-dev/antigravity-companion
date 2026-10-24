@@ -5,6 +5,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const { spawn } = require('child_process');
 const { loadConfig, saveConfig, getConfigDir } = require('../config/companion_config');
 const { detectAvailableClouds } = require('./cloud_detector');
@@ -35,7 +36,11 @@ function getLastBackupStatus() {
   if (fs.existsSync(statusFile)) {
     try {
       const raw = fs.readFileSync(statusFile, 'utf8');
-      return JSON.parse(raw);
+      const parsed = JSON.parse(raw);
+      if (parsed && parsed.status === 'running' && !isBackupRunning()) {
+        parsed.status = (parsed.errors && parsed.errors.length > 0) ? 'error' : 'interrupted';
+      }
+      return parsed;
     } catch (e) {
       return null;
     }
@@ -99,9 +104,44 @@ function resolveDestinationPath(customPath) {
   return path.resolve(path.join(userProfile, 'Backups', 'Antigravity'));
 }
 
+let manualRunInitiatedAt = 0;
+
+/**
+ * Проверить, запущен ли в данный момент процесс бэкапа
+ * @returns {boolean}
+ */
+function isBackupRunning() {
+  const now = Date.now();
+  const tmpDir = process.env.TEMP || process.env.TMP || os.tmpdir();
+  const lockFile = path.join(tmpDir, 'antigravity_companion_backup.lock');
+
+  if (fs.existsSync(lockFile)) {
+    try {
+      const rawPid = fs.readFileSync(lockFile, 'utf8').trim();
+      const pid = parseInt(rawPid, 10);
+      if (pid && !isNaN(pid)) {
+        try {
+          process.kill(pid, 0);
+          return true;
+        } catch (e) {
+          // PID больше не существует в системе, очищаем устаревший лок
+          try { fs.unlinkSync(lockFile); } catch (_) {}
+        }
+      }
+    } catch (e) {}
+  }
+
+  // Льготный период 4 сек после ручного вызова (пока wscript -> powershell стартует и создает лок)
+  if (now - manualRunInitiatedAt < 4000) {
+    return true;
+  }
+
+  return false;
+}
+
 /**
  * Получить общий агрегированный статус подсистемы бэкапов
- * @returns {Promise<{ config: object, clouds: Array, scheduler: object, lastBackup: object|null, recentLogs: string[] }>}
+ * @returns {Promise<{ config: object, clouds: Array, scheduler: object, lastBackup: object|null, recentLogs: string[], isRunning: boolean }>}
  */
 async function getStatus() {
   const conf = loadConfig();
@@ -109,13 +149,15 @@ async function getStatus() {
   const schedStatus = scheduler.getTaskStatus();
   const lastBackup = getLastBackupStatus();
   const recentLogs = getRecentLogs(25);
+  const isRunning = isBackupRunning();
 
   return {
     config: conf.backup,
     clouds,
     scheduler: schedStatus,
     lastBackup,
-    recentLogs
+    recentLogs,
+    isRunning
   };
 }
 
@@ -144,15 +186,20 @@ async function saveSettings(newBackupSettings = {}) {
 
 /**
  * Запустить ручной бэкап в фоне без блокировки
- * @returns {{ ok: boolean, message: string }}
+ * @returns {{ ok: boolean, message: string, running?: boolean }}
  */
 function runManual() {
+  if (isBackupRunning()) {
+    return { ok: true, running: true, message: 'Backup is already running' };
+  }
+
   if (process.platform !== 'win32') {
     return { ok: true, message: 'Backup started in background' };
   }
 
   const vbsPath = path.resolve(__dirname, 'engine', 'silent_runner.vbs');
   try {
+    manualRunInitiatedAt = Date.now();
     const child = spawn('wscript.exe', [vbsPath], {
       detached: true,
       stdio: 'ignore',
@@ -162,6 +209,7 @@ function runManual() {
     child.unref();
     return { ok: true, message: 'Backup started in background' };
   } catch (err) {
+    manualRunInitiatedAt = 0;
     return { ok: false, message: err.message };
   }
 }
@@ -228,6 +276,7 @@ module.exports = {
   getStatus,
   saveSettings,
   runManual,
+  isBackupRunning,
   openFolder,
   openLog,
   getBackupStatusPath,

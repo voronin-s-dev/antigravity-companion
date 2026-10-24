@@ -122,6 +122,15 @@ function testBackupPanelSyntaxGuard() {
   if (!panelSource.includes('agy-backup-panel-tab-content')) {
     throw new Error('Отсутствует селектор agy-backup-panel-tab-content в inject_panel.js!');
   }
+  if (!panelSource.includes('backupPollInterval')) {
+    throw new Error('Отсутствует реактивный цикл поллинга статуса бэкапа (backupPollInterval) в inject_panel.js!');
+  }
+  if (!panelSource.includes('backupCompletedNotice')) {
+    throw new Error('Отсутствует баннер обратной связи о завершении бэкапа (backupCompletedNotice) в inject_panel.js!');
+  }
+  if (!panelSource.includes("second: '2-digit'")) {
+    throw new Error('Отсутствует отображение секунд в таймштампе бэкапа (second: 2-digit) в inject_panel.js!');
+  }
 }
 
 module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard, testStepCounterIntegrity, testBackupPanelSyntaxGuard };
