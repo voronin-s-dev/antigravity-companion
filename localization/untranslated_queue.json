@@ -981,5 +981,6 @@
   "test build_universal_full_dashboard with 29.07.2005 female",
   "read lines 1-50 of 29.07.2005_female.html",
   "inspect generate_master_08_11_1995.py sections",
-  "run print_snippets.py to see sections"
+  "run print_snippets.py to see sections",
+  "check age calculation logic"
 ]
