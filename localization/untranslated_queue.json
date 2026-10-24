@@ -924,5 +924,6 @@
   "run inspect_master with sys.path",
   "Start bot and TWA daemon",
   "check python readiness",
-  "test universal_dashboard_builder output"
+  "test universal_dashboard_builder output",
+  "remove test cached file"
 ]
