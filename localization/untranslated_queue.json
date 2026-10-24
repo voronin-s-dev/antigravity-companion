@@ -857,7 +857,6 @@
   "\"Jakeschincariol/instagram-agent-skill\" files tree OR \"skills/\" OR \"scripts/\" OR \".claude\"",
   "\"Jakeschincariol/instagram-agent-skill\" \"skills/\" list",
   "Message from Quality and Skeptic Critic (flow-quality-critic)",
-  "Google Flow MCP Integration",
   "Start Telegram bot and TWA server daemon",
   "Discord Password Protected Channel Guide",
   "inspect reference benchmark profile directory",
@@ -991,7 +990,6 @@
   "Master Analysis 08 11 1995",
   "check .agents/rules directory",
   "update graphify graph",
-  "Reviewing Calculations And Formulas",
   "list files in core directory",
   "list files in tests directory",
   "search for calculate functions",
@@ -1053,5 +1051,7 @@
   "graphify update",
   "find V5 and standard occurrences in code",
   "check report_builder and ai_consultant",
-  "check v5.0 lines"
+  "check v5.0 lines",
+  "Reviewing Calculations And Formulas",
+  "Google Flow MCP Integration"
 ]
