@@ -1000,5 +1000,11 @@
   "search for calculation in universal_dashboard_builder",
   "search for calculation in report_builder",
   "search destiny_matrix_22 usage in services",
-  "find calculate_exact_age usages"
+  "find calculate_exact_age usages",
+  "check calculate_numerology on 09.01.2000",
+  "run python test on 09.01.2000",
+  "run python check on 09.01.2000",
+  "check python 3.12 executable",
+  "test 09.01.2000 in calculate_numerology",
+  "check cells for 09.01.2000"
 ]
