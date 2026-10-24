@@ -1178,5 +1178,10 @@
   "Unstage all changes",
   "unstage all changes",
   "Reset git index",
-  "reset git index"
+  "reset git index",
+  "Git commit new interpretation engine",
+  "check social directory status",
+  "list social files",
+  "stage all project files",
+  "git commit new interpretation engine"
 ]
