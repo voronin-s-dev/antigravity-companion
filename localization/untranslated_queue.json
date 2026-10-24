@@ -822,5 +822,12 @@
   "test server.py import",
   "verify server.py import",
   "Call flow_check_status",
-  "call flow_check_status"
+  "call flow_check_status",
+  "Byte-compile all python scripts",
+  "byte-compile all python scripts",
+  "list server tools",
+  "list mcp schemas",
+  "list scratch files",
+  "Clean temporary probe files",
+  "clean temporary probe files"
 ]
