@@ -1141,5 +1141,11 @@
   "compare similarity between two dashboards",
   "inspect universal_dashboard_builder.py structure",
   "inspect module interpolation in builder",
-  "inspect speech scripts and chronotype in builder"
+  "inspect speech scripts and chronotype in builder",
+  "list markdown files",
+  "check length of specs",
+  "list bot/services files",
+  "check mobile_dashboard_template.html",
+  "list test files",
+  "run pytest with 8s wait"
 ]
