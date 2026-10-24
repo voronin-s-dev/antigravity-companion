@@ -1172,5 +1172,11 @@
   "search for dashboard usages in bot/",
   "check running python processes",
   "check process command line",
-  "check cloudflared process"
+  "check cloudflared process",
+  "Stage files for git commit",
+  "stage files for git commit",
+  "Unstage all changes",
+  "unstage all changes",
+  "Reset git index",
+  "reset git index"
 ]
