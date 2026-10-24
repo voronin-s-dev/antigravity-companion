@@ -1092,5 +1092,6 @@
   "test various dashboard endpoints",
   "find trycloudflare.com URL in previous session",
   "check if previous cloudflare tunnel is active",
-  "check universal_dashboard_builder.py size"
+  "check universal_dashboard_builder.py size",
+  "check python execution"
 ]
