@@ -987,7 +987,6 @@
   "re-run master markdown generator",
   "update brain artifact",
   "update graphify",
-  "Master Analysis 08 11 1995",
   "check .agents/rules directory",
   "update graphify graph",
   "list files in core directory",
@@ -1053,5 +1052,7 @@
   "check report_builder and ai_consultant",
   "check v5.0 lines",
   "Reviewing Calculations And Formulas",
-  "Google Flow MCP Integration"
+  "Google Flow MCP Integration",
+  "Master Analysis 08 11 1995",
+  "Start bot daemon with TWA server and Cloudflare"
 ]
