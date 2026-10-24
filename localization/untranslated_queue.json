@@ -1147,5 +1147,6 @@
   "list bot/services files",
   "check mobile_dashboard_template.html",
   "list test files",
-  "run pytest with 8s wait"
+  "run pytest with 8s wait",
+  "verify interpretation_catalogs.py again"
 ]
