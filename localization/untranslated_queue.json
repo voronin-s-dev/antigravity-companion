@@ -1131,5 +1131,14 @@
   "check report_builder.py lines 220-255",
   "check build_universal_full_dashboard signature",
   "test build_dashboard_html",
-  "Start bot daemon with fixed tunnel streaming"
+  "Start bot daemon with fixed tunnel streaming",
+  "Comparing Two Generated Analyses",
+  "find recent files in workspace",
+  "list files in templates/dashboards",
+  "check python path",
+  "find venv",
+  "check py launcher",
+  "compare similarity between two dashboards",
+  "inspect universal_dashboard_builder.py structure",
+  "inspect module interpolation in builder"
 ]
