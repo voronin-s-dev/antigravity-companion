@@ -958,5 +958,7 @@
   "inspect headers of existing 29.07.2005 analysis",
   "inspect headers of 29.07.2005 analysis",
   "inspect 08.11.1995 analysis headers",
-  "inspect remaining headers"
+  "inspect remaining headers",
+  "check if graphify is available",
+  "update knowledge graph"
 ]
