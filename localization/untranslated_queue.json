@@ -1022,5 +1022,6 @@
   "run test_calculator and test_viral_pair",
   "run expanded test_calculator",
   "check age in universal_dashboard_builder",
-  "run full pytest suite"
+  "run full pytest suite",
+  "update knowledge graph with graphify"
 ]
