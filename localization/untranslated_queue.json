@@ -909,5 +909,13 @@
   "find module IDs in 29.07.2005_female.html",
   "run full pytest suite",
   "list templates/dashboards",
-  "remove unrequested profile files"
+  "remove unrequested profile files",
+  "check keys of calculate_numerology",
+  "check psychology_synthesis output",
+  "find psych_profile definition",
+  "check calculate.py in parent project",
+  "find calculation of arch_title and mbti_type",
+  "find archetypes_by_lp dictionary",
+  "inspect core/calculate.py psych_profile",
+  "test psychology_synthesis for 15.04.1988"
 ]
