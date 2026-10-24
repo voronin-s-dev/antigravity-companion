@@ -1159,5 +1159,11 @@
   "inspect last lines of script",
   "docs",
   "superpowers",
-  "specs"
+  "specs",
+  "test import of universal_dashboard_builder",
+  "compare text-only similarity",
+  "regenerate test dashboards",
+  "inspect speech scripts for 12.12.2002 female",
+  "read pytest failures from log",
+  "Working. Working. Working"
 ]
