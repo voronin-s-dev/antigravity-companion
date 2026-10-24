@@ -1109,5 +1109,7 @@
   "sync clean terms into generator script",
   "Start bot daemon with TWA server and Cloudflare",
   "check calculate_exact_age signature",
-  "check calculate_exact_age calls in builder"
+  "check calculate_exact_age calls in builder",
+  "execute verification script",
+  "run module debug dump"
 ]
