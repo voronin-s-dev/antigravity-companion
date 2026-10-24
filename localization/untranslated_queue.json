@@ -1024,5 +1024,7 @@
   "check age in universal_dashboard_builder",
   "run full pytest suite",
   "update knowledge graph with graphify",
-  "Finalized task plan for calculations audit and fixes"
+  "Finalized task plan for calculations audit and fixes",
+  "check calculate.py diff",
+  "list files in scripts and templates"
 ]
