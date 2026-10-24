@@ -999,5 +999,6 @@
   "search for all function definitions in services and core",
   "search for calculation in universal_dashboard_builder",
   "search for calculation in report_builder",
-  "search destiny_matrix_22 usage in services"
+  "search destiny_matrix_22 usage in services",
+  "find calculate_exact_age usages"
 ]
