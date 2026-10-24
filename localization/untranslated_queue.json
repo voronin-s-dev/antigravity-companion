@@ -867,5 +867,8 @@
   "check directories in original project",
   "check tools directory in original project",
   "read head and layout of 29.07.2005 dashboard",
-  "list scripts directory"
+  "list scripts directory",
+  "check templates/dashboards directory",
+  "Copy 29.07.2005 master dashboard to cache",
+  "copy 29.07.2005 master dashboard to cache"
 ]
