@@ -818,5 +818,9 @@
   "site:github.com/useapi/google-flow-api \"upscale\" OR \"image\" OR \"reference\" OR \"edit\"",
   "check redirect of flow.google.com",
   "check cookie expiration",
-  "test clicking signin with saved cookies"
+  "test clicking signin with saved cookies",
+  "test server.py import",
+  "verify server.py import",
+  "Call flow_check_status",
+  "call flow_check_status"
 ]
