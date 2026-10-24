@@ -1035,5 +1035,6 @@
   "Print full calculate_numerology for 08.11.1995 male",
   "print full calculate_numerology for 08.11.1995 male",
   "run calculator tests",
-  "list files in .agents/rules"
+  "list files in .agents/rules",
+  "find 'hyphens' in templates and scripts"
 ]
