@@ -1018,5 +1018,6 @@
   "test parse_date with ISO string",
   "test calculate_numerology with ISO date",
   "Audit And Calculations Fix",
-  "Task plan for comprehensive audit and fixes of numerology calculations, edge cases, and synergy locks"
+  "Task plan for comprehensive audit and fixes of numerology calculations, edge cases, and synergy locks",
+  "run calculator and viral pair tests"
 ]
