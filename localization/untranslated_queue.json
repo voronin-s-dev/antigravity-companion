@@ -917,5 +917,10 @@
   "find calculation of arch_title and mbti_type",
   "find archetypes_by_lp dictionary",
   "inspect core/calculate.py psych_profile",
-  "test psychology_synthesis for 15.04.1988"
+  "test psychology_synthesis for 15.04.1988",
+  "inspect sections in sample_08_11_1995.html",
+  "run inspect_master.py on sample_08_11_1995.html",
+  "check size of dynamic dashboard for 15.04.1988",
+  "run inspect_master.py on 15.04.1988 dashboard",
+  "run inspect_master with sys.path"
 ]
