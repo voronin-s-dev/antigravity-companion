@@ -1044,5 +1044,11 @@
   "print remaining badges",
   "find remaining terms",
   "Generate master dashboard HTML",
-  "generate master dashboard HTML"
+  "generate master dashboard HTML",
+  "find server scripts",
+  "check 8080 preview server",
+  "check 8080 port",
+  "verify preview_dashboard.html",
+  "Graphify update",
+  "graphify update"
 ]
