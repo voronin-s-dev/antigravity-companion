@@ -1051,5 +1051,7 @@
   "verify preview_dashboard.html",
   "Graphify update",
   "graphify update",
-  "find V5 and standard occurrences in code"
+  "find V5 and standard occurrences in code",
+  "check report_builder and ai_consultant",
+  "check v5.0 lines"
 ]
