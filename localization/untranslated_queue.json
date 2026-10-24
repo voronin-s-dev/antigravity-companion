@@ -1165,5 +1165,9 @@
   "regenerate test dashboards",
   "inspect speech scripts for 12.12.2002 female",
   "read pytest failures from log",
-  "Working. Working. Working"
+  "Working. Working. Working",
+  "search for html and Telegram.WebApp tags",
+  "check string presence",
+  "find HapticFeedback in templates",
+  "check HapticFeedback usage in mobile_dashboard_template.html"
 ]
