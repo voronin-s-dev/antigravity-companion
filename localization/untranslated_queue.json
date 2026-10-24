@@ -1026,5 +1026,7 @@
   "update knowledge graph with graphify",
   "Finalized task plan for calculations audit and fixes",
   "check calculate.py diff",
-  "list files in scripts and templates"
+  "list files in scripts and templates",
+  "check py datetime",
+  "run calculate.py with correct flags"
 ]
