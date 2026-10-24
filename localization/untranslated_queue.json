@@ -778,5 +778,9 @@
   "list google-flow skill files",
   "list google-flow MCP files",
   "find python files related to flow",
-  "list mcp dir"
+  "list mcp dir",
+  "check CDP and Storage availability",
+  "check CDP status with python",
+  "Ensure scratch directory exists",
+  "ensure scratch directory exists"
 ]
