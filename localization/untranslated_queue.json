@@ -805,5 +805,18 @@
   "get chrome process info",
   "test launch_persistent_context",
   "test persistent context with GoogleFlowAgentProfile",
-  "check buttons on flow.google.com/about"
+  "check buttons on flow.google.com/about",
+  "inspect bundles and HTML",
+  "check domains in storage_state",
+  "find links in flow_page.html",
+  "Regex find links",
+  "regex find links",
+  "\"Google Flow\" \"Upscale\" OR \"2K\" OR \"image\" \"reference\" OR \"edit\" \"support.google.com/flow\"",
+  "\"flow.google.com\" OR \"Google Flow\" \"upscale\" OR \"2K\" button \"reference\" image",
+  "site:useapi.net \"flow.google.com\" OR \"Google Flow\"",
+  "github \"useapi\" \"flow.google.com\" OR \"google-flow\"",
+  "site:github.com/useapi/google-flow-api \"upscale\" OR \"image\" OR \"reference\" OR \"edit\"",
+  "check redirect of flow.google.com",
+  "check cookie expiration",
+  "test clicking signin with saved cookies"
 ]
