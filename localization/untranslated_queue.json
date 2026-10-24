@@ -829,5 +829,6 @@
   "list mcp schemas",
   "list scratch files",
   "Clean temporary probe files",
-  "clean temporary probe files"
+  "clean temporary probe files",
+  "\"Google Flow\" \"features\" OR \"tools\" \"camera\" OR \"aspect ratio\" OR \"extend\" OR \"frames\""
 ]
