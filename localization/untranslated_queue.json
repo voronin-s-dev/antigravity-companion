@@ -1155,5 +1155,9 @@
   "test import from bot.services.interpretation_catalogs",
   "Architect Reviewer",
   "Message from Architect Reviewer (research)",
-  "Open Subagent: Architect Reviewer (research)"
+  "Open Subagent: Architect Reviewer (research)",
+  "inspect last lines of script",
+  "docs",
+  "superpowers",
+  "specs"
 ]
