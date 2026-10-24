@@ -906,5 +906,6 @@
   "test master cache retrieval",
   "read build_master_26_03_2005.py with utf-8",
   "list sections in 29.07.2005_female.html",
-  "find module IDs in 29.07.2005_female.html"
+  "find module IDs in 29.07.2005_female.html",
+  "run full pytest suite"
 ]
