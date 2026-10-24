@@ -1041,5 +1041,8 @@
   "search codebase for redundant strings",
   "find badge spans",
   "Print remaining badges",
-  "print remaining badges"
+  "print remaining badges",
+  "find remaining terms",
+  "Generate master dashboard HTML",
+  "generate master dashboard HTML"
 ]
