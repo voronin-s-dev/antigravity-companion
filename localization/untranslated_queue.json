@@ -1151,5 +1151,9 @@
   "verify interpretation_catalogs.py again",
   "check git diff",
   "check function count",
-  "verify single get_speech_scripts"
+  "verify single get_speech_scripts",
+  "test import from bot.services.interpretation_catalogs",
+  "Architect Reviewer",
+  "Message from Architect Reviewer (research)",
+  "Open Subagent: Architect Reviewer (research)"
 ]
