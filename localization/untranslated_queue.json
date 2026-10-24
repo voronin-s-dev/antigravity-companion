@@ -992,5 +992,7 @@
   "Master Analysis 08 11 1995",
   "check .agents/rules directory",
   "update graphify graph",
-  "Reviewing Calculations And Formulas"
+  "Reviewing Calculations And Formulas",
+  "list files in core directory",
+  "list files in tests directory"
 ]
