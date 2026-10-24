@@ -990,5 +990,6 @@
   "re-run master markdown generator",
   "update brain artifact",
   "update graphify",
-  "Master Analysis 08 11 1995"
+  "Master Analysis 08 11 1995",
+  "check .agents/rules directory"
 ]
