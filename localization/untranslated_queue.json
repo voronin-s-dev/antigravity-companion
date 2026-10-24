@@ -856,5 +856,6 @@
   "check references in social skill",
   "\"Jakeschincariol/instagram-agent-skill\" files tree OR \"skills/\" OR \"scripts/\" OR \".claude\"",
   "\"Jakeschincariol/instagram-agent-skill\" \"skills/\" list",
-  "Message from Quality and Skeptic Critic (flow-quality-critic)"
+  "Message from Quality and Skeptic Critic (flow-quality-critic)",
+  "Google Flow MCP Integration"
 ]
