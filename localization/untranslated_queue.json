@@ -1038,5 +1038,8 @@
   "list files in .agents/rules",
   "find 'hyphens' in templates and scripts",
   "scan for slop and keywords",
-  "search codebase for redundant strings"
+  "search codebase for redundant strings",
+  "find badge spans",
+  "Print remaining badges",
+  "print remaining badges"
 ]
