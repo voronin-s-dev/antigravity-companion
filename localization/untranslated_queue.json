@@ -931,5 +931,7 @@
   "clean up test generated files",
   "update graphify graph",
   "search for grant_passport_access in tests",
-  "check test calls to grant_passport_access"
+  "check test calls to grant_passport_access",
+  "start bot daemon with formal delay",
+  "Start bot daemon with formal delay"
 ]
