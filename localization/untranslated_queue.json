@@ -940,7 +940,6 @@
   "check git status of templates/dashboards",
   "read open_dashboard.bat",
   "read 29.07.2005 open_dashboard.bat",
-  "Master Analysis 08 11 1995",
   "locate Python or venv",
   "check py -3 executable",
   "list functions in core.calculate",
@@ -990,5 +989,6 @@
   "re-run master HTML generator",
   "re-run master markdown generator",
   "update brain artifact",
-  "update graphify"
+  "update graphify",
+  "Master Analysis 08 11 1995"
 ]
