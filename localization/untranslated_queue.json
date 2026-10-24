@@ -933,5 +933,8 @@
   "search for grant_passport_access in tests",
   "check test calls to grant_passport_access",
   "start bot daemon with formal delay",
-  "Start bot daemon with formal delay"
+  "Start bot daemon with formal delay",
+  "check size of 08.11.1995 master files",
+  "check original 08.11.1995 profile",
+  "inspect module details of 08.11.1995_male.html"
 ]
