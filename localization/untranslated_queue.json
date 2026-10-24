@@ -1006,5 +1006,11 @@
   "run python check on 09.01.2000",
   "check python 3.12 executable",
   "test 09.01.2000 in calculate_numerology",
-  "check cells for 09.01.2000"
+  "check cells for 09.01.2000",
+  "test 04.01.2001 in calculate_numerology",
+  "search transit_arcana in tests",
+  "test calculate_pair_compatibility on arbitrary pair",
+  "check full_text for arbitrary pair",
+  "search archetype_quad usage",
+  "check ai_consultant usages"
 ]
