@@ -1131,7 +1131,6 @@
   "check build_universal_full_dashboard signature",
   "test build_dashboard_html",
   "Start bot daemon with fixed tunnel streaming",
-  "Comparing Two Generated Analyses",
   "find recent files in workspace",
   "list files in templates/dashboards",
   "check python path",
@@ -1183,5 +1182,12 @@
   "check social directory status",
   "list social files",
   "stage all project files",
-  "git commit new interpretation engine"
+  "git commit new interpretation engine",
+  "Comparing Two Generated Analyses",
+  "verify git status is clean",
+  "check local TWA server",
+  "stop old bot process",
+  "start live bot process",
+  "Start live bot process",
+  "read bot startup log"
 ]
