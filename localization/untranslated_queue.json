@@ -923,5 +923,6 @@
   "run inspect_master.py on 15.04.1988 dashboard",
   "run inspect_master with sys.path",
   "Start bot and TWA daemon",
-  "check python readiness"
+  "check python readiness",
+  "test universal_dashboard_builder output"
 ]
