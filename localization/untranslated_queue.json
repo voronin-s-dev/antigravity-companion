@@ -1765,7 +1765,6 @@
   "Commands, 1 grant",
   "Enabled \"Weekly Skills Auto-Update\".: Agents created by this automation run in a dedicated project with its own permissions. You can change the permissions in the project settings page",
   "workouts",
-  "Close Task",
   "Artifact updated by agent",
   "Artifact Viewer header",
   "Dismiss artifact update notice",
@@ -1972,5 +1971,6 @@
   "check completed state after archiving",
   "check queue diff",
   "git commit milestone 63",
-  "check git status is clean"
+  "check git status is clean",
+  "Close Task"
 ]
