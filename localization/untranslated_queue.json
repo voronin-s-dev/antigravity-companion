@@ -986,5 +986,6 @@
   "find section id lines",
   "inspect sections of 29.07.2005_female.html",
   "find 31 in generator script",
-  "find 31 in markdown script"
+  "find 31 in markdown script",
+  "re-run master HTML generator"
 ]
