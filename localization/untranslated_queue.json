@@ -1028,5 +1028,10 @@
   "check calculate.py diff",
   "list files in scripts and templates",
   "check py datetime",
-  "run calculate.py with correct flags"
+  "run calculate.py with correct flags",
+  "check running processes for python and cloudflared",
+  "search for 'preview' in services and scripts",
+  "find analysis files",
+  "Print full calculate_numerology for 08.11.1995 male",
+  "print full calculate_numerology for 08.11.1995 male"
 ]
