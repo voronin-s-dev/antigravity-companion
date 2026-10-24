@@ -831,5 +831,8 @@
   "Clean temporary probe files",
   "clean temporary probe files",
   "\"Google Flow\" \"features\" OR \"tools\" \"camera\" OR \"aspect ratio\" OR \"extend\" OR \"frames\"",
-  "Google flow mcp"
+  "Google flow mcp",
+  "check contents of both folders",
+  "Copy files to Google flow mcp",
+  "copy files to Google flow mcp"
 ]
