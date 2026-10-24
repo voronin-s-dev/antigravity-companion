@@ -870,5 +870,22 @@
   "list scripts directory",
   "check templates/dashboards directory",
   "Copy 29.07.2005 master dashboard to cache",
-  "copy 29.07.2005 master dashboard to cache"
+  "copy 29.07.2005 master dashboard to cache",
+  "Start bot and TWA daemon",
+  "start bot and TWA daemon",
+  "check /preview response",
+  "check master dashboard sizes",
+  "inspect 29.07.2005_female.html structure",
+  "test build_dashboard_html for 29.07.2005 female",
+  "test build_dashboard_html for 08.11.1995 male",
+  "test build_dashboard_html for 08.11.95 male",
+  "check headers in mobile_dashboard_template.html",
+  "check mobile_dashboard_template.html start",
+  "find sections in template",
+  "find IDs in mobile_dashboard_template.html",
+  "find modules in template",
+  "list files in 29.07.2005 profile",
+  "check python scripts in parent project",
+  "check subdirectories in parent project",
+  "check tools directory"
 ]
