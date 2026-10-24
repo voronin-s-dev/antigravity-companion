@@ -904,7 +904,6 @@
   "read build_master_26_03_2005.py with utf-8",
   "list sections in 29.07.2005_female.html",
   "find module IDs in 29.07.2005_female.html",
-  "run full pytest suite",
   "list templates/dashboards",
   "remove unrequested profile files",
   "check keys of calculate_numerology",
@@ -1021,5 +1020,7 @@
   "Task plan for comprehensive audit and fixes of numerology calculations, edge cases, and synergy locks",
   "run calculator and viral pair tests",
   "run test_calculator and test_viral_pair",
-  "run expanded test_calculator"
+  "run expanded test_calculator",
+  "check age in universal_dashboard_builder",
+  "run full pytest suite"
 ]
