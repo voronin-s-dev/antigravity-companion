@@ -922,5 +922,6 @@
   "check size of dynamic dashboard for 15.04.1988",
   "run inspect_master.py on 15.04.1988 dashboard",
   "run inspect_master with sys.path",
-  "Start bot and TWA daemon"
+  "Start bot and TWA daemon",
+  "check python readiness"
 ]
