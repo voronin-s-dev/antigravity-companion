@@ -842,5 +842,9 @@
   "find google harness skill",
   "find self-improving skills",
   "\"Google Harness\" AI agent self improving",
-  "check verify harness with CDP"
+  "check verify harness with CDP",
+  "find start_chrome.bat",
+  "Launch Chrome with remote debugging on port 9222",
+  "copy start_chrome.bat to project scripts",
+  "launch Chrome with remote debugging on port 9222"
 ]
