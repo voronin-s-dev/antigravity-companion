@@ -1053,7 +1053,6 @@
   "check v5.0 lines",
   "Reviewing Calculations And Formulas",
   "Google Flow MCP Integration",
-  "Start bot daemon with TWA server and Cloudflare",
   "Missing HTML Dashboard Recovery",
   "check git status and recent commits",
   "list files in templates directory",
@@ -1103,5 +1102,10 @@
   "run find slop details",
   "find organ target phrases",
   "check passport references",
-  "Master Analysis 08 11 1995"
+  "Master Analysis 08 11 1995",
+  "Sync clean terms into generator script",
+  "run terminology cleaning script",
+  "rerun slop audit",
+  "sync clean terms into generator script",
+  "Start bot daemon with TWA server and Cloudflare"
 ]
