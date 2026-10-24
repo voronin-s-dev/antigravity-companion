@@ -1937,5 +1937,13 @@
   "run run_backup.ps1 cleanly to observe behavior",
   "check backup status via CDP",
   "read panel.innerText safely",
-  "update run_backup.ps1 concurrency check"
+  "update run_backup.ps1 concurrency check",
+  "Hot reload into Antigravity window",
+  "run syntax tests",
+  "run full test suite",
+  "check test task 259 log",
+  "check tail of task 259 log",
+  "check final test log output",
+  "check task 259 status",
+  "hot reload into Antigravity window"
 ]
