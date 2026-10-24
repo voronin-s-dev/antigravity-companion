@@ -983,5 +983,6 @@
   "run print_snippets.py to see sections",
   "check age calculation logic",
   "Start bot daemon with formal delay",
-  "find section id lines"
+  "find section id lines",
+  "inspect sections of 29.07.2005_female.html"
 ]
