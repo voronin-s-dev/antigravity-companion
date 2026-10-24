@@ -1053,7 +1053,6 @@
   "check v5.0 lines",
   "Reviewing Calculations And Formulas",
   "Google Flow MCP Integration",
-  "Master Analysis 08 11 1995",
   "Start bot daemon with TWA server and Cloudflare",
   "Missing HTML Dashboard Recovery",
   "check git status and recent commits",
@@ -1093,5 +1092,16 @@
   "find trycloudflare.com URL in previous session",
   "check if previous cloudflare tunnel is active",
   "check universal_dashboard_builder.py size",
-  "check python execution"
+  "check python execution",
+  "check assembly script existence",
+  "generate upgraded universal builder",
+  "check builder file size",
+  "verify universal builder import",
+  "check for prohibited words in universal builder",
+  "run audit builder slop",
+  "run slop audit script",
+  "run find slop details",
+  "find organ target phrases",
+  "check passport references",
+  "Master Analysis 08 11 1995"
 ]
