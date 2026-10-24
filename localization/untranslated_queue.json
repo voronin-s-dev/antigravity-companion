@@ -850,5 +850,9 @@
   "Instagram Agent Skill Evaluation",
   "search instagram files in social workspace",
   "\"instagram agent skill\" OR \"instagram-agent\" skill antigravity or claude code",
-  "\"Jakeschincariol/instagram-agent-skill\" OR \"instagram-agent-skill\" github"
+  "\"Jakeschincariol/instagram-agent-skill\" OR \"instagram-agent-skill\" github",
+  "site:github.com/Jakeschincariol/instagram-agent-skill",
+  "list skills in social sub-workspace",
+  "check references in social skill",
+  "\"Jakeschincariol/instagram-agent-skill\" files tree OR \"skills/\" OR \"scripts/\" OR \".claude\""
 ]
