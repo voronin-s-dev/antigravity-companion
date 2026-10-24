@@ -1150,5 +1150,6 @@
   "run pytest with 8s wait",
   "verify interpretation_catalogs.py again",
   "check git diff",
-  "check function count"
+  "check function count",
+  "verify single get_speech_scripts"
 ]
