@@ -1019,5 +1019,6 @@
   "test calculate_numerology with ISO date",
   "Audit And Calculations Fix",
   "Task plan for comprehensive audit and fixes of numerology calculations, edge cases, and synergy locks",
-  "run calculator and viral pair tests"
+  "run calculator and viral pair tests",
+  "run test_calculator and test_viral_pair"
 ]
