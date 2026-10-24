@@ -1123,5 +1123,10 @@
   "start bot daemon with updated builder",
   "Start bot daemon with updated builder",
   "inspect get_dashboard implementation",
-  "test TWA server endpoints"
+  "test TWA server endpoints",
+  "test preview with curl",
+  "test dashboard 29.07.2005_female with curl",
+  "test public Cloudflare preview endpoint",
+  "inspect report_builder.py references",
+  "check report_builder.py lines 220-255"
 ]
