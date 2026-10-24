@@ -1130,5 +1130,6 @@
   "inspect report_builder.py references",
   "check report_builder.py lines 220-255",
   "check build_universal_full_dashboard signature",
-  "test build_dashboard_html"
+  "test build_dashboard_html",
+  "Start bot daemon with fixed tunnel streaming"
 ]
