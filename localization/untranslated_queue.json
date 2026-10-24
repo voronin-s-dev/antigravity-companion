@@ -846,5 +846,9 @@
   "find start_chrome.bat",
   "Launch Chrome with remote debugging on port 9222",
   "copy start_chrome.bat to project scripts",
-  "launch Chrome with remote debugging on port 9222"
+  "launch Chrome with remote debugging on port 9222",
+  "Instagram Agent Skill Evaluation",
+  "search instagram files in social workspace",
+  "\"instagram agent skill\" OR \"instagram-agent\" skill antigravity or claude code",
+  "\"Jakeschincariol/instagram-agent-skill\" OR \"instagram-agent-skill\" github"
 ]
