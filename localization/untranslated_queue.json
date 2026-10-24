@@ -1945,5 +1945,17 @@
   "check tail of task 259 log",
   "check final test log output",
   "check task 259 status",
-  "hot reload into Antigravity window"
+  "hot reload into Antigravity window",
+  "Wait and check completed backup state",
+  "read backup tab innerText safely",
+  "open settings and get panel info",
+  "click 'Run backup now' via CDP",
+  "check in-progress state during backup",
+  "wait and check completed backup state",
+  "check completed state after archiving finishes",
+  "check backup.log tail",
+  "check running processes and CPU",
+  "check lock file content",
+  "test tar on antigravity-companion",
+  "test isBackupRunning on dead lockfile"
 ]
