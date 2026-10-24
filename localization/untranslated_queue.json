@@ -1102,7 +1102,6 @@
   "run find slop details",
   "find organ target phrases",
   "check passport references",
-  "Master Analysis 08 11 1995",
   "Sync clean terms into generator script",
   "run terminology cleaning script",
   "rerun slop audit",
@@ -1189,5 +1188,18 @@
   "stop old bot process",
   "start live bot process",
   "Start live bot process",
-  "read bot startup log"
+  "read bot startup log",
+  "Review and Verify Profile Calculations",
+  "find references to 29.07.2005",
+  "find profile files",
+  "list profiles folder",
+  "list dashboards templates",
+  "find references to 29.07.2005_female.html",
+  "check if profiles/29.07.2005/analysis.md exists",
+  "check profiles 08.11.1995",
+  "check analysis critic files",
+  "find virtual environments",
+  "check py -3 path",
+  "run calculation with py -3",
+  "Master Analysis 08 11 1995"
 ]
