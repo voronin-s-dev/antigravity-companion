@@ -1148,5 +1148,7 @@
   "check mobile_dashboard_template.html",
   "list test files",
   "run pytest with 8s wait",
-  "verify interpretation_catalogs.py again"
+  "verify interpretation_catalogs.py again",
+  "check git diff",
+  "check function count"
 ]
