@@ -1012,5 +1012,11 @@
   "test calculate_pair_compatibility on arbitrary pair",
   "check full_text for arbitrary pair",
   "search archetype_quad usage",
-  "check ai_consultant usages"
+  "check ai_consultant usages",
+  "find calculate_compatibility in tests",
+  "find calculate_pair_compatibility in tests",
+  "test parse_date with ISO string",
+  "test calculate_numerology with ISO date",
+  "Audit And Calculations Fix",
+  "Task plan for comprehensive audit and fixes of numerology calculations, edge cases, and synergy locks"
 ]
