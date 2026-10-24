@@ -871,7 +871,6 @@
   "check templates/dashboards directory",
   "Copy 29.07.2005 master dashboard to cache",
   "copy 29.07.2005 master dashboard to cache",
-  "start bot and TWA daemon",
   "check /preview response",
   "check master dashboard sizes",
   "inspect 29.07.2005_female.html structure",
@@ -925,5 +924,9 @@
   "Start bot and TWA daemon",
   "check python readiness",
   "test universal_dashboard_builder output",
-  "remove test cached file"
+  "remove test cached file",
+  "start bot and TWA daemon",
+  "verify dynamic generation and caching for arbitrary date",
+  "Clean up test generated files",
+  "clean up test generated files"
 ]
