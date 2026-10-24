@@ -1037,5 +1037,6 @@
   "run calculator tests",
   "list files in .agents/rules",
   "find 'hyphens' in templates and scripts",
-  "scan for slop and keywords"
+  "scan for slop and keywords",
+  "search codebase for redundant strings"
 ]
