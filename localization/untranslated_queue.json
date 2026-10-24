@@ -1107,5 +1107,7 @@
   "run terminology cleaning script",
   "rerun slop audit",
   "sync clean terms into generator script",
-  "Start bot daemon with TWA server and Cloudflare"
+  "Start bot daemon with TWA server and Cloudflare",
+  "check calculate_exact_age signature",
+  "check calculate_exact_age calls in builder"
 ]
