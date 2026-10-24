@@ -928,5 +928,6 @@
   "start bot and TWA daemon",
   "verify dynamic generation and caching for arbitrary date",
   "Clean up test generated files",
-  "clean up test generated files"
+  "clean up test generated files",
+  "update graphify graph"
 ]
