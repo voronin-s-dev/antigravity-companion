@@ -1118,5 +1118,8 @@
   "print lines 365-395",
   "check phase strings in html",
   "run updated verification script",
-  "seed master cache 29.07.2005"
+  "seed master cache 29.07.2005",
+  "check cloudflared process",
+  "start bot daemon with updated builder",
+  "Start bot daemon with updated builder"
 ]
