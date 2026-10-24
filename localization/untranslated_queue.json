@@ -866,5 +866,6 @@
   "check generator scripts in original project",
   "check directories in original project",
   "check tools directory in original project",
-  "read head and layout of 29.07.2005 dashboard"
+  "read head and layout of 29.07.2005 dashboard",
+  "list scripts directory"
 ]
