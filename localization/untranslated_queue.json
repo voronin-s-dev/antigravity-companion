@@ -994,5 +994,10 @@
   "update graphify graph",
   "Reviewing Calculations And Formulas",
   "list files in core directory",
-  "list files in tests directory"
+  "list files in tests directory",
+  "search for calculate functions",
+  "search for all function definitions in services and core",
+  "search for calculation in universal_dashboard_builder",
+  "search for calculation in report_builder",
+  "search destiny_matrix_22 usage in services"
 ]
