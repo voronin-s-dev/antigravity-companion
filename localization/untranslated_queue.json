@@ -1140,5 +1140,6 @@
   "check py launcher",
   "compare similarity between two dashboards",
   "inspect universal_dashboard_builder.py structure",
-  "inspect module interpolation in builder"
+  "inspect module interpolation in builder",
+  "inspect speech scripts and chronotype in builder"
 ]
