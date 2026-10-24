@@ -871,7 +871,6 @@
   "check templates/dashboards directory",
   "Copy 29.07.2005 master dashboard to cache",
   "copy 29.07.2005 master dashboard to cache",
-  "Start bot and TWA daemon",
   "start bot and TWA daemon",
   "check /preview response",
   "check master dashboard sizes",
@@ -922,5 +921,6 @@
   "run inspect_master.py on sample_08_11_1995.html",
   "check size of dynamic dashboard for 15.04.1988",
   "run inspect_master.py on 15.04.1988 dashboard",
-  "run inspect_master with sys.path"
+  "run inspect_master with sys.path",
+  "Start bot and TWA daemon"
 ]
