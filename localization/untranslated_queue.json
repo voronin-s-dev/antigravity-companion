@@ -1600,7 +1600,6 @@
   "check .agents directory in social",
   "list installed skills in social",
   "verify skills in social",
-  "Google Flow MCP Integration",
   "list files in photo directory",
   "Get photo dimensions",
   "get photo dimensions",
@@ -1651,5 +1650,7 @@
   "Click image mode",
   "click image mode",
   "Generate Spike A (Archetype)",
-  "generate Spike A (Archetype)"
+  "generate Spike A (Archetype)",
+  "Google Flow MCP Integration",
+  "check avatar_spikes output"
 ]
