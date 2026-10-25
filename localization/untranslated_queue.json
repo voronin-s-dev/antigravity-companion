@@ -1354,5 +1354,6 @@
   "find usage of build_universal_full_dashboard in bot",
   "check scripts generate_master_08_11_1995 and 29_07_2005",
   "check for 08.11.1995_male references in bot/",
-  "find analysis.md generators in scripts"
+  "find analysis.md generators in scripts",
+  "check destiny matrix 22 for 29.07.2005"
 ]
