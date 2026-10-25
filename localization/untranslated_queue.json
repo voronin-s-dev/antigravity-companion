@@ -1179,7 +1179,6 @@
   "list social files",
   "stage all project files",
   "git commit new interpretation engine",
-  "Comparing Two Generated Analyses",
   "verify git status is clean",
   "check local TWA server",
   "stop old bot process",
@@ -1240,5 +1239,6 @@
   "Fix line 39 path",
   "update AGENTS.md with CRLF normalization",
   "insert rules before Dual-Layer marker",
-  "fix line 39 path"
+  "fix line 39 path",
+  "Comparing Two Generated Analyses"
 ]
