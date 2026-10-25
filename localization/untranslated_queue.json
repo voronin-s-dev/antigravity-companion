@@ -1234,7 +1234,6 @@
   "print M5 and M8 titles with proper encoding",
   "check .agents/rules directory",
   "list tests directory",
-  "Review and Verify Profile Calculations",
   "Fix line 39 path",
   "update AGENTS.md with CRLF normalization",
   "insert rules before Dual-Layer marker",
@@ -1344,5 +1343,8 @@
   "summary of files with truncate",
   "find potential overflow/clipping classes in compatibility dashboard",
   "run find_overflow.py on compatibility dashboard",
-  "run find_overflow on all dashboard targets"
+  "run find_overflow on all dashboard targets",
+  "check ACTIVE_TASK.md status",
+  "run test_ui_and_anti_slop.py with -s",
+  "Review and Verify Profile Calculations"
 ]
