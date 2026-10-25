@@ -1319,5 +1319,8 @@
   "run inspect_old_dashboard on male dashboard",
   "check generate_master_08_11_1995.py functions",
   "run inspect_comp_scripts.py with utf-8",
-  "check python runtime"
+  "check python runtime",
+  "run compatibility build scripts",
+  "Git status",
+  "verify 19 modules in HTML dashboard"
 ]
