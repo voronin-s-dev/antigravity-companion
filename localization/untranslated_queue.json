@@ -1312,5 +1312,9 @@
   "start bot and TWA server as background daemon",
   "check active tunnel url file",
   "verify /api/tunnel endpoint",
-  "search for 1996 report files"
+  "search for 1996 report files",
+  "Calculate ground truth for 12.02.1996",
+  "list recently modified files",
+  "verify birth date and details in generated file",
+  "calculate ground truth for 12.02.1996"
 ]
