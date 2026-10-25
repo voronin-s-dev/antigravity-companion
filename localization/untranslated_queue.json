@@ -1676,5 +1676,6 @@
   "check Python command",
   "run mockup generator with py",
   "Copy final candidate to social/photo",
-  "copy final candidate to social/photo"
+  "copy final candidate to social/photo",
+  "photo"
 ]
