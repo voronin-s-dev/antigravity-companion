@@ -1349,5 +1349,10 @@
   "test build_universal_full_dashboard",
   "list files in scripts",
   "find section tags in compatibility dashboard",
-  "run pytest with -s -q"
+  "run pytest with -s -q",
+  "find 12.02.1996 files",
+  "find usage of build_universal_full_dashboard in bot",
+  "check scripts generate_master_08_11_1995 and 29_07_2005",
+  "check for 08.11.1995_male references in bot/",
+  "find analysis.md generators in scripts"
 ]
