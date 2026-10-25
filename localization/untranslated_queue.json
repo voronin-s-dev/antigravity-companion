@@ -1266,5 +1266,9 @@
   "audit universal builder output on 08.11.1995",
   "check external repository profile",
   "Profile Master Executor",
-  "Open Subagent: Profile Master Executor"
+  "Open Subagent: Profile Master Executor",
+  "Message from Profile Master Executor (self)",
+  "Profile Verifier",
+  "Open Subagent: Profile Verifier",
+  "Message from Profile Verifier (self)"
 ]
