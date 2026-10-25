@@ -1265,12 +1265,6 @@
   "check Module 8 of 29.07.2005",
   "audit universal builder output on 08.11.1995",
   "check external repository profile",
-  "Profile Master Executor",
-  "Open Subagent: Profile Master Executor",
-  "Message from Profile Master Executor (self)",
-  "Profile Verifier",
-  "Open Subagent: Profile Verifier",
-  "Message from Profile Verifier (self)",
   "list profiles, reports, core, scripts",
   "list profiles files",
   "check compatibility functions in core.calculate",
@@ -1322,5 +1316,11 @@
   "run compatibility build scripts",
   "Git status",
   "verify 19 modules in HTML dashboard",
-  "Compatibility Analysis For Two Birthdates"
+  "Compatibility Analysis For Two Birthdates",
+  "Profile Master Executor",
+  "Message from Profile Master Executor (self)",
+  "Profile Verifier",
+  "Message from Profile Verifier (self)",
+  "Open Subagent: Profile Master Executor",
+  "Open Subagent: Profile Verifier"
 ]
