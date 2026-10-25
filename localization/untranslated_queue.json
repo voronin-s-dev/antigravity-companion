@@ -1215,5 +1215,10 @@
   "Lost connection to the language server. Agent features may not work.",
   "inspect Module 10 in compatibility dashboard",
   "read Module 10 in compatibility dashboard",
-  "run check_m10.py with utf-8"
+  "run check_m10.py with utf-8",
+  "check Module 10 in standards",
+  "list rules in .agents/rules",
+  "regenerate compatibility dashboard with updated Module 10",
+  "regenerate 08.11.1995 dashboards",
+  "regenerate all individual dashboards with updated Module 10"
 ]
