@@ -1734,5 +1734,7 @@
   "find sensitive/media files outside venv",
   "check git log",
   "check commit 126bba4 contents",
-  "photo"
+  "photo",
+  "check active chips in prompt bar",
+  "test attach guarantee"
 ]
