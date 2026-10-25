@@ -1391,5 +1391,6 @@
   "run deep layout audit",
   "find overflow elements",
   "check generated png files in scratch",
-  "Start HTTP server with Python 3.12"
+  "Start HTTP server with Python 3.12",
+  "read Module 4 in compatibility dashboard"
 ]
