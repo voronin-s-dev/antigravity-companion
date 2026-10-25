@@ -1659,5 +1659,8 @@
   "Generate Spike Archetype",
   "generate Spike Archetype",
   "check if archetype spike exists",
-  "create circle mockups"
+  "create circle mockups",
+  "Generate clean-shaven avatar",
+  "generate clean-shaven avatar",
+  "check if clean-shaven file exists"
 ]
