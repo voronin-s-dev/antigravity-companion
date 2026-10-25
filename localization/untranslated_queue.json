@@ -1347,5 +1347,7 @@
   "run test_ui_and_anti_slop.py with -s",
   "Review and Verify Profile Calculations",
   "list test files",
-  "run all tests with -s"
+  "run all tests with -s",
+  "Regenerate compatibility dashboard",
+  "regenerate compatibility dashboard"
 ]
