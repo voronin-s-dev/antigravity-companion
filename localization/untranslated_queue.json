@@ -1365,5 +1365,6 @@
   "extract FAILURES from log",
   "Print last 35 lines of log",
   "print last 35 lines of log",
-  "run test_interpretation_diversity and test_ui_and_anti_slop"
+  "run test_interpretation_diversity and test_ui_and_anti_slop",
+  "run entire test suite"
 ]
