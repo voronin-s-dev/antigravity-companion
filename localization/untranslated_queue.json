@@ -1232,7 +1232,6 @@
   "inspect line 20 of rules standard",
   "inspect line 20 with utf8",
   "run full pytest test suite",
-  "run graphify update",
   "update ACTIVE_TASK and HANDOFF_ACTIVE_STATE",
   "Clean up scratch scripts",
   "clean up scratch scripts",
@@ -1568,5 +1567,10 @@
   "check tests_risk.py for parameters",
   "search all python files for parameters",
   "search for report generation in python files",
-  "search auto_governor.py for position limits"
+  "search auto_governor.py for position limits",
+  "Apply trader.py updates",
+  "apply trader.py updates",
+  "verify trader.py git diff",
+  "run unit tests",
+  "run graphify update"
 ]
