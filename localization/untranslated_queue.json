@@ -1657,5 +1657,6 @@
   "Download cloud spike image",
   "download cloud spike image",
   "Generate Spike Archetype",
-  "generate Spike Archetype"
+  "generate Spike Archetype",
+  "check if archetype spike exists"
 ]
