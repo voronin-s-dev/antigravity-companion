@@ -1358,5 +1358,7 @@
   "Regenerate other demo dashboards",
   "regenerate other demo dashboards",
   "Regenerate 20.12.2000 and 15.04.1988 dashboards",
-  "regenerate 20.12.2000 and 15.04.1988 dashboards"
+  "regenerate 20.12.2000 and 15.04.1988 dashboards",
+  "verify find_overflow.py on all targets",
+  "run test_ui_and_anti_slop.py with new assertions"
 ]
