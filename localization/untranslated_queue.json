@@ -1320,5 +1320,6 @@
   "check signature of calculate_exact_age",
   "check signature of calculate_financial_code",
   "run full calculation with correct arguments",
-  "Compare file sizes, modules, and slop terms"
+  "Compare file sizes, modules, and slop terms",
+  "Extract and compare Module 9"
 ]
