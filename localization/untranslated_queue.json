@@ -1015,7 +1015,6 @@
   "run test_calculator and test_viral_pair",
   "run expanded test_calculator",
   "check age in universal_dashboard_builder",
-  "run full pytest suite",
   "update knowledge graph with graphify",
   "Finalized task plan for calculations audit and fixes",
   "check calculate.py diff",
@@ -1221,5 +1220,7 @@
   "regenerate compatibility dashboard with updated Module 10",
   "regenerate 08.11.1995 dashboards",
   "regenerate all individual dashboards with updated Module 10",
-  "find all scripts containing Module 10 portfolio models"
+  "find all scripts containing Module 10 portfolio models",
+  "run pytest on ui and calculator tests",
+  "run full pytest suite"
 ]
