@@ -1575,5 +1575,7 @@
   "run graphify update",
   "run sim status check",
   "check workflows directory",
-  "run one simulation cycle"
+  "run one simulation cycle",
+  "inspect position 57",
+  "check position 57 in DB"
 ]
