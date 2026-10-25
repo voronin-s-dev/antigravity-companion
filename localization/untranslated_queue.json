@@ -1360,5 +1360,9 @@
   "run patch script for 29_07_2005 analysis",
   "run all pytest tests",
   "read tail of task-369.log",
-  "read tail of task-369.log with utf-8 encoding"
+  "read tail of task-369.log with utf-8 encoding",
+  "Extract FAILURES from log",
+  "extract FAILURES from log",
+  "Print last 35 lines of log",
+  "print last 35 lines of log"
 ]
