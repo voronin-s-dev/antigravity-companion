@@ -1499,5 +1499,8 @@
   "compare Module 2 between master and bot",
   "compare Module 13 between master and bot",
   "compare mental anchors in Module 18",
-  "find all module section markers in universal_dashboard_builder"
+  "find all module section markers in universal_dashboard_builder",
+  "find fin_p1_title in universal_dashboard_builder",
+  "check fin_p in JUNG_ARCANA_PROFILES",
+  "find tracker_html definition"
 ]
