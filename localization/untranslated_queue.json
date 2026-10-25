@@ -1319,5 +1319,6 @@
   "calculate ground truth for 12.02.1996",
   "check signature of calculate_exact_age",
   "check signature of calculate_financial_code",
-  "run full calculation with correct arguments"
+  "run full calculation with correct arguments",
+  "Compare file sizes, modules, and slop terms"
 ]
