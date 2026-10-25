@@ -1244,5 +1244,8 @@
   "search for synastry files",
   "search for compatibility files",
   "list scripts directory",
-  "search compatibility in bot"
+  "search compatibility in bot",
+  "search compatibility in bot/services",
+  "search generate_master_compatibility_dashboard references",
+  "find all compat files"
 ]
