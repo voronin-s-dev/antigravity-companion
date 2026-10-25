@@ -1317,5 +1317,7 @@
   "verify python executable",
   "inspect section IDs in male dashboard",
   "run inspect_old_dashboard on male dashboard",
-  "check generate_master_08_11_1995.py functions"
+  "check generate_master_08_11_1995.py functions",
+  "run inspect_comp_scripts.py with utf-8",
+  "check python runtime"
 ]
