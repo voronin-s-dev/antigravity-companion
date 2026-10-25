@@ -1649,5 +1649,7 @@
   "check CDP connection on port 9222",
   "switch to image 1:1 mode",
   "Click image mode",
-  "click image mode"
+  "click image mode",
+  "Generate Spike A (Archetype)",
+  "generate Spike A (Archetype)"
 ]
