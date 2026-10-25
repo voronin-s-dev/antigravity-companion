@@ -1681,5 +1681,13 @@
   "\"nano banana\" OR \"nano banana 2.1\" AI",
   "inspect Google Flow UI",
   "find python in Google flow mcp",
-  "inspect Flow page UI elements"
+  "inspect Flow page UI elements",
+  "run inspect with utf8",
+  "inspect Nano Banana menu",
+  "inspect popovers",
+  "Navigate back to canvas",
+  "navigate back to canvas",
+  "inspect canvas prompt bar",
+  "inspect sub items for model",
+  "inspect crop_222 element"
 ]
