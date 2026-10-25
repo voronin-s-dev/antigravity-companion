@@ -1630,5 +1630,6 @@
   "list contents of Google flow mcp",
   "check git log of Google flow mcp",
   "check if schemas reference old path",
-  "check references to old path in .gemini"
+  "check references to old path in .gemini",
+  "test webdriver stealth check"
 ]
