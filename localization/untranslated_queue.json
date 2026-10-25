@@ -828,13 +828,11 @@
   "Clean temporary probe files",
   "clean temporary probe files",
   "\"Google Flow\" \"features\" OR \"tools\" \"camera\" OR \"aspect ratio\" OR \"extend\" OR \"frames\"",
-  "Google flow mcp",
   "check contents of both folders",
   "Copy files to Google flow mcp",
   "copy files to Google flow mcp",
   "PDF",
   "Google Flow Studio Pipeline Plan",
-  "Project Setup And Skills Configuration",
   "search for harness in skills",
   "find google harness skill",
   "find self-improving skills",
@@ -852,7 +850,6 @@
   "check references in social skill",
   "\"Jakeschincariol/instagram-agent-skill\" files tree OR \"skills/\" OR \"scripts/\" OR \".claude\"",
   "\"Jakeschincariol/instagram-agent-skill\" \"skills/\" list",
-  "Message from Quality and Skeptic Critic (flow-quality-critic)",
   "Start Telegram bot and TWA server daemon",
   "Discord Password Protected Channel Guide",
   "inspect reference benchmark profile directory",
@@ -1717,5 +1714,8 @@
   "Instagram Agent Skill Evaluation",
   "search for decision 18",
   "check Google Flow page status",
-  "run Variant 1 iterations"
+  "run Variant 1 iterations",
+  "Google flow mcp",
+  "Project Setup And Skills Configuration",
+  "Message from Quality and Skeptic Critic (flow-quality-critic)"
 ]
