@@ -1698,7 +1698,6 @@
   "check chip img src",
   "Submit Prompt 1 in Flow",
   "submit Prompt 1 in Flow",
-  "Google Flow MCP Integration",
   "Generate Variants 2 and 3",
   "generate Variants 2 and 3",
   "inspect canvas tiles",
@@ -1748,5 +1747,8 @@
   "inspect buttons in overlay",
   "inspect prompt box buttons",
   "Generate remaining three iterations",
-  "check imgs in prompt box"
+  "check imgs in prompt box",
+  "Google Flow MCP Integration",
+  "generate last two iterations",
+  "Generate last two iterations"
 ]
