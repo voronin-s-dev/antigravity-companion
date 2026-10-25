@@ -1598,5 +1598,6 @@
   "Transcribe reel 2 audio",
   "transcribe reel 2 audio",
   "check frame list",
-  "inspect video_engine in social"
+  "inspect video_engine in social",
+  "list files in .agents"
 ]
