@@ -1481,5 +1481,9 @@
   "check scripts generating 08.11.1995",
   "check lengths of files",
   "Compare master 08.11.1995 with 12.02.1996 bot dashboard",
-  "compare master 08.11.1995 with 12.02.1996 bot dashboard"
+  "compare master 08.11.1995 with 12.02.1996 bot dashboard",
+  "Print Hero section of bot dashboard",
+  "check first section in bot dashboard",
+  "list first 5 children in main of bot dashboard",
+  "print Hero section of bot dashboard"
 ]
