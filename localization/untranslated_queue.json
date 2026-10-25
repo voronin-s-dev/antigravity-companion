@@ -1651,7 +1651,6 @@
   "click image mode",
   "Generate Spike A (Archetype)",
   "generate Spike A (Archetype)",
-  "Google Flow MCP Integration",
   "check avatar_spikes output",
   "check current page state",
   "Download cloud spike image",
@@ -1703,5 +1702,8 @@
   "inspect prompt chips",
   "check chip img src",
   "Submit Prompt 1 in Flow",
-  "submit Prompt 1 in Flow"
+  "submit Prompt 1 in Flow",
+  "Google Flow MCP Integration",
+  "Generate Variants 2 and 3",
+  "generate Variants 2 and 3"
 ]
