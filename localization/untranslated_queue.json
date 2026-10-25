@@ -1286,5 +1286,22 @@
   "find line numbers in 08_11_1995",
   "find line numbers in analysis_29_07_2005",
   "check slop and ufffd in analysis script",
-  "check line endings"
+  "check line endings",
+  "check project directory listing",
+  "check Python executable and version",
+  "Locate Python installations",
+  "check venvs and uv",
+  "check if dependencies installed in Python 3.12",
+  "check if bot or tunnel is already running",
+  "check command line of running processes",
+  "check creation date of bot process",
+  "find start_twa_system definition",
+  "check if port 8080 is active",
+  "Query local TWA server tunnel info",
+  "query local TWA server tunnel info",
+  "check owning process of port 8080",
+  "run pytest to verify code health",
+  "run pytest with -s -q",
+  "check current active tunnel url",
+  "check dashboards dir"
 ]
