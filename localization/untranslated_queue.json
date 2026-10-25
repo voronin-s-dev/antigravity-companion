@@ -1218,5 +1218,6 @@
   "inspect Module 2 in builder",
   "inspect Module 2 text",
   "check keys and titles in interpretation catalogs",
-  "list catalogs folder"
+  "list catalogs folder",
+  "check exact bytes around import"
 ]
