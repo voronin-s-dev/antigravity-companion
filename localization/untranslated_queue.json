@@ -1585,5 +1585,7 @@
   "clean trades.txt",
   "check simulation status",
   "Git add changes",
-  "git add changes"
+  "git add changes",
+  "search for telegram notification calls",
+  "check if send_telegram_alert is mocked in tests"
 ]
