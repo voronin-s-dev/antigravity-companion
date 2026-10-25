@@ -1214,5 +1214,7 @@
   "verify text cleanliness and integrity",
   "list .agents/rules",
   "check original Pythagoras grid labels",
-  "scan cards and summary stats in builder"
+  "scan cards and summary stats in builder",
+  "inspect Module 2 in builder",
+  "inspect Module 2 text"
 ]
