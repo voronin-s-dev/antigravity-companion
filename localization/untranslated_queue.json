@@ -1311,5 +1311,6 @@
   "Start bot and TWA server as background daemon",
   "start bot and TWA server as background daemon",
   "check active tunnel url file",
-  "verify /api/tunnel endpoint"
+  "verify /api/tunnel endpoint",
+  "search for 1996 report files"
 ]
