@@ -1252,5 +1252,7 @@
   "search for raw metric strings across html and md files",
   "compare file hashes",
   "find python and pytest path",
-  "run pytest with correct python path"
+  "run pytest with correct python path",
+  "Regenerate and verify dashboard",
+  "regenerate and verify dashboard"
 ]
