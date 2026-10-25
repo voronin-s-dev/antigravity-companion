@@ -1689,5 +1689,9 @@
   "navigate back to canvas",
   "inspect canvas prompt bar",
   "inspect sub items for model",
-  "inspect crop_222 element"
+  "inspect crop_222 element",
+  "Click prompt add button",
+  "click prompt add button",
+  "Generate Variant 1 in Flow",
+  "generate Variant 1 in Flow"
 ]
