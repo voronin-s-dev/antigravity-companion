@@ -1322,5 +1322,7 @@
   "run full calculation with correct arguments",
   "Compare file sizes, modules, and slop terms",
   "Extract and compare Module 9",
-  "Explored files, ran commands, edited file. Working"
+  "Explored files, ran commands, edited file. Working",
+  "3 subagents",
+  "clean up temporary audit script"
 ]
