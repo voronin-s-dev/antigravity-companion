@@ -1599,5 +1599,8 @@
   "transcribe reel 2 audio",
   "check frame list",
   "inspect video_engine in social",
-  "list files in .agents"
+  "list files in .agents",
+  "check .agents directory in social",
+  "list installed skills in social",
+  "verify skills in social"
 ]
