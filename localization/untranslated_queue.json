@@ -1589,5 +1589,13 @@
   "search for telegram notification calls",
   "check if send_telegram_alert is mocked in tests",
   "run tests silently",
-  "check run_sim.py for telegram alerts"
+  "check run_sim.py for telegram alerts",
+  "download Instagram reel De5St8uIL_s",
+  "Extract audio to wav",
+  "extract audio to wav",
+  "Extract frames from video 2",
+  "extract frames from video 2",
+  "Transcribe reel 2 audio",
+  "transcribe reel 2 audio",
+  "check frame list"
 ]
