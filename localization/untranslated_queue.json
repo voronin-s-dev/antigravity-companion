@@ -1357,5 +1357,6 @@
   "find analysis.md generators in scripts",
   "check destiny matrix 22 for 29.07.2005",
   "inspect lines with repr",
-  "run patch script for 29_07_2005 analysis"
+  "run patch script for 29_07_2005 analysis",
+  "run all pytest tests"
 ]
