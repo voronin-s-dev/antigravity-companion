@@ -1518,5 +1518,8 @@
   "search modules in master script",
   "search prof_c in builder",
   "search fin_arc_name in builder",
-  "search test assertions for Module 10"
+  "search test assertions for Module 10",
+  "locate python executable",
+  "check installed pythons",
+  "check pytest with py launcher"
 ]
