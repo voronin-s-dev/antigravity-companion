@@ -1350,5 +1350,13 @@
   "run all tests with -s",
   "Regenerate compatibility dashboard",
   "regenerate compatibility dashboard",
-  "verify compatibility dashboard update"
+  "verify compatibility dashboard update",
+  "build 29.07.2005 dashboard with updated builder",
+  "inspect exports of universal_dashboard_builder",
+  "Generate 29.07.2005 dashboard via build_universal_full_dashboard",
+  "generate 29.07.2005 dashboard via build_universal_full_dashboard",
+  "Regenerate other demo dashboards",
+  "regenerate other demo dashboards",
+  "Regenerate 20.12.2000 and 15.04.1988 dashboards",
+  "regenerate 20.12.2000 and 15.04.1988 dashboards"
 ]
