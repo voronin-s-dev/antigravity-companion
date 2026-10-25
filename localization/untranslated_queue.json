@@ -1400,5 +1400,11 @@
   "find Module 4 in script generator",
   "find personal dashboard generator script",
   "run generate master compatibility dashboard",
-  "run deep layout audit from js file"
+  "run deep layout audit from js file",
+  "regenerate all target analyses",
+  "run deep layout audit across both dashboards",
+  "find all non-wrapping section headers",
+  "regenerate master compatibility dashboard",
+  "run layout audit after all fixes",
+  "generate verification screenshots with Playwright"
 ]
