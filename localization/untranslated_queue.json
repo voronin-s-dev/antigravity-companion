@@ -1214,5 +1214,6 @@
   "list catalogs folder",
   "Lost connection to the language server. Agent features may not work.",
   "inspect Module 10 in compatibility dashboard",
-  "read Module 10 in compatibility dashboard"
+  "read Module 10 in compatibility dashboard",
+  "run check_m10.py with utf-8"
 ]
