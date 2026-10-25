@@ -1124,7 +1124,6 @@
   "test build_dashboard_html",
   "Start bot daemon with fixed tunnel streaming",
   "find recent files in workspace",
-  "list files in templates/dashboards",
   "check python path",
   "find venv",
   "check py launcher",
@@ -1303,5 +1302,14 @@
   "run pytest to verify code health",
   "run pytest with -s -q",
   "check current active tunnel url",
-  "check dashboards dir"
+  "check dashboards dir",
+  "list files in templates/dashboards",
+  "Stop existing bot and tunnel processes",
+  "stop existing bot and tunnel processes",
+  "check port 8080 is free",
+  "verify bot config settings",
+  "Start bot and TWA server as background daemon",
+  "start bot and TWA server as background daemon",
+  "check active tunnel url file",
+  "verify /api/tunnel endpoint"
 ]
