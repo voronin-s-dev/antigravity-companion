@@ -1531,5 +1531,11 @@
   "Regenerate all target analyses",
   "regenerate all target analyses",
   "verify parity between 12.02.1996 and 08.11.1995",
-  "inspect Module 17 in bot dashboard"
+  "inspect Module 17 in bot dashboard",
+  "run inspect_m17.py with utf-8",
+  "run inspect_m17.py slice 2",
+  "run verify_parity.py again",
+  "run Playwright layout inspection",
+  "check browser executables",
+  "run Playwright with Chrome executable"
 ]
