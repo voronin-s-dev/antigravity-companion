@@ -1717,5 +1717,15 @@
   "run Variant 1 iterations",
   "Google flow mcp",
   "Project Setup And Skills Configuration",
-  "Message from Quality and Skeptic Critic (flow-quality-critic)"
+  "Message from Quality and Skeptic Critic (flow-quality-critic)",
+  "check if scan_secrets.py exists",
+  "list all tracked files",
+  "check if storage_state.json was ever committed",
+  "check unstaged git diff",
+  "run secret scanner from its directory",
+  "check secret-scanner scripts dir",
+  "list all files in repo",
+  "verify storage_state.json is ignored",
+  "check if .pytest_cache is ignored",
+  "list files in scripts dir"
 ]
