@@ -1211,5 +1211,6 @@
   "Executor Subagent",
   "Open Subagent: Executor Subagent",
   "Message from Executor Subagent (self)",
-  "verify text cleanliness and integrity"
+  "verify text cleanliness and integrity",
+  "list .agents/rules"
 ]
