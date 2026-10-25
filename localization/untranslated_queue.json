@@ -1583,5 +1583,7 @@
   "check trades.txt for trade 57",
   "Clean trades.txt",
   "clean trades.txt",
-  "check simulation status"
+  "check simulation status",
+  "Git add changes",
+  "git add changes"
 ]
