@@ -1220,5 +1220,6 @@
   "list rules in .agents/rules",
   "regenerate compatibility dashboard with updated Module 10",
   "regenerate 08.11.1995 dashboards",
-  "regenerate all individual dashboards with updated Module 10"
+  "regenerate all individual dashboards with updated Module 10",
+  "find all scripts containing Module 10 portfolio models"
 ]
