@@ -1638,5 +1638,7 @@
   "sync clean login files",
   "check storage_state.json timestamp",
   "check active Chrome page",
-  "check if port 9222 is listening"
+  "check if port 9222 is listening",
+  "check pages count",
+  "check tile upload screenshot"
 ]
