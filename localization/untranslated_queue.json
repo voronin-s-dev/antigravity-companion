@@ -1627,5 +1627,8 @@
   "copy login.bat to social skill",
   "find flow folders in Antigravity projects",
   "list contents of google-flow-mcp",
-  "list contents of Google flow mcp"
+  "list contents of Google flow mcp",
+  "check git log of Google flow mcp",
+  "check if schemas reference old path",
+  "check references to old path in .gemini"
 ]
