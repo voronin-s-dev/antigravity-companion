@@ -1408,5 +1408,12 @@
   "run layout audit after all fixes",
   "generate verification screenshots with Playwright",
   "run pytest test suite after fixes",
-  "run layout audit check"
+  "run layout audit check",
+  "list files in bot directory",
+  "search for dashboard generation in bot services",
+  "check sample template existence",
+  "grep for sample_08_11_1995.html",
+  "grep for build_dashboard_html in bot",
+  "grep for build_compatibility_dashboard_html in bot",
+  "grep register_dashboard in bot"
 ]
