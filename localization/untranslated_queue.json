@@ -1736,5 +1736,7 @@
   "check commit 126bba4 contents",
   "photo",
   "check active chips in prompt bar",
-  "test attach guarantee"
+  "test attach guarantee",
+  "Generate real Sergey iterations",
+  "generate real Sergey iterations"
 ]
