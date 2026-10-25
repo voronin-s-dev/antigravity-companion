@@ -1322,5 +1322,9 @@
   "Profile Verifier",
   "Message from Profile Verifier (self)",
   "Open Subagent: Profile Master Executor",
-  "Open Subagent: Profile Verifier"
+  "Open Subagent: Profile Verifier",
+  "list templates directory",
+  "list all template files",
+  "find files with compatibility",
+  "search compatibility in bot, core, templates, scripts"
 ]
