@@ -1620,5 +1620,9 @@
   "check port 9222",
   "check chrome process",
   "test direct Chrome launch",
-  "check profile lock files"
+  "check profile lock files",
+  "Copy login.bat to social skill",
+  "check bat files in Google flow mcp",
+  "check scripts folder",
+  "copy login.bat to social skill"
 ]
