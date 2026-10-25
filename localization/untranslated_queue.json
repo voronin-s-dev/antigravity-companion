@@ -1224,5 +1224,7 @@
   "find markers with chr(34)",
   "apply patch to builder",
   "rebuild preview and 29.07.2005 dashboard",
-  "inspect generated Module 3 and Hero in HTML"
+  "inspect generated Module 3 and Hero in HTML",
+  "find Hero block in preview_dashboard.html",
+  "check Module 3 in preview_dashboard.html"
 ]
