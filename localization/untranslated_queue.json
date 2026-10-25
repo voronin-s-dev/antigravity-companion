@@ -1693,5 +1693,8 @@
   "Click prompt add button",
   "click prompt add button",
   "Generate Variant 1 in Flow",
-  "generate Variant 1 in Flow"
+  "generate Variant 1 in Flow",
+  "inspect drawer overlay",
+  "test add ingredient",
+  "run inspect_overlay"
 ]
