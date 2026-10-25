@@ -1131,7 +1131,6 @@
   "inspect universal_dashboard_builder.py structure",
   "inspect module interpolation in builder",
   "inspect speech scripts and chronotype in builder",
-  "list markdown files",
   "check length of specs",
   "list bot/services files",
   "check mobile_dashboard_template.html",
@@ -1326,5 +1325,13 @@
   "3 subagents",
   "clean up temporary audit script",
   "Subagent Conversation header",
-  "Grep 1792934457 in repo"
+  "Grep 1792934457 in repo",
+  "find core and template files",
+  "list markdown files",
+  "find all module headers in 08.11.1995_male.html",
+  "extract module titles from dashboard HTML",
+  "read Module 2 from dashboard HTML",
+  "read Module 4 from dashboard HTML",
+  "read Module 5 and Module 9 from dashboard HTML",
+  "compare items between Module 5 and Module 9"
 ]
