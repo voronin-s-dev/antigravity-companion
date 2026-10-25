@@ -1228,5 +1228,12 @@
   "check Module 3 in preview_dashboard.html",
   "Sync preview to profiles dashboard.html",
   "sync preview to profiles dashboard.html",
-  "update graphify graph"
+  "update graphify graph",
+  "run structural audit on all 19 modules",
+  "Audit all 19 modules for unrendered braces and word count",
+  "audit all 19 modules for unrendered braces and word count",
+  "run deep audit of all modules",
+  "inspect Module 5 and 8 items",
+  "Print M5 and M8 titles with proper encoding",
+  "print M5 and M8 titles with proper encoding"
 ]
