@@ -1485,5 +1485,12 @@
   "Print Hero section of bot dashboard",
   "check first section in bot dashboard",
   "list first 5 children in main of bot dashboard",
-  "print Hero section of bot dashboard"
+  "print Hero section of bot dashboard",
+  "module length comparison table",
+  "compare specific modules between master and bot",
+  "Compare 7 days tracker between master and bot",
+  "compare Module 11 between master and bot",
+  "compare Module 16 between master and bot",
+  "compare Module 17 between master and bot",
+  "compare 7 days tracker between master and bot"
 ]
