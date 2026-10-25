@@ -1255,5 +1255,11 @@
   "run pytest with correct python path",
   "Regenerate and verify dashboard",
   "regenerate and verify dashboard",
-  "run compatibility standards test"
+  "run compatibility standards test",
+  "search compatibility usage in bot directory",
+  "search dashboard generation in bot directory",
+  "search pair_session handling in bot",
+  "search compatibility_ in bot",
+  "list rule files in .agents/rules",
+  "find all compat python scripts"
 ]
