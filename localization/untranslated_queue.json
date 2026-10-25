@@ -1406,5 +1406,6 @@
   "find all non-wrapping section headers",
   "regenerate master compatibility dashboard",
   "run layout audit after all fixes",
-  "generate verification screenshots with Playwright"
+  "generate verification screenshots with Playwright",
+  "run pytest test suite after fixes"
 ]
