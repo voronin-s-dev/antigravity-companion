@@ -1727,5 +1727,9 @@
   "list all files in repo",
   "verify storage_state.json is ignored",
   "check if .pytest_cache is ignored",
-  "list files in scripts dir"
+  "list files in scripts dir",
+  "search for username 'voron' in all files",
+  "search 'voron' in tracked/untracked project files",
+  "search for email addresses in project files",
+  "check for media files in workspace"
 ]
