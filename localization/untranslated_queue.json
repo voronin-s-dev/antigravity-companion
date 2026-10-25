@@ -1249,5 +1249,8 @@
   "check 29.07.2005 analysis.md size",
   "scan 08.11.1995 files for standard compliance",
   "find specific violations in 08.11.1995 dashboard",
-  "check with reconfigured stdout"
+  "check with reconfigured stdout",
+  "Audit analysis.md against criteria",
+  "test universal dashboard builder on 08.11.1995",
+  "audit analysis.md against criteria"
 ]
