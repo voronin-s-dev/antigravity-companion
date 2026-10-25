@@ -943,7 +943,6 @@
   "find markdown documentation files",
   "check existing profiles",
   "check files in profiles/08.11.1995",
-  "list scripts directory",
   "check if directory exists",
   "list 29.07.2005 files",
   "check if 29.07.2005 exists in current workspace profiles",
@@ -1241,5 +1240,9 @@
   "run graphify update",
   "update ACTIVE_TASK and HANDOFF_ACTIVE_STATE",
   "Clean up scratch scripts",
-  "clean up scratch scripts"
+  "clean up scratch scripts",
+  "search for synastry files",
+  "search for compatibility files",
+  "list scripts directory",
+  "search compatibility in bot"
 ]
