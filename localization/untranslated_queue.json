@@ -1235,5 +1235,6 @@
   "inspect Module 5 and 8 items",
   "Print M5 and M8 titles with proper encoding",
   "print M5 and M8 titles with proper encoding",
-  "check .agents/rules directory"
+  "check .agents/rules directory",
+  "list tests directory"
 ]
