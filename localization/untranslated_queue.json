@@ -1587,5 +1587,7 @@
   "Git add changes",
   "git add changes",
   "search for telegram notification calls",
-  "check if send_telegram_alert is mocked in tests"
+  "check if send_telegram_alert is mocked in tests",
+  "run tests silently",
+  "check run_sim.py for telegram alerts"
 ]
