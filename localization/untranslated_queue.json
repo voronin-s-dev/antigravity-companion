@@ -1677,5 +1677,9 @@
   "run mockup generator with py",
   "Copy final candidate to social/photo",
   "copy final candidate to social/photo",
-  "photo"
+  "photo",
+  "\"nano banana\" OR \"nano banana 2.1\" AI",
+  "inspect Google Flow UI",
+  "find python in Google flow mcp",
+  "inspect Flow page UI elements"
 ]
