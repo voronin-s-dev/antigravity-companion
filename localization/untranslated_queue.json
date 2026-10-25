@@ -1577,5 +1577,11 @@
   "check workflows directory",
   "run one simulation cycle",
   "inspect position 57",
-  "check position 57 in DB"
+  "check position 57 in DB",
+  "Revert position 57 and recalculate",
+  "revert position 57 and recalculate",
+  "check trades.txt for trade 57",
+  "Clean trades.txt",
+  "clean trades.txt",
+  "check simulation status"
 ]
