@@ -1698,5 +1698,10 @@
   "test add ingredient",
   "run inspect_overlay",
   "Click crop_222 and add to query",
-  "click crop_222 and add to query"
+  "click crop_222 and add to query",
+  "inspect ProseMirror parent",
+  "inspect prompt chips",
+  "check chip img src",
+  "Submit Prompt 1 in Flow",
+  "submit Prompt 1 in Flow"
 ]
