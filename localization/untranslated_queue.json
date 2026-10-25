@@ -1327,5 +1327,10 @@
   "list all template files",
   "find files with compatibility",
   "search compatibility in bot, core, templates, scripts",
-  "search for truncate in template files"
+  "search for truncate in template files",
+  "inspect red mark boxes",
+  "analyze red ranges on screenshot",
+  "find all truncate and line-clamp in compatibility dashboard",
+  "find generator script for compatibility dashboard",
+  "find all truncate in project files"
 ]
