@@ -1609,5 +1609,9 @@
   "create thumbnails for photos",
   "Crop headshots from candidates",
   "crop headshots from candidates",
-  "flow_generate_image"
+  "flow_generate_image",
+  "check Flow URL and buttons",
+  "Debug headless Flow navigation",
+  "debug headless Flow navigation",
+  "check CTA link and action"
 ]
