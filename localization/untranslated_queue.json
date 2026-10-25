@@ -1213,5 +1213,6 @@
   "Message from Executor Subagent (self)",
   "verify text cleanliness and integrity",
   "list .agents/rules",
-  "check original Pythagoras grid labels"
+  "check original Pythagoras grid labels",
+  "scan cards and summary stats in builder"
 ]
