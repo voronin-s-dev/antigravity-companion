@@ -1652,5 +1652,10 @@
   "Generate Spike A (Archetype)",
   "generate Spike A (Archetype)",
   "Google Flow MCP Integration",
-  "check avatar_spikes output"
+  "check avatar_spikes output",
+  "check current page state",
+  "Download cloud spike image",
+  "download cloud spike image",
+  "Generate Spike Archetype",
+  "generate Spike Archetype"
 ]
