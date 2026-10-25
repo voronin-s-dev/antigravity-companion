@@ -1556,5 +1556,13 @@
   "run inspect script",
   "Git show commit stats",
   "git show commit stats",
-  "check changes in trader.py at fb92008"
+  "check changes in trader.py at fb92008",
+  "run risk unit tests",
+  "Calculate Brier score",
+  "calculate Brier score",
+  "Calculate Sharpe and Sortino ratios",
+  "calculate Sharpe and Sortino ratios",
+  "Trace scan cycles",
+  "trace scan cycles",
+  "check governance events"
 ]
