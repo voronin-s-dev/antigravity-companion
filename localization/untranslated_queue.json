@@ -1237,5 +1237,6 @@
   "apply mission paradox to markdown reports",
   "inspect line 20 of rules standard",
   "inspect line 20 with utf8",
-  "run full pytest test suite"
+  "run full pytest test suite",
+  "run graphify update"
 ]
