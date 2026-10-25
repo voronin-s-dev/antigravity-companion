@@ -1297,7 +1297,6 @@
   "query local TWA server tunnel info",
   "check owning process of port 8080",
   "run pytest to verify code health",
-  "run pytest with -s -q",
   "check current active tunnel url",
   "check dashboards dir",
   "list files in templates/dashboards",
@@ -1349,5 +1348,6 @@
   "run calculator tests",
   "test build_universal_full_dashboard",
   "list files in scripts",
-  "find section tags in compatibility dashboard"
+  "find section tags in compatibility dashboard",
+  "run pytest with -s -q"
 ]
