@@ -861,7 +861,6 @@
   "Discord Password Protected Channel Guide",
   "inspect reference benchmark profile directory",
   "check profiles directory in old numerology project",
-  "list 08.11.1995 profile directory",
   "check generator scripts in original project",
   "check directories in original project",
   "check tools directory in original project",
@@ -1332,5 +1331,15 @@
   "analyze red ranges on screenshot",
   "find all truncate and line-clamp in compatibility dashboard",
   "find generator script for compatibility dashboard",
-  "find all truncate in project files"
+  "find all truncate in project files",
+  "find compatibility logic in bot",
+  "search for buy_vip and compatibility_ in bot",
+  "check buy_vip handler",
+  "list profiles directory",
+  "list compatibility profile directory",
+  "list 29.07.2005 profile directory",
+  "list 08.11.1995 profile directory",
+  "list all truncate occurrences in detail",
+  "Summary of files with truncate",
+  "summary of files with truncate"
 ]
