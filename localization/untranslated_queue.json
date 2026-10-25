@@ -1564,5 +1564,9 @@
   "calculate Sharpe and Sortino ratios",
   "Trace scan cycles",
   "trace scan cycles",
-  "check governance events"
+  "check governance events",
+  "check tests_risk.py for parameters",
+  "search all python files for parameters",
+  "search for report generation in python files",
+  "search auto_governor.py for position limits"
 ]
