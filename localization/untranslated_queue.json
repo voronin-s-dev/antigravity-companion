@@ -1222,5 +1222,12 @@
   "regenerate all individual dashboards with updated Module 10",
   "find all scripts containing Module 10 portfolio models",
   "run pytest on ui and calculator tests",
-  "run full pytest suite"
+  "run full pytest suite",
+  "Apply mission paradox callout to templates",
+  "apply mission paradox callout to templates",
+  "Regenerate 08.11.1995 master dashboard",
+  "regenerate 08.11.1995 master dashboard",
+  "list python scripts in scripts directory",
+  "check dashboard file paths",
+  "list profiles/08.11.1995 directory"
 ]
