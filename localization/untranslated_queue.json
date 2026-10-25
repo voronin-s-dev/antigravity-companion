@@ -1670,5 +1670,11 @@
   "download clean-shaven avatar",
   "Prepare edit in Flow",
   "prepare edit in Flow",
-  "run Flow edit for clean-shaven"
+  "run Flow edit for clean-shaven",
+  "Generate clean-shaven avatar mockup",
+  "generate clean-shaven avatar mockup",
+  "check Python command",
+  "run mockup generator with py",
+  "Copy final candidate to social/photo",
+  "copy final candidate to social/photo"
 ]
