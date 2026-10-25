@@ -1502,5 +1502,7 @@
   "find all module section markers in universal_dashboard_builder",
   "find fin_p1_title in universal_dashboard_builder",
   "check fin_p in JUNG_ARCANA_PROFILES",
-  "find tracker_html definition"
+  "find tracker_html definition",
+  "find tests for universal builder",
+  "check assertions in test_ui_and_anti_slop"
 ]
