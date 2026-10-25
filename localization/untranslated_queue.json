@@ -1207,5 +1207,7 @@
   "get exact calculation output for 29.07.2005",
   "check tests for 29.07.2005",
   "check directory existence",
-  "find all files containing 29.07.2005"
+  "find all files containing 29.07.2005",
+  "Executor Subagent",
+  "Open Subagent: Executor Subagent"
 ]
