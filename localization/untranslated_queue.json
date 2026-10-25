@@ -1245,5 +1245,6 @@
   "list files in profile 08.11.1995",
   "list master generation scripts",
   "run pytest via Python 3.12",
-  "run full pytest with -s"
+  "run full pytest with -s",
+  "check 29.07.2005 analysis.md size"
 ]
