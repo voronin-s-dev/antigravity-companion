@@ -1299,5 +1299,11 @@
   "check for mishen words",
   "read Module 9 in old compatibility file",
   "read rest of Module 9",
-  "test cleaning substitutions"
+  "test cleaning substitutions",
+  "check internal leaks in text",
+  "check years in compatibility text",
+  "Print mentioned years",
+  "print mentioned years",
+  "write and sync cleaned compatibility analysis",
+  "verify compatibility file assertions"
 ]
