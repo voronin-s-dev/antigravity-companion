@@ -988,7 +988,6 @@
   "update brain artifact",
   "update graphify",
   "check .agents/rules directory",
-  "update graphify graph",
   "list files in core directory",
   "list files in tests directory",
   "search for calculate functions",
@@ -1226,5 +1225,8 @@
   "rebuild preview and 29.07.2005 dashboard",
   "inspect generated Module 3 and Hero in HTML",
   "find Hero block in preview_dashboard.html",
-  "check Module 3 in preview_dashboard.html"
+  "check Module 3 in preview_dashboard.html",
+  "Sync preview to profiles dashboard.html",
+  "sync preview to profiles dashboard.html",
+  "update graphify graph"
 ]
