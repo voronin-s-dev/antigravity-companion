@@ -1235,5 +1235,6 @@
   "inspect Module 10 in generator scripts",
   "inspect point 3 text in files",
   "apply mission paradox to markdown reports",
-  "inspect line 20 of rules standard"
+  "inspect line 20 of rules standard",
+  "inspect line 20 with utf8"
 ]
