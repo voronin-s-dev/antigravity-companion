@@ -1602,5 +1602,11 @@
   "check .agents directory in social",
   "list installed skills in social",
   "verify skills in social",
-  "Google Flow MCP Integration"
+  "Google Flow MCP Integration",
+  "list files in photo directory",
+  "Get photo dimensions",
+  "get photo dimensions",
+  "create thumbnails for photos",
+  "Crop headshots from candidates",
+  "crop headshots from candidates"
 ]
