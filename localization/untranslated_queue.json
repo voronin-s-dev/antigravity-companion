@@ -1343,5 +1343,6 @@
   "find Module lines in compatibility dashboard",
   "list scripts",
   "search for build_universal_full_dashboard usage",
-  "list rules in .agents/rules"
+  "list rules in .agents/rules",
+  "check usages of mistakes_list and dynamic_challenges"
 ]
