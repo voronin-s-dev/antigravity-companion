@@ -1247,5 +1247,7 @@
   "search compatibility in bot",
   "search compatibility in bot/services",
   "search generate_master_compatibility_dashboard references",
-  "find all compat files"
+  "find all compat files",
+  "search for raw metric strings across python files",
+  "search for raw metric strings across html and md files"
 ]
