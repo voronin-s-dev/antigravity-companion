@@ -1394,5 +1394,11 @@
   "Start HTTP server with Python 3.12",
   "read Module 4 in compatibility dashboard",
   "find m4_points_html definition",
-  "find py_lines_html definition"
+  "find py_lines_html definition",
+  "count whitespace-nowrap in compatibility template",
+  "show all whitespace-nowrap occurrences",
+  "find Module 4 in script generator",
+  "find personal dashboard generator script",
+  "run generate master compatibility dashboard",
+  "run deep layout audit from js file"
 ]
