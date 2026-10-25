@@ -1392,5 +1392,7 @@
   "find overflow elements",
   "check generated png files in scratch",
   "Start HTTP server with Python 3.12",
-  "read Module 4 in compatibility dashboard"
+  "read Module 4 in compatibility dashboard",
+  "find m4_points_html definition",
+  "find py_lines_html definition"
 ]
