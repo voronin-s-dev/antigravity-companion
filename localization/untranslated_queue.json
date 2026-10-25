@@ -1333,5 +1333,6 @@
   "read Module 2 from dashboard HTML",
   "read Module 4 from dashboard HTML",
   "read Module 5 and Module 9 from dashboard HTML",
-  "compare items between Module 5 and Module 9"
+  "compare items between Module 5 and Module 9",
+  "search for module 5 and 9 in dashboard builder"
 ]
