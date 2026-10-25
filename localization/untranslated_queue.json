@@ -844,7 +844,6 @@
   "Launch Chrome with remote debugging on port 9222",
   "copy start_chrome.bat to project scripts",
   "launch Chrome with remote debugging on port 9222",
-  "Instagram Agent Skill Evaluation",
   "search instagram files in social workspace",
   "\"instagram agent skill\" OR \"instagram-agent\" skill antigravity or claude code",
   "\"Jakeschincariol/instagram-agent-skill\" OR \"instagram-agent-skill\" github",
@@ -1712,5 +1711,9 @@
   "download variant 3 candidate",
   "Download img 1 via browser fetch",
   "download img 1 via browser fetch",
-  "run fresh generations A and B"
+  "run fresh generations A and B",
+  "Category Calibration Task Approval",
+  "check git status and log",
+  "Instagram Agent Skill Evaluation",
+  "search for decision 18"
 ]
