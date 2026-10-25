@@ -1572,5 +1572,8 @@
   "apply trader.py updates",
   "verify trader.py git diff",
   "run unit tests",
-  "run graphify update"
+  "run graphify update",
+  "run sim status check",
+  "check workflows directory",
+  "run one simulation cycle"
 ]
