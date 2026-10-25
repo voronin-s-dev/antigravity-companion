@@ -987,7 +987,6 @@
   "re-run master markdown generator",
   "update brain artifact",
   "update graphify",
-  "check .agents/rules directory",
   "list files in core directory",
   "list files in tests directory",
   "search for calculate functions",
@@ -1235,5 +1234,6 @@
   "run deep audit of all modules",
   "inspect Module 5 and 8 items",
   "Print M5 and M8 titles with proper encoding",
-  "print M5 and M8 titles with proper encoding"
+  "print M5 and M8 titles with proper encoding",
+  "check .agents/rules directory"
 ]
