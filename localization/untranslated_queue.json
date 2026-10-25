@@ -1341,5 +1341,8 @@
   "list 08.11.1995 profile directory",
   "list all truncate occurrences in detail",
   "Summary of files with truncate",
-  "summary of files with truncate"
+  "summary of files with truncate",
+  "find potential overflow/clipping classes in compatibility dashboard",
+  "run find_overflow.py on compatibility dashboard",
+  "run find_overflow on all dashboard targets"
 ]
