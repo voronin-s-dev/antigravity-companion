@@ -1271,7 +1271,6 @@
   "Profile Verifier",
   "Open Subagent: Profile Verifier",
   "Message from Profile Verifier (self)",
-  "Compatibility Analysis For Two Birthdates",
   "list profiles, reports, core, scripts",
   "list profiles files",
   "check compatibility functions in core.calculate",
@@ -1322,5 +1321,6 @@
   "check python runtime",
   "run compatibility build scripts",
   "Git status",
-  "verify 19 modules in HTML dashboard"
+  "verify 19 modules in HTML dashboard",
+  "Compatibility Analysis For Two Birthdates"
 ]
