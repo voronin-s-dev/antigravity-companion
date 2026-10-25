@@ -783,7 +783,6 @@
   "Ensure scratch directory exists",
   "ensure scratch directory exists",
   "Start Chrome with cleaned lockfile",
-  "check GoogleFlowAgentProfile directory",
   "start Chrome via start_chrome.bat",
   "check CDP status after launching Chrome",
   "find chrome.exe location",
@@ -799,7 +798,6 @@
   "remove stale lockfile",
   "start Chrome with cleaned lockfile",
   "check CDP connection",
-  "check port 9222",
   "Get chrome process info",
   "get chrome process info",
   "test launch_persistent_context",
@@ -1613,5 +1611,14 @@
   "check Flow URL and buttons",
   "Debug headless Flow navigation",
   "debug headless Flow navigation",
-  "check CTA link and action"
+  "check CTA link and action",
+  "check if Chrome is running",
+  "check GoogleFlowAgentProfile directory",
+  "Launch Chrome via start_chrome.bat",
+  "launch Chrome via start_chrome.bat",
+  "flow_check_status",
+  "check port 9222",
+  "check chrome process",
+  "test direct Chrome launch",
+  "check profile lock files"
 ]
