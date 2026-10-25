@@ -1305,5 +1305,17 @@
   "Print mentioned years",
   "print mentioned years",
   "write and sync cleaned compatibility analysis",
-  "verify compatibility file assertions"
+  "verify compatibility file assertions",
+  "inspect old compatibility dashboard.html",
+  "find headings in old dashboard.html",
+  "Compare male dashboard and old comp dashboard",
+  "compare male dashboard and old comp dashboard",
+  "inspect sidebar in old comp dashboard",
+  "find links in old comp dashboard",
+  "inspect section IDs in old comp dashboard",
+  "list IDs in old comp dashboard",
+  "verify python executable",
+  "inspect section IDs in male dashboard",
+  "run inspect_old_dashboard on male dashboard",
+  "check generate_master_08_11_1995.py functions"
 ]
