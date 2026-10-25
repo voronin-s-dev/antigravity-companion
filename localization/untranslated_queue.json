@@ -1321,5 +1321,6 @@
   "check signature of calculate_financial_code",
   "run full calculation with correct arguments",
   "Compare file sizes, modules, and slop terms",
-  "Extract and compare Module 9"
+  "Extract and compare Module 9",
+  "Explored files, ran commands, edited file. Working"
 ]
