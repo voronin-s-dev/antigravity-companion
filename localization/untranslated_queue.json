@@ -1219,5 +1219,10 @@
   "inspect Module 2 text",
   "check keys and titles in interpretation catalogs",
   "list catalogs folder",
-  "check exact bytes around import"
+  "check exact bytes around import",
+  "Rebuild preview and 29.07.2005 dashboard",
+  "find markers with chr(34)",
+  "apply patch to builder",
+  "rebuild preview and 29.07.2005 dashboard",
+  "inspect generated Module 3 and Hero in HTML"
 ]
