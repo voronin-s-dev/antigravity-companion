@@ -1045,7 +1045,6 @@
   "check report_builder and ai_consultant",
   "check v5.0 lines",
   "Reviewing Calculations And Formulas",
-  "Google Flow MCP Integration",
   "Missing HTML Dashboard Recovery",
   "check git status and recent commits",
   "list files in templates directory",
@@ -1602,5 +1601,6 @@
   "list files in .agents",
   "check .agents directory in social",
   "list installed skills in social",
-  "verify skills in social"
+  "verify skills in social",
+  "Google Flow MCP Integration"
 ]
