@@ -1249,5 +1249,8 @@
   "search generate_master_compatibility_dashboard references",
   "find all compat files",
   "search for raw metric strings across python files",
-  "search for raw metric strings across html and md files"
+  "search for raw metric strings across html and md files",
+  "compare file hashes",
+  "find python and pytest path",
+  "run pytest with correct python path"
 ]
