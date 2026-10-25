@@ -1139,7 +1139,6 @@
   "check length of specs",
   "list bot/services files",
   "check mobile_dashboard_template.html",
-  "list test files",
   "run pytest with 8s wait",
   "verify interpretation_catalogs.py again",
   "check git diff",
@@ -1346,5 +1345,7 @@
   "run find_overflow on all dashboard targets",
   "check ACTIVE_TASK.md status",
   "run test_ui_and_anti_slop.py with -s",
-  "Review and Verify Profile Calculations"
+  "Review and Verify Profile Calculations",
+  "list test files",
+  "run all tests with -s"
 ]
