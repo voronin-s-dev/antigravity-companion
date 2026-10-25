@@ -1213,7 +1213,6 @@
   "read Module 10 in compatibility dashboard",
   "run check_m10.py with utf-8",
   "check Module 10 in standards",
-  "list rules in .agents/rules",
   "regenerate compatibility dashboard with updated Module 10",
   "regenerate 08.11.1995 dashboards",
   "regenerate all individual dashboards with updated Module 10",
@@ -1334,5 +1333,15 @@
   "read Module 4 from dashboard HTML",
   "read Module 5 and Module 9 from dashboard HTML",
   "compare items between Module 5 and Module 9",
-  "search for module 5 and 9 in dashboard builder"
+  "search for module 5 and 9 in dashboard builder",
+  "list dashboards in templates/dashboards",
+  "search for 12.02.1996 in dashboards",
+  "check 316694821_1792934457.html details",
+  "search for modules in compatibility builder",
+  "check modules in compatibility HTML",
+  "check Module 2 and 4 in compatibility HTML",
+  "find Module lines in compatibility dashboard",
+  "list scripts",
+  "search for build_universal_full_dashboard usage",
+  "list rules in .agents/rules"
 ]
