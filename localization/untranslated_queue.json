@@ -1186,7 +1186,6 @@
   "start live bot process",
   "Start live bot process",
   "read bot startup log",
-  "Review and Verify Profile Calculations",
   "find references to 29.07.2005",
   "find profile files",
   "list profiles folder",
@@ -1236,5 +1235,10 @@
   "Print M5 and M8 titles with proper encoding",
   "print M5 and M8 titles with proper encoding",
   "check .agents/rules directory",
-  "list tests directory"
+  "list tests directory",
+  "Review and Verify Profile Calculations",
+  "Fix line 39 path",
+  "update AGENTS.md with CRLF normalization",
+  "insert rules before Dual-Layer marker",
+  "fix line 39 path"
 ]
