@@ -1238,5 +1238,8 @@
   "inspect line 20 of rules standard",
   "inspect line 20 with utf8",
   "run full pytest test suite",
-  "run graphify update"
+  "run graphify update",
+  "update ACTIVE_TASK and HANDOFF_ACTIVE_STATE",
+  "Clean up scratch scripts",
+  "clean up scratch scripts"
 ]
