@@ -1212,5 +1212,6 @@
   "Open Subagent: Executor Subagent",
   "Message from Executor Subagent (self)",
   "verify text cleanliness and integrity",
-  "list .agents/rules"
+  "list .agents/rules",
+  "check original Pythagoras grid labels"
 ]
