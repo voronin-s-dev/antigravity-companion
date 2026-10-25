@@ -1696,5 +1696,7 @@
   "generate Variant 1 in Flow",
   "inspect drawer overlay",
   "test add ingredient",
-  "run inspect_overlay"
+  "run inspect_overlay",
+  "Click crop_222 and add to query",
+  "click crop_222 and add to query"
 ]
