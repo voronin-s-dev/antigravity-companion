@@ -1705,5 +1705,12 @@
   "submit Prompt 1 in Flow",
   "Google Flow MCP Integration",
   "Generate Variants 2 and 3",
-  "generate Variants 2 and 3"
+  "generate Variants 2 and 3",
+  "inspect canvas tiles",
+  "inspect all imgs on page",
+  "Download variant 3 candidate",
+  "download variant 3 candidate",
+  "Download img 1 via browser fetch",
+  "download img 1 via browser fetch",
+  "run fresh generations A and B"
 ]
