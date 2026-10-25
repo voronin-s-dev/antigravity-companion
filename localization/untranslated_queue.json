@@ -1254,5 +1254,6 @@
   "find python and pytest path",
   "run pytest with correct python path",
   "Regenerate and verify dashboard",
-  "regenerate and verify dashboard"
+  "regenerate and verify dashboard",
+  "run compatibility standards test"
 ]
