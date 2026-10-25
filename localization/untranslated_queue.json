@@ -1294,5 +1294,10 @@
   "list remaining headers",
   "search forbidden slop in old compatibility file",
   "search forbidden slop in old compatibility file v2",
-  "inspect second compatibility file modules"
+  "inspect second compatibility file modules",
+  "find exact slop lines",
+  "check for mishen words",
+  "read Module 9 in old compatibility file",
+  "read rest of Module 9",
+  "test cleaning substitutions"
 ]
