@@ -1473,5 +1473,9 @@
   "run Playwright layout inspection on 12.02.1996",
   "check python playwright",
   "check if playwright in tests",
-  "check global npm packages"
+  "check global npm packages",
+  "find playwright in transcript",
+  "find playwright-cli commands in transcript",
+  "test playwright via hermes node modules",
+  "run full Playwright layout audit on 12.02.1996 dashboard"
 ]
