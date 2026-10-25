@@ -1246,5 +1246,8 @@
   "list master generation scripts",
   "run pytest via Python 3.12",
   "run full pytest with -s",
-  "check 29.07.2005 analysis.md size"
+  "check 29.07.2005 analysis.md size",
+  "scan 08.11.1995 files for standard compliance",
+  "find specific violations in 08.11.1995 dashboard",
+  "check with reconfigured stdout"
 ]
