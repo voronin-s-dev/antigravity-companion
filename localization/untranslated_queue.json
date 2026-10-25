@@ -1742,5 +1742,11 @@
   "check overlay on page",
   "Generate real Sergey iteration 2",
   "generate real Sergey iteration 2",
-  "build real Sergey showcase"
+  "build real Sergey showcase",
+  "debug drawer state",
+  "check chip image src",
+  "inspect buttons in overlay",
+  "inspect prompt box buttons",
+  "Generate remaining three iterations",
+  "check imgs in prompt box"
 ]
