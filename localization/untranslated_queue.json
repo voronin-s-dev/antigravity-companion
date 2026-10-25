@@ -1252,5 +1252,8 @@
   "check with reconfigured stdout",
   "Audit analysis.md against criteria",
   "test universal dashboard builder on 08.11.1995",
-  "audit analysis.md against criteria"
+  "audit analysis.md against criteria",
+  "check generate_master_08_11_1995.py violations",
+  "compare script and html size",
+  "check both template files"
 ]
