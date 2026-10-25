@@ -1326,5 +1326,6 @@
   "list templates directory",
   "list all template files",
   "find files with compatibility",
-  "search compatibility in bot, core, templates, scripts"
+  "search compatibility in bot, core, templates, scripts",
+  "search for truncate in template files"
 ]
