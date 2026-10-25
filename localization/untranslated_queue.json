@@ -1672,7 +1672,6 @@
   "run mockup generator with py",
   "Copy final candidate to social/photo",
   "copy final candidate to social/photo",
-  "photo",
   "\"nano banana\" OR \"nano banana 2.1\" AI",
   "inspect Google Flow UI",
   "find python in Google flow mcp",
@@ -1731,5 +1730,9 @@
   "search for username 'voron' in all files",
   "search 'voron' in tracked/untracked project files",
   "search for email addresses in project files",
-  "check for media files in workspace"
+  "check for media files in workspace",
+  "find sensitive/media files outside venv",
+  "check git log",
+  "check commit 126bba4 contents",
+  "photo"
 ]
