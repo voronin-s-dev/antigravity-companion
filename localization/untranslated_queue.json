@@ -1608,5 +1608,6 @@
   "get photo dimensions",
   "create thumbnails for photos",
   "Crop headshots from candidates",
-  "crop headshots from candidates"
+  "crop headshots from candidates",
+  "flow_generate_image"
 ]
