@@ -1240,5 +1240,8 @@
   "update AGENTS.md with CRLF normalization",
   "insert rules before Dual-Layer marker",
   "fix line 39 path",
-  "Comparing Two Generated Analyses"
+  "Comparing Two Generated Analyses",
+  "search for 08.11.1995 files",
+  "list files in profile 08.11.1995",
+  "list master generation scripts"
 ]
