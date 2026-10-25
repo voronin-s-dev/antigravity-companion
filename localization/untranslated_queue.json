@@ -1255,5 +1255,9 @@
   "audit analysis.md against criteria",
   "check generate_master_08_11_1995.py violations",
   "compare script and html size",
-  "check both template files"
+  "check both template files",
+  "Audit generated 08.11.1995_male.html",
+  "find Module 3 length in script",
+  "search Pythagoras in script",
+  "audit generated 08.11.1995_male.html"
 ]
