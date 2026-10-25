@@ -1209,5 +1209,7 @@
   "check directory existence",
   "find all files containing 29.07.2005",
   "Executor Subagent",
-  "Open Subagent: Executor Subagent"
+  "Open Subagent: Executor Subagent",
+  "Message from Executor Subagent (self)",
+  "verify text cleanliness and integrity"
 ]
