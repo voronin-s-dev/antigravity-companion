@@ -1349,5 +1349,6 @@
   "list test files",
   "run all tests with -s",
   "Regenerate compatibility dashboard",
-  "regenerate compatibility dashboard"
+  "regenerate compatibility dashboard",
+  "verify compatibility dashboard update"
 ]
