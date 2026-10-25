@@ -1662,5 +1662,7 @@
   "create circle mockups",
   "Generate clean-shaven avatar",
   "generate clean-shaven avatar",
-  "check if clean-shaven file exists"
+  "check if clean-shaven file exists",
+  "Screenshot cleanshaven page state",
+  "screenshot cleanshaven page state"
 ]
