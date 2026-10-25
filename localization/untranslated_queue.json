@@ -1635,5 +1635,7 @@
   "Sync login files",
   "sync login files",
   "Sync clean login files",
-  "sync clean login files"
+  "sync clean login files",
+  "check storage_state.json timestamp",
+  "check active Chrome page"
 ]
