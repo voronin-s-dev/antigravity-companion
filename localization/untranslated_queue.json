@@ -1504,5 +1504,19 @@
   "check fin_p in JUNG_ARCANA_PROFILES",
   "find tracker_html definition",
   "find tests for universal builder",
-  "check assertions in test_ui_and_anti_slop"
+  "check assertions in test_ui_and_anti_slop",
+  "grep m14 in generate_master_08_11_1995",
+  "test pythagoras cells on 12.02 and 08.11",
+  "find m14 in universal_dashboard_builder",
+  "find five_year_rows in universal_dashboard_builder",
+  "find blind spots in universal_dashboard_builder",
+  "find financial code in universal_dashboard_builder",
+  "find m11 section in universal_dashboard_builder",
+  "find m14 section in universal_dashboard_builder",
+  "check git diff on builder",
+  "search for added variables",
+  "search modules in master script",
+  "search prof_c in builder",
+  "search fin_arc_name in builder",
+  "search test assertions for Module 10"
 ]
