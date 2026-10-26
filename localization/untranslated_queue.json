@@ -232,5 +232,18 @@
   "search for social skills",
   "AI Agent Team Architecture Discussion",
   "Reels Script Writing Continuation",
-  "search for references to Telegram Business in project files"
+  "search for references to Telegram Business in project files",
+  "verify Telegram Bot Token via getMe",
+  "find python executable path",
+  "check project venv python",
+  "search for python.exe in project",
+  "check bot token with Invoke-RestMethod",
+  "check installed python versions",
+  "check existing .env files",
+  "check .env in social",
+  "read root .gitignore",
+  "check if social/.gitignore exists",
+  "check HTTP libraries in Python 3.12",
+  "test TelegramChannelManager bot connection",
+  "verify bot connection again"
 ]
