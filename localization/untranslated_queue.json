@@ -166,5 +166,8 @@
   "inspect Flow images and classes",
   "list spike python scripts",
   "list python scripts in scratch",
-  "inspect tiles hover and buttons"
+  "inspect tiles hover and buttons",
+  "inspect more_vert menu",
+  "run click tile inspector",
+  "check pip list in system python"
 ]
