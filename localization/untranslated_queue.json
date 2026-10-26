@@ -245,5 +245,7 @@
   "check if social/.gitignore exists",
   "check HTTP libraries in Python 3.12",
   "test TelegramChannelManager bot connection",
-  "verify bot connection again"
+  "verify bot connection again",
+  "check Telegram bot getUpdates for channel info",
+  "inspect channel details safely"
 ]
