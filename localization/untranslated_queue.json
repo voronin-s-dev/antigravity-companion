@@ -247,5 +247,11 @@
   "test TelegramChannelManager bot connection",
   "verify bot connection again",
   "check Telegram bot getUpdates for channel info",
-  "inspect channel details safely"
+  "inspect channel details safely",
+  "check avatar files in photo folder",
+  "Set Telegram channel description",
+  "set Telegram channel description",
+  "Set Telegram channel avatar",
+  "set Telegram channel avatar",
+  "verify channel profile update in Telegram API"
 ]
