@@ -181,5 +181,9 @@
   "check Downloads folder",
   "run test_fetch_signed",
   "check size of signed download",
-  "read run_four_more_iterations.py download logic"
+  "read run_four_more_iterations.py download logic",
+  "inspect left rail navigation",
+  "check project root view",
+  "check root settings overlay",
+  "check video and image models"
 ]
