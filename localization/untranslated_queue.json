@@ -215,5 +215,6 @@
   "remove engine.py.bak",
   "check git diff stat",
   "commit changes to Google flow mcp",
-  "run pytest after commit"
+  "run pytest after commit",
+  "execute upscale via Google Flow MCP"
 ]
