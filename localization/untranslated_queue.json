@@ -1846,5 +1846,12 @@
   "00_Vestibulum_Cathedral_Roller_Master_174BPM.mp3",
   "Close 00_Vestibulum_Cathedral_Roller_Master_174BPM.mp3",
   "Vestibulum_Cathedral_Roller",
-  "Category Calibration Task Approval"
+  "Category Calibration Task Approval",
+  "check open positions",
+  "check open position keys",
+  "list all open positions",
+  "list open positions cleanly",
+  "list open positions",
+  "Print open positions via PowerShell here-string",
+  "print open positions via PowerShell here-string"
 ]
