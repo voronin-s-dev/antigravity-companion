@@ -1853,5 +1853,7 @@
   "list open positions cleanly",
   "list open positions",
   "Print open positions via PowerShell here-string",
-  "print open positions via PowerShell here-string"
+  "print open positions via PowerShell here-string",
+  "check record_rejected_opportunity usage",
+  "check database tables"
 ]
