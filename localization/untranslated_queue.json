@@ -148,5 +148,7 @@
   "Fold lines 46-52",
   "Fold lines 55-65",
   "list files in Polymarket-Sim",
-  "run tests_risk.py in Polymarket-Sim"
+  "run tests_risk.py in Polymarket-Sim",
+  "update graphify in Polymarket-Sim",
+  "list files in Freewallet"
 ]
