@@ -153,5 +153,8 @@
   "list files in Freewallet",
   "inspect Freewallet directory structure",
   "check graphify-out in Freewallet",
-  "check graphify-out in Polymarket-Sim"
+  "check graphify-out in Polymarket-Sim",
+  "verify Freewallet specs and aar files",
+  "verify Polymarket-Sim specs and aar files",
+  "check scratch directory"
 ]
