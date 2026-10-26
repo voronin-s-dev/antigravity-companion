@@ -150,5 +150,8 @@
   "list files in Polymarket-Sim",
   "run tests_risk.py in Polymarket-Sim",
   "update graphify in Polymarket-Sim",
-  "list files in Freewallet"
+  "list files in Freewallet",
+  "inspect Freewallet directory structure",
+  "check graphify-out in Freewallet",
+  "check graphify-out in Polymarket-Sim"
 ]
