@@ -87,5 +87,18 @@
   "Async open menu and check No Project item",
   "async open menu and check No Project item",
   "check if trigger is still present",
-  "Click new conversation button"
+  "Click new conversation button",
+  "list ChatExport_2026-10-26 directory",
+  "check inbox and catalog contents",
+  "check git history",
+  "find python scripts",
+  "inspect ChatExport_2026-10-26 contents",
+  "Parse messages from ChatExport_2026-10-26",
+  "parse messages from ChatExport_2026-10-26",
+  "Locate Python executable",
+  "locate Python executable",
+  "find installed Python installations",
+  "test python with py -3.12",
+  "Count lines in messages.html",
+  "count lines in messages.html"
 ]
