@@ -1,5 +1,16 @@
 [
   "Invalid port label placement:",
   "start Chrome with cleaned lockfile",
-  "Start bot daemon with formal delay"
+  "Start bot daemon with formal delay",
+  "social/",
+  "in this project",
+  "content-strategy",
+  "When the user wants to plan a content strategy, decide what content to create, or figure out what topics to cover. Also use when the user mentions \"content strategy,\" \"what should I write about,\" \"content ideas,\" \"blog strategy,\" \"topic clusters,\" \"content planning,\" \"editorial calendar,\" \"content marketing,\" \"content roadmap,\" \"what content should I create,\" \"blog topics,\" \"content pillars,\" or \"I don't know what to write.\" Use this whenever someone needs help deciding what content to produce, not just writing it. For writing individual pieces, see copywriting. For SEO-specific audits, see seo-audit. For social media content specifically, see social.",
+  "instagram-creator",
+  "marketing-psychology",
+  "Router for all Remotion skills",
+  "Generates engaging, viral, and authentic Threads posts and series using the Dual-Layer V5.0 standard. Use when drafting Threads content, hooks, or comment-bait questions.",
+  "AGENTS.md:",
+  "graphify.md: Consult the graphify knowledge graph at graphify-out/ for codebase and architecture questions.",
+  "Consult the graphify knowledge graph at graphify-out/ for codebase and architecture questions."
 ]
