@@ -188,5 +188,6 @@
   "check video and image models",
   "search HTML for upscale terms",
   "find 2k matches in HTML",
-  "test Nano Banana Pro generation"
+  "test Nano Banana Pro generation",
+  "run test_nano_pro_gen with venv python"
 ]
