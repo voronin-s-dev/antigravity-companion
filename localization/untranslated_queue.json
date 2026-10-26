@@ -1799,5 +1799,9 @@
   "re-run Liquid DnB generation script",
   "verify all generated files",
   "check ffmpeg availability",
-  "verify sample directory access"
+  "verify sample directory access",
+  "Render liquid DnB preview audio",
+  "verify specific drum sample paths",
+  "find kick names",
+  "render liquid DnB preview audio"
 ]
