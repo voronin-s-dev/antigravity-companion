@@ -175,5 +175,11 @@
   "build 2K Showcase canvas",
   "run updated 2K showcase script",
   "inspect Flow models and controls",
-  "inspect settings overlay"
+  "inspect settings overlay",
+  "test Nano Banana Pro settings",
+  "inspect download network requests",
+  "check Downloads folder",
+  "run test_fetch_signed",
+  "check size of signed download",
+  "read run_four_more_iterations.py download logic"
 ]
