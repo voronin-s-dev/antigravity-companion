@@ -1795,5 +1795,9 @@
   "check OneDrive Piano roll scripts existence",
   "check Presets Scores folder",
   "check System Scores folder",
-  "run Liquid DnB generation script"
+  "run Liquid DnB generation script",
+  "re-run Liquid DnB generation script",
+  "verify all generated files",
+  "check ffmpeg availability",
+  "verify sample directory access"
 ]
