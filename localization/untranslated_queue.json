@@ -222,5 +222,6 @@
   "check recent files in social workspace",
   "list files in knowledge directory",
   "find recent conversation folders",
-  "read tail of previous session transcript"
+  "read tail of previous session transcript",
+  "find Task 2.4 references in recent transcripts"
 ]
