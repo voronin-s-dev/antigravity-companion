@@ -185,5 +185,8 @@
   "inspect left rail navigation",
   "check project root view",
   "check root settings overlay",
-  "check video and image models"
+  "check video and image models",
+  "search HTML for upscale terms",
+  "find 2k matches in HTML",
+  "test Nano Banana Pro generation"
 ]
