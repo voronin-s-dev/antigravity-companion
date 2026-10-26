@@ -338,6 +338,28 @@
   - Все 7 сьютов `npm test` пройдены успешно (100% green).
   - Работа реактивного поллинга, динамического обновления времени до секунд и появление итогового баннера подтверждены через CDP в реальном окне Antigravity.
 
+### Веха 64: Изоляция имён проектов в выпадающем меню и хлебных крошках (Project Selector & Breadcrumb Isolation Guard)
+- **Причина дефекта (Анализ по скриншоту пользователя и CDP-инспекция)**:
+  - В обновлении Antigravity появился новый выпадающий список выбора проектов (`[data-testid="project-selector-trigger"]` и `[data-testid="project-selector-item"]`), а также хлебные крошки (`[data-testid="breadcrumb-segment"]`).
+  - Ранее в Вехе 15 была настроена изоляция только заголовков проектов в сайдбаре (`project-header`, `data-project-card`, `data-project-label`).
+  - Из-за отсутствия новых селекторов в `EXCLUDED_SELECTORS` движок локализации переводил любые имена проектов пользователей, совпадающие со словами словаря (например, проект `social` переводился как «социальные сети», а проект `Cursor` — как «Курсор»).
+- **Архитектурные исправления**:
+  1. *Расширение `EXCLUDED_SELECTORS` в `localization/translation_engine.js`*:
+     - Добавлены `[data-testid="project-selector-item"]`, `[data-project-name]`, `[data-testid="breadcrumb-segment"]`.
+     - В `isExcluded` внедрена контекстная изоляция кнопки `[data-testid="project-selector-trigger"]`: системный статус «No project» / «Без проекта» переводится, а любые имена пользовательских проектов намертво защищены от модификации.
+  2. *Защита приватности в `isPrivateContainer`*:
+     - Имена проектов из селектора и хлебных крошек исключены из автосбора в очередь непереведенных строк.
+  3. *Самовосстановление `restoreProjectNames`*:
+     - Функция расширена на `project-selector-item` (по каноническому атрибуту `data-project-name`), `project-selector-trigger` и `breadcrumb-segment`.
+     - Вызывается в `processBatch` при любых DOM-мутациях.
+  4. *Коррекция словаря и перевод поиска*:
+     - Ключ `"social"` в `dictionary_ru.json` приведен к стандарту скилов (`"social": "social"`), устраняя ложные срабатывания.
+     - Добавлен точный атрибут для строки поиска проектов: `"Search Projects"` / `"Search: Projects"` -> `«Поиск проектов»`.
+- **Тесты и верификация**:
+  - В `test/syntax_injection.test.js` добавлены проверки изоляции `project-selector-item`, `data-project-name`, `project-selector-trigger`, `breadcrumb-segment`.
+  - Все 7 сьютов тестов `npm test` пройдены успешно (10276 правил).
+  - Хот-релоад применен в открытом окне Antigravity: проект `social` отображается как `social`, `Cursor` — как `Cursor`, а поле поиска переведено как `Поиск проектов`.
+
 ---
 
 ## 4. Следующие шаги и бэклог

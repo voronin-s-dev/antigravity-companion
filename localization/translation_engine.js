@@ -52,6 +52,9 @@
     '[data-testid="project-header"]',
     '[data-project-card]',
     '[data-project-label]',
+    '[data-project-name]',
+    '[data-testid="project-selector-item"]',
+    '[data-testid="breadcrumb-segment"]',
     '[data-testid*="project-name"]',
     '[data-testid*="project-title"]',
     '[data-testid*="workspace-name"]',
@@ -85,6 +88,12 @@
     try {
       if (node.matches(EXCLUDED_SELECTORS)) return true;
       if (node.closest(EXCLUDED_SELECTORS)) return true;
+      const trigger = node.closest('[data-testid="project-selector-trigger"]');
+      if (trigger) {
+        const text = (node.textContent || '').trim();
+        if (text === 'No project' || text === 'Без проекта') return false;
+        return true;
+      }
     } catch (e) {}
     return false;
   }
@@ -259,8 +268,8 @@
     // 2. Исключаем приватные названия бесед в сайдбаре, имена папок проектов, блоки текста чата (.md-divider-spacing, .select-text) и одноразовые подписи шагов тулов
     if (el.closest('[data-testid="conversation-row-sidebar"], [data-testid*="conversation-title"], [data-testid*="conversation-item"], [data-testid*="thread"], [data-testid*="session"], [data-testid="lifted-context-menu-trigger"], [data-testid="planner-response-text"], [data-testid*="user-input"], [data-testid$="-step"]')) return true;
     if (el.closest('.md-divider-spacing, .select-text, .chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="message"]')) return true;
-    // 3. Исключаем карточки и заголовки проектов, имена файлов и веток пользователя
-    if (el.closest('[data-testid="project-header"], [data-project-card], [data-project-label], [data-testid*="project-name"], [data-testid*="project-title"], [data-testid*="workspace-name"], [data-testid*="workspace-title"], [data-testid*="file-tree"], [data-testid*="file-node"], [data-testid*="explorer-item"], .monaco-list-row')) return true;
+    // 3. Исключаем карточки и заголовки проектов, имена файлов и веток пользователя, выбор проектов и хлебные крошки
+    if (el.closest('[data-testid="project-header"], [data-project-card], [data-project-label], [data-project-name], [data-testid="project-selector-item"], [data-testid="project-selector-trigger"], [data-testid="breadcrumb-segment"], [data-testid*="project-name"], [data-testid*="project-title"], [data-testid*="workspace-name"], [data-testid*="workspace-title"], [data-testid*="file-tree"], [data-testid*="file-node"], [data-testid*="explorer-item"], .monaco-list-row')) return true;
     // 4. Остальные элементы (включая системные плейсхолдеры сайдбара вроде "No conversations yet", модалки, тосты и настройки) разрешены
     return false;
   }
@@ -701,6 +710,7 @@
         walkAndTranslate(node, currentLang);
       }
     }
+    restoreProjectNames();
   }
 
   function queueNode(node) {
@@ -745,8 +755,9 @@
   window.__agyTranslatorActive = true;
 
   // Self-healing: гарантирует, что пользовательские имена проектов и рабочих областей не изменяются
-  function restoreProjectHeaders() {
+  function restoreProjectNames() {
     try {
+      // 1. Заголовки проектов в сайдбаре
       const pHeaders = document.querySelectorAll('[data-testid="project-header"], [data-project-card], [data-project-label]');
       for (const ph of pHeaders) {
         const origLabel = ph.getAttribute('data-project-label');
@@ -759,8 +770,45 @@
           }
         }
       }
+
+      // 2. Элементы выпадающего меню выбора проекта (project-selector-item)
+      const pItems = document.querySelectorAll('[data-testid="project-selector-item"], [data-project-name]');
+      for (const pi of pItems) {
+        const origName = pi.getAttribute('data-project-name');
+        if (!origName) continue;
+        const span = pi.querySelector('span.truncate') || pi.querySelector('.truncate') || pi.querySelector('[title]');
+        if (span) {
+          if (span.firstChild && span.firstChild.__agy_orig) {
+            span.firstChild.nodeValue = span.firstChild.__agy_orig;
+          } else if (span.textContent !== origName) {
+            span.textContent = origName;
+          }
+        }
+      }
+
+      // 3. Кнопка-триггер текущего проекта в шапке
+      const pTrigger = document.querySelector('[data-testid="project-selector-trigger"]');
+      if (pTrigger) {
+        const span = pTrigger.querySelector('span.truncate') || pTrigger.querySelector('.truncate');
+        if (span && span.firstChild && span.firstChild.__agy_orig) {
+          const orig = span.firstChild.__agy_orig.trim();
+          if (orig !== 'No project' && orig !== 'Без проекта') {
+            span.firstChild.nodeValue = span.firstChild.__agy_orig;
+          }
+        }
+      }
+
+      // 4. Сегменты хлебных крошек
+      const pBreadcrumbs = document.querySelectorAll('[data-testid="breadcrumb-segment"]');
+      for (const pb of pBreadcrumbs) {
+        const span = pb.querySelector('span.truncate') || pb.querySelector('.truncate');
+        if (span && span.firstChild && span.firstChild.__agy_orig) {
+          span.firstChild.nodeValue = span.firstChild.__agy_orig;
+        }
+      }
     } catch (e) {}
   }
+  const restoreProjectHeaders = restoreProjectNames;
 
   // Global Language Switcher API
   window.setAgyLanguage = function(lang) {

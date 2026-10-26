@@ -73,8 +73,20 @@ function testProjectIsolationGuard() {
   if (!engineSource.includes('[data-project-card]')) {
     throw new Error('Безопасность нарушена: data-project-card отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
   }
-  if (!engineSource.includes('restoreProjectHeaders')) {
-    throw new Error('Отсутствует функция самовосстановления restoreProjectHeaders в translation_engine.js!');
+  if (!engineSource.includes('[data-testid="project-selector-item"]')) {
+    throw new Error('Безопасность нарушена: project-selector-item отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
+  }
+  if (!engineSource.includes('[data-project-name]')) {
+    throw new Error('Безопасность нарушена: data-project-name отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
+  }
+  if (!engineSource.includes('[data-testid="project-selector-trigger"]')) {
+    throw new Error('Безопасность нарушена: project-selector-trigger отсутствует в проверках translation_engine.js!');
+  }
+  if (!engineSource.includes('[data-testid="breadcrumb-segment"]')) {
+    throw new Error('Безопасность нарушена: breadcrumb-segment отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
+  }
+  if (!engineSource.includes('restoreProjectNames') || !engineSource.includes('restoreProjectHeaders')) {
+    throw new Error('Отсутствует функция самовосстановления restoreProjectNames в translation_engine.js!');
   }
 }
 
