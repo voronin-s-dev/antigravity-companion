@@ -1807,5 +1807,10 @@
   "test drum synthesis in numpy",
   "3 seconds",
   "Render Liquid DnB audio preview",
-  "3s timer: Timer has expired"
+  "3s timer: Timer has expired",
+  "Confirm mp3 export",
+  "render liquid DnB preview with fftconvolve",
+  "copy audio preview to FL Studio user folder",
+  "list files in Scores/Minimal Liquid DnB",
+  "confirm mp3 export"
 ]
