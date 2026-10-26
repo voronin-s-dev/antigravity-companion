@@ -1812,5 +1812,8 @@
   "render liquid DnB preview with fftconvolve",
   "copy audio preview to FL Studio user folder",
   "list files in Scores/Minimal Liquid DnB",
-  "confirm mp3 export"
+  "confirm mp3 export",
+  "liquid_dnb_preview_174bpm.mp3",
+  "Close liquid_dnb_preview_174bpm.mp3",
+  "fl_studio_export"
 ]
