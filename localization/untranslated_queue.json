@@ -1804,5 +1804,8 @@
   "find kick names",
   "render liquid DnB preview audio",
   "FL Studio Liquid DnB Agent",
-  "test drum synthesis in numpy"
+  "test drum synthesis in numpy",
+  "3 seconds",
+  "Render Liquid DnB audio preview",
+  "3s timer: Timer has expired"
 ]
