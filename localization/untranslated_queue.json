@@ -225,5 +225,9 @@
   "read tail of previous session transcript",
   "find Task 2.4 references in recent transcripts",
   "check instagram folder structure",
-  "check video_engine directory"
+  "check video_engine directory",
+  "check skills CLI availability",
+  "search for video skills",
+  "search for audio skills",
+  "search for social skills"
 ]
