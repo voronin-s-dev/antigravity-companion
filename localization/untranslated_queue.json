@@ -126,5 +126,7 @@
   "Download claude-aar skill files",
   "download claude-aar skill files",
   "Adapt aar skill paths for Antigravity",
-  "adapt aar skill paths for Antigravity"
+  "adapt aar skill paths for Antigravity",
+  "verify all global customizations",
+  "verify all global customizations with utf-8"
 ]
