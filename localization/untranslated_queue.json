@@ -209,5 +209,6 @@
   "read engine.py lines 150-250",
   "check pro output size",
   "inspect image dimensions on Flow page",
-  "inspect image editor view"
+  "inspect image editor view",
+  "test live upscale_flow_image with path"
 ]
