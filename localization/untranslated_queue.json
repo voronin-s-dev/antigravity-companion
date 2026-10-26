@@ -172,5 +172,6 @@
   "check pip list in system python",
   "Benchmark RealESRGAN tile on CPU",
   "check 2K files",
-  "build 2K Showcase canvas"
+  "build 2K Showcase canvas",
+  "run updated 2K showcase script"
 ]
