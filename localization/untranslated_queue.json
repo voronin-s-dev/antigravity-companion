@@ -216,5 +216,7 @@
   "check git diff stat",
   "commit changes to Google flow mcp",
   "run pytest after commit",
-  "execute upscale via Google Flow MCP"
+  "execute upscale via Google Flow MCP",
+  "create canonical avatar_final files",
+  "read ACTIVE_TASK.md stage 1"
 ]
