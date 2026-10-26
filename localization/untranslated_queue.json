@@ -1753,7 +1753,6 @@
   "Generate last two iterations",
   "subagent",
   "Give Feedback",
-  "FL Studio Liquid DnB Agent",
   "list workspace files",
   "check FL Studio executables",
   "find FL Studio user data directories",
@@ -1803,5 +1802,7 @@
   "Render liquid DnB preview audio",
   "verify specific drum sample paths",
   "find kick names",
-  "render liquid DnB preview audio"
+  "render liquid DnB preview audio",
+  "FL Studio Liquid DnB Agent",
+  "test drum synthesis in numpy"
 ]
