@@ -223,5 +223,7 @@
   "list files in knowledge directory",
   "find recent conversation folders",
   "read tail of previous session transcript",
-  "find Task 2.4 references in recent transcripts"
+  "find Task 2.4 references in recent transcripts",
+  "check instagram folder structure",
+  "check video_engine directory"
 ]
