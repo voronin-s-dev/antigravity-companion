@@ -9992,7 +9992,10 @@
     "Plugin metadata": "Метаданные плагина",
     "Context usage": "Использование контекста",
     "Copied": "Скопировано",
-    "Version": "Версия"
+    "Version": "Версия",
+    "Search Projects": "Поиск проектов",
+    "Search projects": "Поиск проектов",
+    "Search: Projects": "Поиск проектов"
   },
   "patterns": [
     {

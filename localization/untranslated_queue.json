@@ -100,5 +100,19 @@
   "find installed Python installations",
   "test python with py -3.12",
   "Count lines in messages.html",
-  "count lines in messages.html"
+  "count lines in messages.html",
+  "search for video or audio files in ChatExport_2026-10-26",
+  "search for links in codebase",
+  "check recent conversation folders",
+  "Killing task Search for links in codebase",
+  "check previous conversation user inputs",
+  "scan recent transcripts for reel IDs",
+  "run scan_transcripts.py with utf-8 encoding",
+  "check catalog skills by modification date",
+  "check if yt-dlp is installed",
+  "test yt-dlp on Threads URL",
+  "fetch metadata for exported links",
+  "test yt-dlp on TikTok video",
+  "\"paldovey\" tiktok",
+  "check if minion.session exists"
 ]
