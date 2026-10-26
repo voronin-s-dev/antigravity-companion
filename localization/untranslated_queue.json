@@ -165,5 +165,6 @@
   "run inspect_flow with venv python",
   "inspect Flow images and classes",
   "list spike python scripts",
-  "list python scripts in scratch"
+  "list python scripts in scratch",
+  "inspect tiles hover and buttons"
 ]
