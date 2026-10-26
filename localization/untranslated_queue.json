@@ -210,5 +210,10 @@
   "check pro output size",
   "inspect image dimensions on Flow page",
   "inspect image editor view",
-  "test live upscale_flow_image with path"
+  "test live upscale_flow_image with path",
+  "check git status of Google flow mcp",
+  "remove engine.py.bak",
+  "check git diff stat",
+  "commit changes to Google flow mcp",
+  "run pytest after commit"
 ]
