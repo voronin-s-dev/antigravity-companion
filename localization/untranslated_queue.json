@@ -1835,5 +1835,8 @@
   "Download legendary clean breakbeats",
   "download legendary clean breakbeats",
   "check break audio properties",
-  "check bar duration at 174 BPM"
+  "check bar duration at 174 BPM",
+  "test time stretch with ffmpeg",
+  "Stretch Amen break to 174 BPM",
+  "stretch Amen break to 174 BPM"
 ]
