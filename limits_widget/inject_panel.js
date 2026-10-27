@@ -3127,7 +3127,7 @@ async function injectWidget() {
       let lastKnownStepCount = 1;
 
       function getSessionStepCount() {
-        // 1. Извлечение канонических шагов агента из trajectorySlice в React Fiber активного диалога
+        // 1. Поиск канонического массива turns в React Fiber активного диалога (запросы пользователя)
         try {
           const candidates = [
             document.querySelector('[data-testid="autoscroll-viewport"]'),
@@ -3144,19 +3144,6 @@ async function injectWidget() {
               const p = f.memoizedProps;
               if (p) {
                 const convId = p.conversationId || p.trajectorySlice?.conversationId;
-                const ts = p.trajectorySlice;
-                if (ts) {
-                  const genCount = Number(ts.totalGeneratorMetadataLength) || 0;
-                  const totalSteps = Number(ts.totalStepsLength) || 0;
-                  const count = genCount > 0 ? genCount : (totalSteps > 0 ? Math.ceil(totalSteps / 2) : 0);
-                  if (convId && convId !== currentSessionConvId) {
-                    currentSessionConvId = convId;
-                    lastKnownStepCount = Math.max(1, count);
-                  } else if (count > 0) {
-                    lastKnownStepCount = count;
-                  }
-                  return lastKnownStepCount;
-                }
                 if (Array.isArray(p.turns) && p.turns.length > 0) {
                   if (convId && convId !== currentSessionConvId) {
                     currentSessionConvId = convId;
@@ -3172,10 +3159,10 @@ async function injectWidget() {
           }
         } catch (e) {}
 
-        // 2. Резервный подсчет по DOM-узлам сообщений
+        // 2. Резервный подсчет по DOM-узлам сообщений пользователя
         const userSteps = document.querySelectorAll('[data-testid="user-input-step"]').length;
         if (userSteps > 0) {
-          lastKnownStepCount = Math.max(lastKnownStepCount, userSteps);
+          lastKnownStepCount = userSteps;
           return lastKnownStepCount;
         }
 
@@ -3184,11 +3171,11 @@ async function injectWidget() {
 
       function updateSessionStepDisplays() {
         const steps = getSessionStepCount();
-        const color = steps >= 30 ? '#ef4444' : (steps >= 22 ? '#f59e0b' : '#9ca3af');
-        const text = \`\${currentLang === 'ru' ? 'Шаг' : 'Step'} \${steps}/35\`;
+        const color = steps >= 35 ? '#ef4444' : (steps >= 25 ? '#f59e0b' : '#9ca3af');
+        const text = \`\${currentLang === 'ru' ? 'Шаг' : 'Step'} \${steps}/40\`;
         const tipTitle = currentLang === 'ru'
-          ? \`Текущая сессия: \${steps} шагов из 35 рекомендованных. Нажмите, чтобы скопировать команду /handoff для перехода в свежий диалог.\`
-          : \`Current session: \${steps} of 35 recommended turns. Click to copy /handoff command to start a fresh chat.\`;
+          ? \`Текущая сессия: \${steps} запросов из 40 рекомендованных. Нажмите, чтобы скопировать команду /handoff для перехода в свежий диалог.\`
+          : \`Current session: \${steps} of 40 recommended turns. Click to copy /handoff command to start a fresh chat.\`;
 
         function styleStepBadge(el) {
           if (!el) return;
@@ -3196,11 +3183,11 @@ async function injectWidget() {
           el.style.color = color;
           el.title = tipTitle;
           el.style.cursor = 'pointer';
-          if (steps >= 30) {
+          if (steps >= 35) {
             el.classList.add('agy-pulse-badge');
             el.style.borderColor = 'rgba(239, 68, 68, 0.4)';
             el.style.background = 'rgba(239, 68, 68, 0.12)';
-          } else if (steps >= 22) {
+          } else if (steps >= 25) {
             el.classList.remove('agy-pulse-badge');
             el.style.borderColor = 'rgba(245, 158, 11, 0.3)';
             el.style.background = 'rgba(245, 158, 11, 0.1)';
