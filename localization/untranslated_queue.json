@@ -422,5 +422,8 @@
   "publish.buffer.com",
   "Close publish.buffer.com",
   "Buffer",
-  "Buffer - Log In"
+  "Buffer - Log In",
+  "list files in social directory",
+  "list files in key social folders",
+  "check python command"
 ]
