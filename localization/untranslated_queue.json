@@ -50,5 +50,6 @@
   "find python paths",
   "check root .venv",
   "check Google flow mcp directory",
-  "test playwright in venv"
+  "test playwright in venv",
+  "instagram playwright automation ban risk vs official graph api"
 ]
