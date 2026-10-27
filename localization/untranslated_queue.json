@@ -134,5 +134,7 @@
   "remove scratch inspect script",
   "check window errors",
   "check page scripts",
-  "find all occurrences of Failed to archive"
+  "find all occurrences of Failed to archive",
+  "Get all loaded resources via CDP",
+  "get all loaded resources via CDP"
 ]
