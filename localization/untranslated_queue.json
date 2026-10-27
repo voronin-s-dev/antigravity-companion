@@ -7,5 +7,6 @@
   "fetch m8ven page",
   "run details script",
   "run find observations",
-  "run find_text with utf-8"
+  "run find_text with utf-8",
+  "run extract all checks"
 ]
