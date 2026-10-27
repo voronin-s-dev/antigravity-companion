@@ -12,5 +12,9 @@
   "inspect MCPServer tool signature and Tool fields",
   "inspect ToolAnnotations",
   "test ToolAnnotations serialization",
-  "verify app.tool with annotations"
+  "verify app.tool with annotations",
+  "check MCP schemas dir",
+  "check agentmemory schemas",
+  "check google-flow-generator skill dir",
+  "check scripts in skill"
 ]
