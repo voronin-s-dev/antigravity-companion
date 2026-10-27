@@ -41,5 +41,7 @@
   "run verify_harness.py locally",
   "check GitHub actions run list",
   "Watch GitHub actions run",
-  "watch GitHub actions run"
+  "watch GitHub actions run",
+  "github.com",
+  "Close github.com"
 ]
