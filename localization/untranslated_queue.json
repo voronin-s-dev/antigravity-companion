@@ -75,5 +75,12 @@
   "check social .env",
   "list keys in social .env",
   "verify git status does not show .env",
-  "test Buffer API connection"
+  "test Buffer API connection",
+  "check httpx in Python312",
+  "test Buffer GraphQL API",
+  "introspect Buffer GraphQL queries",
+  "get Buffer organizations",
+  "inspect Buffer mutations",
+  "run buffer_manager channels test",
+  "test history for threads"
 ]
