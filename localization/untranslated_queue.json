@@ -136,5 +136,18 @@
   "check page scripts",
   "find all occurrences of Failed to archive",
   "Get all loaded resources via CDP",
-  "get all loaded resources via CDP"
+  "get all loaded resources via CDP",
+  "Print kyb function",
+  "print kyb function",
+  "list annotations directory",
+  "search archived flag in annotations",
+  "list conversations dir",
+  "check if 3cab...db exists",
+  "check tables in conversation db",
+  "check raw_summary of conversation",
+  "check current status in DB",
+  "analyze steps in transcript",
+  "check current toasts via CDP",
+  "check sidebar conversation list",
+  "check elements around Session Duration Widget in DOM"
 ]
