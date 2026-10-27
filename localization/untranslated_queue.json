@@ -1,3 +1,6 @@
 [
-  "list git files"
+  "list git files",
+  "git log full",
+  "git remote check",
+  "git check origin master"
 ]
