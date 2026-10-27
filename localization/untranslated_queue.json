@@ -123,5 +123,13 @@
   "inspect conversation_summaries.db tables",
   "check python and node versions",
   "list tables in conversation_summaries.db",
-  "check conversation schema and rows"
+  "check conversation schema and rows",
+  "check logs of that conversation",
+  "read last lines of transcript",
+  "Quick check devtools",
+  "quick check devtools",
+  "Re-check status of Session Duration Widget conversation",
+  "re-check status of Session Duration Widget conversation",
+  "check tail of transcript of other conversation",
+  "remove scratch inspect script"
 ]
