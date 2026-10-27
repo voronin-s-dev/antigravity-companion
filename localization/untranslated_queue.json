@@ -320,8 +320,6 @@
   "search for google-flow in .gemini json files",
   "search for MCP servers in app.asar",
   "search for utf-8 encoded string in app.asar",
-  "Design engineering principles for making interfaces feel polished. Use when building UI components, reviewing frontend code, implementing animations, hover states, shadows, borders, typography, icons, micro-interactions, enter/exit animations, or any visual detail work. Supports quick and full review modes. Triggers on UI polish, design details, \"make it feel better\", \"feels off\", stagger animations, border radius, optical alignment, font smoothing, tabular numbers, image outlines, box shadows, icons, icon stroke weight, icon states, motion restraint.",
-  "vibe-spec",
   "Inherits your Global Permissions when working in these conversations.",
   "Failed to revert conversation",
   "Open Link in New Tab",
@@ -406,5 +404,7 @@
   "sanitize harvested queue",
   "inspect top 20 queue strings",
   "check GEMINI_API_KEY availability",
-  "Session Duration Widget Discrepancy"
+  "Session Duration Widget Discrepancy",
+  "Design engineering principles for making interfaces feel polished. Use when building UI components, reviewing frontend code, implementing animations, hover states, shadows, borders, typography, icons, micro-interactions, enter/exit animations, or any visual detail work. Supports quick and full review modes. Triggers on UI polish, design details, \"make it feel better\", \"feels off\", stagger animations, border radius, optical alignment, font smoothing, tabular numbers, image outlines, box shadows, icons, icon stroke weight, icon states, motion restraint.",
+  "vibe-spec"
 ]
