@@ -2,5 +2,7 @@
   "list git files",
   "git log full",
   "git remote check",
-  "git check origin master"
+  "git check origin master",
+  "check image dimensions with venv",
+  "fetch m8ven page"
 ]
