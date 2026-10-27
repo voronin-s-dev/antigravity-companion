@@ -89,5 +89,16 @@
   "run Buffer GraphQL schema introspection",
   "run introspect for GraphQL types",
   "inspect filter and enum types",
-  "Conversation Archived: View archived in the sidebar (Display options menu). Failed to archive conversation"
+  "Conversation Archived: View archived in the sidebar (Display options menu). Failed to archive conversation",
+  "inspect createPost return type",
+  "inspect createPost unwrap",
+  "test get_posts query",
+  "inspect image and video asset input",
+  "test Buffer createPost draft mutation",
+  "inspect DeletePostInput",
+  "test deletePost mutation",
+  "inspect DeletePostPayload",
+  "inspect DeletePostSuccess fields",
+  "test deleting draft post",
+  "remove temporary introspect file"
 ]
