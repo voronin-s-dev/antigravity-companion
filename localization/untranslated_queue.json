@@ -65,5 +65,7 @@
   "\"h4ckf0r0day/obscura\" OR \"h4ckf0r0day\" obscura",
   "\"github.com/h4ckf0r0day/obscura\" readme features benchmarks",
   "\"h4ckf0r0day/obscura\" site:github.com OR site:news.ycombinator.com OR site:reddit.com",
-  "\"h4ckf0r0day/obscura\" limitations OR \"WPT\" OR issues OR \"bot detection\""
+  "\"h4ckf0r0day/obscura\" limitations OR \"WPT\" OR issues OR \"bot detection\"",
+  "developers.facebook.com",
+  "Close developers.facebook.com"
 ]
