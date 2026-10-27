@@ -58,5 +58,8 @@
   "run fetch script with py",
   "run modified fetch script",
   "search scripts in raw.html",
-  "check yt-dlp"
+  "check yt-dlp",
+  "yt-dlp dump json metadata",
+  "download Reel video",
+  "extract frames from reel video"
 ]
