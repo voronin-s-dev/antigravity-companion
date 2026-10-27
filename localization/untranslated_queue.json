@@ -47,5 +47,8 @@
   "marketplace for \"threads\", \"instagram\", \"social\"",
   "find telegram files",
   "check playwright python package",
-  "find python paths"
+  "find python paths",
+  "check root .venv",
+  "check Google flow mcp directory",
+  "test playwright in venv"
 ]
