@@ -8,5 +8,9 @@
   "run details script",
   "run find observations",
   "run find_text with utf-8",
-  "run extract all checks"
+  "run extract all checks",
+  "inspect MCPServer tool signature and Tool fields",
+  "inspect ToolAnnotations",
+  "test ToolAnnotations serialization",
+  "verify app.tool with annotations"
 ]
