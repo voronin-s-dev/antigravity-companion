@@ -53,5 +53,10 @@
   "test playwright in venv",
   "instagram playwright automation ban risk vs official graph api",
   "\"De83_GXtZhV\" instagram",
-  "run Instagram fetch script"
+  "run Instagram fetch script",
+  "check installed runtimes",
+  "run fetch script with py",
+  "run modified fetch script",
+  "search scripts in raw.html",
+  "check yt-dlp"
 ]
