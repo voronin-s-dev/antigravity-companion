@@ -102,5 +102,7 @@
   "test deleting draft post",
   "remove temporary introspect file",
   "test buffer_manager history for Threads",
-  "test buffer_manager history for Instagram"
+  "test buffer_manager history for Instagram",
+  "Conversation Archived: View archived in the sidebar (Display options menu)",
+  "Failed to archive conversation"
 ]
