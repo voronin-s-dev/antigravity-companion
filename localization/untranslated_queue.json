@@ -36,5 +36,8 @@
   "Close m8ven.ai",
   "m8ven.ai/mcp/voronin-s-dev/google-flow-mcp",
   "check GitHub actions with gh CLI",
-  "check schemas folder"
+  "check schemas folder",
+  "run pytest locally",
+  "run verify_harness.py locally",
+  "check GitHub actions run list"
 ]
