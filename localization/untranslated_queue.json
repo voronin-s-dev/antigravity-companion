@@ -131,5 +131,8 @@
   "Re-check status of Session Duration Widget conversation",
   "re-check status of Session Duration Widget conversation",
   "check tail of transcript of other conversation",
-  "remove scratch inspect script"
+  "remove scratch inspect script",
+  "check window errors",
+  "check page scripts",
+  "find all occurrences of Failed to archive"
 ]
