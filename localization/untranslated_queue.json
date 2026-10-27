@@ -21,5 +21,11 @@
   "run find badge positions",
   "run case-insensitive badge search",
   "crop badge area",
-  "test exact M8ven badge URL"
+  "test exact M8ven badge URL",
+  "Clean up scratch files",
+  "clean up scratch files",
+  "Git diff stat",
+  "Git commit security and M8ven improvements",
+  "git commit security and M8ven improvements",
+  "check git status after commit"
 ]
