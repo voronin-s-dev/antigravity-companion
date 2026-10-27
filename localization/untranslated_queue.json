@@ -16,5 +16,10 @@
   "check MCP schemas dir",
   "check agentmemory schemas",
   "check google-flow-generator skill dir",
-  "check scripts in skill"
+  "check scripts in skill",
+  "find M8ven badge in extracted text",
+  "run find badge positions",
+  "run case-insensitive badge search",
+  "crop badge area",
+  "test exact M8ven badge URL"
 ]
