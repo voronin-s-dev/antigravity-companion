@@ -85,6 +85,9 @@ function testProjectIsolationGuard() {
   if (!engineSource.includes('[data-testid="breadcrumb-segment"]')) {
     throw new Error('Безопасность нарушена: breadcrumb-segment отсутствует в EXCLUDED_SELECTORS translation_engine.js!');
   }
+  if (!engineSource.includes('settings-nav-item-')) {
+    throw new Error('Безопасность нарушена: settings-nav-item отсутствует в проверках translation_engine.js!');
+  }
   if (!engineSource.includes('restoreProjectNames') || !engineSource.includes('restoreProjectHeaders')) {
     throw new Error('Отсутствует функция самовосстановления restoreProjectNames в translation_engine.js!');
   }

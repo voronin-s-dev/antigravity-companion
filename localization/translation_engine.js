@@ -33,6 +33,22 @@
   let currentLang = localStorage.getItem('agy_lang') || 'ru';
   let isInternalMutating = false;
 
+  const STANDARD_SETTINGS_SCREENS = new Set([
+    'settings-nav-item-General',
+    'settings-nav-item-App',
+    'settings-nav-item-Appearance',
+    'settings-nav-item-Notifications',
+    'settings-nav-item-Models',
+    'settings-nav-item-Customizations',
+    'settings-nav-item-Developer',
+    'settings-nav-item-Tab',
+    'settings-nav-item-Editor',
+    'settings-nav-item-Shortcuts',
+    'settings-nav-item-Account',
+    'settings-nav-item-Provide Feedback',
+    'settings-nav-item-Conversations'
+  ]);
+
   const EXCLUDED_SELECTORS = [
     'script',
     'style',
@@ -59,6 +75,7 @@
     '[data-testid*="project-title"]',
     '[data-testid*="workspace-name"]',
     '[data-testid*="workspace-title"]',
+    '.flex.items-center.gap-2.h-7:has(button[aria-label*="name" i], button[aria-label*="имя" i], button[aria-label*="проекта" i])',
     '[data-testid*="file-tree"]',
     '[data-testid*="file-node"]',
     '[data-testid*="explorer-item"]',
@@ -92,6 +109,17 @@
       if (trigger) {
         const text = (node.textContent || '').trim();
         if (text === 'No project' || text === 'Без проекта') return false;
+        return true;
+      }
+      const settingsNavBtn = node.closest('button[data-testid^="settings-nav-item-"]');
+      if (settingsNavBtn) {
+        const tid = settingsNavBtn.getAttribute('data-testid');
+        if (tid && !STANDARD_SETTINGS_SCREENS.has(tid)) {
+          return true;
+        }
+      }
+      const projectHeader = node.closest('.flex.items-center.gap-2.h-7');
+      if (projectHeader && projectHeader.querySelector('button[aria-label*="name" i], button[aria-label*="имя" i], button[aria-label*="проекта" i]')) {
         return true;
       }
     } catch (e) {}
@@ -268,8 +296,10 @@
     // 2. Исключаем приватные названия бесед в сайдбаре, имена папок проектов, блоки текста чата (.md-divider-spacing, .select-text) и одноразовые подписи шагов тулов
     if (el.closest('[data-testid="conversation-row-sidebar"], [data-testid*="conversation-title"], [data-testid*="conversation-item"], [data-testid*="thread"], [data-testid*="session"], [data-testid="lifted-context-menu-trigger"], [data-testid="planner-response-text"], [data-testid*="user-input"], [data-testid$="-step"]')) return true;
     if (el.closest('.md-divider-spacing, .select-text, .chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="message"]')) return true;
-    // 3. Исключаем карточки и заголовки проектов, имена файлов и веток пользователя, выбор проектов и хлебные крошки
-    if (el.closest('[data-testid="project-header"], [data-project-card], [data-project-label], [data-project-name], [data-testid="project-selector-item"], [data-testid="project-selector-trigger"], [data-testid="breadcrumb-segment"], [data-testid*="project-name"], [data-testid*="project-title"], [data-testid*="workspace-name"], [data-testid*="workspace-title"], [data-testid*="file-tree"], [data-testid*="file-node"], [data-testid*="explorer-item"], .monaco-list-row')) return true;
+    // 3. Исключаем карточки и заголовки проектов, имена файлов и веток пользователя, выбор проектов, хлебные крошки и проекты в настройках
+    if (el.closest('[data-testid="project-header"], [data-project-card], [data-project-label], [data-project-name], [data-testid="project-selector-item"], [data-testid="project-selector-trigger"], [data-testid="breadcrumb-segment"], [data-testid*="project-name"], [data-testid*="project-title"], [data-testid*="workspace-name"], [data-testid*="workspace-title"], [data-testid*="file-tree"], [data-testid*="file-node"], [data-testid*="explorer-item"], .monaco-list-row, .flex.items-center.gap-2.h-7:has(button[aria-label*="name" i], button[aria-label*="имя" i], button[aria-label*="проекта" i])')) return true;
+    const sNavBtn = el.closest('button[data-testid^="settings-nav-item-"]');
+    if (sNavBtn && !STANDARD_SETTINGS_SCREENS.has(sNavBtn.getAttribute('data-testid'))) return true;
     // 4. Остальные элементы (включая системные плейсхолдеры сайдбара вроде "No conversations yet", модалки, тосты и настройки) разрешены
     return false;
   }
@@ -804,6 +834,43 @@
         const span = pb.querySelector('span.truncate') || pb.querySelector('.truncate');
         if (span && span.firstChild && span.firstChild.__agy_orig) {
           span.firstChild.nodeValue = span.firstChild.__agy_orig;
+        }
+      }
+
+      // 5. Элементы списка проектов в окне настроек (Settings Modal)
+      const sItems = document.querySelectorAll('button[data-testid^="settings-nav-item-"]');
+      for (const si of sItems) {
+        const tid = si.getAttribute('data-testid');
+        if (tid && !STANDARD_SETTINGS_SCREENS.has(tid)) {
+          const origName = tid.replace(/^settings-nav-item-/, '');
+          const span = si.querySelector('span.truncate') || si.querySelector('.truncate');
+          if (span && span.firstChild) {
+            if (span.firstChild.__agy_orig) {
+              span.firstChild.nodeValue = span.firstChild.__agy_orig;
+            } else if (origName && span.textContent !== origName) {
+              span.textContent = origName;
+            }
+          }
+        }
+      }
+
+      // 6. Заголовок выбранного проекта в окне настроек
+      const sHeading = document.querySelector('.flex.items-center.gap-2.h-7:has(button[aria-label*="name" i], button[aria-label*="имя" i], button[aria-label*="название" i], button[aria-label*="проекта" i])');
+      if (sHeading) {
+        const span = sHeading.querySelector('span.truncate') || sHeading.querySelector('.truncate');
+        if (span && span.firstChild) {
+          if (span.firstChild.__agy_orig) {
+            span.firstChild.nodeValue = span.firstChild.__agy_orig;
+          } else {
+            const activeNav = document.querySelector('button[data-testid^="settings-nav-item-"].bg-sidebar-secondary');
+            const activeTid = activeNav?.getAttribute('data-testid');
+            if (activeTid && !STANDARD_SETTINGS_SCREENS.has(activeTid)) {
+              const origName = activeTid.replace(/^settings-nav-item-/, '');
+              if (span.textContent !== origName) {
+                span.textContent = origName;
+              }
+            }
+          }
         }
       }
     } catch (e) {}
