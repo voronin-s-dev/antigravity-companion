@@ -89,7 +89,6 @@
   "run Buffer GraphQL schema introspection",
   "run introspect for GraphQL types",
   "inspect filter and enum types",
-  "Conversation Archived: View archived in the sidebar (Display options menu). Failed to archive conversation",
   "inspect createPost return type",
   "inspect createPost unwrap",
   "test get_posts query",
@@ -149,5 +148,7 @@
   "analyze steps in transcript",
   "check current toasts via CDP",
   "check sidebar conversation list",
-  "check elements around Session Duration Widget in DOM"
+  "check elements around Session Duration Widget in DOM",
+  "Session Duration Widget Discrepancy",
+  "Conversation Archived: View archived in the sidebar (Display options menu). Failed to archive conversation"
 ]
