@@ -409,5 +409,10 @@
   "vibe-spec",
   "Add screenshot to conversation",
   "test lint_content.py on flawed text",
-  "test lint_content.py on multi-block clean text"
+  "test lint_content.py on multi-block clean text",
+  "Lint Option C",
+  "lint Option B tightened",
+  "lint Option C",
+  "Lint Option C tightened",
+  "lint Option C tightened"
 ]
