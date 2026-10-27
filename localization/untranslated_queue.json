@@ -429,5 +429,10 @@
   "list Buffer channels",
   "check telegram channel manager help",
   "check bot token validity",
-  "check TG channel status quoted"
+  "check TG channel status quoted",
+  "check Threads history via buffer",
+  "check Instagram history via Buffer",
+  "Get Buffer threads posts",
+  "get TG channel full info",
+  "get Buffer threads posts"
 ]
