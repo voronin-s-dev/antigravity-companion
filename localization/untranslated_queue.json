@@ -414,5 +414,9 @@
   "lint Option B tightened",
   "lint Option C",
   "Lint Option C tightened",
-  "lint Option C tightened"
+  "lint Option C tightened",
+  "create draft post in Buffer via API",
+  "verify draft exists in Threads channel",
+  "view Threads history via buffer_manager",
+  "check threads dir"
 ]
