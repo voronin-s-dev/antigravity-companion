@@ -27,5 +27,9 @@
   "Git diff stat",
   "Git commit security and M8ven improvements",
   "git commit security and M8ven improvements",
-  "check git status after commit"
+  "check git status after commit",
+  "git push to origin master",
+  "check m8ven page status",
+  "Print badge SVG with utf-8",
+  "print badge SVG with utf-8"
 ]
