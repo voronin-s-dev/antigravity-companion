@@ -165,5 +165,18 @@
   "check brain path for conversation",
   "allow",
   "inspect transcript of c9ad2fa0",
-  "check agent response in c9ad2fa0"
+  "check agent response in c9ad2fa0",
+  "test Buffer MCP with Authorization header",
+  "test Buffer MCP with Accept header",
+  "check Antigravity roaming directory",
+  "list items in AppData/Roaming/Antigravity",
+  "list files in .gemini/config",
+  "search customization docs in Antigravity",
+  "check latest logs in Antigravity roaming logs",
+  "read tail of language_server.log",
+  "search for mcp and buffer in language_server.log",
+  "search for mcp and buffer in main.log",
+  "list directories in .gemini/antigravity/mcp",
+  "list files in mcp/google-flow",
+  "check config.json for apple-music or agentmemory"
 ]
