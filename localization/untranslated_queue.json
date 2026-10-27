@@ -39,5 +39,7 @@
   "check schemas folder",
   "run pytest locally",
   "run verify_harness.py locally",
-  "check GitHub actions run list"
+  "check GitHub actions run list",
+  "Watch GitHub actions run",
+  "watch GitHub actions run"
 ]
