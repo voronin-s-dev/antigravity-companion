@@ -157,5 +157,13 @@
   "list files in APPDATA/Antigravity",
   "check if conversation_summaries.db is sqlite",
   "Query conversation row in sqlite3",
-  "query conversation row in sqlite3"
+  "query conversation row in sqlite3",
+  "Design engineering principles for making interfaces feel polished. Use when building UI components, reviewing frontend code, implementing animations, hover states, shadows, borders, typography, icons, micro-interactions, enter/exit animations, or any visual detail work. Supports quick and full review modes. Triggers on UI polish, design details, \"make it feel better\", \"feels off\", stagger animations, border radius, optical alignment, font smoothing, tabular numbers, image outlines, box shadows, icons, icon stroke weight, icon states, motion restraint.",
+  "vibe-spec",
+  "search for conversation file in APPDATA Antigravity",
+  "search for conversation in .gemini antigravity",
+  "check brain path for conversation",
+  "allow",
+  "inspect transcript of c9ad2fa0",
+  "check agent response in c9ad2fa0"
 ]
