@@ -425,5 +425,9 @@
   "Buffer - Log In",
   "list files in social directory",
   "list files in key social folders",
-  "check python command"
+  "check python command",
+  "list Buffer channels",
+  "check telegram channel manager help",
+  "check bot token validity",
+  "check TG channel status quoted"
 ]
