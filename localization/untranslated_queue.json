@@ -418,5 +418,9 @@
   "create draft post in Buffer via API",
   "verify draft exists in Threads channel",
   "view Threads history via buffer_manager",
-  "check threads dir"
+  "check threads dir",
+  "publish.buffer.com",
+  "Close publish.buffer.com",
+  "Buffer",
+  "Buffer - Log In"
 ]
