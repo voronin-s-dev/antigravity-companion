@@ -4,5 +4,7 @@
   "git remote check",
   "git check origin master",
   "check image dimensions with venv",
-  "fetch m8ven page"
+  "fetch m8ven page",
+  "run details script",
+  "run find observations"
 ]
