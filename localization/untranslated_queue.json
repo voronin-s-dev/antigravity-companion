@@ -82,5 +82,12 @@
   "get Buffer organizations",
   "inspect Buffer mutations",
   "run buffer_manager channels test",
-  "test history for threads"
+  "test history for threads",
+  "check connected channels via Buffer GraphQL",
+  "Introspect Query fields in Buffer GraphQL",
+  "introspect Query fields in Buffer GraphQL",
+  "run Buffer GraphQL schema introspection",
+  "run introspect for GraphQL types",
+  "inspect filter and enum types",
+  "Conversation Archived: View archived in the sidebar (Display options menu). Failed to archive conversation"
 ]
