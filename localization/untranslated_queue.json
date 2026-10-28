@@ -59,5 +59,9 @@
   "search Google Drive uninstall entries",
   "check Google registry keys and directories",
   "print Google directories",
-  "inspect Google Update Clients"
+  "inspect Google Update Clients",
+  "check Windows Installer UserData for Google Drive",
+  "check Google and Drive services",
+  "check Google Drive processes",
+  "check Administrator privileges"
 ]
