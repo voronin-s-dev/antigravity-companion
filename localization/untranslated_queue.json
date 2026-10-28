@@ -473,5 +473,8 @@
   "Resolve data conflict with latest cloud state",
   "resolve data conflict with latest cloud state",
   "Migrate schema and regenerate reports",
-  "migrate schema and regenerate reports"
+  "migrate schema and regenerate reports",
+  "Final git status check",
+  "run full test suite on main",
+  "push live snapshot with shadow sandbox to origin/main"
 ]
