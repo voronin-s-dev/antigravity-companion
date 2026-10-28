@@ -205,5 +205,7 @@
   "check if CDP is available after starting Chrome",
   "check running chrome processes",
   "start Chrome process with Start-Process",
-  "Start Chrome process with Start-Process"
+  "Start Chrome process with Start-Process",
+  "check CDP available now",
+  "check files in GoogleFlowAgentProfile"
 ]
