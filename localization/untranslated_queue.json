@@ -490,5 +490,7 @@
   "pnL by category",
   "inspect all Sports trades",
   "search parameter references across codebase",
-  "search parameters in python files"
+  "search parameters in python files",
+  "search MAX_BANK_PCT_PER_TRADE",
+  "search price thresholds in python files"
 ]
