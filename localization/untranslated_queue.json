@@ -502,5 +502,12 @@
   "re-run pytest suite",
   "run all unit tests via discover",
   "run simulation status report generation",
-  "remove rogue file"
+  "remove rogue file",
+  "Push changes to origin main",
+  "check git diff on code files",
+  "fetch origin main",
+  "check HEAD vs origin/main",
+  "stage updated files",
+  "commit changes",
+  "push changes to origin main"
 ]
