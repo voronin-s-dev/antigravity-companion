@@ -451,5 +451,10 @@
   "run failing tests for Task 2",
   "inspect EvaluationResult signature",
   "run full test suite after Task 2",
-  "commit Task 2"
+  "commit Task 2",
+  "run all unit tests after Task 3",
+  "commit Task 3",
+  "run test suite after Task 4",
+  "Commit Task 4",
+  "commit Task 4"
 ]
