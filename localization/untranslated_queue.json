@@ -482,5 +482,7 @@
   "inspect sizing change in 5cd822a",
   "analyze all closed trades and losses",
   "inspect trades 50 to 75 with utf-8",
-  "analyze trades 1 to 49"
+  "analyze trades 1 to 49",
+  "check table info for positions",
+  "inspect positions 66 and 71"
 ]
