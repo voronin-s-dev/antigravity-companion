@@ -63,5 +63,8 @@
   "check Windows Installer UserData for Google Drive",
   "check Google and Drive services",
   "check Google Drive processes",
-  "check Administrator privileges"
+  "check Administrator privileges",
+  "Open Google Drive OAuth in browser",
+  "start gdrive auth login",
+  "open Google Drive OAuth in browser"
 ]
