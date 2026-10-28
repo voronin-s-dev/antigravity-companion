@@ -11,5 +11,6 @@
   "extract reels descriptions with yt-dlp",
   "\"unclebob/ub-mode\" OR \"ub-mode\" \"uncle bob\"",
   "list mp4 files in export",
-  "check reels_info.json existence"
+  "check reels_info.json existence",
+  "write summary draft in utf-8"
 ]
