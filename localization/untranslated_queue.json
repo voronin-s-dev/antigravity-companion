@@ -72,5 +72,6 @@
   "open Google Docs OAuth in browser",
   "Open Google Sheets OAuth in browser",
   "start gsheets auth login",
-  "open Google Sheets OAuth in browser"
+  "open Google Sheets OAuth in browser",
+  "start gcalendar auth login"
 ]
