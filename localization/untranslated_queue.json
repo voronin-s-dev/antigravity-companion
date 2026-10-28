@@ -509,5 +509,8 @@
   "check HEAD vs origin/main",
   "stage updated files",
   "commit changes",
-  "push changes to origin main"
+  "push changes to origin main",
+  "list tables in db",
+  "get governance_events table info",
+  "list governance_events rows"
 ]
