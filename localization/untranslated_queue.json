@@ -501,5 +501,6 @@
   "normalize test_e2e_shadow.py to LF",
   "re-run pytest suite",
   "run all unit tests via discover",
-  "run simulation status report generation"
+  "run simulation status report generation",
+  "remove rogue file"
 ]
