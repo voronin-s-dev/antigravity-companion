@@ -49,5 +49,7 @@
   "check downloaded length",
   "check downloaded length 2",
   "Install obscura to local bin and test help",
-  "install obscura to local bin and test help"
+  "install obscura to local bin and test help",
+  "verify obscura in PATH",
+  "check auth status for all google workspace tools"
 ]
