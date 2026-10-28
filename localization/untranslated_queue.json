@@ -32,5 +32,6 @@
   "list all projects in Antigravity projects",
   "scan project metadata",
   "run check_projects.py to txt",
-  "list skills in config/skills"
+  "list skills in config/skills",
+  "check .agents/rules in projects"
 ]
