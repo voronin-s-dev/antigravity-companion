@@ -223,5 +223,11 @@
   "Turn 11 of 11",
   "check Antigravity projects folder",
   "check creator-core-engine",
-  "list files in Google flow mcp"
+  "list files in Google flow mcp",
+  "check skill scripts dir",
+  "copy widget.py to skill",
+  "check scripts dir in repo",
+  "find flow_finalize_asset",
+  "grep _attach_ui_card",
+  "verify harness"
 ]
