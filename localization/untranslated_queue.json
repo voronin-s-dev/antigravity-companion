@@ -190,5 +190,8 @@
   "Turn 4 of 6",
   "Turn 5 of 6",
   "Turn 6 of 6",
-  "Turn 7 of 7"
+  "Turn 7 of 7",
+  "check if obscura binary exists",
+  "check obscura help",
+  "fetch flow.google.com with obscura"
 ]
