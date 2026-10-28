@@ -497,5 +497,8 @@
   "run full test suite to check baseline",
   "list all test files",
   "check CRLF in target files",
-  "normalize line endings to LF"
+  "normalize line endings to LF",
+  "normalize test_e2e_shadow.py to LF",
+  "re-run pytest suite",
+  "run all unit tests via discover"
 ]
