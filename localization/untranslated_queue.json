@@ -200,5 +200,10 @@
   "check if default Chrome User Data exists",
   "find registered browser apps",
   "check Google AppData folder",
-  "check Chrome folder contents"
+  "check Chrome folder contents",
+  "run start_chrome.bat",
+  "check if CDP is available after starting Chrome",
+  "check running chrome processes",
+  "start Chrome process with Start-Process",
+  "Start Chrome process with Start-Process"
 ]
