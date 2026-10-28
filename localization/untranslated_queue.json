@@ -30,5 +30,6 @@
   "\"Leonxlnx/unlazy\" github OR \"unlazy\" \"Depth Tree\"",
   "\"kajisho5/ffmpeg-skill\" OR \"AgriciDaniel/claude-shorts\"",
   "list all projects in Antigravity projects",
-  "scan project metadata"
+  "scan project metadata",
+  "run check_projects.py to txt"
 ]
