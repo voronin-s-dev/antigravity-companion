@@ -438,5 +438,9 @@
   "read root bot .env",
   "check product bot username",
   "list bot handlers",
-  "list bot handlers using literal path"
+  "list bot handlers using literal path",
+  "check docs/superpowers/plans path",
+  "check tests folder",
+  "find any test files",
+  "search for generate_reports"
 ]
