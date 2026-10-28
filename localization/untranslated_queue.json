@@ -444,5 +444,8 @@
   "find any test files",
   "search for generate_reports",
   "create and switch to feature branch",
-  "run failing tests for Task 1"
+  "run failing tests for Task 1",
+  "run tests_risk.py for regressions",
+  "Commit Task 1",
+  "commit Task 1"
 ]
