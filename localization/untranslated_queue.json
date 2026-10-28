@@ -493,5 +493,8 @@
   "search parameters in python files",
   "search MAX_BANK_PCT_PER_TRADE",
   "search price thresholds in python files",
-  "search MatureMarketConsensusOracle in tests"
+  "search MatureMarketConsensusOracle in tests",
+  "run full test suite to check baseline",
+  "list all test files",
+  "check CRLF in target files"
 ]
