@@ -496,5 +496,6 @@
   "search MatureMarketConsensusOracle in tests",
   "run full test suite to check baseline",
   "list all test files",
-  "check CRLF in target files"
+  "check CRLF in target files",
+  "normalize line endings to LF"
 ]
