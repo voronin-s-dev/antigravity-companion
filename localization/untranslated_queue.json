@@ -492,5 +492,6 @@
   "search parameter references across codebase",
   "search parameters in python files",
   "search MAX_BANK_PCT_PER_TRADE",
-  "search price thresholds in python files"
+  "search price thresholds in python files",
+  "search MatureMarketConsensusOracle in tests"
 ]
