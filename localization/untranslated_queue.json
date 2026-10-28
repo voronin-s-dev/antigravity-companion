@@ -486,5 +486,7 @@
   "check table info for positions",
   "inspect positions 66 and 71",
   "find oracle files",
-  "inspect trade 71 details"
+  "inspect trade 71 details",
+  "pnL by category",
+  "inspect all Sports trades"
 ]
