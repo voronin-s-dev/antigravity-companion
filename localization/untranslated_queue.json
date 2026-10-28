@@ -194,5 +194,7 @@
   "check if obscura binary exists",
   "check obscura help",
   "fetch flow.google.com with obscura",
-  "Turn 8 of 8"
+  "Turn 8 of 8",
+  "check if CDP is available on port 9222",
+  "check if GoogleFlowAgentProfile exists"
 ]
