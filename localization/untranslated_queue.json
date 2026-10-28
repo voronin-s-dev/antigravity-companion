@@ -4,5 +4,12 @@
   "Fast forward pull origin main",
   "fast forward pull origin main",
   "search for ChatExport_2026-10-28",
-  "list files in ChatExport_2026-10-28"
+  "list files in ChatExport_2026-10-28",
+  "Parse messages.html",
+  "parse messages.html",
+  "Extract reels descriptions with yt-dlp",
+  "extract reels descriptions with yt-dlp",
+  "\"unclebob/ub-mode\" OR \"ub-mode\" \"uncle bob\"",
+  "list mp4 files in export",
+  "check reels_info.json existence"
 ]
