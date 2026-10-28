@@ -66,5 +66,8 @@
   "check Administrator privileges",
   "Open Google Drive OAuth in browser",
   "start gdrive auth login",
-  "open Google Drive OAuth in browser"
+  "open Google Drive OAuth in browser",
+  "start gdocs auth login",
+  "Open Google Docs OAuth in browser",
+  "open Google Docs OAuth in browser"
 ]
