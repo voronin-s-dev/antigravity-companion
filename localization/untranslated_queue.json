@@ -51,5 +51,13 @@
   "Install obscura to local bin and test help",
   "install obscura to local bin and test help",
   "verify obscura in PATH",
-  "check auth status for all google workspace tools"
+  "check auth status for all google workspace tools",
+  "locate main.py files",
+  "check .env existence",
+  "Print Google directories",
+  "search Google Drive in Uninstall registry keys",
+  "search Google Drive uninstall entries",
+  "check Google registry keys and directories",
+  "print Google directories",
+  "inspect Google Update Clients"
 ]
