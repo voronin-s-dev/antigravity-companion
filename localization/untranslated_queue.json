@@ -90,7 +90,6 @@
   "Go to turn 3 of 5",
   "Go to turn 2 of 5",
   "Go to turn 1 of 5",
-  "Turn 6 of 6",
   "run pytest in Polymarket-Sim",
   "check ruff",
   "Turn 1 of 5",
@@ -183,5 +182,12 @@
   "Turn 35 of 35",
   "Connection is secure. View site information",
   "Turn 36 of 36",
-  "Turn 37 of 37"
+  "Turn 37 of 37",
+  "Analysis of Email Notification",
+  "Turn 1 of 6",
+  "Turn 2 of 6",
+  "Turn 3 of 6",
+  "Turn 4 of 6",
+  "Turn 5 of 6",
+  "Turn 6 of 6"
 ]
