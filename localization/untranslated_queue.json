@@ -81,9 +81,6 @@
   "Turn 3 of 4",
   "Turn 4 of 4",
   "Turn 5 of 5",
-  "Weekly limit",
-  "% left",
-  "5h limit",
   "inspect Polymarket-Sim directory structure",
   "Go to turn 5 of 5",
   "Go to turn 4 of 5",
@@ -236,5 +233,8 @@
   "Turn 5 of 6",
   "Turn 6 of 6",
   "Turn 7 of 7",
-  "Turn 8 of 8"
+  "Turn 8 of 8",
+  "Weekly limit",
+  "% left",
+  "5h limit"
 ]
