@@ -476,5 +476,11 @@
   "migrate schema and regenerate reports",
   "Final git status check",
   "run full test suite on main",
-  "push live snapshot with shadow sandbox to origin/main"
+  "push live snapshot with shadow sandbox to origin/main",
+  "find when MIN_CONTRACT_PRICE was added",
+  "inspect commit fb92008",
+  "inspect sizing change in 5cd822a",
+  "analyze all closed trades and losses",
+  "inspect trades 50 to 75 with utf-8",
+  "analyze trades 1 to 49"
 ]
