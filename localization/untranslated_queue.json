@@ -442,5 +442,7 @@
   "check docs/superpowers/plans path",
   "check tests folder",
   "find any test files",
-  "search for generate_reports"
+  "search for generate_reports",
+  "create and switch to feature branch",
+  "run failing tests for Task 1"
 ]
