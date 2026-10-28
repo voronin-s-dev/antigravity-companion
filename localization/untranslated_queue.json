@@ -177,5 +177,11 @@
   "Turn 39 of 39",
   "check repo description and topics",
   "update GitHub repo description, homepage, and topics",
-  "verify updated repo metadata"
+  "verify updated repo metadata",
+  "Turn 40 of 40",
+  "find channel handle in knowledge files",
+  "update GitHub homepage to channel URL",
+  "verify updated homepage URL",
+  "Commit and push channel link updates",
+  "commit and push channel link updates"
 ]
