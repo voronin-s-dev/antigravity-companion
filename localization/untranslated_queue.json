@@ -515,5 +515,7 @@
   "list governance_events rows",
   "query PENDING_APPROVAL in governance_events",
   "count shadow positions",
-  "find telegram_notify in tests"
+  "find telegram_notify in tests",
+  "normalize all test files to LF",
+  "verify telegram_notify silencing"
 ]
