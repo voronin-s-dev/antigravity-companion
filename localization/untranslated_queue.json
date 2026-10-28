@@ -12,5 +12,12 @@
   "\"unclebob/ub-mode\" OR \"ub-mode\" \"uncle bob\"",
   "list mp4 files in export",
   "check reels_info.json existence",
-  "write summary draft in utf-8"
+  "write summary draft in utf-8",
+  "Extract key frames from videos",
+  "extract key frames from videos",
+  "Download Dd38xmcN-Xa video",
+  "download Dd38xmcN-Xa video",
+  "Extract frames from Dd38xmcN-Xa",
+  "extract frames from Dd38xmcN-Xa",
+  "list extracted frame files"
 ]
