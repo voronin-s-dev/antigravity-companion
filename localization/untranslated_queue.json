@@ -135,5 +135,8 @@
   "Turn 33 of 33",
   "Turn 34 of 34",
   "check GitHub CLI authentication",
-  "Turn 35 of 35"
+  "Turn 35 of 35",
+  "create creator-core-engine directory",
+  "initialize git repo",
+  "create subdirectories"
 ]
