@@ -512,5 +512,8 @@
   "push changes to origin main",
   "list tables in db",
   "get governance_events table info",
-  "list governance_events rows"
+  "list governance_events rows",
+  "query PENDING_APPROVAL in governance_events",
+  "count shadow positions",
+  "find telegram_notify in tests"
 ]
