@@ -230,5 +230,11 @@
   "grep _attach_ui_card",
   "verify harness",
   "copy flow_client.py to repo",
-  "Background Commands"
+  "Background Commands",
+  "commit and push Generative UI update",
+  "check CI status",
+  "view workflow run",
+  "check CI completion",
+  "check CI status again",
+  "check CI final"
 ]
