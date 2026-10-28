@@ -448,5 +448,8 @@
   "run tests_risk.py for regressions",
   "Commit Task 1",
   "commit Task 1",
-  "run failing tests for Task 2"
+  "run failing tests for Task 2",
+  "inspect EvaluationResult signature",
+  "run full test suite after Task 2",
+  "commit Task 2"
 ]
