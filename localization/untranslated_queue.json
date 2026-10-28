@@ -39,5 +39,15 @@
   "\"obscura\" rust headless browser github releases",
   "check GitHub releases for obscura",
   "inspect PATH directories",
-  "list valid PATH directories"
+  "list valid PATH directories",
+  "Download and inspect obscura zip",
+  "get User PATH",
+  "check local bin path",
+  "download and inspect obscura zip",
+  "check obscura temp folder",
+  "check windows assets size",
+  "check downloaded length",
+  "check downloaded length 2",
+  "Install obscura to local bin and test help",
+  "install obscura to local bin and test help"
 ]
