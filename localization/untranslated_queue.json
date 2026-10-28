@@ -97,7 +97,6 @@
   "Turn 2 of 5",
   "Turn 3 of 5",
   "Turn 4 of 5",
-  "Close Buffer - Log In",
   "Turn 1 of 32",
   "Turn 2 of 32",
   "Turn 3 of 32",
@@ -172,5 +171,6 @@
   "Turn 29 of 36",
   "Turn 30 of 36",
   "Turn 31 of 36",
-  "Turn 32 of 36"
+  "Turn 32 of 36",
+  "Close Buffer - Log In"
 ]
