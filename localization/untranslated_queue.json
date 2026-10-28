@@ -461,5 +461,17 @@
   "run complete test suite",
   "update graphify code graph",
   "Commit Task 5",
-  "commit Task 5"
+  "commit Task 5",
+  "Review branch commits",
+  "review branch commits",
+  "run run_sim.py --status",
+  "check git status before merge",
+  "Commit plan and updated snapshots",
+  "commit plan and updated snapshots",
+  "Merge feature branch and push to main",
+  "merge feature branch and push to main",
+  "Resolve data conflict with latest cloud state",
+  "resolve data conflict with latest cloud state",
+  "Migrate schema and regenerate reports",
+  "migrate schema and regenerate reports"
 ]
