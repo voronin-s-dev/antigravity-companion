@@ -73,5 +73,22 @@
   "Open Google Sheets OAuth in browser",
   "start gsheets auth login",
   "open Google Sheets OAuth in browser",
-  "start gcalendar auth login"
+  "start gcalendar auth login",
+  "Local Checkout",
+  "main",
+  "Turn 1 of 4",
+  "Turn 2 of 4",
+  "Turn 3 of 4",
+  "Turn 4 of 4",
+  "Background Commands",
+  "Turn 5 of 5",
+  "Weekly limit",
+  "% left",
+  "5h limit",
+  "inspect Polymarket-Sim directory structure",
+  "Go to turn 5 of 5",
+  "Go to turn 4 of 5",
+  "Go to turn 3 of 5",
+  "Go to turn 2 of 5",
+  "Go to turn 1 of 5"
 ]
