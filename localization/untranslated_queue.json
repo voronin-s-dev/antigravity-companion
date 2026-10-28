@@ -488,5 +488,7 @@
   "find oracle files",
   "inspect trade 71 details",
   "pnL by category",
-  "inspect all Sports trades"
+  "inspect all Sports trades",
+  "search parameter references across codebase",
+  "search parameters in python files"
 ]
