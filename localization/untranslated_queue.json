@@ -33,5 +33,11 @@
   "scan project metadata",
   "run check_projects.py to txt",
   "list skills in config/skills",
-  "check .agents/rules in projects"
+  "check .agents/rules in projects",
+  "search obscura references",
+  "\"obscura\" rust headless browser CDP",
+  "\"obscura\" rust headless browser github releases",
+  "check GitHub releases for obscura",
+  "inspect PATH directories",
+  "list valid PATH directories"
 ]
