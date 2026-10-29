@@ -208,5 +208,13 @@
   "run test suite",
   "run npm test in project directory",
   "run npm test in project root",
-  "check git status in project"
+  "check git status in project",
+  "run scanner test (expect failure)",
+  "run scanner test (expect success)",
+  "run npm test across all test suites",
+  "verify scanner on real skills directory",
+  "Print sample scanned skill",
+  "print sample scanned skill",
+  "Commit scanner module",
+  "commit scanner module"
 ]
