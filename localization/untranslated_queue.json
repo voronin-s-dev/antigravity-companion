@@ -23,5 +23,11 @@
   "check v1.7.1 release zip status",
   "check remote package.json version",
   "commit, tag and push v1.7.2",
-  "Commit, tag and push v1.7.2"
+  "Commit, tag and push v1.7.2",
+  "Turn 12 of 12",
+  "check aar-log.md in home dir",
+  "check aar templates",
+  "check .claude/aar dir",
+  "commit and push AAR docs",
+  "Commit and push AAR docs"
 ]
