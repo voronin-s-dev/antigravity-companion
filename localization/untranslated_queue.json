@@ -205,5 +205,8 @@
   "list aar skill files",
   "create aar directories in project",
   "run skills integrity test",
-  "run test suite"
+  "run test suite",
+  "run npm test in project directory",
+  "run npm test in project root",
+  "check git status in project"
 ]
