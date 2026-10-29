@@ -240,5 +240,7 @@
   "Turn 1 of 3",
   "Turn 2 of 3",
   "Open Subagent: TDD Implementer",
-  "Message from TDD Implementer (self)"
+  "Message from TDD Implementer (self)",
+  "Database Subagent",
+  "Open Subagent: Database Subagent"
 ]
