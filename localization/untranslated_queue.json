@@ -30,5 +30,12 @@
   "check .claude/aar dir",
   "commit and push AAR docs",
   "Commit and push AAR docs",
-  "Still thinking, 17 seconds"
+  "Still thinking, 17 seconds",
+  "check catalog/skills",
+  "copy skills into pack_dir",
+  "copy rules to pack_dir",
+  "check antigravity-skills-pack files",
+  "test install.ps1 execution",
+  "create ZIP archive of skills pack",
+  "check zip file details"
 ]
