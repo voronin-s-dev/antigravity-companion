@@ -216,5 +216,15 @@
   "Print sample scanned skill",
   "print sample scanned skill",
   "Commit scanner module",
-  "commit scanner module"
+  "commit scanner module",
+  "Defining qa-engineer subagent",
+  "Defining",
+  "qa-engineer subagent",
+  "Defined",
+  "Defining core-implementer subagent",
+  "core-implementer subagent",
+  "Defining skeptic-auditor subagent",
+  "skeptic-auditor subagent",
+  "QA Test Engineer",
+  "Open Subagent: QA Test Engineer (qa-engineer)"
 ]
