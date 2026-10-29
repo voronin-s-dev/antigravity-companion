@@ -177,7 +177,6 @@
   "create project directory structure",
   "list all files in new project",
   "Count global skills",
-  "Turn 3 of 3",
   "inspect companion .agents folder",
   "list all installed skills in gemini config",
   "Copy required skills to .agents/skills",
@@ -235,5 +234,6 @@
   "Turn 7 of 10",
   "Turn 8 of 10",
   "Turn 9 of 10",
-  "list workspace root directory"
+  "list workspace root directory",
+  "Turn 3 of 3"
 ]
