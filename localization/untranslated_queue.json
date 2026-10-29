@@ -120,5 +120,8 @@
   "inspect available models in dropdown",
   "run test_settings_flow.py with enter_project",
   "search set_aspect_ratio in tests",
-  "search set_aspect_ratio usages"
+  "search set_aspect_ratio usages",
+  "run verify_harness.py in silent headless mode",
+  "run live 3:4 image generation test",
+  "search multiplication symbol in py files"
 ]
