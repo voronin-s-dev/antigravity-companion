@@ -223,15 +223,11 @@
   "Turn 8 of 10",
   "Turn 9 of 10",
   "list workspace root directory",
-  "Turn 3 of 3",
   "Turn 1 of 3",
   "Turn 2 of 3",
   "search skills ecosystem for subagent",
   "Starting TDD Model Engineer",
-  "Message from TDD Infra Engineer (self)",
-  "TDD Repository Engineer",
   "Starting TDD Repository Engineer",
-  "Open Subagent: TDD Repository Engineer",
   "Skeptic Quality Gate Reviewer",
   "Message from TDD Repository Engineer (self)",
   "Open Subagent: Skeptic Quality Gate Reviewer",
@@ -278,5 +274,9 @@
   "Open Subagent: TDD Model Engineer",
   "Message from TDD Model Engineer (self)",
   "TDD Infra Engineer",
-  "Open Subagent: TDD Infra Engineer"
+  "Open Subagent: TDD Infra Engineer",
+  "Turn 3 of 3",
+  "Message from TDD Infra Engineer (self)",
+  "TDD Repository Engineer",
+  "Open Subagent: TDD Repository Engineer"
 ]
