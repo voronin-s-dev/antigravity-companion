@@ -226,9 +226,6 @@
   "Turn 3 of 3",
   "Turn 1 of 3",
   "Turn 2 of 3",
-  "Message from TDD Implementer (self)",
-  "Database Subagent",
-  "Open Subagent: Database Subagent",
   "search skills ecosystem for subagent",
   "Message from Database Subagent (self)",
   "TDD Model Engineer",
@@ -277,5 +274,9 @@
   "Threads-Copilot",
   "TDD Implementer",
   "Open Subagent: TDD Implementer",
-  "TDD Bot Engineer"
+  "TDD Bot Engineer",
+  "Message from TDD Implementer (self)",
+  "Database Subagent",
+  "Open Subagent: Database Subagent",
+  "Open Subagent: TDD Bot Engineer"
 ]
