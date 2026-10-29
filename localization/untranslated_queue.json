@@ -77,7 +77,6 @@
   "Turn 11 of 13",
   "Turn 12 of 13",
   "Turn 14 of 14",
-  "master",
   "Turn 33 of 40",
   "Turn 34 of 40",
   "Turn 35 of 40",
@@ -165,5 +164,7 @@
   "check recent commit history",
   "check diff stat",
   "Push commit to GitHub",
-  "push commit to GitHub"
+  "push commit to GitHub",
+  "master",
+  "list CI workflow files"
 ]
