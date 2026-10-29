@@ -181,5 +181,9 @@
   "list items in global config",
   "check skills cli help",
   "Killing task Check skills cli help",
-  "list sample skills"
+  "list sample skills",
+  "count global skills",
+  "check .agents directory",
+  "check if project directory exists",
+  "create project directory"
 ]
