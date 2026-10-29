@@ -166,5 +166,8 @@
   "Push commit to GitHub",
   "push commit to GitHub",
   "master",
-  "list CI workflow files"
+  "list CI workflow files",
+  "test verify_harness with --skip-cdp",
+  "Commit CI fix",
+  "commit CI fix"
 ]
