@@ -75,7 +75,6 @@
   "Turn 37 of 40",
   "Turn 38 of 40",
   "Turn 39 of 40",
-  "Still thinking, 16 seconds",
   "Threads algorithm ranking signals Adam Mosseri replies comments 2025 2026",
   "Threads algorithm links in posts penalty Adam Mosseri",
   "threads_ai_architecture",
@@ -210,7 +209,6 @@
   "core-implementer subagent",
   "Defining skeptic-auditor subagent",
   "skeptic-auditor subagent",
-  "Core Software Engineer (core-implementer)",
   "ComfyUI Manager Overview",
   "Turn 1 of 10",
   "Turn 2 of 10",
@@ -298,5 +296,7 @@
   "check existing files in src/ui",
   "Messaged",
   "QA Test Engineer (qa-engineer)",
-  "Message from Core Software Engineer (core-implementer)"
+  "Message from Core Software Engineer (core-implementer)",
+  "Still thinking, 16 seconds",
+  "Core Software Engineer (core-implementer)"
 ]
