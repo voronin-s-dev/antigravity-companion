@@ -203,5 +203,7 @@
   "run graphify update on project",
   "check aar-log.md paths",
   "list aar skill files",
-  "create aar directories in project"
+  "create aar directories in project",
+  "run skills integrity test",
+  "run test suite"
 ]
