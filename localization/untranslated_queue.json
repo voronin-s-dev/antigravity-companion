@@ -200,5 +200,8 @@
   "copy graphify, systematic-debugging, and secret-scanner",
   "create .agents/rules directory",
   "check if graphify CLI is available",
-  "run graphify update on project"
+  "run graphify update on project",
+  "check aar-log.md paths",
+  "list aar skill files",
+  "create aar directories in project"
 ]
