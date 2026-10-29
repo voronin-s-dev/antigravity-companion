@@ -106,5 +106,9 @@
   "Turn 2 of 2",
   "check profile and storage existence",
   "check flow status via server",
-  "test headless Flow access"
+  "test headless Flow access",
+  "run headless DOM inspector",
+  "inspect tune overlay content",
+  "inspect DOM and capture screenshot",
+  "inspect settings panel controls"
 ]
