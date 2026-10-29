@@ -114,5 +114,6 @@
   "run detailed aspect ratio inspector",
   "test clicking 3:4 and saving",
   "test 3:4 selection in image section",
-  "inspect model dropdown and batch buttons"
+  "inspect model dropdown and batch buttons",
+  "run inspect_flow_dom.py with post_save screenshot"
 ]
