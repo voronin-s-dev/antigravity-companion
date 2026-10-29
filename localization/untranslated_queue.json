@@ -287,5 +287,6 @@
   "Open Subagent: QA Test Engineer (qa-engineer)",
   "Open Subagent: Core Software Engineer (core-implementer)",
   "Core Software Engineer",
-  "Close Core Software Engineer"
+  "Close Core Software Engineer",
+  "I have requested a re-audit from skeptic-auditor for the remediation of bin/cdp_injector.js and test/cdp_injector.test.js.\n\nI am awaiting the subagent's audit report"
 ]
