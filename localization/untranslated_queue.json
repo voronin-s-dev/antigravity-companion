@@ -131,7 +131,6 @@
   "remove temporary inspection scripts",
   "Final verification run",
   "final verification run",
-  "Turn 3 of 3",
   "check git remotes",
   "Stage modified files",
   "stage modified files",
@@ -188,5 +187,6 @@
   "create project directory",
   "create project directory structure",
   "list all files in new project",
-  "Count global skills"
+  "Count global skills",
+  "Turn 3 of 3"
 ]
