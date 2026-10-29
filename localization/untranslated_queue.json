@@ -101,8 +101,6 @@
   "Turn 10 of 11",
   "list project files",
   "list test and script files",
-  "Turn 1 of 2",
-  "Turn 2 of 2",
   "check profile and storage existence",
   "check flow status via server",
   "test headless Flow access",
@@ -176,5 +174,12 @@
   "list recent GitHub workflow runs",
   "Watch GitHub CI run",
   "check final status of CI runs",
-  "This Computer"
+  "This Computer",
+  "Turn 1 of 2",
+  "Turn 2 of 2",
+  "inspect companion directory",
+  "list items in global config",
+  "check skills cli help",
+  "Killing task Check skills cli help",
+  "list sample skills"
 ]
