@@ -110,5 +110,6 @@
   "run headless DOM inspector",
   "inspect tune overlay content",
   "inspect DOM and capture screenshot",
-  "inspect settings panel controls"
+  "inspect settings panel controls",
+  "run detailed aspect ratio inspector"
 ]
