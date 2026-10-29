@@ -245,7 +245,6 @@
   "run npm test across all test suites",
   "core-implementer",
   "Parent Agent",
-  "Message from Core Software Engineer (core-implementer)",
   "Orchestrator Subagent Project Architecture",
   "Threads-Copilot",
   "TDD Implementer",
@@ -298,5 +297,6 @@
   "list documentation files",
   "check existing files in src/ui",
   "Messaged",
-  "QA Test Engineer (qa-engineer)"
+  "QA Test Engineer (qa-engineer)",
+  "Message from Core Software Engineer (core-implementer)"
 ]
