@@ -211,7 +211,6 @@
   "Defining skeptic-auditor subagent",
   "skeptic-auditor subagent",
   "Core Software Engineer (core-implementer)",
-  "QA Test Engineer (qa-engineer)",
   "ComfyUI Manager Overview",
   "Turn 1 of 10",
   "Turn 2 of 10",
@@ -245,7 +244,6 @@
   "run updated local_server test suite",
   "run npm test across all test suites",
   "core-implementer",
-  "Messaged",
   "Parent Agent",
   "Message from Core Software Engineer (core-implementer)",
   "Orchestrator Subagent Project Architecture",
@@ -292,5 +290,13 @@
   "I have launched the knowledge graph update via graphify update . --no-cluster in the background and will wait for it to finish before staging and committing Step 3.1",
   "I have launched graphify update . --no-cluster to refresh the codebase knowledge graph and am waiting for it to complete",
   "run all project tests",
-  "I have launched npm test across all suites to verify 0 regressions before committing Step 3.1"
+  "I have launched npm test across all suites to verify 0 regressions before committing Step 3.1",
+  "Git add Step 3.1 files",
+  "git add Step 3.1 files",
+  "Commit Step 3.1",
+  "commit Step 3.1",
+  "list documentation files",
+  "check existing files in src/ui",
+  "Messaged",
+  "QA Test Engineer (qa-engineer)"
 ]
