@@ -146,8 +146,6 @@
   "by allowing Google to collect and use my Interactions data, subject to the",
   ". I understand I can choose to opt out later whenever I want via my settings.",
   "Groove Rider",
-  "Turn 1 of 3",
-  "Turn 2 of 3",
   "check untracked files",
   "check recent commit history",
   "check diff stat",
@@ -235,5 +233,11 @@
   "Turn 8 of 10",
   "Turn 9 of 10",
   "list workspace root directory",
-  "Turn 3 of 3"
+  "Turn 3 of 3",
+  "Orchestrator Subagent Project Architecture",
+  "Threads-Copilot",
+  "TDD Implementer",
+  "Turn 1 of 3",
+  "Turn 2 of 3",
+  "Open Subagent: TDD Implementer"
 ]
