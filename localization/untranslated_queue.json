@@ -113,5 +113,6 @@
   "inspect settings panel controls",
   "run detailed aspect ratio inspector",
   "test clicking 3:4 and saving",
-  "test 3:4 selection in image section"
+  "test 3:4 selection in image section",
+  "inspect model dropdown and batch buttons"
 ]
