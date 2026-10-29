@@ -124,5 +124,6 @@
   "run verify_harness.py in silent headless mode",
   "run live 3:4 image generation test",
   "search multiplication symbol in py files",
-  "test configure_generation_settings"
+  "test configure_generation_settings",
+  "run live generation test with 3:4 aspect ratio"
 ]
