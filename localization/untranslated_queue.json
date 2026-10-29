@@ -175,5 +175,6 @@
   "push CI fix to origin/master",
   "list recent GitHub workflow runs",
   "Watch GitHub CI run",
-  "check final status of CI runs"
+  "check final status of CI runs",
+  "This Computer"
 ]
