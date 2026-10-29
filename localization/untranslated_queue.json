@@ -187,5 +187,6 @@
   "check if project directory exists",
   "create project directory",
   "create project directory structure",
-  "list all files in new project"
+  "list all files in new project",
+  "Count global skills"
 ]
