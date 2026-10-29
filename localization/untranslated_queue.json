@@ -228,9 +228,6 @@
   "Turn 2 of 3",
   "search skills ecosystem for subagent",
   "Starting TDD Model Engineer",
-  "Message from TDD Model Engineer (self)",
-  "TDD Infra Engineer",
-  "Open Subagent: TDD Infra Engineer",
   "Message from TDD Infra Engineer (self)",
   "TDD Repository Engineer",
   "Starting TDD Repository Engineer",
@@ -278,5 +275,8 @@
   "Open Subagent: TDD Bot Engineer",
   "Message from Database Subagent (self)",
   "TDD Model Engineer",
-  "Open Subagent: TDD Model Engineer"
+  "Open Subagent: TDD Model Engineer",
+  "Message from TDD Model Engineer (self)",
+  "TDD Infra Engineer",
+  "Open Subagent: TDD Infra Engineer"
 ]
