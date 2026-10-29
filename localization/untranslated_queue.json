@@ -118,5 +118,6 @@
   "run inspect_flow_dom.py with post_save screenshot",
   "verify 3:4 persistence in settings",
   "inspect available models in dropdown",
-  "run test_settings_flow.py with enter_project"
+  "run test_settings_flow.py with enter_project",
+  "search set_aspect_ratio in tests"
 ]
