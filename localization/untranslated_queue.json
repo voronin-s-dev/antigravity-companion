@@ -199,5 +199,6 @@
   "Copy graphify, systematic-debugging, and secret-scanner",
   "copy graphify, systematic-debugging, and secret-scanner",
   "create .agents/rules directory",
-  "check if graphify CLI is available"
+  "check if graphify CLI is available",
+  "run graphify update on project"
 ]
