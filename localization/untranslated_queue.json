@@ -37,5 +37,19 @@
   "check antigravity-skills-pack files",
   "test install.ps1 execution",
   "create ZIP archive of skills pack",
-  "check zip file details"
+  "check zip file details",
+  "antigravity-skills-pack.zip",
+  "Close antigravity-skills-pack.zip",
+  "Fold lines 2-2",
+  "Fold lines 4-9",
+  "Fold lines 7-9",
+  "Fold lines 11-11",
+  "Fold lines 12-13",
+  "Fold lines 16-17",
+  "Fold lines 19-24",
+  "Fold lines 24-24",
+  "Fold lines 25-25",
+  "Fold lines 26-28",
+  "Fold lines 27-28",
+  "Fold lines 30-31"
 ]
