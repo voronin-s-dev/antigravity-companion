@@ -111,5 +111,6 @@
   "inspect tune overlay content",
   "inspect DOM and capture screenshot",
   "inspect settings panel controls",
-  "run detailed aspect ratio inspector"
+  "run detailed aspect ratio inspector",
+  "test clicking 3:4 and saving"
 ]
