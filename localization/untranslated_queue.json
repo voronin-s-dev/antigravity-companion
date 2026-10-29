@@ -76,10 +76,6 @@
   "start gcalendar auth login",
   "Local Checkout",
   "main",
-  "Turn 1 of 4",
-  "Turn 2 of 4",
-  "Turn 3 of 4",
-  "Turn 4 of 4",
   "inspect Polymarket-Sim directory structure",
   "Go to turn 5 of 5",
   "Go to turn 4 of 5",
@@ -244,5 +240,9 @@
   "Turn 5 of 7",
   "Turn 6 of 7",
   "search storage handling in services",
-  "search deployment docs and configs"
+  "search deployment docs and configs",
+  "Turn 1 of 4",
+  "Turn 2 of 4",
+  "Turn 3 of 4",
+  "Turn 4 of 4"
 ]
