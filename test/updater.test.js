@@ -28,6 +28,13 @@ async function testUpdater(verbose = false) {
   assert.strictEqual(typeof status.hasDictUpdate, 'boolean');
   assert.strictEqual(typeof status.hasUpdate, 'boolean');
 
+  // 4. Verify Full Companion Auto-Updater wiring
+  const updaterSrc = require('fs').readFileSync(require('path').resolve(__dirname, '../bin/updater.js'), 'utf8');
+  assert(updaterSrc.includes('if (status.hasAppUpdate)'), 'runSilentOtaCheck must detect status.hasAppUpdate');
+  assert(updaterSrc.includes('result = await applyAppUpdate()'), 'runSilentOtaCheck must call applyAppUpdate automatically');
+  assert(updaterSrc.includes("'update.bat'"), 'applyAppUpdate filesToUpdate must include update.bat');
+  assert(updaterSrc.includes("'update.ps1'"), 'applyAppUpdate filesToUpdate must include update.ps1');
+
   if (verbose) console.log('✓ OTA Updater tests PASSED');
 }
 

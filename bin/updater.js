@@ -347,16 +347,22 @@ async function applyAppUpdate() {
 
       // Сохраняем локальные данные пользователя
       let localQueue = [];
+      let localDict = null;
       const qPath = path.resolve(repoRoot, 'localization/untranslated_queue.json');
+      const dictPath = path.resolve(repoRoot, 'localization/dictionary_ru.json');
       if (fs.existsSync(qPath)) {
         try { localQueue = JSON.parse(fs.readFileSync(qPath, 'utf8')); } catch (e) {}
+      }
+      if (fs.existsSync(dictPath)) {
+        try { localDict = JSON.parse(fs.readFileSync(dictPath, 'utf8')); } catch (e) {}
       }
 
       const filesToUpdate = [
         'bin', 'limits_widget', 'localization', 'skills', 'config',
         'package.json', 'install.bat', 'install.ps1', 'start.bat',
         'companion.bat', 'launch_antigravity.bat', 'uninstall.bat', 'uninstall.ps1',
-        'update_dictionary.bat', 'update_dictionary.ps1', 'README.md', 'CHANGELOG.md'
+        'update.bat', 'update.ps1', 'update_dictionary.bat', 'update_dictionary.ps1',
+        'README.md', 'CHANGELOG.md'
       ];
 
       for (const item of filesToUpdate) {
@@ -365,6 +371,15 @@ async function applyAppUpdate() {
         if (fs.existsSync(srcItem)) {
           fs.cpSync(srcItem, destItem, { recursive: true, force: true });
         }
+      }
+
+      // Бесконфликтно объединяем словарь: сохраняем свежий словарь и локальные термины
+      if (localDict && localDict.exact && fs.existsSync(dictPath)) {
+        try {
+          const freshDict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+          const mergedDict = mergeDictionaries(freshDict, localDict);
+          fs.writeFileSync(dictPath, JSON.stringify(mergedDict, null, 2) + '\n', 'utf8');
+        } catch (e) {}
       }
 
       // Восстанавливаем и объединяем очередь непереведённых строк
@@ -387,6 +402,7 @@ async function applyAppUpdate() {
     delete require.cache[require.resolve('../package.json')];
     delete require.cache[require.resolve('../limits_widget/inject_panel.js')];
     delete require.cache[require.resolve('../localization/inject_translator.js')];
+    delete require.cache[require.resolve('./updater.js')];
   } catch (e) {}
 
   // Горячее применение обновленного виджета и словаря
@@ -397,18 +413,26 @@ async function applyAppUpdate() {
     await injectWidget();
   } catch (e) {}
 
+  let finalQueueSize = 0;
+  try {
+    const qCheck = path.resolve(repoRoot, 'localization/untranslated_queue.json');
+    if (fs.existsSync(qCheck)) finalQueueSize = JSON.parse(fs.readFileSync(qCheck, 'utf8')).length;
+  } catch (e) {}
+
   return {
     ok: true,
     updatedVia,
     newVersion: targetVersion,
+    queueSize: finalQueueSize,
     message: `Компаньон успешно обновлён до версии v${targetVersion} (${updatedVia === 'git' ? 'Git' : 'ZIP'})!`
   };
 }
 
 /**
  * Двусторонняя фоновая синхронизация без потерь:
- * 1) Подтягивает свежие переводы с GitHub и применяет их на лету (OTA Pull).
- * 2) Автоматически очищает и отправляет (git push) новые захваченные с экрана строки в GitHub (Queue Push),
+ * 1) Автоматически обновляет всё приложение (скрипты, виджет, движок) при выходе нового релиза.
+ * 2) Подтягивает свежие переводы с GitHub и применяет их на лету (OTA Pull).
+ * 3) Автоматически очищает и отправляет (git push) новые захваченные с экрана строки в GitHub (Queue Push),
  *    чтобы при выключенном ноутбуке ночной GitHub Actions перевел именно свежие строки пользователя.
  */
 async function runSilentOtaCheck(logger) {
@@ -424,14 +448,26 @@ async function runSilentOtaCheck(logger) {
     if (fs.existsSync(lockFile)) return false;
 
     const status = await checkForUpdates();
-    if (status.hasUpdate) {
-      log(`[OTA Update] Обнаружена новая версия словаря на GitHub (+${status.diffTerms} терминов). Выполняю безопасное слияние...`);
-    }
+    let result = null;
 
-    // Всегда выполняем безопасное объединение памяти/диска и санитайзинг
-    const result = await applyUpdates();
-    if (status.hasUpdate) {
-      log(`[OTA Update] ✓ ${result.message} Изменения применены в интерфейсе на лету.`);
+    if (status.hasAppUpdate) {
+      log(`[OTA Update] Обнаружена новая версия приложения Companion (${status.currentVersion} -> ${status.remoteVersion || 'main'}). Запуск полного автообновления...`);
+      try {
+        result = await applyAppUpdate();
+        log(`[OTA Update] ✓ ${result.message}`);
+      } catch (appErr) {
+        log(`[OTA Update] Предупреждение при автообновлении приложения: ${appErr.message}. Переход на обновление словаря...`);
+        result = await applyUpdates();
+        log(`[OTA Update] ✓ ${result.message}`);
+      }
+    } else {
+      if (status.hasDictUpdate) {
+        log(`[OTA Update] Обнаружена новая версия словаря на GitHub (+${status.diffTerms} терминов). Выполняю безопасное слияние...`);
+      }
+      result = await applyUpdates();
+      if (status.hasDictUpdate) {
+        log(`[OTA Update] ✓ ${result.message} Изменения применены в интерфейсе на лету.`);
+      }
     }
 
     // Проверяем, есть ли локально захваченные строки очереди или переводы для отправки в GitHub
