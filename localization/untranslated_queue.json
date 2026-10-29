@@ -18,5 +18,8 @@
   "Turn 6 of 8",
   "Turn 7 of 8",
   "check git status and ahead commits",
-  "list GitHub Actions workflows"
+  "list GitHub Actions workflows",
+  "check for updates output",
+  "check v1.7.1 release zip status",
+  "check remote package.json version"
 ]
