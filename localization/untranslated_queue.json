@@ -115,5 +115,6 @@
   "test clicking 3:4 and saving",
   "test 3:4 selection in image section",
   "inspect model dropdown and batch buttons",
-  "run inspect_flow_dom.py with post_save screenshot"
+  "run inspect_flow_dom.py with post_save screenshot",
+  "verify 3:4 persistence in settings"
 ]
