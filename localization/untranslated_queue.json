@@ -129,5 +129,9 @@
   "test flow_finalize_asset on generated image",
   "check finalized asset dimensions",
   "search upscale_image_fast_2k",
-  "test upscale_image_fast_2k aspect ratio preservation"
+  "test upscale_image_fast_2k aspect ratio preservation",
+  "run pytest with aspect ratio preservation test",
+  "remove temporary inspection scripts",
+  "Final verification run",
+  "final verification run"
 ]
