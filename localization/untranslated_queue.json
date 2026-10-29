@@ -174,8 +174,6 @@
   "Watch GitHub CI run",
   "check final status of CI runs",
   "This Computer",
-  "Turn 1 of 2",
-  "Turn 2 of 2",
   "inspect companion directory",
   "list items in global config",
   "check skills cli help",
@@ -226,5 +224,7 @@
   "Defining skeptic-auditor subagent",
   "skeptic-auditor subagent",
   "QA Test Engineer",
-  "Open Subagent: QA Test Engineer (qa-engineer)"
+  "Open Subagent: QA Test Engineer (qa-engineer)",
+  "Turn 1 of 2",
+  "Turn 2 of 2"
 ]
