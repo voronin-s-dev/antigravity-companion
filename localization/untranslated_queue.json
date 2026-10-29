@@ -192,5 +192,12 @@
   "inspect companion .agents folder",
   "list all installed skills in gemini config",
   "Copy required skills to .agents/skills",
-  "copy required skills to .agents/skills"
+  "copy required skills to .agents/skills",
+  "check skills version with -y flag",
+  "find git skills",
+  "find electron skills",
+  "Copy graphify, systematic-debugging, and secret-scanner",
+  "copy graphify, systematic-debugging, and secret-scanner",
+  "create .agents/rules directory",
+  "check if graphify CLI is available"
 ]
