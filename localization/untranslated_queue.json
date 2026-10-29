@@ -154,5 +154,16 @@
   "ub-mode",
   "unlazy",
   "Sign in to use Antigravity!",
-  "Welcome to Antigravity"
+  "Welcome to Antigravity",
+  "AI coding agents are known to have certain security limitations. Users should be aware of potential risks, including data exfiltration and possible code execution. Avoid processing highly sensitive data and verify all the actions taken by the agent.",
+  "by allowing Google to collect and use my Interactions data, subject to the",
+  ". I understand I can choose to opt out later whenever I want via my settings.",
+  "Groove Rider",
+  "Turn 1 of 3",
+  "Turn 2 of 3",
+  "check untracked files",
+  "check recent commit history",
+  "check diff stat",
+  "Push commit to GitHub",
+  "push commit to GitHub"
 ]
