@@ -169,5 +169,11 @@
   "list CI workflow files",
   "test verify_harness with --skip-cdp",
   "Commit CI fix",
-  "commit CI fix"
+  "commit CI fix",
+  "inspect CI fix commit",
+  "Push CI fix to origin/master",
+  "push CI fix to origin/master",
+  "list recent GitHub workflow runs",
+  "Watch GitHub CI run",
+  "check final status of CI runs"
 ]
