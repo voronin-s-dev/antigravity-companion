@@ -233,7 +233,6 @@
   "Commit Sprint 1 work",
   "Turn 1 of 2",
   "Turn 2 of 2",
-  "Close Core Software Engineer",
   "test ALLOWED_HOST_REGEX",
   "test isOriginTrusted",
   "test custom Content-Length in http.request",
@@ -287,5 +286,6 @@
   "Message from QA Test Engineer (qa-engineer)",
   "Open Subagent: QA Test Engineer (qa-engineer)",
   "Open Subagent: Core Software Engineer (core-implementer)",
-  "Core Software Engineer"
+  "Core Software Engineer",
+  "Close Core Software Engineer"
 ]
