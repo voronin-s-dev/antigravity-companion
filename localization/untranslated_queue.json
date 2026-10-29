@@ -186,5 +186,6 @@
   "check .agents directory",
   "check if project directory exists",
   "create project directory",
-  "create project directory structure"
+  "create project directory structure",
+  "list all files in new project"
 ]
