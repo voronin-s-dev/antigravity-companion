@@ -200,14 +200,25 @@ function runManual() {
   const vbsPath = path.resolve(__dirname, 'engine', 'silent_runner.vbs');
   try {
     manualRunInitiatedAt = Date.now();
-    const child = spawn('wscript.exe', [vbsPath], {
+    const destination = resolveDestinationPath();
+    const conf = loadConfig();
+    const b = (conf && conf.backup) ? conf.backup : {};
+    const args = [
+      vbsPath,
+      '-BackupDestination', destination,
+      '-RetentionDays', String(b.retentionDays || 7)
+    ];
+    if (b.neverDeleteInactiveLastVersions) {
+      args.push('-NeverDeleteInactiveLastVersions');
+    }
+    const child = spawn('wscript.exe', args, {
       detached: true,
       stdio: 'ignore',
       windowsHide: true
     });
     child.on('error', () => {});
     child.unref();
-    return { ok: true, message: 'Backup started in background' };
+    return { ok: true, message: 'Backup started in background', destination };
   } catch (err) {
     manualRunInitiatedAt = 0;
     return { ok: false, message: err.message };

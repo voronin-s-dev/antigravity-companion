@@ -1,4 +1,4 @@
-# ==============================================================================
+﻿# ==============================================================================
 # Antigravity Companion - Core Backup Engine
 # ==============================================================================
 [CmdletBinding()]
@@ -42,12 +42,58 @@ if ([string]::IsNullOrWhiteSpace($ScratchRoot)) {
     }
 }
 
-# 3. Resolve BackupDestination
+# 3. Resolve BackupDestination and Config
+$appDataCompanion = Join-Path $env:APPDATA "AntigravityCompanion"
+$configFile = Join-Path $appDataCompanion "config.json"
+$configBackup = $null
+if (Test-Path -LiteralPath $configFile) {
+    try {
+        $rawConfig = Get-Content -LiteralPath $configFile -Raw -Encoding UTF8 -ErrorAction SilentlyContinue | ConvertFrom-Json
+        if ($rawConfig -and $rawConfig.backup) {
+            $configBackup = $rawConfig.backup
+        }
+    } catch {}
+}
+
+if ($PSBoundParameters.ContainsKey('RetentionDays') -eq $false -and $configBackup -and $configBackup.retentionDays) {
+    $RetentionDays = [int]$configBackup.retentionDays
+}
+if ($PSBoundParameters.ContainsKey('NeverDeleteInactiveLastVersions') -eq $false -and $configBackup -and ($null -ne $configBackup.neverDeleteInactiveLastVersions)) {
+    $NeverDeleteInactiveLastVersions = [bool]$configBackup.neverDeleteInactiveLastVersions
+}
+
+if ([string]::IsNullOrWhiteSpace($BackupDestination) -and $configBackup) {
+    if (-not [string]::IsNullOrWhiteSpace($configBackup.customPath)) {
+        $BackupDestination = $configBackup.customPath
+    }
+}
+
 if ([string]::IsNullOrWhiteSpace($BackupDestination)) {
-    if (Test-Path "G:\") {
-        $gDriveDir = Get-ChildItem -Path "G:\" -Directory -ErrorAction SilentlyContinue | Select-Object -First 1
-        if ($gDriveDir) {
-            $BackupDestination = Join-Path $gDriveDir.FullName "Backups\Projects"
+    # Check Google Drive: must search for "Мой диск" / "My Drive" specifically (avoiding "Другие компьютеры")
+    $gDriveCandidates = @("G:\", "H:\", "I:\", "F:\", "D:\", "E:\")
+    foreach ($drive in $gDriveCandidates) {
+        if (Test-Path $drive) {
+            $ruDrive = Join-Path $drive "Мой диск"
+            $enDrive = Join-Path $drive "My Drive"
+            if (Test-Path $ruDrive) {
+                $BackupDestination = Join-Path $ruDrive "Backups\Projects"
+                break
+            } elseif (Test-Path $enDrive) {
+                $BackupDestination = Join-Path $enDrive "Backups\Projects"
+                break
+            } else {
+                $BackupDestination = Join-Path $drive "Backups\Projects"
+                break
+            }
+        }
+    }
+    if ([string]::IsNullOrWhiteSpace($BackupDestination)) {
+        $localRu = Join-Path $env:USERPROFILE "Google Диск"
+        $localEn = Join-Path $env:USERPROFILE "Google Drive"
+        if (Test-Path $localRu) {
+            $BackupDestination = Join-Path $localRu "Backups\Projects"
+        } elseif (Test-Path $localEn) {
+            $BackupDestination = Join-Path $localEn "Backups\Projects"
         }
     }
     if ([string]::IsNullOrWhiteSpace($BackupDestination) -and $env:OneDrive -and (Test-Path $env:OneDrive)) {
