@@ -228,8 +228,6 @@
   "search skills ecosystem for subagent",
   "Starting TDD Model Engineer",
   "Starting TDD Repository Engineer",
-  "Message from TDD Repository Engineer (self)",
-  "Message from Skeptic Quality Gate Reviewer (self)",
   "Initialize git repository",
   "initialize git repository",
   "check git status after init",
@@ -281,5 +279,7 @@
   "Message from TDD Bot Engineer (self)",
   "TDD Security Engineer",
   "Open Subagent: Skeptic Quality Gate Reviewer",
-  "Open Subagent: TDD Security Engineer"
+  "Open Subagent: TDD Security Engineer",
+  "Message from TDD Repository Engineer (self)",
+  "Message from Skeptic Quality Gate Reviewer (self)"
 ]
