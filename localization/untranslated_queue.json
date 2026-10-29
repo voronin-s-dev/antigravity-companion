@@ -125,5 +125,9 @@
   "run live 3:4 image generation test",
   "search multiplication symbol in py files",
   "test configure_generation_settings",
-  "run live generation test with 3:4 aspect ratio"
+  "run live generation test with 3:4 aspect ratio",
+  "test flow_finalize_asset on generated image",
+  "check finalized asset dimensions",
+  "search upscale_image_fast_2k",
+  "test upscale_image_fast_2k aspect ratio preservation"
 ]
