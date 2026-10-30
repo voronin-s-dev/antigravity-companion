@@ -302,5 +302,8 @@
   "check if .env exists",
   "check if GEMINI_API_KEY is in env",
   "test Supabase connection and tables",
-  "verify Telegram bot token"
+  "verify Telegram bot token",
+  "verify Supabase tables live",
+  "Perform live CRUD roundtrip test",
+  "perform live CRUD roundtrip test"
 ]
