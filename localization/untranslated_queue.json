@@ -227,5 +227,6 @@
   "check checks-map existence",
   "list files in src",
   "Query changelog API for agentmemory-agents",
-  "query changelog API for agentmemory-agents"
+  "query changelog API for agentmemory-agents",
+  "find all changelog mentions in tests"
 ]
