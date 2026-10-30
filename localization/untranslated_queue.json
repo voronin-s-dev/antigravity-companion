@@ -113,7 +113,6 @@
   "Turn 13 of 16",
   "Turn 14 of 16",
   "Turn 15 of 16",
-  "Turn 18 of 18",
   "check if antigravity-companion project exists",
   "find sidebar button logic in antigravity-companion",
   "Turn 17 of 17",
@@ -164,5 +163,6 @@
   "search skill_panel.js for dot/badge/indicator",
   "inspect view header via CDP",
   "run all unit tests",
-  "remove scratch file"
+  "remove scratch file",
+  "Turn 18 of 18"
 ]
