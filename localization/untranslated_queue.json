@@ -76,5 +76,21 @@
   "verify restore state",
   "check DB connection",
   "Clean up restore audit files",
-  "clean up restore audit files"
+  "clean up restore audit files",
+  "Turn 1 of 16",
+  "Turn 2 of 16",
+  "Turn 3 of 16",
+  "Turn 4 of 16",
+  "Turn 5 of 16",
+  "Turn 6 of 16",
+  "Turn 7 of 16",
+  "Turn 8 of 16",
+  "Turn 9 of 16",
+  "Turn 10 of 16",
+  "Turn 11 of 16",
+  "Turn 12 of 16",
+  "Turn 13 of 16",
+  "Turn 14 of 16",
+  "Turn 15 of 16",
+  "Restore Antigravity Full Backup"
 ]
