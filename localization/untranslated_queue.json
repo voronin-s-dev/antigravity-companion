@@ -85,11 +85,6 @@
   "check if UI was injected by supervisor",
   "enable Windows autostart",
   "Enable Windows autostart",
-  "v0.2.0",
-  "Anti-Slop",
-  "Agent Memory",
-  "Humanizer",
-  "Humanizer Text",
   "verify startup folder shortcut",
   "verify registry autostart entry",
   "run cdp supervisor test",
@@ -135,5 +130,15 @@
   "check test/studio_modal.test.js execution",
   "run studio_modal tests with log",
   "run test with step logging",
-  "run studio_modal tests"
+  "run studio_modal tests",
+  "re-inject updated skill_panel.js and css into live Antigravity",
+  "verify live button in Antigravity window",
+  "clean re-inject into live window",
+  "check live button status after clean inject",
+  "test clicking button in live window",
+  "v0.2.0",
+  "Anti-Slop",
+  "Agent Memory",
+  "Humanizer",
+  "Humanizer Text"
 ]
