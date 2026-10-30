@@ -504,5 +504,9 @@
   "Open Subagent: Task 2 Reviewer (research)",
   "Message from Task 2 Reviewer (research)",
   "Task 3 Implementer",
-  "Open Subagent: Task 3 Implementer"
+  "Open Subagent: Task 3 Implementer",
+  "Close Task 3 Implementer",
+  "list SDD files",
+  "list SDD files detail",
+  "list SDD file paths"
 ]
