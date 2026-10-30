@@ -275,7 +275,6 @@
   "Message from TDD Infra Engineer (self)",
   "Message from TDD Repository Engineer (self)",
   "Message from TDD Bot Engineer (self)",
-  "TDD Security Engineer",
   "Message from TDD Security Engineer (self)",
   "Message from TDD UI/UX Engineer (self)",
   "Open Subagent: Database Subagent",
@@ -330,5 +329,6 @@
   "Message from Skeptic Quality Gate Reviewer (self)",
   "Message from TDD API Model Engineer (self)",
   "Open Subagent: TDD API Model Engineer",
-  "Open Subagent: TDD Rate Limiter Engineer"
+  "Open Subagent: TDD Rate Limiter Engineer",
+  "TDD Security Engineer"
 ]
