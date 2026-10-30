@@ -410,5 +410,13 @@
   "test check-update and changelog for recall",
   "Query GitHub compare API directly",
   "query GitHub compare API directly",
-  "check individual commits in GitHub repo"
+  "check individual commits in GitHub repo",
+  "inspect 422 error from GitHub",
+  "inspect default lockfile entry for recall",
+  "inspect readLockfile implementation",
+  "check if hashes are commits or trees",
+  "check if skillFolderHash is git tree SHA",
+  "test GitHub commits by path",
+  "test GitHub contents API for skill folder",
+  "test git tree lookup for subfolder"
 ]
