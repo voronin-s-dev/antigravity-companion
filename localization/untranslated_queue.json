@@ -506,7 +506,6 @@
   "Parent Agent",
   "generate task-4.diff for review",
   "Generate task-4.diff for review",
-  "Task 4 Reviewer",
   "Starting Task 4 Reviewer",
   "I have dispatched the reviewer subagent for Task 4. I will process its review report as soon as it arrives",
   "Design Document Reviewer",
@@ -558,5 +557,6 @@
   "Message from Task 4 Reviewer (research)",
   "Messaged",
   "Task 4 Implementer (self)",
-  "Explored file. I have delivered the review findings to the implementer subagent for Task 4 to perform the fix round. I will process its updated report as soon as it completes"
+  "Explored file. I have delivered the review findings to the implementer subagent for Task 4 to perform the fix round. I will process its updated report as soon as it completes",
+  "Task 4 Reviewer"
 ]
