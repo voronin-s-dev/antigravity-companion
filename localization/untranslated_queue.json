@@ -96,5 +96,10 @@
   "compare SQLite databases",
   "test SQLite write capability",
   "check free space on C drive",
-  "inspect app_roaming in zip"
+  "inspect app_roaming in zip",
+  "check locks on 3 app_roaming files",
+  "inspect gemini_config in zip",
+  "inspect gemini_antigravity in zip",
+  "check backup tool project",
+  "find backup scripts"
 ]
