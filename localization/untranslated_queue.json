@@ -223,7 +223,6 @@
   "Commit Step 3.2",
   "commit Step 3.2",
   "list files in bin",
-  "run all test suites",
   "Commit package.json status route",
   "commit package.json status route",
   "Killing",
@@ -508,5 +507,8 @@
   "Close Task 3 Implementer",
   "list SDD files",
   "list SDD files detail",
-  "list SDD file paths"
+  "list SDD file paths",
+  "run studio modal tests in GREEN phase",
+  "run legacy skill panel tests",
+  "run all test suites"
 ]
