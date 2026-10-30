@@ -401,6 +401,7 @@
   "inspect testUpdateAllButtonMounted body",
   "test update detection on sample skills",
   "find snapshot styles in CSS",
+  "read checkSkillUpdate unit tests",
   "High risk: Remote comparison failed. Changes cannot be verified.",
   "Comparison failed: GitHub compare target not found: Not Found",
   "v0.3.0",
