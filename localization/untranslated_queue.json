@@ -98,7 +98,6 @@
   "inspect getCDPEndpoint return",
   "evaluate Antigravity DOM state with target.wsUrl",
   "check trigger button properties",
-  "run all unit tests",
   "Turn 1 of 16",
   "Turn 2 of 16",
   "Turn 3 of 16",
@@ -163,5 +162,7 @@
   "inspect view header in live window",
   "search for indicator and dot in src",
   "search skill_panel.js for dot/badge/indicator",
-  "inspect view header via CDP"
+  "inspect view header via CDP",
+  "run all unit tests",
+  "remove scratch file"
 ]
