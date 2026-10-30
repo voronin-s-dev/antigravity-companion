@@ -371,9 +371,10 @@
   "Comparison failed: GitHub API error 301: Moved Permanently",
   "Comparison failed: GitHub API rate limit exceeded: API rate limit exceeded for 146.120.165.71. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
   "Query GitHub compare API directly",
-  "High risk: Remote comparison failed. Changes cannot be verified.",
-  "Comparison failed: GitHub compare target not found: Not Found",
   "Snapshot",
+  "Capture screenshot of clean updates view",
+  "capture screenshot of clean updates view",
+  "Stop daemon via stop.bat",
   "inspect skills-lock.json entries",
   "test check-update and changelog for recall",
   "query GitHub compare API directly",
@@ -418,6 +419,11 @@
   "count all update all buttons in DOM",
   "click bulk update in live UI",
   "check live update count via CLI",
+  "click What is new button",
+  "inspect open changelog modal",
+  "stop daemon via stop.bat",
+  "High risk: Remote comparison failed. Changes cannot be verified.",
+  "Comparison failed: GitHub compare target not found: Not Found",
   "v0.3.0",
   "Anti-Slop",
   "Agent Memory",
@@ -449,7 +455,5 @@
   "Turn 24 of 26",
   "Turn 25 of 26",
   "Turn 26 of 26",
-  "Turn 27 of 27",
-  "Capture screenshot of clean updates view",
-  "capture screenshot of clean updates view"
+  "Turn 27 of 27"
 ]
