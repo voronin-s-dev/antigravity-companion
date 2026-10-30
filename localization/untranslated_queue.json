@@ -14,7 +14,6 @@
   "check closest usage",
   "run updated localization test",
   "Inject into live Antigravity window",
-  "inject into live Antigravity window",
   "Query live DOM in Antigravity window",
   "query live DOM in Antigravity window",
   "find mount and init code",
@@ -67,5 +66,7 @@
   "run visual contrast test",
   "run full test suite with direction V",
   "Stage fixes and AAR files",
-  "stage fixes and AAR files"
+  "stage fixes and AAR files",
+  "inject into live Antigravity window",
+  "commit UI contrast fix"
 ]
