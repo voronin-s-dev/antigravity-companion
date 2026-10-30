@@ -195,7 +195,6 @@
   "test client sending Content-Length: invalid-len",
   "check proxy env vars",
   "run updated local_server test suite",
-  "run npm test across all test suites",
   "core-implementer",
   "Open Subagent: TDD Implementer",
   "Message from TDD Implementer (self)",
@@ -510,5 +509,15 @@
   "list SDD file paths",
   "run studio modal tests in GREEN phase",
   "run legacy skill panel tests",
-  "run all test suites"
+  "run all test suites",
+  "run localization tests",
+  "run studio modal tests",
+  "run skill panel tests",
+  "run changelog analyzer tests",
+  "run npm test across all test suites",
+  "2s timer: Timer has expired",
+  "inspect git diff",
+  "Commit changes for Task 3",
+  "commit changes for Task 3",
+  "verify last commit"
 ]
