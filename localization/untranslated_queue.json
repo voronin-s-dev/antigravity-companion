@@ -86,5 +86,8 @@
   "check current files state",
   "list current projects",
   "list current projects utf8",
-  "list projects in backup zip"
+  "list projects in backup zip",
+  "check DB in backup vs current",
+  "test reading conversation_summaries.db",
+  "check locked files in Roaming"
 ]
