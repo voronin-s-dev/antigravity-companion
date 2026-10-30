@@ -411,5 +411,6 @@
   "check aar-log.md existence",
   "run localization test suite",
   "run updated localization tests",
-  "run all test suites including localization"
+  "run all test suites including localization",
+  "run cdp_supervisor test suite"
 ]
