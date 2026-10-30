@@ -165,5 +165,7 @@
   "run all unit tests",
   "remove scratch file",
   "Turn 18 of 18",
-  "Still thinking, 31 seconds"
+  "Still thinking, 31 seconds",
+  "inspect API /api/skills response format",
+  "search expand/accordion in test"
 ]
