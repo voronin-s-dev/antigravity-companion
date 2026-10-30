@@ -11,5 +11,6 @@
   "find formatModuleCount",
   "run current localization test",
   "check dataset usage",
-  "check closest usage"
+  "check closest usage",
+  "run updated localization test"
 ]
