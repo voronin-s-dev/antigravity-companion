@@ -161,5 +161,7 @@
   "Turn 19 of 19",
   "find red or dot styling in UI",
   "inspect view header in live window",
-  "search for indicator and dot in src"
+  "search for indicator and dot in src",
+  "search skill_panel.js for dot/badge/indicator",
+  "inspect view header via CDP"
 ]
