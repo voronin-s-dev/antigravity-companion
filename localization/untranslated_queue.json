@@ -98,5 +98,6 @@
   "check companion bin files",
   "check Windows Startup folder",
   "inspect AntigravityCompanion shortcut",
-  "Turn 16 of 16"
+  "Turn 16 of 16",
+  "check if skill_manager daemon is running"
 ]
