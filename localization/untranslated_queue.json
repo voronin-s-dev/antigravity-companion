@@ -110,5 +110,14 @@
   "Humanizer Text",
   "verify startup folder shortcut",
   "verify registry autostart entry",
-  "run cdp supervisor test"
+  "run cdp supervisor test",
+  "Evaluate Antigravity DOM state with target.wsUrl",
+  "read recent transcript lines",
+  "list AAR runs",
+  "check supervisor status",
+  "check api skills",
+  "list files in src/core",
+  "check cdp_injector exports",
+  "inspect getCDPEndpoint return",
+  "evaluate Antigravity DOM state with target.wsUrl"
 ]
