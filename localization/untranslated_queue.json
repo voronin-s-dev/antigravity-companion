@@ -381,9 +381,6 @@
   "check git status before commit",
   "Commit localization and supervisor changes",
   "commit localization and supervisor changes",
-  "obscura-scraper",
-  "ub-mode",
-  "unlazy",
   "Core Software Engineer",
   "Close Core Software Engineer",
   "QA Test Engineer",
@@ -434,5 +431,8 @@
   "Open Subagent: Skeptic Quality Gate Reviewer",
   "Open Subagent: TDD Knowledge Engineer",
   "Open Subagent: TDD Gemini Engineer",
-  "Open Subagent: TDD Quality Gate Engineer"
+  "Open Subagent: TDD Quality Gate Engineer",
+  "obscura-scraper",
+  "ub-mode",
+  "unlazy"
 ]
