@@ -436,5 +436,7 @@
   "Turn 13 of 13",
   "check builder-check-prompt.md existence",
   "Still thinking, 16 seconds",
-  "I have dispatched a reviewer subagent to execute the builder check on the design specification. I will process its review as soon as it completes"
+  "I have dispatched a reviewer subagent to execute the builder check on the design specification. I will process its review as soon as it completes",
+  "Design Document Reviewer",
+  "Open Subagent: Design Document Reviewer (research)"
 ]
