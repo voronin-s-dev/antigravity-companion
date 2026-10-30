@@ -109,5 +109,6 @@
   "Humanizer",
   "Humanizer Text",
   "verify startup folder shortcut",
-  "verify registry autostart entry"
+  "verify registry autostart entry",
+  "run cdp supervisor test"
 ]
