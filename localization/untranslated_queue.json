@@ -72,7 +72,6 @@
   "clean up restore audit files",
   "Restore Antigravity Full Backup",
   "list all repository files",
-  "list Antigravity projects",
   "check companion bin files",
   "check Windows Startup folder",
   "inspect AntigravityCompanion shortcut",
@@ -228,5 +227,13 @@
   "list files in src",
   "Query changelog API for agentmemory-agents",
   "query changelog API for agentmemory-agents",
-  "find all changelog mentions in tests"
+  "find all changelog mentions in tests",
+  "list Antigravity projects",
+  "search theme variables in antigravity-companion",
+  "find CSS files in antigravity-companion",
+  "search CSS styles in antigravity-companion src",
+  "list antigravity-companion dir",
+  "list limits_widget files",
+  "check CDP status",
+  "inspect CSS variables in Antigravity window"
 ]
