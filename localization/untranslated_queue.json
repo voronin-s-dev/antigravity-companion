@@ -106,5 +106,6 @@
   "check conversations in backup DB",
   "check sqlite triggers",
   "check FTS schema",
-  "test DB merge logic"
+  "test DB merge logic",
+  "check gemini root file locks"
 ]
