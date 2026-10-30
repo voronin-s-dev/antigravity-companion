@@ -415,5 +415,8 @@
   "run cdp_supervisor test suite",
   "test skill_manager.ps1 status",
   "check skill_manager.ps1 status",
-  "test toggling autostart"
+  "test toggling autostart",
+  "verify supervisor auto-injection in live window",
+  "remove elements to test reactive reinjection",
+  "verify reactive reinjection after fallback check"
 ]
