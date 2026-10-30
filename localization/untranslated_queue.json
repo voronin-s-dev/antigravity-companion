@@ -377,9 +377,6 @@
   "Turn 8 of 10",
   "Turn 9 of 10",
   "Open Subagent: TDD API Model Engineer",
-  "obscura-scraper",
-  "ub-mode",
-  "unlazy",
   "Turn 1 of 11",
   "Turn 2 of 11",
   "Turn 3 of 11",
@@ -394,7 +391,6 @@
   "Turn 13 of 13",
   "check builder-check-prompt.md existence",
   "I have dispatched a reviewer subagent to execute the builder check on the design specification. I will process its review as soon as it completes",
-  "Design Document Reviewer",
   "Commit design spec",
   "commit design spec",
   "TDD E2E Test Engineer",
@@ -462,5 +458,9 @@
   "Threads-Copilot",
   "Still thinking, 16 seconds",
   "Commit implementation plan",
-  "commit implementation plan"
+  "commit implementation plan",
+  "Design Document Reviewer",
+  "obscura-scraper",
+  "ub-mode",
+  "unlazy"
 ]
