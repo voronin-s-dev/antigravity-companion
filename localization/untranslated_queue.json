@@ -204,5 +204,6 @@
   "check tests for validateRepoUrl",
   "test checkSkillUpdate with resolved sourceUrl",
   "check filter-chip in tests",
-  "search filter-chip across all tests"
+  "search filter-chip across all tests",
+  "find .agy-sm-btn in css"
 ]
