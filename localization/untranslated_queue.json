@@ -72,5 +72,8 @@
   "re-inject into live window",
   "verify live computed colors",
   "trigger live filter update",
-  "find all viewCount occurrences"
+  "find all viewCount occurrences",
+  "check backup file existence",
+  "list backups directory",
+  "check running antigravity processes"
 ]
