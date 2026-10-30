@@ -222,5 +222,7 @@
   "Turn 18 of 18",
   "check daemon health endpoint",
   "check status of daemon",
-  "Turn 21 of 21"
+  "Turn 21 of 21",
+  "check aar log existence",
+  "check checks-map existence"
 ]
