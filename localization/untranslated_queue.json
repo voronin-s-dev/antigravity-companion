@@ -107,5 +107,7 @@
   "Anti-Slop",
   "Agent Memory",
   "Humanizer",
-  "Humanizer Text"
+  "Humanizer Text",
+  "verify startup folder shortcut",
+  "verify registry autostart entry"
 ]
