@@ -192,9 +192,7 @@
   "find .agy-sm-btn in css",
   "run all unit tests",
   "stop background daemon",
-  "list bin directory",
   "commit checker fix and category alignment",
-  "Turn 18 of 18",
   "check daemon health endpoint",
   "check status of daemon",
   "Turn 21 of 21",
@@ -244,5 +242,7 @@
   "Get values of theme variables in Antigravity",
   "get values of theme variables in Antigravity",
   "check .agents/aar directory",
-  "list aar runs"
+  "list aar runs",
+  "list bin directory",
+  "Turn 18 of 18"
 ]
