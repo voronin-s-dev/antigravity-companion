@@ -521,6 +521,11 @@
   "Generate task-4-fix-1.diff",
   "I have dispatched the re-reviewer subagent for Task 4 fix round 1. I will process its verdict as soon as it arrives",
   "I have dispatched the implementer subagent for Task 5 (Bulk Update UI Button and Feedback Indicator). I will process its report and run the task review as soon as it completes",
+  "Task 4 Implementer",
+  "Message from Task 4 Implementer (self)",
+  "Task 4 Re-Reviewer",
+  "Message from Task 4 Re-Reviewer (research)",
+  "Task 5 Implementer",
   "Design Document Reviewer",
   "Message from Design Document Reviewer (research)",
   "Task 1 Implementer",
@@ -568,10 +573,5 @@
   "Open Subagent: Task 4 Reviewer (research)",
   "Open Subagent: Task 4 Re-Reviewer (research)",
   "Open Subagent: Task 5 Implementer",
-  "Close Task 4 Implementer",
-  "Task 4 Implementer",
-  "Message from Task 4 Implementer (self)",
-  "Task 4 Re-Reviewer",
-  "Message from Task 4 Re-Reviewer (research)",
-  "Task 5 Implementer"
+  "Close Task 4 Implementer"
 ]
