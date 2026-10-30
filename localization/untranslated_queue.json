@@ -381,5 +381,11 @@
   "Turn 25 of 26",
   "Turn 26 of 26",
   "check document title in Antigravity",
-  "list all agy-sm IDs"
+  "list all agy-sm IDs",
+  "Click check updates button",
+  "check modal and update button visibility",
+  "click trigger and check modal state",
+  "click updates tab without escaped quotes",
+  "click tab updates and inspect",
+  "click check updates button"
 ]
