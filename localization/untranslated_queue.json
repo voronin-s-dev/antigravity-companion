@@ -391,5 +391,11 @@
   "Updates",
   "Snapshots",
   "find 'Skills' in tests",
-  "check aar-log.md existence"
+  "check aar-log.md existence",
+  "search for aar files in AppData",
+  "check if aar-log.md exists",
+  "list aar files in project",
+  "list bin directory of antigravity-companion",
+  "list bin directory of antigravity-skill-manager",
+  "list src directory"
 ]
