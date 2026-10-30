@@ -319,5 +319,8 @@
   "find hanging lint_content process",
   "Kill hanging lint_content processes",
   "kill hanging lint_content processes",
-  "verify processes terminated"
+  "verify processes terminated",
+  "Message from TDD Service Engineer (self)",
+  "TDD Handlers Engineer",
+  "Starting TDD Handlers Engineer"
 ]
