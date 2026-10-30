@@ -46,7 +46,6 @@
   "Turn 9 of 12",
   "Turn 10 of 12",
   "Turn 11 of 12",
-  "Turn 13 of 13",
   "Turn 1 of 13",
   "Turn 2 of 13",
   "Turn 3 of 13",
@@ -434,5 +433,7 @@
   "Turn 8 of 11",
   "Turn 9 of 11",
   "Turn 10 of 11",
-  "Turn 12 of 12"
+  "Turn 12 of 12",
+  "Turn 13 of 13",
+  "check builder-check-prompt.md existence"
 ]
