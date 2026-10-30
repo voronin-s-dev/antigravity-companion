@@ -174,5 +174,18 @@
   "Still thinking, 76 seconds",
   "search failures in task-1940 log",
   "check localization test expectation",
-  "run all test suites again"
+  "run all test suites again",
+  "Re-inject UI into live Antigravity window",
+  "re-inject UI into live Antigravity window",
+  "inspect live DOM elements in Antigravity window",
+  "run live inspection script",
+  "Clean old injected elements in live window",
+  "clean old injected elements in live window",
+  "run reinject.js script",
+  "run reinject script",
+  "inspect updated live DOM",
+  "remove scratch scripts",
+  "run secret scanner",
+  "find python and node executables",
+  "run secret scanner on src directory"
 ]
