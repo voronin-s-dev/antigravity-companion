@@ -54,5 +54,6 @@
   "find --muted usage",
   "query all CSS variables in Antigravity",
   "find viewHeader code",
-  "find viewHeader CSS"
+  "find viewHeader CSS",
+  "find tab and sidebar CSS"
 ]
