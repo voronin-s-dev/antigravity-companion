@@ -271,13 +271,8 @@
   "commit package.json status route",
   "Killing",
   "Ran commands, edited file. I have initiated the final test verification across all suites and am waiting for the results",
-  "Orchestrator Subagent Project Architecture",
-  "Threads-Copilot",
-  "Database Subagent",
   "Message from Database Subagent (self)",
-  "TDD Model Engineer",
   "Message from TDD Model Engineer (self)",
-  "TDD Infra Engineer",
   "Message from TDD Infra Engineer (self)",
   "TDD Repository Engineer",
   "Message from TDD Repository Engineer (self)",
@@ -325,5 +320,10 @@
   "Message from TDD Handlers Engineer (self)",
   "Starting Skeptic Quality Gate Reviewer",
   "Message from QA Test Engineer (qa-engineer)",
-  "Open Subagent: Core Software Engineer (core-implementer)"
+  "Open Subagent: Core Software Engineer (core-implementer)",
+  "Orchestrator Subagent Project Architecture",
+  "Threads-Copilot",
+  "TDD Infra Engineer",
+  "TDD Model Engineer",
+  "Database Subagent"
 ]
