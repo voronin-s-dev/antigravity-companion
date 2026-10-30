@@ -158,7 +158,6 @@
   "search expand/accordion in test",
   "search agy-sm-card-title in test files",
   "check git diff for secrets",
-  "Turn 18 of 18",
   "run final npm test verification",
   "search failures in task-1940 log",
   "check localization test expectation",
@@ -207,5 +206,14 @@
   "find .agy-sm-btn in css",
   "run all unit tests",
   "Stop background daemon",
-  "stop background daemon"
+  "stop background daemon",
+  "list bin directory",
+  "Turn 18 of 18",
+  "check daemon health endpoint",
+  "check status of daemon",
+  "check health endpoint",
+  "Call check-all-updates on restarted daemon",
+  "call check-all-updates on restarted daemon",
+  "Re-inject updated UI into Antigravity window",
+  "re-inject updated UI into Antigravity window"
 ]
