@@ -287,7 +287,6 @@
   "TDD Infra Engineer",
   "TDD Model Engineer",
   "Database Subagent",
-  "Message from Core Software Engineer (core-implementer)",
   "TDD Rate Limiter Engineer",
   "TDD API Model Engineer",
   "Skeptic Quality Gate Reviewer",
@@ -337,5 +336,6 @@
   "ub-mode",
   "unlazy",
   "Message from QA Test Engineer (qa-engineer)",
-  "Open Subagent: Core Software Engineer (core-implementer)"
+  "Open Subagent: Core Software Engineer (core-implementer)",
+  "Message from Core Software Engineer (core-implementer)"
 ]
