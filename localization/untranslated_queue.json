@@ -95,5 +95,6 @@
   "Compare SQLite databases",
   "compare SQLite databases",
   "test SQLite write capability",
-  "check free space on C drive"
+  "check free space on C drive",
+  "inspect app_roaming in zip"
 ]
