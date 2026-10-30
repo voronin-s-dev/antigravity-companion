@@ -361,5 +361,7 @@
   "check live DOM for backdrop",
   "check live DOM for critical-modal",
   "check positions of criticalModal and updateAllBtn",
-  "inspect live DOM elements"
+  "inspect live DOM elements",
+  "list CDP targets",
+  "inspect topbar buttons in live DOM"
 ]
