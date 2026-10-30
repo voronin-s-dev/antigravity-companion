@@ -103,5 +103,6 @@
   "check backup tool project",
   "find backup scripts",
   "get table schema",
-  "check conversations in backup DB"
+  "check conversations in backup DB",
+  "check sqlite triggers"
 ]
