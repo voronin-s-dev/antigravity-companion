@@ -486,10 +486,7 @@
   "Close Task 3 Implementer",
   "Close Core Software Engineer",
   "Close Task 1 Reviewer",
-  "Task 4 Implementer",
   "I have dispatched the implementer subagent for Task 4 (Family Card Accordions and Master Toggle Integration). I will process its report and run the task review as soon as it completes",
-  "Message from Task 3 Implementer (self)",
-  "Task 3 Implementer",
   "check testPrefixIsolation",
   "run family accordion tests (GREEN)",
   "run all tests with npm test",
@@ -508,7 +505,6 @@
   "check if report is gitignored",
   "Messaged",
   "Parent Agent",
-  "Message from Task 4 Implementer (self)",
   "generate task-4.diff for review",
   "Generate task-4.diff for review",
   "Task 4 Reviewer",
@@ -555,5 +551,9 @@
   "Open Subagent: Task 3 Reviewer (research)",
   "Open Subagent: Task 4 Implementer",
   "Open Subagent: Task 4 Reviewer (research)",
-  "Close Task 4 Implementer"
+  "Close Task 4 Implementer",
+  "Task 3 Implementer",
+  "Message from Task 3 Implementer (self)",
+  "Task 4 Implementer",
+  "Message from Task 4 Implementer (self)"
 ]
