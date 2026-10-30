@@ -236,7 +236,6 @@
   "run npm test across all test suites",
   "core-implementer",
   "Parent Agent",
-  "TDD Implementer",
   "Open Subagent: TDD Implementer",
   "Message from TDD Implementer (self)",
   "Turn 3 of 3",
@@ -312,5 +311,7 @@
   "Turn 5 of 8",
   "Turn 6 of 8",
   "Turn 7 of 8",
-  "Open Subagent: QA Test Engineer (qa-engineer)"
+  "Open Subagent: QA Test Engineer (qa-engineer)",
+  "Close TDD UI/UX Engineer",
+  "TDD Implementer"
 ]
