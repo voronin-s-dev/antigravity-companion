@@ -363,5 +363,10 @@
   "check positions of criticalModal and updateAllBtn",
   "inspect live DOM elements",
   "list CDP targets",
-  "inspect topbar buttons in live DOM"
+  "inspect topbar buttons in live DOM",
+  "inspect document and critical modal",
+  "run injectAll from node",
+  "check critical-modal again",
+  "Evaluate js directly and print result",
+  "run temp_eval.js to inspect DOM"
 ]
