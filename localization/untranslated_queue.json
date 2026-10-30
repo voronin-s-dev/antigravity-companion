@@ -46,7 +46,6 @@
   "check full branch diff stat",
   "Final verification test suite",
   "final verification test suite",
-  "Turn 16 of 16",
   "inspect CSS colors",
   "Query root CSS variables in Antigravity",
   "query root CSS variables in Antigravity",
@@ -94,5 +93,10 @@
   "Turn 15 of 16",
   "Restore Antigravity Full Backup",
   "Turn 17 of 17",
-  "list all repository files"
+  "list all repository files",
+  "list Antigravity projects",
+  "check companion bin files",
+  "check Windows Startup folder",
+  "inspect AntigravityCompanion shortcut",
+  "Turn 16 of 16"
 ]
