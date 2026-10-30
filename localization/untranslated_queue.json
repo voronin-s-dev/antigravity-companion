@@ -1,4 +1,6 @@
 [
   "check Task 6 commit",
-  "check diff file exists"
+  "check diff file exists",
+  "check CSS prefix isolation",
+  "check task-6.md exists"
 ]
