@@ -428,5 +428,8 @@
   "search for aar files in AppData",
   "check if aar-log.md exists",
   "list files in antigravity-companion",
-  "list files in companion bin"
+  "list files in companion bin",
+  "check git status before commit",
+  "Commit localization and supervisor changes",
+  "commit localization and supervisor changes"
 ]
