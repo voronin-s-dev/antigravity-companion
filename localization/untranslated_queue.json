@@ -281,7 +281,6 @@
   "Open Subagent: TDD Model Engineer",
   "Open Subagent: TDD Infra Engineer",
   "Open Subagent: TDD Repository Engineer",
-  "Open Subagent: Skeptic Quality Gate Reviewer",
   "Open Subagent: TDD Bot Engineer",
   "Open Subagent: TDD Security Engineer",
   "Open Subagent: TDD UI/UX Engineer",
@@ -333,5 +332,7 @@
   "TDD Security Engineer",
   "Message from TDD Rate Limiter Engineer (self)",
   "TDD API Client Engineer",
-  "Starting TDD API Client Engineer"
+  "Starting TDD API Client Engineer",
+  "Open Subagent: Skeptic Quality Gate Reviewer",
+  "Open Subagent: TDD API Client Engineer"
 ]
