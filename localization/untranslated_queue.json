@@ -153,7 +153,6 @@
   "search for indicator and dot in src",
   "search skill_panel.js for dot/badge/indicator",
   "inspect view header via CDP",
-  "run all unit tests",
   "remove scratch file",
   "inspect API /api/skills response format",
   "search expand/accordion in test",
@@ -205,5 +204,8 @@
   "test checkSkillUpdate with resolved sourceUrl",
   "check filter-chip in tests",
   "search filter-chip across all tests",
-  "find .agy-sm-btn in css"
+  "find .agy-sm-btn in css",
+  "run all unit tests",
+  "Stop background daemon",
+  "stop background daemon"
 ]
