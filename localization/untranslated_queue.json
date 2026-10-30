@@ -20,7 +20,6 @@
   "check if old panel is mounted",
   "check test files for duplicate mounting",
   "check cdp_injector test for guards",
-  "run studio_modal tests",
   "Inject into live window",
   "inject into live window",
   "Query live family cards in Antigravity window",
@@ -130,5 +129,11 @@
   "run test_mount.js to check computed styles",
   "run toggle test",
   "Turn 16 of 16",
-  "search for insertBefore in test/"
+  "search for insertBefore in test/",
+  "run studio_modal tests (TDD red)",
+  "run studio_modal test directly",
+  "check test/studio_modal.test.js execution",
+  "run studio_modal tests with log",
+  "run test with step logging",
+  "run studio_modal tests"
 ]
