@@ -195,5 +195,8 @@
   "Turn 20 of 20",
   "find update check references in src",
   "find update routes in src recursively",
-  "check if lockfile exists in user profile"
+  "check if lockfile exists in user profile",
+  "Call check-all-updates endpoint",
+  "call check-all-updates endpoint",
+  "check for .git in skills directory"
 ]
