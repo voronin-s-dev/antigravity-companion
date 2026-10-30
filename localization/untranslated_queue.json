@@ -72,5 +72,9 @@
   "re-inject into live window",
   "verify live computed colors",
   "trigger live filter update",
-  "find all viewCount occurrences"
+  "find all viewCount occurrences",
+  "verify restore state",
+  "check DB connection",
+  "Clean up restore audit files",
+  "clean up restore audit files"
 ]
