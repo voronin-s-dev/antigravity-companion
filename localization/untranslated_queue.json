@@ -329,7 +329,6 @@
   "Message from TDD Service Engineer (self)",
   "Message from TDD Handlers Engineer (self)",
   "Open Subagent: TDD Handlers Engineer",
-  "Still thinking, 16 seconds",
   "enabled",
   "test skill_manager.ps1 status",
   "Restart daemon with active periodic supervisor check",
@@ -435,5 +434,7 @@
   "Turn 10 of 11",
   "Turn 12 of 12",
   "Turn 13 of 13",
-  "check builder-check-prompt.md existence"
+  "check builder-check-prompt.md existence",
+  "Still thinking, 16 seconds",
+  "I have dispatched a reviewer subagent to execute the builder check on the design specification. I will process its review as soon as it completes"
 ]
