@@ -101,5 +101,7 @@
   "inspect gemini_config in zip",
   "inspect gemini_antigravity in zip",
   "check backup tool project",
-  "find backup scripts"
+  "find backup scripts",
+  "get table schema",
+  "check conversations in backup DB"
 ]
