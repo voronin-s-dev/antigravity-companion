@@ -307,5 +307,9 @@
   "stage Step 3.2 files",
   "Commit Step 3.2",
   "commit Step 3.2",
-  "list files in bin"
+  "list files in bin",
+  "run all test suites",
+  "Commit package.json status route",
+  "commit package.json status route",
+  "Killing"
 ]
