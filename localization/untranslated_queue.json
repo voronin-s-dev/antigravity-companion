@@ -23,11 +23,6 @@
   "run studio_modal tests",
   "Inject into live window",
   "inject into live window",
-  "v0.2.0",
-  "Anti-Slop",
-  "Agent Memory",
-  "Humanizer",
-  "Humanizer Text",
   "Query live family cards in Antigravity window",
   "query live family cards in Antigravity window",
   "test trigger button click toggle",
@@ -103,5 +98,14 @@
   "check CdpSupervisor usage in daemon",
   "find devtools port",
   "check DevToolsActivePort location",
-  "check skill manager status"
+  "check skill manager status",
+  "start skill manager daemon",
+  "check if UI was injected by supervisor",
+  "enable Windows autostart",
+  "Enable Windows autostart",
+  "v0.2.0",
+  "Anti-Slop",
+  "Agent Memory",
+  "Humanizer",
+  "Humanizer Text"
 ]
