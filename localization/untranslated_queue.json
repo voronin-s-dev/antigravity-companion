@@ -215,5 +215,9 @@
   "Call check-all-updates on restarted daemon",
   "call check-all-updates on restarted daemon",
   "Re-inject updated UI into Antigravity window",
-  "re-inject updated UI into Antigravity window"
+  "re-inject updated UI into Antigravity window",
+  "execute live UI reload",
+  "Clean up scratch file",
+  "clean up scratch file",
+  "run all tests for validation"
 ]
