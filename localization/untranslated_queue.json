@@ -345,10 +345,6 @@
   "Open Subagent: TDD Handlers Engineer",
   "Still thinking, 16 seconds",
   "enabled",
-  "obscura-scraper",
-  "ub-mode",
-  "unlazy",
-  "TDD Knowledge Engineer",
   "Core Software Engineer",
   "Close Core Software Engineer",
   "QA Test Engineer",
@@ -426,5 +422,9 @@
   "Open Subagent: TDD Integration Engineer",
   "Open Subagent: Skeptic Quality Gate Reviewer",
   "Open Subagent: TDD Knowledge Engineer",
-  "Open Subagent: TDD Gemini Engineer"
+  "Open Subagent: TDD Gemini Engineer",
+  "TDD Knowledge Engineer",
+  "obscura-scraper",
+  "ub-mode",
+  "unlazy"
 ]
