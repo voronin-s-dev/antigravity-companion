@@ -101,5 +101,7 @@
   "Turn 16 of 16",
   "check if skill_manager daemon is running",
   "check CdpSupervisor usage in daemon",
-  "find devtools port"
+  "find devtools port",
+  "check DevToolsActivePort location",
+  "check skill manager status"
 ]
