@@ -104,5 +104,7 @@
   "find backup scripts",
   "get table schema",
   "check conversations in backup DB",
-  "check sqlite triggers"
+  "check sqlite triggers",
+  "check FTS schema",
+  "test DB merge logic"
 ]
