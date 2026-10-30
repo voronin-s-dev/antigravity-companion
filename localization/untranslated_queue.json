@@ -368,5 +368,7 @@
   "run injectAll from node",
   "check critical-modal again",
   "Evaluate js directly and print result",
-  "run temp_eval.js to inspect DOM"
+  "run temp_eval.js to inspect DOM",
+  "inject skill panel into Antigravity target",
+  "inspect live elements in Antigravity"
 ]
