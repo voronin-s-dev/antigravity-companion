@@ -387,5 +387,9 @@
   "click trigger and check modal state",
   "click updates tab without escaped quotes",
   "click tab updates and inspect",
-  "click check updates button"
+  "click check updates button",
+  "check update view state via CLI",
+  "inspect cdp_injector.js imports",
+  "Capture live screenshot using global WebSocket",
+  "capture live screenshot using global WebSocket"
 ]
