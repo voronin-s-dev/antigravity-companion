@@ -75,5 +75,16 @@
   "find all viewCount occurrences",
   "check backup file existence",
   "list backups directory",
-  "check running antigravity processes"
+  "check running antigravity processes",
+  "inspect backup zip top entries",
+  "read manifest.json from zip",
+  "read manifest from zip",
+  "find metadata entries",
+  "check metadata directory in zip",
+  "check lock on conversation_summaries.db",
+  "check lock on db",
+  "check current files state",
+  "list current projects",
+  "list current projects utf8",
+  "list projects in backup zip"
 ]
