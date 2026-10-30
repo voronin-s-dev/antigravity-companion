@@ -56,5 +56,16 @@
   "find viewHeader code",
   "find viewHeader CSS",
   "find tab and sidebar CSS",
-  "list .agents/aar files"
+  "list .agents/aar files",
+  "find viewCountElem updates",
+  "check line 599",
+  "find placeholder lines",
+  "find tests checking view-count",
+  "check prefix isolation in new CSS",
+  "check for --muted as color",
+  "query computed colors in live window",
+  "run visual contrast test",
+  "run full test suite with direction V",
+  "Stage fixes and AAR files",
+  "stage fixes and AAR files"
 ]
