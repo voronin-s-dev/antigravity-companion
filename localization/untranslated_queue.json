@@ -495,5 +495,14 @@
   "search for reviewer prompt",
   "list superpowers files",
   "check skill status usage in src",
-  "run test suite"
+  "run test suite",
+  "Message from Task 1 Reviewer (research)",
+  "Task 2 Implementer",
+  "Open Subagent: Task 2 Implementer",
+  "Message from Task 2 Implementer (self)",
+  "Task 2 Reviewer",
+  "Open Subagent: Task 2 Reviewer (research)",
+  "Message from Task 2 Reviewer (research)",
+  "Task 3 Implementer",
+  "Open Subagent: Task 3 Implementer"
 ]
