@@ -397,6 +397,8 @@
   "run changelog_analyzer unit tests",
   "run git_checker unit tests",
   "run snapshot unit tests",
+  "check testUpdateAllButtonMounted assertions",
+  "inspect testUpdateAllButtonMounted body",
   "High risk: Remote comparison failed. Changes cannot be verified.",
   "Comparison failed: GitHub compare target not found: Not Found",
   "v0.3.0",
