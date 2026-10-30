@@ -4,5 +4,7 @@
   "check CSS prefix isolation",
   "check task-6.md exists",
   "check task-6 report exists",
-  "check skill_panel line count"
+  "check skill_panel line count",
+  "Extract Russian strings",
+  "extract Russian strings"
 ]
