@@ -315,5 +315,9 @@
   "Close TDD UI/UX Engineer",
   "TDD Implementer",
   "Finding",
-  "10 subagents"
+  "10 subagents",
+  "find hanging lint_content process",
+  "Kill hanging lint_content processes",
+  "kill hanging lint_content processes",
+  "verify processes terminated"
 ]
