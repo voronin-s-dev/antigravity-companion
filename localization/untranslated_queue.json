@@ -8,5 +8,8 @@
   "Extract Russian strings",
   "extract Russian strings",
   "find text assignments",
-  "find formatModuleCount"
+  "find formatModuleCount",
+  "run current localization test",
+  "check dataset usage",
+  "check closest usage"
 ]
