@@ -338,10 +338,6 @@
   "run daemon foreground test",
   "check status of running foreground daemon",
   "run CDP injector",
-  "What's New",
-  "Skill Manager",
-  "Updates",
-  "Snapshots",
   "Daemon offline. Check localhost:9133.",
   "verify injected trigger button in DOM",
   "Click trigger button to open panel",
@@ -389,5 +385,11 @@
   "Open Subagent: QA Test Engineer (qa-engineer)",
   "Close Core Software Engineer",
   "list files in antigravity-companion",
-  "list files in companion bin"
+  "list files in companion bin",
+  "What's New",
+  "Skill Manager",
+  "Updates",
+  "Snapshots",
+  "find 'Skills' in tests",
+  "check aar-log.md existence"
 ]
