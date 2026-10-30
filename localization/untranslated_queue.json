@@ -224,5 +224,8 @@
   "check status of daemon",
   "Turn 21 of 21",
   "check aar log existence",
-  "check checks-map existence"
+  "check checks-map existence",
+  "list files in src",
+  "Query changelog API for agentmemory-agents",
+  "query changelog API for agentmemory-agents"
 ]
