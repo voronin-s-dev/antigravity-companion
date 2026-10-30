@@ -6,5 +6,7 @@
   "check task-6 report exists",
   "check skill_panel line count",
   "Extract Russian strings",
-  "extract Russian strings"
+  "extract Russian strings",
+  "find text assignments",
+  "find formatModuleCount"
 ]
