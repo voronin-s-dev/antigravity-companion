@@ -124,5 +124,9 @@
   "Turn 18 of 18",
   "check if antigravity-companion project exists",
   "find sidebar button logic in antigravity-companion",
-  "Turn 17 of 17"
+  "Turn 17 of 17",
+  "search for agy-sm-trigger-btn in src and test",
+  "search for agy-sm-trigger-btn in test/",
+  "search CSS in antigravity-companion",
+  "run test_mount.js to check computed styles"
 ]
