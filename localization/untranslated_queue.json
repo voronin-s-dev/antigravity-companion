@@ -298,5 +298,9 @@
   "Turn 21 of 24",
   "Turn 22 of 24",
   "Turn 23 of 24",
-  "Turn 25 of 25"
+  "Turn 25 of 25",
+  "check if .env exists",
+  "check if GEMINI_API_KEY is in env",
+  "test Supabase connection and tables",
+  "verify Telegram bot token"
 ]
