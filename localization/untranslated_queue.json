@@ -527,6 +527,11 @@
   "Generate task-6.diff for review",
   "Starting Task 6 Reviewer",
   "I have dispatched the reviewer subagent for Task 6. I will process its review report as soon as it arrives",
+  "Error from Task 6 Reviewer (research)",
+  "Unknown: There was a network issue connecting to the server, please try again.",
+  "troubleshooting guide",
+  "for more help.",
+  "Agent execution failed",
   "Design Document Reviewer",
   "Message from Design Document Reviewer (research)",
   "Task 1 Implementer",
@@ -588,10 +593,5 @@
   "Open Subagent: Task 5 Reviewer (research)",
   "Open Subagent: Task 6 Implementer",
   "Open Subagent: Task 6 Reviewer (research)",
-  "Close Task 4 Implementer",
-  "Error from Task 6 Reviewer (research)",
-  "Unknown: There was a network issue connecting to the server, please try again.",
-  "troubleshooting guide",
-  "for more help.",
-  "Agent execution failed"
+  "Close Task 4 Implementer"
 ]
