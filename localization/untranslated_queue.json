@@ -68,5 +68,9 @@
   "Stage fixes and AAR files",
   "stage fixes and AAR files",
   "inject into live Antigravity window",
-  "commit UI contrast fix"
+  "commit UI contrast fix",
+  "re-inject into live window",
+  "verify live computed colors",
+  "trigger live filter update",
+  "find all viewCount occurrences"
 ]
