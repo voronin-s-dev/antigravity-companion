@@ -77,7 +77,6 @@
   "check companion bin files",
   "check Windows Startup folder",
   "inspect AntigravityCompanion shortcut",
-  "Turn 16 of 16",
   "check if skill_manager daemon is running",
   "check CdpSupervisor usage in daemon",
   "find devtools port",
@@ -128,5 +127,7 @@
   "search for agy-sm-trigger-btn in src and test",
   "search for agy-sm-trigger-btn in test/",
   "search CSS in antigravity-companion",
-  "run test_mount.js to check computed styles"
+  "run test_mount.js to check computed styles",
+  "run toggle test",
+  "Turn 16 of 16"
 ]
