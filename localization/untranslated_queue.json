@@ -381,8 +381,6 @@
   "Open Subagent: TDD Knowledge Engineer",
   "Open Subagent: TDD Gemini Engineer",
   "TDD Knowledge Engineer",
-  "Core Software Engineer",
-  "Close Core Software Engineer",
   "QA Test Engineer",
   "Turn 1 of 10",
   "Turn 2 of 10",
@@ -431,5 +429,7 @@
   "commit localization and supervisor changes",
   "obscura-scraper",
   "ub-mode",
-  "unlazy"
+  "unlazy",
+  "Core Software Engineer",
+  "Close Core Software Engineer"
 ]
