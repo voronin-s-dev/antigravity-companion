@@ -52,5 +52,7 @@
   "Query root CSS variables in Antigravity",
   "query root CSS variables in Antigravity",
   "find --muted usage",
-  "query all CSS variables in Antigravity"
+  "query all CSS variables in Antigravity",
+  "find viewHeader code",
+  "find viewHeader CSS"
 ]
