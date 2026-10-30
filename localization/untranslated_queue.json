@@ -89,5 +89,11 @@
   "list projects in backup zip",
   "check DB in backup vs current",
   "test reading conversation_summaries.db",
-  "check locked files in Roaming"
+  "check locked files in Roaming",
+  "find python and node runtimes",
+  "run compare_dbs.py with python312",
+  "Compare SQLite databases",
+  "compare SQLite databases",
+  "test SQLite write capability",
+  "check free space on C drive"
 ]
