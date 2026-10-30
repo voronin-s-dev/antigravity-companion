@@ -359,5 +359,7 @@
   "Turn 25 of 26",
   "check live DOM for update-all-btn",
   "check live DOM for backdrop",
-  "check live DOM for critical-modal"
+  "check live DOM for critical-modal",
+  "check positions of criticalModal and updateAllBtn",
+  "inspect live DOM elements"
 ]
