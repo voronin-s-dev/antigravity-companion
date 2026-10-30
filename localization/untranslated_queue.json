@@ -282,8 +282,6 @@
   "Open Subagent: TDD Handlers Engineer",
   "Message from TDD Handlers Engineer (self)",
   "Starting Skeptic Quality Gate Reviewer",
-  "Message from QA Test Engineer (qa-engineer)",
-  "Open Subagent: Core Software Engineer (core-implementer)",
   "Orchestrator Subagent Project Architecture",
   "Threads-Copilot",
   "TDD Infra Engineer",
@@ -337,5 +335,7 @@
   "Move Conversation Down",
   "obscura-scraper",
   "ub-mode",
-  "unlazy"
+  "unlazy",
+  "Message from QA Test Engineer (qa-engineer)",
+  "Open Subagent: Core Software Engineer (core-implementer)"
 ]
