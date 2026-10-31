@@ -710,5 +710,8 @@
   "list files in companion root",
   "list bin files in skill manager",
   "check daemon health",
-  "check root start.bat"
+  "check root start.bat",
+  "Listing",
+  "tasks",
+  "check DOM with daemon running silently"
 ]
