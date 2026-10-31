@@ -579,5 +579,8 @@
   "Turn 28 of 30",
   "Turn 29 of 30",
   "Turn 30 of 30",
-  "Turn 31 of 31"
+  "Turn 31 of 31",
+  "Print exact patch from commit details",
+  "check agentmemory-hooks lock entry",
+  "print exact patch from commit details"
 ]
