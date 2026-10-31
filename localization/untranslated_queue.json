@@ -12,7 +12,6 @@
   "check CdpSupervisor usage in daemon",
   "check DevToolsActivePort location",
   "check skill manager status",
-  "start skill manager daemon",
   "check if UI was injected by supervisor",
   "enable Windows autostart",
   "Enable Windows autostart",
@@ -679,5 +678,9 @@
   "Restart skill manager daemon",
   "check scratch screenshot scripts",
   "find bulkUpdateDelayPromise in test",
-  "run bulk_update_ui tests"
+  "run bulk_update_ui tests",
+  "Start skill manager daemon",
+  "start skill manager daemon",
+  "Capture python update screenshot",
+  "capture python update screenshot"
 ]
