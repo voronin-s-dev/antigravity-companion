@@ -29,7 +29,6 @@
   "check trigger button properties",
   "check if antigravity-companion project exists",
   "find sidebar button logic in antigravity-companion",
-  "Turn 17 of 17",
   "search for agy-sm-trigger-btn in src and test",
   "search for agy-sm-trigger-btn in test/",
   "search CSS in antigravity-companion",
@@ -793,5 +792,6 @@
   "\"developers.facebook.com/account_status/error/\"",
   "\"threads api\" \"facebook page\" required",
   "\"developers.facebook.com\" \"become a developer\" steps",
-  "Global Category Skill Bug Fix"
+  "Global Category Skill Bug Fix",
+  "Turn 17 of 17"
 ]
