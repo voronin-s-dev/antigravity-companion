@@ -682,5 +682,9 @@
   "Start skill manager daemon",
   "start skill manager daemon",
   "Capture python update screenshot",
-  "capture python update screenshot"
+  "capture python update screenshot",
+  "Measure check-all-updates duration",
+  "measure check-all-updates duration",
+  "check button state",
+  "check updates tab now"
 ]
