@@ -622,5 +622,7 @@
   "query local updates API",
   "Query local updates API",
   "list server files",
-  "list src files"
+  "list src files",
+  "query /api/skills",
+  "call check-all-updates"
 ]
