@@ -707,5 +707,6 @@
   "check python card in live DOM",
   "Turn 41 of 41",
   "check daemon in companion",
-  "list files in companion root"
+  "list files in companion root",
+  "list bin files in skill manager"
 ]
