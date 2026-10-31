@@ -568,10 +568,6 @@
   "test checkCriticalUpdates on antislop and agentmemory",
   "stop and start daemon",
   "inject updated UI into Antigravity",
-  "v0.3.0",
-  "Anti-Slop",
-  "Agent Memory",
-  "Humanizer",
   "check daemon foreground startup",
   "test daemon health via HTTP",
   "test critical-check via CDP eval",
@@ -617,5 +613,10 @@
   "query /api/skills endpoint",
   "Query /api/skills endpoint",
   "inspect JS variables in window",
-  "inspect DOM elements in window"
+  "inspect DOM elements in window",
+  "test fetch from browser context",
+  "v0.3.0",
+  "Anti-Slop",
+  "Agent Memory",
+  "Humanizer"
 ]
