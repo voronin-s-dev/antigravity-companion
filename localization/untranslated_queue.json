@@ -449,11 +449,6 @@
   "2026-10-25T08:49:12Z",
   "JackieJK",
   "2026-10-25T07:53:12Z",
-  "v0.3.0",
-  "Anti-Slop",
-  "Agent Memory",
-  "Humanizer",
-  "Humanizer Text",
   "Snapshot",
   "Turn 1 of 26",
   "Turn 2 of 26",
@@ -497,5 +492,12 @@
   "inject UI into Antigravity via CDP",
   "check Scratch folder",
   "find DevToolsActivePort location",
-  "find devtools port"
+  "find devtools port",
+  "check CDP client in injector",
+  "run CDP screenshot capture",
+  "v0.3.0",
+  "Anti-Slop",
+  "Agent Memory",
+  "Humanizer",
+  "Humanizer Text"
 ]
