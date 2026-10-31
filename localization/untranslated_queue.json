@@ -580,9 +580,6 @@
   "check live state after injection",
   "capture live screenshot",
   "open modal and take screenshot",
-  "v0.3.0",
-  "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
-  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
   "Turn 1 of 30",
   "Turn 2 of 30",
   "Turn 3 of 30",
@@ -628,5 +625,10 @@
   "check skill-lock.json existence",
   "inspect skill-lock.json content",
   "check aar, adhd, agentmemory in lockfile",
-  "check git updates for all skills in lockfile"
+  "check git updates for all skills in lockfile",
+  "find createLocalServer call in daemon",
+  "check lockfilePath in daemon",
+  "v0.3.0",
+  "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
+  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core."
 ]
