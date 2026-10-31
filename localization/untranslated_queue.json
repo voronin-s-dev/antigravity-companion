@@ -700,5 +700,6 @@
   "query check-all-updates on daemon",
   "verify all 25 updated skills",
   "check live UI DOM state",
-  "Capture open modal screenshot"
+  "Capture open modal screenshot",
+  "find calls to updateSidebarCounts"
 ]
