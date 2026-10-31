@@ -630,5 +630,9 @@
   "check lockfilePath in daemon",
   "v0.3.0",
   "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
-  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core."
+  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
+  "check scanned skill objects",
+  "check target skills in scanAllSkills",
+  "inspect lockfile for target skills",
+  "search targets across known skill directories"
 ]
