@@ -634,5 +634,9 @@
   "check scanned skill objects",
   "check target skills in scanAllSkills",
   "inspect lockfile for target skills",
-  "search targets across known skill directories"
+  "search targets across known skill directories",
+  "inspect python-testing-patterns folder",
+  "find python skills in scanAllSkills",
+  "run scanDirectory on config/skills",
+  "list items in config/skills"
 ]
