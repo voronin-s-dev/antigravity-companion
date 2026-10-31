@@ -743,6 +743,13 @@
   "\"developers.facebook.com\" \"become a developer\" steps",
   "Global Category Skill Bug Fix",
   "\"threads api\" \"create app\" \"roles\" \"testers\" steps",
+  "v0.3.0",
+  "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
+  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
+  "Turn 18 of 18",
+  "Turn 19 of 19",
+  "Turn 20 of 20",
+  "Turn 21 of 21",
   "antislop-linter",
   "Quality assurance and anti-slop gatekeeper for AI-generated text. Audits drafts against robotic cadence, em-dashes, formulaic clickbait openers, and platform character limits using tools/lint_content.py. Use before presenting copy or scheduling posts.",
   "Google Gemini API",
@@ -787,12 +794,5 @@
   "numerology-engine",
   "numerology-visualizer",
   "Turn 17 of 17",
-  "Turn 22 of 22",
-  "v0.3.0",
-  "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
-  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
-  "Turn 18 of 18",
-  "Turn 19 of 19",
-  "Turn 20 of 20",
-  "Turn 21 of 21"
+  "Turn 22 of 22"
 ]
