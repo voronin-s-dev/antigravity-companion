@@ -624,5 +624,9 @@
   "list server files",
   "list src files",
   "query /api/skills",
-  "call check-all-updates"
+  "call check-all-updates",
+  "check skill-lock.json existence",
+  "inspect skill-lock.json content",
+  "check aar, adhd, agentmemory in lockfile",
+  "check git updates for all skills in lockfile"
 ]
