@@ -677,5 +677,7 @@
   "check DOM after check all click",
   "inspect updates tab in DOM",
   "Restart skill manager daemon",
-  "check scratch screenshot scripts"
+  "check scratch screenshot scripts",
+  "find bulkUpdateDelayPromise in test",
+  "run bulk_update_ui tests"
 ]
