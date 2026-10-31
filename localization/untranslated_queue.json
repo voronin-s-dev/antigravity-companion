@@ -518,7 +518,6 @@
   "switch to installed tab",
   "Capture final screenshot",
   "capture final screenshot",
-  "check data-tab attributes",
   "Switch to all tab and capture",
   "switch to all tab and capture",
   "search risk analysis wording",
@@ -703,5 +702,6 @@
   "retake open modal screenshot",
   "v0.3.0",
   "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
-  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core."
+  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
+  "check data-tab attributes"
 ]
