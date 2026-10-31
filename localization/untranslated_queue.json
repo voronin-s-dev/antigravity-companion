@@ -476,6 +476,7 @@
   "inspect studio modal hierarchy",
   "run CDP screenshot script",
   "run updates view check and screenshot",
+  "run npm test verification",
   "v0.3.0",
   "Anti-Slop",
   "Agent Memory",
