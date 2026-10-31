@@ -626,7 +626,6 @@
   "list items in .agents/skills",
   "check skills updated today",
   "check all installed skills status",
-  "Restart skill manager daemon",
   "Turn 1 of 16",
   "Turn 2 of 16",
   "Turn 3 of 16",
@@ -671,5 +670,12 @@
   "check card titles in DOM",
   "v0.3.0",
   "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
-  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core."
+  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
+  "check DOM after reinjection",
+  "Click check all updates",
+  "click check all updates",
+  "check DOM after check all click",
+  "inspect updates tab in DOM",
+  "Restart skill manager daemon",
+  "check scratch screenshot scripts"
 ]
