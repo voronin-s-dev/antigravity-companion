@@ -516,5 +516,9 @@
   "run family_accordion tests",
   "re-inject fixed skill panel into Antigravity",
   "test clicking family update button",
-  "run live family update test"
+  "run live family update test",
+  "check notice status via CDP",
+  "check active tab and buttons via CDP",
+  "check updates view skills",
+  "inspect view updates container"
 ]
