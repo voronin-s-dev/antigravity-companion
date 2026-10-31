@@ -653,9 +653,6 @@
   "click bulk update check button",
   "check DOM state after check",
   "check card titles in DOM",
-  "v0.3.0",
-  "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
-  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
   "check DOM after reinjection",
   "Click check all updates",
   "click check all updates",
@@ -701,5 +698,10 @@
   "verify all 25 updated skills",
   "check live UI DOM state",
   "Capture open modal screenshot",
-  "find calls to updateSidebarCounts"
+  "find calls to updateSidebarCounts",
+  "Retake open modal screenshot",
+  "retake open modal screenshot",
+  "v0.3.0",
+  "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
+  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core."
 ]
