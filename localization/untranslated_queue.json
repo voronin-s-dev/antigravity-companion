@@ -643,5 +643,6 @@
   "find all symlinks in skills dir",
   "list items in .agents/skills",
   "check skills updated today",
-  "check all installed skills status"
+  "check all installed skills status",
+  "Restart skill manager daemon"
 ]
