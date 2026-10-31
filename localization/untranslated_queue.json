@@ -613,5 +613,9 @@
   "Close node bin/skill_manager_daemon.js start --foreground",
   "Call check-all-updates on restarted daemon",
   "Grep diff for secrets",
-  "Background Task Output header"
+  "Background Task Output header",
+  "query /api/skills endpoint",
+  "Query /api/skills endpoint",
+  "inspect JS variables in window",
+  "inspect DOM elements in window"
 ]
