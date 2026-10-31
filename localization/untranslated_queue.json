@@ -638,5 +638,8 @@
   "inspect python-testing-patterns folder",
   "find python skills in scanAllSkills",
   "run scanDirectory on config/skills",
-  "list items in config/skills"
+  "list items in config/skills",
+  "check entry stats for python-testing-patterns",
+  "find all symlinks in skills dir",
+  "list items in .agents/skills"
 ]
