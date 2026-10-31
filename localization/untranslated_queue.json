@@ -511,5 +511,7 @@
   "Turn 27 of 27",
   "Turn 28 of 28",
   "Turn 29 of 29",
-  "search findCriticalSkills in src"
+  "search findCriticalSkills in src",
+  "Grep for undefined functions",
+  "grep for undefined functions"
 ]
