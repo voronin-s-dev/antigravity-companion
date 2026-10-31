@@ -583,5 +583,9 @@
   "Print exact patch from commit details",
   "check agentmemory-hooks lock entry",
   "print exact patch from commit details",
-  "find updateAllSkills in backend"
+  "find updateAllSkills in backend",
+  "read daemon log",
+  "inspect lockfile entries",
+  "test POST update-all endpoint",
+  "test update-all for agentmemory-hooks"
 ]
