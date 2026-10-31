@@ -703,5 +703,6 @@
   "v0.3.0",
   "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
   "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
-  "check data-tab attributes"
+  "check data-tab attributes",
+  "check python card in live DOM"
 ]
