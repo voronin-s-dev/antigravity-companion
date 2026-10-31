@@ -523,5 +523,7 @@
   "inspect view updates container",
   "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
   "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
-  "test live family update click"
+  "test live family update click",
+  "check errorNotice via CDP",
+  "test update-all endpoint directly"
 ]
