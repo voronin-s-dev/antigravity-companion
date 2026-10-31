@@ -166,7 +166,6 @@
   "Call check-all-updates endpoint",
   "Stop background daemon",
   "check health endpoint",
-  "Call check-all-updates on restarted daemon",
   "call check-all-updates on restarted daemon",
   "Re-inject updated UI into Antigravity window",
   "re-inject updated UI into Antigravity window",
@@ -609,5 +608,10 @@
   "Turn 28 of 30",
   "Turn 29 of 30",
   "Turn 30 of 30",
-  "Turn 31 of 31"
+  "Turn 31 of 31",
+  "node bin/skill_manager_daemon.js start --foreground",
+  "Close node bin/skill_manager_daemon.js start --foreground",
+  "Call check-all-updates on restarted daemon",
+  "Grep diff for secrets",
+  "Background Task Output header"
 ]
