@@ -744,7 +744,6 @@
   "\"developers.facebook.com\" \"become a developer\" steps",
   "Global Category Skill Bug Fix",
   "\"threads api\" \"create app\" \"roles\" \"testers\" steps",
-  "Turn 17 of 17",
   "antislop-linter",
   "Quality assurance and anti-slop gatekeeper for AI-generated text. Audits drafts against robotic cadence, em-dashes, formulaic clickbait openers, and platform character limits using tools/lint_content.py. Use before presenting copy or scheduling posts.",
   "Google Gemini API",
@@ -794,5 +793,6 @@
   "Turn 18 of 18",
   "Turn 19 of 19",
   "Turn 20 of 20",
-  "Turn 21 of 21"
+  "Turn 21 of 21",
+  "Turn 17 of 17"
 ]
