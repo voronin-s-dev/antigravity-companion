@@ -476,7 +476,6 @@
   "run CDP screenshot script",
   "run updates view check and screenshot",
   "run npm test verification",
-  "search findCriticalSkills in src",
   "Grep for undefined functions",
   "grep for undefined functions",
   "run family_accordion tests",
@@ -526,5 +525,6 @@
   "Turn 26 of 26",
   "Turn 27 of 27",
   "Turn 28 of 28",
-  "Turn 29 of 29"
+  "Turn 29 of 29",
+  "search findCriticalSkills in src"
 ]
