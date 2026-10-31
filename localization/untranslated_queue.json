@@ -572,5 +572,11 @@
   "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
   "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
   "search risk analysis wording",
-  "find critical update checks in codebase"
+  "find critical update checks in codebase",
+  "check changelog of agentmemory-hooks",
+  "check git patch for agentmemory-hooks",
+  "inspect agentmemory-hooks changelog JSON",
+  "inspect agentmemory-mcp-tools changelog",
+  "fetch exact patches for SKILL.md files",
+  "check keys of getSkillChangelog"
 ]
