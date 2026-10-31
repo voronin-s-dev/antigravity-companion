@@ -713,5 +713,9 @@
   "check root start.bat",
   "Listing",
   "tasks",
-  "check DOM with daemon running silently"
+  "check DOM with daemon running silently",
+  "check graphify directory",
+  "check graphify command",
+  "query graphify for category and scope",
+  "list subdirectories of src"
 ]
