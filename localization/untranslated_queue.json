@@ -147,7 +147,6 @@
   "get values of theme variables in Antigravity",
   "check .agents/aar directory",
   "list aar runs",
-  "Turn 18 of 18",
   "Turn 22 of 22",
   "Turn 21 of 21",
   "Turn 23 of 23",
@@ -793,5 +792,6 @@
   "numerology-visualizer",
   "v0.3.0",
   "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
-  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core."
+  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
+  "Turn 18 of 18"
 ]
