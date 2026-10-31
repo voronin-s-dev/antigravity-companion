@@ -708,5 +708,7 @@
   "Turn 41 of 41",
   "check daemon in companion",
   "list files in companion root",
-  "list bin files in skill manager"
+  "list bin files in skill manager",
+  "check daemon health",
+  "check root start.bat"
 ]
