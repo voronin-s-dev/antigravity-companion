@@ -462,7 +462,6 @@
   "check family-card CSS",
   "check family-accordion CSS",
   "search error notice functions",
-  "run family_accordion tests",
   "inject UI into Antigravity via CDP",
   "check Scratch folder",
   "find DevToolsActivePort location",
@@ -513,5 +512,9 @@
   "Turn 29 of 29",
   "search findCriticalSkills in src",
   "Grep for undefined functions",
-  "grep for undefined functions"
+  "grep for undefined functions",
+  "run family_accordion tests",
+  "re-inject fixed skill panel into Antigravity",
+  "test clicking family update button",
+  "run live family update test"
 ]
