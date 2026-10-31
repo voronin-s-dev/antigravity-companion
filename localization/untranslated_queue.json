@@ -367,11 +367,9 @@
   "check button and error in live DOM",
   "capture critical modal screenshot",
   "Comparison failed: GitHub API error 301: Moved Permanently",
-  "Comparison failed: GitHub API rate limit exceeded: API rate limit exceeded for 146.120.165.71. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
   "Query GitHub compare API directly",
   "Capture screenshot of clean updates view",
   "Stop daemon via stop.bat",
-  "High risk: Remote comparison failed. Changes cannot be verified.",
   "Comparison failed: GitHub compare target not found: Not Found",
   "Open changelog in live Antigravity window",
   "Click first What is new button in live window",
@@ -586,5 +584,8 @@
   "Turn 27 of 30",
   "Turn 28 of 30",
   "Turn 29 of 30",
-  "Turn 30 of 30"
+  "Turn 30 of 30",
+  "High risk: Remote comparison failed. Changes cannot be verified.",
+  "Comparison failed: GitHub API rate limit exceeded: API rate limit exceeded for 146.120.165.71. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+  "Turn 31 of 31"
 ]
