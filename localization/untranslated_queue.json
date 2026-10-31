@@ -478,7 +478,6 @@
   "run npm test verification",
   "Grep for undefined functions",
   "grep for undefined functions",
-  "run family_accordion tests",
   "re-inject fixed skill panel into Antigravity",
   "test clicking family update button",
   "run live family update test",
@@ -520,7 +519,6 @@
   "Turn 28 of 28",
   "Turn 29 of 29",
   "search findCriticalSkills in src",
-  "Turn 30 of 30",
   "search CSS notice selectors",
   "Sample banner pixels",
   "sample banner pixels",
@@ -566,5 +564,13 @@
   "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
   "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
   "Humanizer Text",
-  "find all calls to showSuccessNotice"
+  "find all calls to showSuccessNotice",
+  "run family_accordion tests",
+  "inject updated UI via CDP",
+  "inspect initial state of banner via CDP",
+  "trigger success notice and inspect computed styles",
+  "capture live screenshot of green banner",
+  "Turn 30 of 30",
+  "Capture live screenshot with CDP",
+  "capture live screenshot with CDP"
 ]
