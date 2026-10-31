@@ -588,13 +588,6 @@
   "fetch skills count from daemon",
   "find DevTools port",
   "check CDP status",
-  "v0.3.0",
-  "Anti-Slop",
-  "Agent Memory",
-  "Humanizer",
-  "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
-  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
-  "Humanizer Text",
   "inspect modal state via CDP",
   "Switch to updates tab and capture",
   "switch to updates tab and capture",
@@ -644,5 +637,12 @@
   "capture final screenshot",
   "check data-tab attributes",
   "Switch to all tab and capture",
-  "switch to all tab and capture"
+  "switch to all tab and capture",
+  "v0.3.0",
+  "Anti-Slop",
+  "Agent Memory",
+  "Humanizer",
+  "Human and accessibility skill for antislop. Contrast, keyboard, focus, states, and interaction affordances for real people. Includes the contrast checker.",
+  "UI and visual skill for antislop. Use when building or editing any interface: color, layout, components, motion, and page performance. Load with the core.",
+  "Humanizer Text"
 ]
