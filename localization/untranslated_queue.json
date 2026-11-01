@@ -7,5 +7,9 @@
   "inspect current social folder tree",
   "list photo directory",
   "check if Harmonious-Thinker-Media exists",
-  "Copy social folder to Harmonious-Thinker-Media"
+  "Copy social folder to Harmonious-Thinker-Media",
+  "list Harmonious-Thinker-Media root",
+  "check references to photo/",
+  "init git in Harmonious-Thinker-Media",
+  "Init git in Harmonious-Thinker-Media"
 ]
