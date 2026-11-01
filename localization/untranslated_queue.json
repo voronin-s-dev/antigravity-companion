@@ -244,5 +244,6 @@
   "Slide 04",
   "Close Slide 04",
   "check render_showcase.py for highlights",
-  "find dashboard mention in transcript"
+  "find dashboard mention in transcript",
+  "find human/dashboard prompt in transcript"
 ]
