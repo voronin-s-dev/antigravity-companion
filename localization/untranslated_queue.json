@@ -256,5 +256,6 @@
   "find earlier png renders in transcript",
   "search for glow, badges, liked in transcript",
   "list files in video_engine/out",
-  "Render updated carousel with glow, highlights, and plates"
+  "Render updated carousel with glow, highlights, and plates",
+  "test title and principles parsing with markdown"
 ]
