@@ -288,5 +288,12 @@
   "Extract frames from video",
   "extract frames from video",
   "check transcription packages",
-  "run faster-whisper transcription"
+  "run faster-whisper transcription",
+  "check task-118 log",
+  "\"Claude Code\" \"Earshot\" OR \"Openverse\" OR \"Real SFX\" OR \"ReelSFX\"",
+  "\"Leonxlnx/earshot\" OR site:github.com/Leonxlnx",
+  "site:github.com/Leonxlnx/earshot",
+  "find extracted jpgs",
+  "check OCR packages",
+  "\"Reel SFX\" OR \"Reels SFX\" Claude Code OR \"Openverse\" audio OR \"Leonxlnx\""
 ]
