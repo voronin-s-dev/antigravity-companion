@@ -116,7 +116,6 @@
   "check DASHBOARDS_DIR usage in bot/",
   "read active_tunnel_url.txt",
   "public",
-  "Start Telegram bot with new commands",
   "check existing battery carousel slides",
   "list instagram directory",
   "test remotion still render",
@@ -162,5 +161,10 @@
   "check Buffer history for Threads",
   "Content Publishing And Strategy Plan",
   "Harmonious-Thinker-Media",
-  "Close Test Stardust Golos"
+  "Close Test Stardust Golos",
+  "Go to turn 7 of 19",
+  "Go to turn 8 of 19",
+  "search tripwire and pay_stars handlers",
+  "inspect build_smart_paywall_text",
+  "Start Telegram bot with new commands"
 ]
