@@ -78,5 +78,13 @@
   "Message from Social Copywriter (social-copywriter)",
   "verify linter on carousel draft",
   "Open aar skill",
-  "check Remotion CLI"
+  "check Remotion CLI",
+  "social-scriptwriter subagent",
+  "social-motion-producer subagent",
+  "Render test carousel slide with Remotion still",
+  "check webpack error in Remotion still",
+  "render test carousel slide with Remotion",
+  "Render test carousel slide with Remotion",
+  "verify rendered test slide PNG",
+  "check image dimensions"
 ]
