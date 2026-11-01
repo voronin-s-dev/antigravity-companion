@@ -245,5 +245,15 @@
   "Close Slide 04",
   "check render_showcase.py for highlights",
   "find dashboard mention in transcript",
-  "find human/dashboard prompt in transcript"
+  "find human/dashboard prompt in transcript",
+  "check bot storage",
+  "find grant_passport_access in tests",
+  "list runs in .agents/aar/runs",
+  "find lines with 08.11.1995",
+  "test date regex on teaser text",
+  "find 100% comment in transcript",
+  "print all user requests from transcript",
+  "find earlier png renders in transcript",
+  "search for glow, badges, liked in transcript",
+  "list files in video_engine/out"
 ]
