@@ -57,5 +57,6 @@
   "scan all .env files for bots",
   "test sending message from other bots",
   "test sending message from other bots with utf-8",
-  "check Threads Copilot bot identity"
+  "check Threads Copilot bot identity",
+  "test create calendar event"
 ]
