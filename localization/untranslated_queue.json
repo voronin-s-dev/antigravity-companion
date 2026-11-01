@@ -298,5 +298,6 @@
   "\"Reel SFX\" OR \"Reels SFX\" Claude Code OR \"Openverse\" audio OR \"Leonxlnx\"",
   "\"Reel SFX\" OR \"Reels SFX\" github OR \"clipwing\"",
   "check GEMINI_API_KEY",
-  "print clean json info"
+  "print clean json info",
+  "Your plan's baseline quota will refresh on 05.11.2026, 21:16:54. To continue using this model now, enable AI Credit overages."
 ]
