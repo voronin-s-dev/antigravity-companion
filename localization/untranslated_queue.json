@@ -109,5 +109,6 @@
   "run keep_supabase_alive.py with UTF-8",
   "Restart Telegram bot daemon",
   "restart Telegram bot daemon",
-  "assets"
+  "assets",
+  "video_engine"
 ]
