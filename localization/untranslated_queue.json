@@ -13,5 +13,8 @@
   "init git in Harmonious-Thinker-Media",
   "Init git in Harmonious-Thinker-Media",
   "check ignored files",
-  "create telegram and youtube_shorts folders"
+  "create telegram and youtube_shorts folders",
+  "check if specs exist",
+  "copy CLIENT_STANDARD_V5.md to knowledge",
+  "test buffer_manager in new project"
 ]
