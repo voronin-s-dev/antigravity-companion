@@ -117,5 +117,6 @@
   "check generated dashboard over current tunnel",
   "check DASHBOARDS_DIR usage in bot/",
   "read active_tunnel_url.txt",
-  "public"
+  "public",
+  "Start Telegram bot with new commands"
 ]
