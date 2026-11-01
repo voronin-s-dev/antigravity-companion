@@ -31,5 +31,8 @@
   "check python launcher",
   "Get threads history from Buffer",
   "get threads history from Buffer",
-  "list files in instagram and threads"
+  "list files in instagram and threads",
+  "plugin accounts",
+  "check .env files",
+  "check configured environment keys"
 ]
