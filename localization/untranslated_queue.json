@@ -89,5 +89,9 @@
   "check image dimensions",
   "run automated carousel rendering",
   "Render carousel with fixed props path",
-  "render carousel with fixed props path"
+  "render carousel with fixed props path",
+  "read task-280 log tail",
+  "list rendered slides",
+  "check rendered slides progress",
+  "check slides count"
 ]
