@@ -59,5 +59,6 @@
   "test sending message from other bots with utf-8",
   "check Threads Copilot bot identity",
   "test create calendar event",
-  "delete test calendar event"
+  "delete test calendar event",
+  "send test alert to author Telegram"
 ]
