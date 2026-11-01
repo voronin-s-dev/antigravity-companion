@@ -333,5 +333,7 @@
   "run fetch_tg.py with utf-8 encoding",
   "Clean em-dashes and down arrows in launch triad file",
   "clean em-dashes and down arrows in launch triad file",
-  "run lint_content.py registry check"
+  "run lint_content.py registry check",
+  "inspect parsed slide structure",
+  "check rendered slide output directory"
 ]
