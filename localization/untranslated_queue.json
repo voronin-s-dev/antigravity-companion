@@ -287,5 +287,6 @@
   "extract audio with ffmpeg",
   "Extract frames from video",
   "extract frames from video",
-  "check transcription packages"
+  "check transcription packages",
+  "run faster-whisper transcription"
 ]
