@@ -61,5 +61,12 @@
   "test create calendar event",
   "delete test calendar event",
   "send test alert to author Telegram",
-  "test post extraction"
+  "test post extraction",
+  "verify lint_text on Post 1",
+  "check Threads channel ID",
+  "verify UTC conversion",
+  "Schedule Post 1 in Buffer for 19:30",
+  "schedule Post 1 in Buffer for 19:30",
+  "check calendar events for today",
+  "delete stale Buffer draft"
 ]
