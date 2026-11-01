@@ -110,5 +110,11 @@
   "Restart Telegram bot daemon",
   "restart Telegram bot daemon",
   "assets",
-  "video_engine"
+  "video_engine",
+  "check Supabase Storage headers",
+  "test current tunnel URL",
+  "check generated user reports",
+  "check generated dashboard over current tunnel",
+  "check DASHBOARDS_DIR usage in bot/",
+  "read active_tunnel_url.txt"
 ]
