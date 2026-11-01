@@ -67,7 +67,6 @@
   "social-copywriter subagent",
   "Defining social-qa-skeptic subagent",
   "social-qa-skeptic subagent",
-  "Social Copywriter",
   "Open Subagent: Social Copywriter (social-copywriter)",
   "Message from Social Copywriter (social-copywriter)",
   "verify linter on carousel draft",
@@ -364,5 +363,7 @@
   "Slide1 Avatar Palette V2",
   "Slide3 Avatar Palette V2",
   "Close Slide1 Avatar Palette V2",
-  "Close Slide3 Avatar Palette V2"
+  "Close Slide3 Avatar Palette V2",
+  "Social Copywriter",
+  "Render slide 1 using carousel_engine render_slide"
 ]
