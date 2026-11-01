@@ -60,5 +60,6 @@
   "check Threads Copilot bot identity",
   "test create calendar event",
   "delete test calendar event",
-  "send test alert to author Telegram"
+  "send test alert to author Telegram",
+  "test post extraction"
 ]
