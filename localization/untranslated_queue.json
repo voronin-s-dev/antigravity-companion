@@ -118,5 +118,7 @@
   "check DASHBOARDS_DIR usage in bot/",
   "read active_tunnel_url.txt",
   "public",
-  "Start Telegram bot with new commands"
+  "Start Telegram bot with new commands",
+  "check existing battery carousel slides",
+  "list instagram directory"
 ]
