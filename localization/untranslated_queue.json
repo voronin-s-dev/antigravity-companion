@@ -276,5 +276,16 @@
   "check aar skill directory structure",
   "find stale numerology references in knowledge directory",
   "run knowledge audit check again",
-  "check for remaining stale manifesto strings"
+  "check for remaining stale manifesto strings",
+  "\"DfMeRwnRMEF\" OR site:instagram.com/reel/DfMeRwnRMEF",
+  "check yt-dlp and curl availability",
+  "Extract Instagram Reel metadata",
+  "extract Instagram Reel metadata",
+  "Download reel video",
+  "download reel video",
+  "Extract audio with ffmpeg",
+  "extract audio with ffmpeg",
+  "Extract frames from video",
+  "extract frames from video",
+  "check transcription packages"
 ]
