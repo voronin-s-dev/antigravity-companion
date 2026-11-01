@@ -103,5 +103,7 @@
   "Launch Telegram bot daemon",
   "ping Supabase project to reset activity timer",
   "Ping Supabase project to reset activity timer",
-  "check if ping function exists"
+  "check if ping function exists",
+  "Confirm process 29788 is bot.main",
+  "confirm process 29788 is bot.main"
 ]
