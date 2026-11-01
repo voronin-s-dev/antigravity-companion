@@ -167,5 +167,6 @@
   "search tripwire and pay_stars handlers",
   "inspect build_smart_paywall_text",
   "Start Telegram bot with new commands",
-  "search test_issue across repo"
+  "search test_issue across repo",
+  "check tests for build_smart_paywall_keyboard"
 ]
