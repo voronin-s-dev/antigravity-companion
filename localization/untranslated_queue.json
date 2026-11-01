@@ -116,5 +116,6 @@
   "check generated user reports",
   "check generated dashboard over current tunnel",
   "check DASHBOARDS_DIR usage in bot/",
-  "read active_tunnel_url.txt"
+  "read active_tunnel_url.txt",
+  "public"
 ]
