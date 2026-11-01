@@ -255,5 +255,6 @@
   "print all user requests from transcript",
   "find earlier png renders in transcript",
   "search for glow, badges, liked in transcript",
-  "list files in video_engine/out"
+  "list files in video_engine/out",
+  "Render updated carousel with glow, highlights, and plates"
 ]
