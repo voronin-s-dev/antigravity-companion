@@ -106,5 +106,7 @@
   "check if ping function exists",
   "Confirm process 29788 is bot.main",
   "confirm process 29788 is bot.main",
-  "run keep_supabase_alive.py with UTF-8"
+  "run keep_supabase_alive.py with UTF-8",
+  "Restart Telegram bot daemon",
+  "restart Telegram bot daemon"
 ]
