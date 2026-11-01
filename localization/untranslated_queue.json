@@ -97,5 +97,11 @@
   "Block focus time before Friday's launch review",
   "gcalendar (CLI)",
   "verify registry balance after update",
-  "instagram reels archive hack reach algorithm"
+  "instagram reels archive hack reach algorithm",
+  "verify generated 2K background asset",
+  "check dimensions of 2K asset",
+  "Launch Telegram bot daemon",
+  "ping Supabase project to reset activity timer",
+  "Ping Supabase project to reset activity timer",
+  "check if ping function exists"
 ]
