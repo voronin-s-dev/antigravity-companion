@@ -284,12 +284,7 @@
   "site:github.com/Leonxlnx/earshot \"SKILL.md\" OR \"mcp\"",
   "site:github.com/Leonxlnx/earshot \"skills/\" OR \"INTEGRATION.md\"",
   "site:github.com/Leonxlnx/cinetic",
-  "Slide3 Avatar Palette",
-  "Close Slide3 Avatar Palette",
-  "Slide1 Avatar Palette",
-  "Close Slide1 Avatar Palette",
   "Slide 01",
-  "Close Slide 01",
   "Slide 02",
   "Close Slide 02",
   "Slide 03",
@@ -335,5 +330,10 @@
   "clean em-dashes and down arrows in launch triad file",
   "run lint_content.py registry check",
   "inspect parsed slide structure",
-  "check rendered slide output directory"
+  "check rendered slide output directory",
+  "Slide3 Avatar Palette",
+  "Slide1 Avatar Palette",
+  "Close Slide3 Avatar Palette",
+  "Close Slide1 Avatar Palette",
+  "Close Slide 01"
 ]
