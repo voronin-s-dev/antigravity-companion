@@ -68,5 +68,11 @@
   "Schedule Post 1 in Buffer for 19:30",
   "schedule Post 1 in Buffer for 19:30",
   "check calendar events for today",
-  "delete stale Buffer draft"
+  "delete stale Buffer draft",
+  "Defining social-copywriter subagent",
+  "social-copywriter subagent",
+  "Defining social-qa-skeptic subagent",
+  "social-qa-skeptic subagent",
+  "Social Copywriter",
+  "Open Subagent: Social Copywriter (social-copywriter)"
 ]
