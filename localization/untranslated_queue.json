@@ -16,5 +16,6 @@
   "create telegram and youtube_shorts folders",
   "check if specs exist",
   "copy CLIENT_STANDARD_V5.md to knowledge",
-  "test buffer_manager in new project"
+  "test buffer_manager in new project",
+  "help for lint_content"
 ]
