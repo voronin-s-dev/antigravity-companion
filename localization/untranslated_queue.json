@@ -146,5 +146,17 @@
   "check available Google Fonts in node",
   "check Cyrillic range for candidate fonts",
   "test loading modern grotesk fonts in node",
-  "test Rubik and Geologica"
+  "test Rubik and Geologica",
+  "Slide1 Hook Onest",
+  "Close Slide1 Hook Onest",
+  "Slide3 Principles Inter",
+  "Close Slide3 Principles Inter",
+  "Slide1 Hook Golos",
+  "Close Slide1 Hook Golos",
+  "Slide3 Principles Golos",
+  "Close Slide3 Principles Golos",
+  "Slide1 Hook Inter",
+  "Close Slide1 Hook Inter",
+  "Slide3 Principles Onest",
+  "Close Slide3 Principles Onest"
 ]
