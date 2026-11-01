@@ -86,5 +86,8 @@
   "render test carousel slide with Remotion",
   "Render test carousel slide with Remotion",
   "verify rendered test slide PNG",
-  "check image dimensions"
+  "check image dimensions",
+  "run automated carousel rendering",
+  "Render carousel with fixed props path",
+  "render carousel with fixed props path"
 ]
