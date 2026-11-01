@@ -25,5 +25,11 @@
   "clean up old social directory",
   "check social git status in bot",
   "Downloads",
-  "Project deleted"
+  "Project deleted",
+  "search for linter script",
+  "list Buffer drafts",
+  "check python launcher",
+  "Get threads history from Buffer",
+  "get threads history from Buffer",
+  "list files in instagram and threads"
 ]
