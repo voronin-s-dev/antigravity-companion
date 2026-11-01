@@ -40,7 +40,6 @@
   "Block focus time before Friday's launch review",
   "gcalendar (CLI)",
   "Content Publishing And Strategy Plan",
-  "Harmonious-Thinker-Media",
   "Initialize gcalendar CLI",
   "initialize gcalendar CLI",
   "list Google Calendars",
@@ -93,5 +92,8 @@
   "read task-280 log tail",
   "list rendered slides",
   "check rendered slides progress",
-  "check slides count"
+  "check slides count",
+  "Harmonious-Thinker-Media",
+  "output",
+  "cnt_008_battery"
 ]
