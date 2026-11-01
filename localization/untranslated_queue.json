@@ -39,7 +39,6 @@
   "What's on my calendar today? Flag any conflicts",
   "Block focus time before Friday's launch review",
   "gcalendar (CLI)",
-  "Content Publishing And Strategy Plan",
   "Initialize gcalendar CLI",
   "initialize gcalendar CLI",
   "list Google Calendars",
@@ -95,5 +94,6 @@
   "check slides count",
   "Harmonious-Thinker-Media",
   "output",
-  "cnt_008_battery"
+  "cnt_008_battery",
+  "Content Publishing And Strategy Plan"
 ]
