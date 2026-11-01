@@ -35,10 +35,6 @@
   "plugin accounts",
   "check .env files",
   "check configured environment keys",
-  "Book 30 minutes with Priya and Sam next week",
-  "What's on my calendar today? Flag any conflicts",
-  "Block focus time before Friday's launch review",
-  "gcalendar (CLI)",
   "Initialize gcalendar CLI",
   "initialize gcalendar CLI",
   "list Google Calendars",
@@ -95,5 +91,9 @@
   "Harmonious-Thinker-Media",
   "output",
   "cnt_008_battery",
-  "Content Publishing And Strategy Plan"
+  "Content Publishing And Strategy Plan",
+  "Book 30 minutes with Priya and Sam next week",
+  "What's on my calendar today? Flag any conflicts",
+  "Block focus time before Friday's launch review",
+  "gcalendar (CLI)"
 ]
