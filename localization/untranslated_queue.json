@@ -320,5 +320,15 @@
   "Turn 14 of 17",
   "Turn 15 of 17",
   "Turn 16 of 17",
-  "Content Publishing And Strategy Plan"
+  "Content Publishing And Strategy Plan",
+  "check git commit history",
+  "list files in telegram directory",
+  "check public Telegram channel preview",
+  "Extract messages from live Telegram channel",
+  "extract messages from live Telegram channel",
+  "check HTML fetch length",
+  "Print all live messages from Telegram channel",
+  "print all live messages from Telegram channel",
+  "fetch and display live Telegram channel posts",
+  "run fetch_tg.py with utf-8 encoding"
 ]
