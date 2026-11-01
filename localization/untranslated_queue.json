@@ -232,5 +232,7 @@
   "list user projects",
   "\"heydamir/unslop\" OR \"damir sokolovsky\" unslop",
   "\"github.com/heydamir/unslop\" SKILL.md OR \"9 passes\"",
-  "site:raw.githubusercontent.com heydamir/unslop \"SKILL.md\" OR site:github.com/heydamir/unslop"
+  "site:raw.githubusercontent.com heydamir/unslop \"SKILL.md\" OR site:github.com/heydamir/unslop",
+  "\"heydamir/unslop\" \"Spacing\" \"Color\" \"Icons\" \"Copy\" \"Type\" \"Layout\"",
+  "\"heydamir/unslop\" \"Pass 7\" OR \"Pass 8\" OR \"Pass 9\" OR \"Details\" \"Visuals\" \"Motion\""
 ]
