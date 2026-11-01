@@ -121,5 +121,18 @@
   "Start Telegram bot with new commands",
   "check existing battery carousel slides",
   "list instagram directory",
-  "test remotion still render"
+  "test remotion still render",
+  "Render humanist editorial slide preview",
+  "render humanist editorial slide preview",
+  "Render battery carousel v2 with humanist editorial template",
+  "render battery carousel v2 with humanist editorial template",
+  "check battery v2 rendered files",
+  "Wait for remaining slides to render",
+  "wait for remaining slides to render",
+  "check rendered slide count",
+  "check for slides 5 and 6",
+  "check all 6 slides complete",
+  "Confirm slide 6 exists",
+  "confirm slide 6 exists",
+  "check if DESIGN_SYSTEM_CAROUSELS.md exists"
 ]
