@@ -88,7 +88,6 @@
   "list rendered slides",
   "check rendered slides progress",
   "check slides count",
-  "output",
   "cnt_008_battery",
   "Book 30 minutes with Priya and Sam next week",
   "What's on my calendar today? Flag any conflicts",
@@ -257,5 +256,7 @@
   "search for glow, badges, liked in transcript",
   "list files in video_engine/out",
   "Render updated carousel with glow, highlights, and plates",
-  "test title and principles parsing with markdown"
+  "test title and principles parsing with markdown",
+  "output",
+  "carousel_01_battery"
 ]
