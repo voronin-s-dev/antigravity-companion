@@ -115,5 +115,7 @@
   "list files in companion src",
   "list companion files",
   "list localization directory",
-  "check CDP doctor"
+  "check CDP doctor",
+  "check if translations_to_merge exists",
+  "run tests in antigravity-companion"
 ]
