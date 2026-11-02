@@ -69,5 +69,7 @@
   "check aar-log.md path",
   "check for aar folder in Freewallet",
   "list files in .agents/aar",
-  "check aar skill template files"
+  "check aar skill template files",
+  "search files for notes about superfluous details",
+  "search brain transcripts for discussions on superfluous details"
 ]
