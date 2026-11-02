@@ -271,5 +271,10 @@
   "run comprehensive cursor suite integrity test",
   "check task-490 log output",
   "check test process",
-  "update installed files and registry entry"
+  "update installed files and registry entry",
+  "update registry scheme value",
+  "Repackage backup archive",
+  "repackage backup archive",
+  "check aar directories in project",
+  "list files in aar skill folder"
 ]
