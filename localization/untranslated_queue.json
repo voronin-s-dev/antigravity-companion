@@ -339,5 +339,10 @@
   "build and test link breathing ani",
   "Copy link pulse gif to artifact directory",
   "copy link pulse gif to artifact directory",
-  "list scratch directory files"
+  "list scratch directory files",
+  "check preview showcase HTML exists",
+  "Get current date",
+  "get current date",
+  "check daily focus generator script",
+  "run daily focus generator"
 ]
