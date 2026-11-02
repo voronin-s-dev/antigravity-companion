@@ -375,5 +375,7 @@
   "Turn 25 of 29",
   "Turn 26 of 29",
   "Turn 27 of 29",
-  "Turn 28 of 29"
+  "Turn 28 of 29",
+  "run test_buffer_thread.py for ThreadsPostMetadataInput",
+  "check Thread input type in Buffer"
 ]
