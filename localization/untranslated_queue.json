@@ -255,5 +255,21 @@
   "test anih with bitcount and planes",
   "test loading frame as cur",
   "test re-encoded aero ani",
-  "test ANI frames with different resolutions"
+  "test ANI frames with different resolutions",
+  "test fix on single theme directory",
+  "re-run upgrade across all 90 themes",
+  "Re-run upgrade across all 90 themes",
+  "check task-459 log progress",
+  "read task-459 log tail",
+  "check count of recently modified theme folders",
+  "check python processes",
+  "Count updated theme folders",
+  "count updated theme folders",
+  "check if preview_icons has stray cur files",
+  "Clean stray cursors from preview_icons",
+  "clean stray cursors from preview_icons",
+  "run comprehensive cursor suite integrity test",
+  "check task-490 log output",
+  "check test process",
+  "update installed files and registry entry"
 ]
