@@ -61,5 +61,13 @@
   "test fixed topic regex",
   "verify extract_post_text topic output",
   "run knowledge base linter",
-  "AnkiGravity Companion Restarts After Sleep"
+  "AnkiGravity Companion Restarts After Sleep",
+  "search for follow-up and superfluous in project texts",
+  "search for follow-up in earlier transcript",
+  "search transcript with UTF-8 printing",
+  "check for existing aar files",
+  "check aar-log.md path",
+  "check for aar folder in Freewallet",
+  "list files in .agents/aar",
+  "check aar skill template files"
 ]
