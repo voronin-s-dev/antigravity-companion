@@ -77,5 +77,18 @@
   "Worked for 7h 59m",
   "Worked for 8h 3m",
   "Worked for 8h 6m",
-  "Worked for 8h 10m"
+  "Worked for 8h 10m",
+  "read build_compatibility_dashboard_html in report_builder",
+  "run check_generated_compat with PYTHONPATH",
+  "check actual calculations for pair",
+  "find compat tests",
+  "list all module headers in master template",
+  "check MBTI in generated HTML",
+  "check calculate_pair_compatibility output",
+  "check universal_compatibility_builder structure",
+  "find calculate_pair_compatibility references",
+  "list template files",
+  "inspect dynamic compatibility generation output",
+  "search for Arcana 14 in generated HTML",
+  "inspect universal_dashboard_builder.py size"
 ]
