@@ -335,5 +335,8 @@
   "repackage backup archive",
   "check task-721 log",
   "Copy updated link cursor to Windows directory",
-  "copy updated link cursor to Windows directory"
+  "copy updated link cursor to Windows directory",
+  "build and test link breathing ani",
+  "Copy link pulse gif to artifact directory",
+  "copy link pulse gif to artifact directory"
 ]
