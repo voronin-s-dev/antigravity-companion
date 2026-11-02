@@ -118,5 +118,8 @@
   "check CDP doctor",
   "check if translations_to_merge exists",
   "run tests in antigravity-companion",
-  "merge translations"
+  "merge translations",
+  "Hot-reload translator and widget",
+  "hot-reload translator and widget",
+  "Daily Focus Inquiry"
 ]
