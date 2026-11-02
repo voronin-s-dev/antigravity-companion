@@ -370,5 +370,6 @@
   "Render avatar_showcase slides",
   "Render carousel with fixed props path",
   "Render test carousel slide with Remotion",
-  "Render test carousel slide with Remotion still"
+  "Render test carousel slide with Remotion still",
+  "check buffer_manager.py publish help"
 ]
