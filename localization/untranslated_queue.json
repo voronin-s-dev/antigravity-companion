@@ -138,5 +138,12 @@
   "inspect post and thread text in Buffer",
   "search transcript for post creation",
   "inspect steps 220-223 in transcript",
-  "find publish command in transcript"
+  "find publish command in transcript",
+  "check Threads profile page content",
+  "list files in .claude/aar",
+  "list runs in .claude/aar/runs",
+  "find aar-log.md location",
+  "Grep aar-log for related keywords",
+  "grep aar-log for related keywords",
+  "check deletePost availability"
 ]
