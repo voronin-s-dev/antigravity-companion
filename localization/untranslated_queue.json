@@ -95,5 +95,13 @@
   "Extract YouTube video metadata",
   "find references to calculate_pair_compatibility",
   "check test_calculator.py for calculate_pair_compatibility",
-  "check weekly-skills-updater sidecar"
+  "check weekly-skills-updater sidecar",
+  "extract reel metadata",
+  "Extract reel metadata",
+  "Download reel Dc_YuVSDini",
+  "download reel Dc_YuVSDini",
+  "Extract audio from reel",
+  "extract audio from reel",
+  "Transcribe audio with faster-whisper",
+  "transcribe audio with faster-whisper"
 ]
