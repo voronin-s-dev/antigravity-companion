@@ -63,13 +63,25 @@ async function checkForUpdates() {
   const hasGit = fs.existsSync(gitDir);
   let gitBehind = 0;
   let hasGitUpdate = false;
+  let hasGitAppUpdate = false;
+  let hasGitDictUpdate = false;
 
   if (hasGit) {
     try {
       execSync('git fetch origin', { timeout: 6000, stdio: 'ignore' });
       const behind = execSync('git rev-list HEAD..origin/main --count', { timeout: 4000 }).toString().trim();
       gitBehind = parseInt(behind, 10) || 0;
-      hasGitUpdate = gitBehind > 0;
+      if (gitBehind > 0) {
+        hasGitUpdate = true;
+        const changedFiles = execSync('git diff --name-only HEAD..origin/main', { timeout: 4000 })
+          .toString().trim().split('\n').map(s => s.trim()).filter(Boolean);
+        const codeFiles = changedFiles.filter(f => !f.startsWith('localization/'));
+        if (codeFiles.length > 0) {
+          hasGitAppUpdate = true;
+        } else {
+          hasGitDictUpdate = true;
+        }
+      }
     } catch (e) {}
   }
 
@@ -89,12 +101,12 @@ async function checkForUpdates() {
     }
   } catch (e) {}
 
-  if (hasGitUpdate) {
-    hasAppUpdate = true;
+  if (hasGit) {
+    hasAppUpdate = hasGitAppUpdate || isNewerVersion(remoteVersion, pkg.version);
   }
 
   let remoteTerms = localTerms;
-  let hasDictUpdate = false;
+  let hasDictUpdate = hasGitDictUpdate;
   try {
     const dictResp = await fetch(DICT_URL, {
       signal: AbortSignal.timeout(6000)
@@ -125,7 +137,7 @@ async function checkForUpdates() {
     diffTerms: Math.max(0, remoteTerms - localTerms),
     hasGit,
     behindCommits: gitBehind,
-    updateMode: hasGit ? (hasGitUpdate ? 'git' : (hasDictUpdate ? 'http_dict' : 'none')) : (hasAppUpdate ? 'zip_app' : (hasDictUpdate ? 'http_dict' : 'none'))
+    updateMode: hasGit ? (hasGitAppUpdate ? 'git_app' : (hasGitDictUpdate ? 'git_dict' : 'none')) : (hasAppUpdate ? 'zip_app' : (hasDictUpdate ? 'http_dict' : 'none'))
   };
 }
 
@@ -303,8 +315,14 @@ async function applyAppUpdate() {
       execSync('git pull --ff-only origin main', { cwd: repoRoot, timeout: 15000, stdio: 'ignore' });
       updatedVia = 'git';
     } catch (gitErr) {
-      // При конфликте или ошибке git pull переключаемся на безопасную загрузку архива
-      updatedVia = 'zip';
+      try {
+        // При расхождении веток пробуем безопасное слияние истории без перезаписи локальных файлов
+        execSync('git merge --no-edit origin/main', { cwd: repoRoot, timeout: 15000, stdio: 'ignore' });
+        updatedVia = 'git';
+      } catch (mergeErr) {
+        try { execSync('git merge --abort', { cwd: repoRoot, stdio: 'ignore' }); } catch (aErr) {}
+        throw new Error(`Не удалось синхронизировать репозиторий через Git: ${mergeErr.message || gitErr.message}`);
+      }
     }
   }
 
@@ -428,6 +446,11 @@ async function applyAppUpdate() {
   };
 }
 
+let lastAppUpdateTime = 0;
+let lastOtaCheckTime = 0;
+const MIN_APP_UPDATE_INTERVAL_MS = 10 * 60 * 1000; // Минимум 10 минут между полными обновлениями приложения
+const MIN_OTA_CHECK_INTERVAL_MS = 15 * 1000; // Минимум 15 секунд между проверками
+
 /**
  * Двусторонняя фоновая синхронизация без потерь:
  * 1) Автоматически обновляет всё приложение (скрипты, виджет, движок) при выходе нового релиза.
@@ -437,6 +460,10 @@ async function applyAppUpdate() {
  */
 async function runSilentOtaCheck(logger) {
   if (isSyncInProgress) return false;
+  const now = Date.now();
+  if (now - lastOtaCheckTime < MIN_OTA_CHECK_INTERVAL_MS) return false;
+  lastOtaCheckTime = now;
+
   isSyncInProgress = true;
   const log = typeof logger === 'function' ? logger : console.log;
   const repoRoot = path.resolve(__dirname, '..');
@@ -451,14 +478,19 @@ async function runSilentOtaCheck(logger) {
     let result = null;
 
     if (status.hasAppUpdate) {
-      log(`[OTA Update] Обнаружена новая версия приложения Companion (${status.currentVersion} -> ${status.remoteVersion || 'main'}). Запуск полного автообновления...`);
-      try {
-        result = await applyAppUpdate();
-        log(`[OTA Update] ✓ ${result.message}`);
-      } catch (appErr) {
-        log(`[OTA Update] Предупреждение при автообновлении приложения: ${appErr.message}. Переход на обновление словаря...`);
-        result = await applyUpdates();
-        log(`[OTA Update] ✓ ${result.message}`);
+      if (now - lastAppUpdateTime < MIN_APP_UPDATE_INTERVAL_MS) {
+        log(`[OTA Update] Полное автообновление приложения отложено (интервал защиты от циклов: ${Math.round((MIN_APP_UPDATE_INTERVAL_MS - (now - lastAppUpdateTime)) / 1000)}с).`);
+      } else {
+        log(`[OTA Update] Обнаружена новая версия приложения Companion (${status.currentVersion} -> ${status.remoteVersion || 'main'}). Запуск полного автообновления...`);
+        try {
+          result = await applyAppUpdate();
+          lastAppUpdateTime = Date.now();
+          log(`[OTA Update] ✓ ${result.message}`);
+        } catch (appErr) {
+          log(`[OTA Update] Предупреждение при автообновлении приложения: ${appErr.message}. Переход на обновление словаря...`);
+          result = await applyUpdates();
+          log(`[OTA Update] ✓ ${result.message}`);
+        }
       }
     } else {
       if (status.hasDictUpdate) {
@@ -492,8 +524,23 @@ async function runSilentOtaCheck(logger) {
         }
         const ahead = parseInt(execSync('git rev-list origin/main..HEAD --count', { cwd: repoRoot, timeout: 4000 }).toString().trim(), 10) || 0;
         if (ahead > 0) {
-          execSync('git push origin main', { cwd: repoRoot, timeout: 15000, stdio: 'ignore' });
-          log(`[OTA Sync] ✓ Очередь непереведенных строк (${result.queueSize} шт.) автоматически сохранена в GitHub.`);
+          try {
+            execSync('git push origin main', { cwd: repoRoot, timeout: 15000, stdio: 'ignore' });
+            log(`[OTA Sync] ✓ Очередь непереведенных строк (${(result && result.queueSize) || 0} шт.) автоматически сохранена в GitHub.`);
+          } catch (pushErr) {
+            // Если push отклонен из-за расхождения с origin/main, пробуем безопасное слияние словаря
+            try {
+              execSync('git fetch origin main', { cwd: repoRoot, timeout: 10000, stdio: 'ignore' });
+              const behind = parseInt(execSync('git rev-list HEAD..origin/main --count', { cwd: repoRoot, timeout: 4000 }).toString().trim(), 10) || 0;
+              if (behind > 0) {
+                await applyUpdates();
+                execSync('git push origin main', { cwd: repoRoot, timeout: 15000, stdio: 'ignore' });
+                log(`[OTA Sync] ✓ Ветки успешно синхронизированы и очередь сохранена в GitHub.`);
+              }
+            } catch (mergePushErr) {
+              log(`[OTA Sync] Отправка очереди отложена (нет сети или занят Git, данные надежно сохранены на диске): ${pushErr.message}`);
+            }
+          }
         }
       } catch (pushErr) {
         log(`[OTA Sync] Отправка очереди отложена (нет сети или занят Git, данные надежно сохранены на диске): ${pushErr.message}`);
