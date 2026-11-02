@@ -131,5 +131,12 @@
   "Turn 30 of 34",
   "Turn 31 of 34",
   "Turn 32 of 34",
-  "Turn 33 of 34"
+  "Turn 33 of 34",
+  "test Telegram notification",
+  "check post status in Buffer",
+  "test gcalendar CLI command",
+  "inspect post and thread text in Buffer",
+  "search transcript for post creation",
+  "inspect steps 220-223 in transcript",
+  "find publish command in transcript"
 ]
