@@ -233,5 +233,7 @@
   "Daily Focus Inquiry",
   "check Buffer post history for Instagram",
   "check rendered slides of Manifesto carousel",
-  "lint_content.py help"
+  "lint_content.py help",
+  "check Pillow version",
+  "search for test_cur.py in brain"
 ]
