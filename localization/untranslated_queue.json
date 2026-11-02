@@ -60,5 +60,6 @@
   "debug step 5",
   "test fixed topic regex",
   "verify extract_post_text topic output",
-  "run knowledge base linter"
+  "run knowledge base linter",
+  "AnkiGravity Companion Restarts After Sleep"
 ]
