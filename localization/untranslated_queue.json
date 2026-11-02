@@ -117,5 +117,6 @@
   "list localization directory",
   "check CDP doctor",
   "check if translations_to_merge exists",
-  "run tests in antigravity-companion"
+  "run tests in antigravity-companion",
+  "merge translations"
 ]

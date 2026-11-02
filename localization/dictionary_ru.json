@@ -12901,7 +12901,12 @@
     "Turn 17 of 21": "Ход 17 из 21",
     "Turn 18 of 21": "Ход 18 из 21",
     "Turn 19 of 21": "Ход 19 из 21",
-    "Turn 20 of 21": "Ход 20 из 21"
+    "Turn 20 of 21": "Ход 20 из 21",
+    "Open in": "Открыть в",
+    "Built-in Browser (Default)": "Встроенный браузер (по умолчанию)",
+    "Built-in browser (Default)": "Встроенный браузер (по умолчанию)",
+    "External Browser (Default)": "Внешний браузер (по умолчанию)",
+    "External browser (Default)": "Внешний браузер (по умолчанию)"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
