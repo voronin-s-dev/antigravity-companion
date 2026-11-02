@@ -371,5 +371,7 @@
   "Render carousel with fixed props path",
   "Render test carousel slide with Remotion",
   "Render test carousel slide with Remotion still",
-  "check buffer_manager.py publish help"
+  "check buffer_manager.py publish help",
+  "check Buffer CreatePostInput schema",
+  "check CreatePostInput fields in Buffer"
 ]
