@@ -187,5 +187,6 @@
   "delete test event from Google Calendar",
   "gcalendar delete help",
   "delete test event by ID",
-  "verify extract_post_text on Descartes thread"
+  "verify extract_post_text on Descartes thread",
+  "check recent posts in Threads channel"
 ]
