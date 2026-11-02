@@ -383,5 +383,7 @@
   "check user profile in JSON",
   "read log with utf-8",
   "search keepalive in bot",
-  "find ping_supabase usages"
+  "find ping_supabase usages",
+  "check github workflows",
+  "find active trycloudflare URL"
 ]
