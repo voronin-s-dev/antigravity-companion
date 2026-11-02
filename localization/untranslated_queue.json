@@ -373,5 +373,6 @@
   "Render test carousel slide with Remotion still",
   "check buffer_manager.py publish help",
   "check Buffer CreatePostInput schema",
-  "check CreatePostInput fields in Buffer"
+  "check CreatePostInput fields in Buffer",
+  "list all Buffer GraphQL mutations"
 ]
