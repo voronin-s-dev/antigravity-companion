@@ -250,5 +250,10 @@
   "Compare RIFF chunks between system and custom ani",
   "compare RIFF chunks between system and custom ani",
   "test reordered ANI chunk order",
-  "inspect frame entries in aero vs our ani"
+  "inspect frame entries in aero vs our ani",
+  "compare anih fields cleanly",
+  "test anih with bitcount and planes",
+  "test loading frame as cur",
+  "test re-encoded aero ani",
+  "test ANI frames with different resolutions"
 ]
