@@ -147,5 +147,6 @@
   "grep aar-log for related keywords",
   "check deletePost availability",
   "check Threads posts in Buffer",
-  "test deletePost on sent post"
+  "test deletePost on sent post",
+  "test create_calendar_reminder error handling"
 ]
