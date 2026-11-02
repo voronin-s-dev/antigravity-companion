@@ -90,5 +90,7 @@
   "list template files",
   "inspect dynamic compatibility generation output",
   "search for Arcana 14 in generated HTML",
-  "inspect universal_dashboard_builder.py size"
+  "inspect universal_dashboard_builder.py size",
+  "extract YouTube video metadata",
+  "Extract YouTube video metadata"
 ]
