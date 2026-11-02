@@ -106,5 +106,14 @@
   "transcribe audio with faster-whisper",
   "Extract frames from reel",
   "extract frames from reel",
-  "\"Jakob Kreichel\" OR \"Meng To\" \"skill\" \"Claude\" OR \"skills.sh\""
+  "\"Jakob Kreichel\" OR \"Meng To\" \"skill\" \"Claude\" OR \"skills.sh\"",
+  "list projects directory",
+  "Git status in antigravity companion",
+  "git status in antigravity companion",
+  "check untranslated queue diff",
+  "search strings in dictionary",
+  "list files in companion src",
+  "list companion files",
+  "list localization directory",
+  "check CDP doctor"
 ]
