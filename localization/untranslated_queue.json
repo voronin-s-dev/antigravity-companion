@@ -94,5 +94,6 @@
   "extract YouTube video metadata",
   "Extract YouTube video metadata",
   "find references to calculate_pair_compatibility",
-  "check test_calculator.py for calculate_pair_compatibility"
+  "check test_calculator.py for calculate_pair_compatibility",
+  "check weekly-skills-updater sidecar"
 ]
