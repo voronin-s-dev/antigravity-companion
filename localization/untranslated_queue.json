@@ -317,5 +317,7 @@
   "verify scheduled Instagram post in Buffer",
   "Query Google Calendar for tomorrow events",
   "list events in Google Calendar",
-  "run link concepts generation"
+  "run link concepts generation",
+  "Generate dot link variations",
+  "generate dot link variations"
 ]
