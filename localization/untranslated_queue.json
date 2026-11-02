@@ -231,5 +231,7 @@
   "list files in vision cursor black folder",
   "list files in Cursor workspace",
   "Daily Focus Inquiry",
-  "check Buffer post history for Instagram"
+  "check Buffer post history for Instagram",
+  "check rendered slides of Manifesto carousel",
+  "lint_content.py help"
 ]
