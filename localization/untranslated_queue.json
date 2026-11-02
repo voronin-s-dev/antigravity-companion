@@ -377,5 +377,7 @@
   "Turn 27 of 29",
   "Turn 28 of 29",
   "run test_buffer_thread.py for ThreadsPostMetadataInput",
-  "check Thread input type in Buffer"
+  "check Thread input type in Buffer",
+  "run test_buffer_thread.py for ThreadedPostInput",
+  "test thread parsing regex"
 ]
