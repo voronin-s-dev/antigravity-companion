@@ -379,5 +379,9 @@
   "Turn 13 of 17",
   "Turn 14 of 17",
   "Turn 15 of 17",
-  "Turn 16 of 17"
+  "Turn 16 of 17",
+  "check user profile in JSON",
+  "read log with utf-8",
+  "search keepalive in bot",
+  "find ping_supabase usages"
 ]
