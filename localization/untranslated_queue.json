@@ -127,5 +127,9 @@
   "check git log in Numerology Bot",
   "check git status in Numerology Bot",
   "run pytest in Numerology Bot",
-  "run tests with PYTHONPATH"
+  "run tests with PYTHONPATH",
+  "test compatibility standards",
+  "run compatibility tests with python -m",
+  "run pytest with py -m",
+  "run all tests in Numerology Bot"
 ]
