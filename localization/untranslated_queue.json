@@ -270,8 +270,6 @@
   "check test process",
   "update installed files and registry entry",
   "update registry scheme value",
-  "Repackage backup archive",
-  "repackage backup archive",
   "check aar directories in project",
   "list files in aar skill folder",
   "Turn 29 of 40",
@@ -328,5 +326,14 @@
   "read task-679 log tail",
   "check updated link cursor files",
   "Count updated link cursor files",
-  "count updated link cursor files"
+  "count updated link cursor files",
+  "verify all 90 themes with new Supernova Ripple Link",
+  "read task-712 log",
+  "Regenerate all preview icons",
+  "regenerate all preview icons",
+  "Repackage backup archive",
+  "repackage backup archive",
+  "check task-721 log",
+  "Copy updated link cursor to Windows directory",
+  "copy updated link cursor to Windows directory"
 ]
