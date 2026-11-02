@@ -123,5 +123,9 @@
   "hot-reload translator and widget",
   "Daily Focus Inquiry",
   "check funnels directory",
-  "find lint scripts"
+  "find lint scripts",
+  "check git log in Numerology Bot",
+  "check git status in Numerology Bot",
+  "run pytest in Numerology Bot",
+  "run tests with PYTHONPATH"
 ]
