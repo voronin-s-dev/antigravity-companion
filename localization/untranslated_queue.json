@@ -244,5 +244,11 @@
   "inspect _install.inf",
   "inspect ani file structure",
   "check 03_working_in_background.ani size",
-  "check registry entry for theme"
+  "check registry entry for theme",
+  "test LoadCursorFromFile on installed cursors",
+  "test LoadCursorFromFile on Windows system ani files",
+  "Compare RIFF chunks between system and custom ani",
+  "compare RIFF chunks between system and custom ani",
+  "test reordered ANI chunk order",
+  "inspect frame entries in aero vs our ani"
 ]
