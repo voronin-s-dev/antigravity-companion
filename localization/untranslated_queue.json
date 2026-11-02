@@ -88,7 +88,6 @@
   "merge translations",
   "Hot-reload translator and widget",
   "hot-reload translator and widget",
-  "Daily Focus Inquiry",
   "check funnels directory",
   "find lint scripts",
   "check git log in Numerology Bot",
@@ -223,5 +222,13 @@
   "Turn 16 of 20",
   "Turn 17 of 20",
   "Turn 18 of 20",
-  "Turn 19 of 20"
+  "Turn 19 of 20",
+  "check Windows registry for Cursors properties",
+  "check Windows registry Schemes",
+  "list cursor folders in Windows Cursors",
+  "list files in macOS cursor folder",
+  "list files in Anathema White folder",
+  "list files in vision cursor black folder",
+  "list files in Cursor workspace",
+  "Daily Focus Inquiry"
 ]
