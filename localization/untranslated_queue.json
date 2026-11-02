@@ -146,5 +146,6 @@
   "Grep aar-log for related keywords",
   "grep aar-log for related keywords",
   "check deletePost availability",
-  "check Threads posts in Buffer"
+  "check Threads posts in Buffer",
+  "test deletePost on sent post"
 ]
