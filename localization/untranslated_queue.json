@@ -286,5 +286,11 @@
   "render hands suite test",
   "generate visual comparison image",
   "Generate visual comparison image",
-  "copy comparison image to artifact directory"
+  "copy comparison image to artifact directory",
+  "test upgrade on single theme",
+  "batch upgrade all 90 themes with 43 cursors",
+  "Batch upgrade all 90 themes with 43 cursors",
+  "count recent updated folders",
+  "check count of updated folders",
+  "verify all 90 themes with 43 cursors"
 ]
