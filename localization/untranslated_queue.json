@@ -235,5 +235,10 @@
   "check rendered slides of Manifesto carousel",
   "lint_content.py help",
   "check Pillow version",
-  "search for test_cur.py in brain"
+  "search for test_cur.py in brain",
+  "check CUR entries encoding format",
+  "find test_cur source code in transcript",
+  "find test_cur creation step",
+  "find test_ani creation step",
+  "verify CUR and ANI roundtrip"
 ]
