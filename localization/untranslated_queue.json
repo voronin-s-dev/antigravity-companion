@@ -92,5 +92,7 @@
   "search for Arcana 14 in generated HTML",
   "inspect universal_dashboard_builder.py size",
   "extract YouTube video metadata",
-  "Extract YouTube video metadata"
+  "Extract YouTube video metadata",
+  "find references to calculate_pair_compatibility",
+  "check test_calculator.py for calculate_pair_compatibility"
 ]
