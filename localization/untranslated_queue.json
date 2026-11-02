@@ -280,5 +280,11 @@
   "Turn 29 of 40",
   "Turn 30 of 40",
   "Turn 31 of 40",
-  "Turn 32 of 40"
+  "Turn 32 of 40",
+  "render new link hand tests",
+  "check bbox of generated link hand",
+  "render hands suite test",
+  "generate visual comparison image",
+  "Generate visual comparison image",
+  "copy comparison image to artifact directory"
 ]
