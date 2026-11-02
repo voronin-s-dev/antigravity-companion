@@ -103,5 +103,7 @@
   "Extract audio from reel",
   "extract audio from reel",
   "Transcribe audio with faster-whisper",
-  "transcribe audio with faster-whisper"
+  "transcribe audio with faster-whisper",
+  "Extract frames from reel",
+  "extract frames from reel"
 ]
