@@ -602,5 +602,6 @@
   "list subdirectories of impeccable",
   "list cli folder in impeccable",
   "list skill folder in impeccable",
-  "find Unknown provider in all js files"
+  "find Unknown provider in all js files",
+  "run impeccable detect --list-rules"
 ]
