@@ -498,5 +498,7 @@
   "find Python scripts in project",
   "list Python scripts in Scratch",
   "list remotion frames folders",
-  "check remotion frame colors"
+  "check remotion frame colors",
+  "Generate preview sheet",
+  "generate preview sheet"
 ]
