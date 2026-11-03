@@ -371,5 +371,7 @@
   "list root files in Cursor project",
   "search getInstanceToken and instanceID",
   "search isGCMSupported",
-  "check DetectClientClass"
+  "check DetectClientClass",
+  "search optional_host_permissions in js",
+  "search Origins.CONTACT_PHOTOS"
 ]
