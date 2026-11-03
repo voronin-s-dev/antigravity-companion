@@ -353,5 +353,18 @@
   "check if checks-map.md exists in Cursor project",
   "test CP866 CRLF batch script",
   "test CP866 CRLF batch script correctly",
-  "run fix_bat.py again"
+  "run fix_bat.py again",
+  "run fix_bat.py test",
+  "run fix_bat.py test launcher",
+  "run fix_bat.py with utf-8-sig",
+  "Deploy UTF-8 BOM PS1 and ASCII BAT launchers",
+  "deploy UTF-8 BOM PS1 and ASCII BAT launchers",
+  "Deploy launcher scripts",
+  "deploy launcher scripts",
+  "run deploy_launchers.py verification",
+  "Re-zip extension with fixed launchers",
+  "re-zip extension with fixed launchers",
+  "list aar templates",
+  "Grep aar-log.md for batch/encoding/script",
+  "grep aar-log.md for batch/encoding/script"
 ]
