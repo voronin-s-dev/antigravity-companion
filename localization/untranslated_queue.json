@@ -485,5 +485,14 @@
   "check v2 build progress",
   "run v2 integrity audit across all 36 themes",
   "Regenerate all preview icons",
-  "regenerate all preview icons"
+  "regenerate all preview icons",
+  "read recent transcript entries",
+  "Get last 5 lines of transcript",
+  "get last 5 lines of transcript",
+  "check backup zip and repackage script",
+  "Repackage clean v2 backup zip",
+  "repackage clean v2 backup zip",
+  "check zip progress",
+  "check temp zip size",
+  "check final zip status"
 ]
