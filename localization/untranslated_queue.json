@@ -712,5 +712,10 @@
   "lint carousel design",
   "Lint carousel content text",
   "lint carousel content text",
-  "verify that old carousel fails bio linter"
+  "verify that old carousel fails bio linter",
+  "run content and bio linter",
+  "Re-run content and bio linter",
+  "re-run content and bio linter",
+  "Render Carousel 02 slides",
+  "render Carousel 02 slides"
 ]
