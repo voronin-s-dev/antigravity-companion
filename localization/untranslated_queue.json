@@ -618,5 +618,10 @@
   "check make-interfaces-feel-better frontmatter",
   "check PATH environment variable",
   "check bin directories in PATH",
-  "test impeccable CLI in PATH"
+  "test impeccable CLI in PATH",
+  "test impeccable detect directly",
+  "check if impeccable skill exists in global config",
+  "copy impeccable skill to global skills folder",
+  "verify copied skill contents",
+  "verify binary in global skill"
 ]
