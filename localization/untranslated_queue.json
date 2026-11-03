@@ -694,5 +694,7 @@
   "check rendered slides for battery",
   "Lint CAROUSEL_01_BATTERY design",
   "lint CAROUSEL_01_BATTERY design",
-  "check carousel_engine.py help"
+  "check carousel_engine.py help",
+  "render CAROUSEL_01_BATTERY slides",
+  "Render CAROUSEL_01_BATTERY slides"
 ]
