@@ -707,5 +707,9 @@
   "search git log for nntv",
   "search for television and media in knowledge",
   "check git diff of knowledge files",
-  "list existing AAR runs"
+  "list existing AAR runs",
+  "Lint carousel design",
+  "lint carousel design",
+  "Lint carousel content text",
+  "lint carousel content text"
 ]
