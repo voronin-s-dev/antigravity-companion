@@ -693,5 +693,6 @@
   "Close Busy Animation Preview",
   "check rendered slides for battery",
   "Lint CAROUSEL_01_BATTERY design",
-  "lint CAROUSEL_01_BATTERY design"
+  "lint CAROUSEL_01_BATTERY design",
+  "check carousel_engine.py help"
 ]
