@@ -609,5 +609,6 @@
   "test install in scratch folder",
   "inspect installed folders in scratch",
   "list installed skills in scratch .gemini",
-  "list contents of impeccable skill"
+  "list contents of impeccable skill",
+  "test compiled binary execution"
 ]
