@@ -392,5 +392,7 @@
   "compute PnL stats for trades 76-90",
   "Compute total PnL for trades 76-90",
   "compute total PnL for trades 76-90",
-  "inspect rationale for losses 80, 85, 88"
+  "inspect rationale for losses 80, 85, 88",
+  "check shadow portfolio in db",
+  "Query recent scan cycles"
 ]
