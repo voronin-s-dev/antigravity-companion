@@ -530,5 +530,22 @@
   "list all 36 theme directories",
   "check remotion-cursors directory",
   "list remotion src files",
-  "check existence of aar-log and checks-map"
+  "check existence of aar-log and checks-map",
+  "find showcase files",
+  "find recently modified files",
+  "find uploaded images",
+  "read transcript tail",
+  "find last user inputs",
+  "find media in transcript",
+  "find media in transcript with py",
+  "Examine recent transcript steps",
+  "examine recent transcript steps",
+  "Examine earlier transcript steps",
+  "examine earlier transcript steps",
+  "list root files",
+  "find build scripts in Scratch",
+  "find vector scripts",
+  "read step 1033",
+  "find all USER_EXPLICIT steps",
+  "check steps right before compaction"
 ]
