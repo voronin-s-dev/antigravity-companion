@@ -586,8 +586,6 @@
   "\"pbakaus/impeccable\" \"skills\" OR \"commands\" OR \"rules\" github",
   "Liquid Metal V2 Comparison",
   "Close Liquid Metal V2 Comparison",
-  "Busy Animation Preview",
-  "Close Busy Animation Preview",
   "check impeccable detect help",
   "list impeccable skills and commands",
   "Locate npm-cache impeccable",
@@ -674,5 +672,9 @@
   "Rebuild all 36 themes with colored petals",
   "repackage backup zip archive",
   "Repackage backup zip archive",
-  "read task-1909 log"
+  "read task-1909 log",
+  "Colored Sakura Petals Preview",
+  "Close Colored Sakura Petals Preview",
+  "Busy Animation Preview",
+  "Close Busy Animation Preview"
 ]
