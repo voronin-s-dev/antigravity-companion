@@ -529,5 +529,6 @@
   "real-sound",
   "list all 36 theme directories",
   "check remotion-cursors directory",
-  "list remotion src files"
+  "list remotion src files",
+  "check existence of aar-log and checks-map"
 ]
