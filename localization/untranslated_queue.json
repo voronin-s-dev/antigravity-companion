@@ -703,5 +703,8 @@
   "run gate and registry linter",
   "test all linters: gate, pinned, registry",
   "carousel_02_who_i_am",
-  "Close carousel_02_who_i_am"
+  "Close carousel_02_who_i_am",
+  "search git log for nntv",
+  "search for television and media in knowledge",
+  "check git diff of knowledge files"
 ]
