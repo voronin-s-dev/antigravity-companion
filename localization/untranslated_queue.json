@@ -509,5 +509,13 @@
   "check count of recently updated themes",
   "read task-1294 log",
   "check recent file modification timestamps",
-  "check count of updated themes"
+  "check count of updated themes",
+  "verify all 36 themes with Win32 integrity suite",
+  "Regenerate all 492 preview icons",
+  "regenerate all 492 preview icons",
+  "update showcase GIFs",
+  "Repackage updated backup ZIP",
+  "repackage updated backup ZIP",
+  "check backup ZIP status",
+  "check temp ZIP size"
 ]
