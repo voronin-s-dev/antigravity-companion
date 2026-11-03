@@ -501,5 +501,6 @@
   "check remotion frame colors",
   "Generate preview sheet",
   "generate preview sheet",
-  "test link ani v2.1 Win32"
+  "test link ani v2.1 Win32",
+  "run Win32 verification on all 26 animations"
 ]
