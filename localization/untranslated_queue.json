@@ -473,5 +473,9 @@
   "Zoom 100%, reset to fit",
   "create plans directory",
   "Filter directories to delete and keep",
-  "filter directories to delete and keep"
+  "filter directories to delete and keep",
+  "inspect repr of dir names",
+  "inspect character codes of directory names",
+  "Count directory types in Simplify D2",
+  "count directory types in Simplify D2"
 ]
