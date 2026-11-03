@@ -366,5 +366,6 @@
   "re-zip extension with fixed launchers",
   "list aar templates",
   "Grep aar-log.md for batch/encoding/script",
-  "grep aar-log.md for batch/encoding/script"
+  "grep aar-log.md for batch/encoding/script",
+  "remove autoscroll extension files"
 ]
