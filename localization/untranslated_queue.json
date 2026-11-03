@@ -603,5 +603,11 @@
   "list cli folder in impeccable",
   "list skill folder in impeccable",
   "find Unknown provider in all js files",
-  "run impeccable detect --list-rules"
+  "run impeccable detect --list-rules",
+  "search supported provider names",
+  "test in scratch directory",
+  "test install in scratch folder",
+  "inspect installed folders in scratch",
+  "list installed skills in scratch .gemini",
+  "list contents of impeccable skill"
 ]
