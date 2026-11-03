@@ -601,5 +601,6 @@
   "list files in impeccable package",
   "list subdirectories of impeccable",
   "list cli folder in impeccable",
-  "list skill folder in impeccable"
+  "list skill folder in impeccable",
+  "find Unknown provider in all js files"
 ]
