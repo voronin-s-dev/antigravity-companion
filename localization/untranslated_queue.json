@@ -306,8 +306,6 @@
   "count updated link cursor files",
   "verify all 90 themes with new Supernova Ripple Link",
   "read task-712 log",
-  "Regenerate all preview icons",
-  "regenerate all preview icons",
   "Repackage backup archive",
   "repackage backup archive",
   "check task-721 log",
@@ -478,5 +476,14 @@
   "inspect character codes of directory names",
   "Count directory types in Simplify D2",
   "count directory types in Simplify D2",
-  "run clean_theme_directories.py with force_delete"
+  "run clean_theme_directories.py with force_delete",
+  "test animation generators with Win32 API",
+  "run build_v2_master.py across all 36 themes",
+  "count themes with 06_text_select.ani",
+  "check progress of v2 build",
+  "copy hybrid_2_4_pulse.gif to Simplify D2",
+  "check v2 build progress",
+  "run v2 integrity audit across all 36 themes",
+  "Regenerate all preview icons",
+  "regenerate all preview icons"
 ]
