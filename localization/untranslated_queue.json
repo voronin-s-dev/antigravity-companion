@@ -717,5 +717,12 @@
   "Re-run content and bio linter",
   "re-run content and bio linter",
   "Render Carousel 02 slides",
-  "render Carousel 02 slides"
+  "render Carousel 02 slides",
+  "check registry balance",
+  "check pinned triad",
+  "check carousel 02 output directory",
+  "check rendered slides timestamps",
+  "check rendered files timestamps",
+  "Wait and check carousel render",
+  "wait and check carousel render"
 ]
