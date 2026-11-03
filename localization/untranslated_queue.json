@@ -382,5 +382,15 @@
   "Enabled \"Daily Focus (12:30 Briefing)\".: Agents created by this automation run in a dedicated project with its own permissions. You can change the permissions in the project settings page",
   "Started \"Daily Focus (12:30 Briefing)\"",
   "System Update After New Skills",
-  "Shadow Portfolio Design"
+  "Shadow Portfolio Design",
+  "fetch origin and check status",
+  "Pull latest 66 commits from origin/main",
+  "pull latest 66 commits from origin/main",
+  "check latest git commits",
+  "inspect positions from id 74 onwards",
+  "Compute PnL stats for trades 76-90",
+  "compute PnL stats for trades 76-90",
+  "Compute total PnL for trades 76-90",
+  "compute total PnL for trades 76-90",
+  "inspect rationale for losses 80, 85, 88"
 ]
