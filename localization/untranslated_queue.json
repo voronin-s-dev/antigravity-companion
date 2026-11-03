@@ -690,5 +690,8 @@
   "Colored Sakura Petals Preview",
   "Close Colored Sakura Petals Preview",
   "Busy Animation Preview",
-  "Close Busy Animation Preview"
+  "Close Busy Animation Preview",
+  "check rendered slides for battery",
+  "Lint CAROUSEL_01_BATTERY design",
+  "lint CAROUSEL_01_BATTERY design"
 ]
