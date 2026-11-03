@@ -347,5 +347,11 @@
   "Turn 16 of 20",
   "Turn 17 of 20",
   "Turn 18 of 20",
-  "Turn 19 of 20"
+  "Turn 19 of 20",
+  "inspect bytes of batch file",
+  "run batch file",
+  "check if checks-map.md exists in Cursor project",
+  "test CP866 CRLF batch script",
+  "test CP866 CRLF batch script correctly",
+  "run fix_bat.py again"
 ]
