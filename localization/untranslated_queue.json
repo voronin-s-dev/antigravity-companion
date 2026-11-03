@@ -711,5 +711,6 @@
   "Lint carousel design",
   "lint carousel design",
   "Lint carousel content text",
-  "lint carousel content text"
+  "lint carousel content text",
+  "verify that old carousel fails bio linter"
 ]
