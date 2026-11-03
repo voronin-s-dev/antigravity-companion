@@ -469,7 +469,6 @@
   "Repackage clean v2 backup zip",
   "repackage clean v2 backup zip",
   "check zip progress",
-  "check temp zip size",
   "check final zip status",
   "Turn 1 of 22",
   "Turn 2 of 22",
@@ -517,5 +516,15 @@
   "Repackage updated backup ZIP",
   "repackage updated backup ZIP",
   "check backup ZIP status",
-  "check temp ZIP size"
+  "check temp ZIP size",
+  "verify all 28 animations with Win32",
+  "run Simplify Dot master build on all 36 themes",
+  "run Win32 integrity verification on all 36 themes",
+  "Regenerate 492 preview icons",
+  "regenerate 492 preview icons",
+  "Regenerate showcase GIFs",
+  "regenerate showcase GIFs",
+  "Repackage backup zip archive",
+  "repackage backup zip archive",
+  "check temp zip size"
 ]
