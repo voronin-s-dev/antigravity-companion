@@ -377,5 +377,10 @@
   "real-sound",
   "check manifest bytes",
   "remove optional_host_permissions via pwsh",
-  "verify JS syntax"
+  "verify JS syntax",
+  "Daily Focus (12:30 Briefing)",
+  "Enabled \"Daily Focus (12:30 Briefing)\".: Agents created by this automation run in a dedicated project with its own permissions. You can change the permissions in the project settings page",
+  "Started \"Daily Focus (12:30 Briefing)\"",
+  "System Update After New Skills",
+  "Shadow Portfolio Design"
 ]
