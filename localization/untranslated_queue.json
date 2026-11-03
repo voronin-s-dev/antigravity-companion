@@ -701,5 +701,7 @@
   "run lint_content.py --pinned on current registry",
   "test lint_content.py --pinned",
   "run gate and registry linter",
-  "test all linters: gate, pinned, registry"
+  "test all linters: gate, pinned, registry",
+  "carousel_02_who_i_am",
+  "Close carousel_02_who_i_am"
 ]
