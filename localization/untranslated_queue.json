@@ -435,5 +435,6 @@
   "delete failed post from Buffer",
   "check Buffer history",
   "check CDN image availability",
-  "Turn 45 of 45"
+  "Turn 45 of 45",
+  "inspect publish CLI help"
 ]
