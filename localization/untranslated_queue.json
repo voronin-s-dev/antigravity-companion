@@ -477,5 +477,6 @@
   "inspect repr of dir names",
   "inspect character codes of directory names",
   "Count directory types in Simplify D2",
-  "count directory types in Simplify D2"
+  "count directory types in Simplify D2",
+  "run clean_theme_directories.py with force_delete"
 ]
