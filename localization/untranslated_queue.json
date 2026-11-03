@@ -323,9 +323,6 @@
   "get current date",
   "check daily focus generator script",
   "run daily focus generator",
-  "earshot",
-  "Listen with earshot whenever you must judge, choose, trim, verify or compare sound you cannot hear - picking a sound effect, music or ambience from candidates, finding the cleanest moment in a recording, checking whether audio reads as a real recording or as code-synthesized, reviewing a soundtrack or a video's audio (what happens when, sync to picture, loudness, mix), A/B-ing a mix change, making a sound in code and improving it by listening (earshot forge), or giving a code-made film its sound effects from the shipped bank (earshot sfx / kit). Use it before telling anyone how audio sounds.",
-  "real-sound",
   "test process_theme_dir on one theme",
   "verify Simplify Dot 2 Dark with integrity check",
   "test LoadCursorFromFileW on 15_link_select.ani",
@@ -373,5 +370,9 @@
   "search isGCMSupported",
   "check DetectClientClass",
   "search optional_host_permissions in js",
-  "search Origins.CONTACT_PHOTOS"
+  "search Origins.CONTACT_PHOTOS",
+  "search enablePushNotifications",
+  "earshot",
+  "Listen with earshot whenever you must judge, choose, trim, verify or compare sound you cannot hear - picking a sound effect, music or ambience from candidates, finding the cleanest moment in a recording, checking whether audio reads as a real recording or as code-synthesized, reviewing a soundtrack or a video's audio (what happens when, sync to picture, loudness, mix), A/B-ing a mix change, making a sound in code and improving it by listening (earshot forge), or giving a code-made film its sound effects from the shipped bank (earshot sfx / kit). Use it before telling anyone how audio sounds.",
+  "real-sound"
 ]
