@@ -637,10 +637,6 @@
   "repackage backup zip archive",
   "Repackage backup zip archive",
   "read task-1909 log",
-  "Colored Sakura Petals Preview",
-  "Close Colored Sakura Petals Preview",
-  "Busy Animation Preview",
-  "Close Busy Animation Preview",
   "Turn 1 of 31",
   "Turn 2 of 31",
   "Turn 3 of 31",
@@ -690,5 +686,9 @@
   "list upcoming Google Calendar events",
   "check gcalendar readonly get help",
   "get sprint event details",
-  "run content linter on registry"
+  "run content linter on registry",
+  "Colored Sakura Petals Preview",
+  "Close Colored Sakura Petals Preview",
+  "Busy Animation Preview",
+  "Close Busy Animation Preview"
 ]
