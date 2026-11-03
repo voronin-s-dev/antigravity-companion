@@ -436,5 +436,7 @@
   "check Buffer history",
   "check CDN image availability",
   "Turn 45 of 45",
-  "inspect publish CLI help"
+  "inspect publish CLI help",
+  "lint test for Instagram caption",
+  "Lint test for Instagram caption"
 ]
