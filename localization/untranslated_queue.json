@@ -367,5 +367,6 @@
   "list aar templates",
   "Grep aar-log.md for batch/encoding/script",
   "grep aar-log.md for batch/encoding/script",
-  "remove autoscroll extension files"
+  "remove autoscroll extension files",
+  "list root files in Cursor project"
 ]
