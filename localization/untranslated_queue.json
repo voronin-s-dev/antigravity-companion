@@ -698,5 +698,8 @@
   "render CAROUSEL_01_BATTERY slides",
   "Render CAROUSEL_01_BATTERY slides",
   "find Instagram profile and pin docs in knowledge",
-  "run lint_content.py --pinned on current registry"
+  "run lint_content.py --pinned on current registry",
+  "test lint_content.py --pinned",
+  "run gate and registry linter",
+  "test all linters: gate, pinned, registry"
 ]
