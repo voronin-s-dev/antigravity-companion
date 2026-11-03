@@ -502,5 +502,12 @@
   "Generate preview sheet",
   "generate preview sheet",
   "test link ani v2.1 Win32",
-  "run Win32 verification on all 26 animations"
+  "run Win32 verification on all 26 animations",
+  "inspect test composite colors",
+  "run Simplify Dot v2.1 master build across all 36 themes",
+  "check master build progress",
+  "check count of recently updated themes",
+  "read task-1294 log",
+  "check recent file modification timestamps",
+  "check count of updated themes"
 ]
