@@ -378,7 +378,6 @@
   "Enabled \"Daily Focus (12:30 Briefing)\".: Agents created by this automation run in a dedicated project with its own permissions. You can change the permissions in the project settings page",
   "Started \"Daily Focus (12:30 Briefing)\"",
   "System Update After New Skills",
-  "Shadow Portfolio Design",
   "fetch origin and check status",
   "Pull latest 66 commits from origin/main",
   "pull latest 66 commits from origin/main",
@@ -438,5 +437,8 @@
   "Turn 45 of 45",
   "inspect publish CLI help",
   "lint test for Instagram caption",
-  "Lint test for Instagram caption"
+  "Lint test for Instagram caption",
+  "Publish Instagram carousel now",
+  "publish Instagram carousel now",
+  "Shadow Portfolio Design"
 ]
