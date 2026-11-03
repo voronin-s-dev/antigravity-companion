@@ -397,5 +397,8 @@
   "Query recent scan cycles",
   "get scan_cycles columns",
   "inspect recent scan cycles",
-  "check fetch_active_markets definition"
+  "check fetch_active_markets definition",
+  "get candidate_evaluations schema",
+  "query candidate_evaluations",
+  "check categories in recent evaluations"
 ]
