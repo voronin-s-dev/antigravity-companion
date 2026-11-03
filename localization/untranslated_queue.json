@@ -394,5 +394,8 @@
   "compute total PnL for trades 76-90",
   "inspect rationale for losses 80, 85, 88",
   "check shadow portfolio in db",
-  "Query recent scan cycles"
+  "Query recent scan cycles",
+  "get scan_cycles columns",
+  "inspect recent scan cycles",
+  "check fetch_active_markets definition"
 ]
