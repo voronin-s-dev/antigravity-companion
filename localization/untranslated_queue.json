@@ -678,5 +678,17 @@
   "real-sound",
   "Turn 43 of 45",
   "Turn 44 of 45",
-  "Turn 45 of 45"
+  "Turn 45 of 45",
+  "list project root files",
+  "run Daily Focus Generator",
+  "check Buffer Manager CLI usage",
+  "get Threads history from Buffer",
+  "get Instagram history from Buffer",
+  "read buffer_manager.py head",
+  "list files in content folders",
+  "check gcalendar help",
+  "list upcoming Google Calendar events",
+  "check gcalendar readonly get help",
+  "get sprint event details",
+  "run content linter on registry"
 ]
