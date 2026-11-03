@@ -547,5 +547,6 @@
   "find vector scripts",
   "read step 1033",
   "find all USER_EXPLICIT steps",
-  "check steps right before compaction"
+  "check steps right before compaction",
+  "read _install.inf"
 ]
