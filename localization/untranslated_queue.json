@@ -615,5 +615,8 @@
   "check impeccable.cmd contents",
   "list global skills directory",
   "check antislop SKILL.md frontmatter",
-  "check make-interfaces-feel-better frontmatter"
+  "check make-interfaces-feel-better frontmatter",
+  "check PATH environment variable",
+  "check bin directories in PATH",
+  "test impeccable CLI in PATH"
 ]
