@@ -431,5 +431,8 @@
   "Upload all 7 slides to freeimage.host",
   "verify freeimage.host direct link",
   "upload all 7 slides to freeimage.host",
-  "verify all 7 uploaded slide URLs"
+  "verify all 7 uploaded slide URLs",
+  "delete failed post from Buffer",
+  "check Buffer history",
+  "check CDN image availability"
 ]
