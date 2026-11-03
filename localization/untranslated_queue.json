@@ -543,7 +543,6 @@
   "count updated 04_busy.ani files again",
   "Count updated 04_busy.ani files final",
   "count updated 04_busy.ani files final",
-  "run integrity v2 test suite",
   "copy GIF to artifacts",
   "verify artifact file",
   "check center RGB of liquid metal",
@@ -672,5 +671,7 @@
   "real-sound",
   "check busy.ani count in last 2 mins",
   "check busy.ani count again",
-  "check busy.ani count final"
+  "check busy.ani count final",
+  "check busy count again",
+  "run integrity v2 test suite"
 ]
