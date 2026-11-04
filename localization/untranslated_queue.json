@@ -146,5 +146,6 @@
   "list all global skills",
   "Extract frames from reel video",
   "Count extracted frames",
-  "Copy references to video_engine"
+  "Copy references to video_engine",
+  "Render 6 core SFX sounds"
 ]
