@@ -158,5 +158,7 @@
   "check Instagram post status in Buffer",
   "Wait and fetch live Instagram link",
   "fetch finalized Instagram post link",
-  "Wait 15s and check Buffer status"
+  "Wait 15s and check Buffer status",
+  "wait and check Instagram publish status",
+  "Wait and check Instagram publish status"
 ]
