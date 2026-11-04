@@ -128,5 +128,8 @@
   "Inject into Antigravity via CDP",
   "Query live UI in Antigravity window",
   "Query live UI state via CDP",
-  "Click bulk check in live UI and inspect"
+  "Click bulk check in live UI and inspect",
+  "Render frame 60 from video_engine",
+  "Show 16 more subagents",
+  "Side Panel"
 ]
