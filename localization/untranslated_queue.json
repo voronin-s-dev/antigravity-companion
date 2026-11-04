@@ -839,5 +839,7 @@
   "v2.3.1",
   "Close modal in live Antigravity window",
   "Close modal properly",
-  "Completed all tasks for Onyx UI sync and System Skills/Plugins catalog"
+  "Completed all tasks for Onyx UI sync and System Skills/Plugins catalog",
+  "Call findDevToolsPort",
+  "Query live styles from Antigravity window"
 ]
