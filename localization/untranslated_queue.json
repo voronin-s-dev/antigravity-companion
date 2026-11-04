@@ -127,5 +127,6 @@
   "Restart daemon cleanly",
   "Inject into Antigravity via CDP",
   "Query live UI in Antigravity window",
-  "Query live UI state via CDP"
+  "Query live UI state via CDP",
+  "Click bulk check in live UI and inspect"
 ]
