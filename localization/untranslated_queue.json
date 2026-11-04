@@ -822,5 +822,10 @@
   "CDP inspection check",
   "2 lines added, 1 lines removed",
   "Daily Focus Inquiry",
-  "2 lines added, 2 lines removed"
+  "2 lines added, 2 lines removed",
+  "Print lines 70 to 92 raw",
+  "Print tooltip styling raw",
+  "Print THEME_PRESETS.native raw",
+  "Print container.style.cssText raw",
+  "Print header lines raw"
 ]
