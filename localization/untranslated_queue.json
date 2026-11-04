@@ -833,5 +833,10 @@
   "Restart daemon with updated scanner",
   "Query daemon skills endpoint",
   "Start daemon",
-  "Query skills from active daemon"
+  "Query skills from active daemon",
+  "Inject updated skill panel into Antigravity",
+  "v1.10.1",
+  "v2.3.1",
+  "Close modal in live Antigravity window",
+  "Close modal properly"
 ]
