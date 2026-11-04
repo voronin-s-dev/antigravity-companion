@@ -841,5 +841,7 @@
   "Close modal properly",
   "Completed all tasks for Onyx UI sync and System Skills/Plugins catalog",
   "Call findDevToolsPort",
-  "Query live styles from Antigravity window"
+  "Query live styles from Antigravity window",
+  "Reinject styles and script into Antigravity",
+  "Probe all titles in live DOM"
 ]
