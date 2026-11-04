@@ -140,5 +140,6 @@
   "Extract github and tool links",
   "Probe video files in ChatExport",
   "Transcribe numpy audio buffer",
-  "Transcribe all reels in export"
+  "Transcribe all reels in export",
+  "Reels Production Tool Analysis"
 ]
