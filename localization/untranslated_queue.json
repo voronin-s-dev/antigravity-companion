@@ -829,5 +829,7 @@
   "Print container.style.cssText raw",
   "Print header lines raw",
   "Print lines 835 to 860 raw",
-  "Print renderSidebarButtonContent raw"
+  "Print renderSidebarButtonContent raw",
+  "apply hot reload to Antigravity window",
+  "Apply hot reload to Antigravity window"
 ]
