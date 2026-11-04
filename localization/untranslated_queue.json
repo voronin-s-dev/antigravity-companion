@@ -745,8 +745,6 @@
   "Verbose",
   "Font",
   "Google Sans",
-  "impeccable",
-  "Agent uses this skill automatically whenever building, modifying, polishing, or reviewing frontend user interfaces (HTML, CSS, React, Vue, Svelte, WebApps). Agent runs this skill to prevent visual anti-patterns and enforce design consistency. Agent automatically runs the local binary detector before completing frontend tasks. Agent ignores this skill for backend, database, analysis, and non-UI code.",
   "Previous Side Panel Tab",
   "Next Side Panel Tab",
   "Toggle Maximize Side Panel",
@@ -812,5 +810,7 @@
   "MANDATORY specialist subagent for Cloud Firestore Security Rules (firestore.rules). Whenever your task requires creating, authoring, or modifying Firestore Security Rules (firestore.rules), you MUST delegate rules authoring to this subagent rather than writing firestore.rules directly in the main agent.",
   "Website",
   "Repository",
-  "Toggle Side Panel"
+  "Toggle Side Panel",
+  "impeccable",
+  "Agent uses this skill automatically whenever building, modifying, polishing, or reviewing frontend user interfaces (HTML, CSS, React, Vue, Svelte, WebApps). Agent runs this skill to prevent visual anti-patterns and enforce design consistency. Agent automatically runs the local binary detector before completing frontend tasks. Agent ignores this skill for backend, database, analysis, and non-UI code."
 ]
