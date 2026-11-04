@@ -123,5 +123,9 @@
   "verify remote tag v1.7.4",
   "search primary and pink in CSS",
   "Print check-all-updates response",
-  "Query daemon check-all-updates"
+  "Query daemon check-all-updates",
+  "Restart daemon cleanly",
+  "Inject into Antigravity via CDP",
+  "Query live UI in Antigravity window",
+  "Query live UI state via CDP"
 ]
