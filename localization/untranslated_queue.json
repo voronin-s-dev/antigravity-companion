@@ -139,5 +139,6 @@
   "Parse messages to scratch file",
   "Extract github and tool links",
   "Probe video files in ChatExport",
-  "Transcribe numpy audio buffer"
+  "Transcribe numpy audio buffer",
+  "Transcribe all reels in export"
 ]
