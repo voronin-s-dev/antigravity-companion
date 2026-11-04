@@ -827,5 +827,6 @@
   "Print tooltip styling raw",
   "Print THEME_PRESETS.native raw",
   "Print container.style.cssText raw",
-  "Print header lines raw"
+  "Print header lines raw",
+  "Print lines 835 to 860 raw"
 ]
