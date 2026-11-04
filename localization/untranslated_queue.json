@@ -826,5 +826,7 @@
   "Explored files, ran commands, edited files. Merging new translations and validating dictionary integrity",
   "Final test verification",
   "Explored files, ran commands, edited files. Running final verification suite",
-  "Git push to origin"
+  "Git push to origin",
+  "Task Tracking",
+  "Task tracking checklist for Antigravity Skill Manager Onyx UI sync and System Skills/Plugins catalog"
 ]
