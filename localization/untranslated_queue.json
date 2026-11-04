@@ -122,5 +122,6 @@
   "Retrying tag push to GitHub",
   "verify remote tag v1.7.4",
   "search primary and pink in CSS",
-  "Print check-all-updates response"
+  "Print check-all-updates response",
+  "Query daemon check-all-updates"
 ]
