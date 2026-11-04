@@ -760,6 +760,11 @@
   "MANDATORY specialist subagent for Cloud Firestore Security Rules (firestore.rules). Whenever your task requires creating, authoring, or modifying Firestore Security Rules (firestore.rules), you MUST delegate rules authoring to this subagent rather than writing firestore.rules directly in the main agent.",
   "Website",
   "Repository",
+  "System UI",
+  "carousel_02_who_i_am",
+  "Toggle Side Panel",
+  "4036 lines added, 149 lines removed",
+  "check Buffer channels",
   "Download Location",
   "Folder where files downloaded in the built-in browser are saved.",
   "Browsing History",
@@ -807,12 +812,10 @@
   "Add shortcut for Reset Zoom",
   "earshot",
   "Listen with earshot whenever you must judge, choose, trim, verify or compare sound you cannot hear - picking a sound effect, music or ambience from candidates, finding the cleanest moment in a recording, checking whether audio reads as a real recording or as code-synthesized, reviewing a soundtrack or a video's audio (what happens when, sync to picture, loudness, mix), A/B-ing a mix change, making a sound in code and improving it by listening (earshot forge), or giving a code-made film its sound effects from the shipped bank (earshot sfx / kit). Use it before telling anyone how audio sounds.",
-  "real-sound",
-  "System UI",
-  "carousel_02_who_i_am",
   "impeccable",
   "Agent uses this skill automatically whenever building, modifying, polishing, or reviewing frontend user interfaces (HTML, CSS, React, Vue, Svelte, WebApps). Agent runs this skill to prevent visual anti-patterns and enforce design consistency. Agent automatically runs the local binary detector before completing frontend tasks. Agent ignores this skill for backend, database, analysis, and non-UI code.",
-  "Toggle Side Panel",
-  "4036 lines added, 149 lines removed",
-  "check Buffer channels"
+  "real-sound",
+  "schedule Carousel 02 in Buffer",
+  "Schedule Carousel 02 in Buffer",
+  "Wait for Buffer schedule"
 ]
