@@ -828,5 +828,8 @@
   "Explored files, ran commands, edited files. Running final verification suite",
   "Git push to origin",
   "Task Tracking",
-  "Task tracking checklist for Antigravity Skill Manager Onyx UI sync and System Skills/Plugins catalog"
+  "Task tracking checklist for Antigravity Skill Manager Onyx UI sync and System Skills/Plugins catalog",
+  "Re-inject Skill Panel via CDP",
+  "Restart daemon with updated scanner",
+  "Query daemon skills endpoint"
 ]
