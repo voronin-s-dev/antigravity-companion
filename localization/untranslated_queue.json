@@ -143,5 +143,7 @@
   "Transcribe all reels in export",
   "Reels Production Tool Analysis",
   "Dump 10-26 and 10-28 exports",
-  "list all global skills"
+  "list all global skills",
+  "Extract frames from reel video",
+  "Count extracted frames"
 ]
