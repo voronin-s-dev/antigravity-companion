@@ -832,5 +832,6 @@
   "Re-inject Skill Panel via CDP",
   "Restart daemon with updated scanner",
   "Query daemon skills endpoint",
-  "Start daemon"
+  "Start daemon",
+  "Query skills from active daemon"
 ]
