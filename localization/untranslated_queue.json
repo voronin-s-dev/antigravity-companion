@@ -761,9 +761,6 @@
   "Website",
   "Repository",
   "System UI",
-  "carousel_02_who_i_am",
-  "Toggle Side Panel",
-  "4036 lines added, 149 lines removed",
   "check Buffer channels",
   "Download Location",
   "Folder where files downloaded in the built-in browser are saved.",
@@ -817,5 +814,8 @@
   "real-sound",
   "schedule Carousel 02 in Buffer",
   "Schedule Carousel 02 in Buffer",
-  "Wait for Buffer schedule"
+  "Wait for Buffer schedule",
+  "carousel_02_who_i_am",
+  "4036 lines added, 149 lines removed",
+  "Toggle Side Panel"
 ]
