@@ -145,5 +145,6 @@
   "Dump 10-26 and 10-28 exports",
   "list all global skills",
   "Extract frames from reel video",
-  "Count extracted frames"
+  "Count extracted frames",
+  "Copy references to video_engine"
 ]
