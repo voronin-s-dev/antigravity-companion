@@ -161,5 +161,7 @@
   "Wait 15s and check Buffer status",
   "wait and check Instagram publish status",
   "Wait and check Instagram publish status",
-  "Query detailed post node in Buffer"
+  "Query detailed post node in Buffer",
+  "wait 25s and check Buffer status",
+  "Wait 25s and check Buffer status"
 ]
