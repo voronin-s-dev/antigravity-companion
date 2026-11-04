@@ -141,5 +141,6 @@
   "Probe video files in ChatExport",
   "Transcribe numpy audio buffer",
   "Transcribe all reels in export",
-  "Reels Production Tool Analysis"
+  "Reels Production Tool Analysis",
+  "Dump 10-26 and 10-28 exports"
 ]
