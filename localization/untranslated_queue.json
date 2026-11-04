@@ -157,5 +157,6 @@
   "list Harmonious-Thinker-Media contents",
   "check Instagram post status in Buffer",
   "Wait and fetch live Instagram link",
-  "fetch finalized Instagram post link"
+  "fetch finalized Instagram post link",
+  "Wait 15s and check Buffer status"
 ]
