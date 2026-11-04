@@ -831,5 +831,6 @@
   "Task tracking checklist for Antigravity Skill Manager Onyx UI sync and System Skills/Plugins catalog",
   "Re-inject Skill Panel via CDP",
   "Restart daemon with updated scanner",
-  "Query daemon skills endpoint"
+  "Query daemon skills endpoint",
+  "Start daemon"
 ]
