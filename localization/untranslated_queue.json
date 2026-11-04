@@ -148,5 +148,7 @@
   "Count extracted frames",
   "Copy references to video_engine",
   "Render 6 core SFX sounds",
-  "Re-run pipeline test on ref_03"
+  "Re-run pipeline test on ref_03",
+  "montage_ref_03_six_sounds_formula.mp4",
+  "Close montage_ref_03_six_sounds_formula.mp4"
 ]
