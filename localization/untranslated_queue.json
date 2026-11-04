@@ -831,5 +831,7 @@
   "Print lines 835 to 860 raw",
   "Print renderSidebarButtonContent raw",
   "apply hot reload to Antigravity window",
-  "Apply hot reload to Antigravity window"
+  "Apply hot reload to Antigravity window",
+  "Print lines 525 to 595 raw",
+  "Reload Companion in Antigravity"
 ]
