@@ -732,9 +732,7 @@
   "check task log",
   "check node processes",
   "check rendered slides",
-  "Announcements and tips",
   "Branch, current: master",
-  "Hi Sofia, what can we get done today?",
   "Daily Focus Inquiry",
   "Next run",
   "Last run",
@@ -818,5 +816,8 @@
   "carousel_02_who_i_am",
   "4036 lines added, 149 lines removed",
   "Toggle Side Panel",
-  "4085 lines added, 149 lines removed"
+  "4085 lines added, 149 lines removed",
+  "Hi Sofia, what can we get done today?",
+  "Announcements and tips",
+  "Branch, current: Select branch"
 ]
