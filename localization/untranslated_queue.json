@@ -813,5 +813,6 @@
   "impeccable",
   "Agent uses this skill automatically whenever building, modifying, polishing, or reviewing frontend user interfaces (HTML, CSS, React, Vue, Svelte, WebApps). Agent runs this skill to prevent visual anti-patterns and enforce design consistency. Agent automatically runs the local binary detector before completing frontend tasks. Agent ignores this skill for backend, database, analysis, and non-UI code.",
   "Toggle Side Panel",
-  "4036 lines added, 149 lines removed"
+  "4036 lines added, 149 lines removed",
+  "check Buffer channels"
 ]
