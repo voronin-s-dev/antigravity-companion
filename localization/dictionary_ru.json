@@ -12906,7 +12906,16 @@
     "Built-in Browser (Default)": "Встроенный браузер (по умолчанию)",
     "Built-in browser (Default)": "Встроенный браузер (по умолчанию)",
     "External Browser (Default)": "Внешний браузер (по умолчанию)",
-    "External browser (Default)": "Внешний браузер (по умолчанию)"
+    "External browser (Default)": "Внешний браузер (по умолчанию)",
+    "Toggle Side Panel": "Переключить боковую панель",
+    "Announcements and tips": "Объявления и советы",
+    "Branch, current: Select branch": "Ветка, текущая: Выберите ветку",
+    "Add shortcut for Zoom In": "Добавить сочетание клавиш для приближения",
+    "Add shortcut for Zoom Out": "Добавить сочетание клавиш для отдаления",
+    "Add shortcut for Reset Zoom": "Добавить сочетание клавиш для сброса масштаба",
+    "Awaiting": "Ожидание",
+    "Updated": "Обновлено",
+    "Native": "Нативный"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -14216,6 +14225,14 @@
     {
       "regex": "^(\\d+) (?:subagents? )?blocked$",
       "replace": "Заблокировано: $1"
+    },
+    {
+      "regex": "^(\\d+) lines? added, (\\d+) lines? removed$",
+      "replace": "$1 строк добавлено, $2 удалено"
+    },
+    {
+      "regex": "^Branch, current: (.+)$",
+      "replace": "Ветка, текущая: $1"
     }
   ]
 }
