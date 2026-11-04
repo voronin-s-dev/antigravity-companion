@@ -160,5 +160,6 @@
   "fetch finalized Instagram post link",
   "Wait 15s and check Buffer status",
   "wait and check Instagram publish status",
-  "Wait and check Instagram publish status"
+  "Wait and check Instagram publish status",
+  "Query detailed post node in Buffer"
 ]
