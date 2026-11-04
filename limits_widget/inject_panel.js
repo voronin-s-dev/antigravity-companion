@@ -70,6 +70,15 @@ async function injectWidget() {
       const uxStyle = document.createElement('style');
       uxStyle.id = 'agy-companion-ux-styles';
       uxStyle.textContent = \`
+        #agy-limits-floating-panel,
+        #agy-limits-tooltip,
+        #agy-sidebar-limits-btn,
+        #agy-report-modal,
+        #agy-paste-guard-toast {
+          font-family: "Google Sans Flex", "Google Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
         .agy-tabular-nums {
           font-feature-settings: 'tnum' 1, 'cv05' 1 !important;
           font-variant-numeric: tabular-nums !important;
@@ -79,6 +88,16 @@ async function injectWidget() {
         }
         .agy-tactile-btn:active {
           transform: scale(0.96) translateY(0.5px) !important;
+        }
+        .agy-pill-badge {
+          transition: background 0.14s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.14s cubic-bezier(0.16, 1, 0.3, 1), transform 0.12s ease !important;
+        }
+        .agy-pill-badge:hover {
+          background: rgba(255, 255, 255, 0.09) !important;
+          border-color: rgba(255, 255, 255, 0.12) !important;
+        }
+        .agy-pill-badge:active {
+          transform: scale(0.97) !important;
         }
         @keyframes agy-pulse-subtle {
           0%, 100% { opacity: 1; transform: scale(1); }
@@ -388,13 +407,15 @@ async function injectWidget() {
         opacity: 0;
         pointer-events: none;
         z-index: 10000000;
-        background: rgb(32, 30, 26);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-        border-radius: 7px;
-        padding: 6px 9px;
-        font-family: var(--vscode-font-family, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
-        color: #f4f4f5;
+        background: rgba(18, 16, 17, 0.94);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.04);
+        border-radius: 9px;
+        padding: 7px 11px;
+        font-family: "Google Sans Flex", "Google Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        color: #EFEFEF;
         font-size: 11px;
         user-select: none;
         white-space: nowrap;
@@ -493,10 +514,10 @@ async function injectWidget() {
           key: 'native',
           nameRu: 'Нативный',
           nameEn: 'Native',
-          bg: '#18181c',
-          border: '1px solid rgba(255, 255, 255, 0.09)',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.35)',
-          accent: '#BD9574',
+          bg: '#121011',
+          border: '1px solid rgba(255, 255, 255, 0.07)',
+          boxShadow: '0 28px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)',
+          accent: '#FF2172',
           badgeBg: 'rgba(255, 255, 255, 0.06)'
         },
         graphite: {
@@ -504,8 +525,8 @@ async function injectWidget() {
           nameRu: 'Графит',
           nameEn: 'Graphite',
           bg: '#202124',
-          border: '1px solid rgba(255, 255, 255, 0.14)',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.35)',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+          boxShadow: '0 28px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)',
           accent: '#9aa0a6',
           badgeBg: 'rgba(255, 255, 255, 0.08)'
         },
@@ -515,7 +536,7 @@ async function injectWidget() {
           nameEn: 'Sapphire',
           bg: 'linear-gradient(145deg, #0b1329 0%, #172554 100%)',
           border: '1px solid rgba(59, 130, 246, 0.45)',
-          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
+          boxShadow: '0 28px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(59, 130, 246, 0.2)',
           accent: '#60a5fa',
           badgeBg: 'rgba(59, 130, 246, 0.15)'
         },
@@ -525,7 +546,7 @@ async function injectWidget() {
           nameEn: 'Emerald',
           bg: 'linear-gradient(145deg, #041f17 0%, #064e3b 100%)',
           border: '1px solid rgba(16, 185, 129, 0.45)',
-          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
+          boxShadow: '0 28px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(16, 185, 129, 0.2)',
           accent: '#34d399',
           badgeBg: 'rgba(16, 185, 129, 0.15)'
         },
@@ -535,7 +556,7 @@ async function injectWidget() {
           nameEn: 'Amethyst',
           bg: 'linear-gradient(145deg, #180b2c 0%, #4c1d95 100%)',
           border: '1px solid rgba(139, 92, 246, 0.45)',
-          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
+          boxShadow: '0 28px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(139, 92, 246, 0.2)',
           accent: '#a78bfa',
           badgeBg: 'rgba(139, 92, 246, 0.15)'
         },
@@ -545,7 +566,7 @@ async function injectWidget() {
           nameEn: 'Amber',
           bg: 'linear-gradient(145deg, #241403 0%, #78350f 100%)',
           border: '1px solid rgba(245, 158, 11, 0.45)',
-          boxShadow: '0 4px 14px rgba(0, 0, 0, 0.35)',
+          boxShadow: '0 28px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(245, 158, 11, 0.2)',
           accent: '#fbbf24',
           badgeBg: 'rgba(245, 158, 11, 0.15)'
         }
@@ -562,10 +583,10 @@ async function injectWidget() {
           nameRu: 'Свой цвет',
           nameEn: 'Custom',
           bg: hex,
-          border: isLight ? '1px solid rgba(0, 0, 0, 0.2)' : '1px solid rgba(255, 255, 255, 0.14)',
-          boxShadow: isLight ? '0 4px 12px rgba(0, 0, 0, 0.15)' : '0 4px 12px rgba(0, 0, 0, 0.35)',
+          border: isLight ? '1px solid rgba(0, 0, 0, 0.2)' : '1px solid rgba(255, 255, 255, 0.1)',
+          boxShadow: isLight ? '0 12px 32px rgba(0, 0, 0, 0.15)' : '0 28px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05)',
           accent: hex,
-          color: isLight ? '#18181b' : '#f4f4f5'
+          color: isLight ? '#18181b' : '#EFEFEF'
         };
       }
 
@@ -641,15 +662,18 @@ async function injectWidget() {
 
       container.style.cssText = \`
         position: fixed;
-        width: 270px;
-        border-radius: 10px;
-        padding: 10px 12px;
-        color: #f4f4f5;
-        font-family: var(--vscode-font-family, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+        width: 280px;
+        border-radius: 14px;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 12px 14px;
+        color: #EFEFEF;
+        font-family: "Google Sans Flex", "Google Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         font-size: 12px;
         z-index: 9999999;
         user-select: none;
         box-sizing: border-box;
+        box-shadow: 0 28px 72px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.05);
         transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1), padding 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       \`;
 
@@ -802,35 +826,35 @@ async function injectWidget() {
       // Header
       const header = document.createElement('div');
       header.id = 'agy-panel-header';
-      header.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding-bottom: 7px; margin-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.07); cursor: move;';
+      header.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding-bottom: 8px; margin-bottom: 9px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); cursor: move;';
       header.innerHTML = \`
         <div style="display: flex; align-items: center; gap: 6px;">
           <svg style="width: 14px; height: 14px; color: #a1a1aa;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
           </svg>
-          <span id="agy-title-text" style="font-weight: 500; font-size: 12px; color: #f4f4f5;">\${t('title')}</span>
-          <span id="agy-header-step-count" style="display: none; font-size: 9.5px; font-weight: 600; padding: 1px 4px; border-radius: 3px; background: rgba(255, 255, 255, 0.08); margin-left: 2px;"></span>
+          <span id="agy-title-text" style="font-weight: 500; font-size: 12.5px; color: #EFEFEF; letter-spacing: -0.1px;">\${t('title')}</span>
+          <span id="agy-header-step-count" style="display: none; font-size: 9.5px; font-weight: 600; padding: 1.5px 5px; border-radius: 5px; background: rgba(255, 255, 255, 0.065); border: 1px solid rgba(255, 255, 255, 0.06); color: rgba(239, 239, 239, 0.85); margin-left: 2px;"></span>
         </div>
-        <div style="display: flex; gap: 2px; align-items: center;">
-          <button id="agy-report-btn" title="\${t('reportBtnTitle')}" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
+        <div style="display: flex; gap: 3px; align-items: center;">
+          <button id="agy-report-btn" class="agy-tactile-btn" title="\${t('reportBtnTitle')}" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 6px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
             <svg style="width: 13px; height: 13px; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path>
               <circle cx="12" cy="13" r="3"></circle>
             </svg>
           </button>
-          <button id="agy-gear-btn" title="Настройки" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
+          <button id="agy-gear-btn" class="agy-tactile-btn" title="Настройки" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 6px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
             <svg style="width: 13px; height: 13px; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="3"></circle>
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
             </svg>
           </button>
-          <button id="agy-refresh-btn" title="Обновить" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
+          <button id="agy-refresh-btn" class="agy-tactile-btn" title="Обновить" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 6px; font-size: 11px; line-height: 1; transition: background 0.12s, color 0.12s; display: flex; align-items: center; justify-content: center;">
             <svg style="width: 13px; height: 13px; pointer-events: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
             </svg>
           </button>
-          <button id="agy-collapse-btn" title="Свернуть / Развернуть" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 12px; line-height: 1; transition: background 0.12s, color 0.12s;">─</button>
-          <button id="agy-close-btn" title="\${currentLang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)'}" aria-label="\${currentLang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)'}" style="background: none; border: none; color: #6b6b72; cursor: pointer; padding: 4px 6px; border-radius: 4px; font-size: 13px; line-height: 1; transition: background 0.12s, color 0.12s;">×</button>
+          <button id="agy-collapse-btn" class="agy-tactile-btn" title="Свернуть / Развернуть" style="background: none; border: none; color: #85858b; cursor: pointer; padding: 4px 6px; border-radius: 6px; font-size: 12px; line-height: 1; transition: background 0.12s, color 0.12s;">─</button>
+          <button id="agy-close-btn" class="agy-tactile-btn" title="\${currentLang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)'}" aria-label="\${currentLang === 'ru' ? 'Скрыть (Alt+L)' : 'Hide (Alt+L)'}" style="background: none; border: none; color: #6b6b72; cursor: pointer; padding: 4px 6px; border-radius: 6px; font-size: 13px; line-height: 1; transition: background 0.12s, color 0.12s;">×</button>
         </div>
       \`;
 
@@ -2312,21 +2336,21 @@ async function injectWidget() {
           btn.innerHTML = '<div style="display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 0; gap: 6px;">' +
             '<div style="display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0;">' +
               '<div style="display: flex; align-items: center; gap: 6px; min-width: 0;">' +
-                '<span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">' + GEMINI_ICON_SVG + '</span>' +
+                '<span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0;">' + GEMINI_ICON_SVG + '</span>' +
                 '<div style="display: flex; align-items: center; gap: 3px; flex: 1; min-width: 0;">' +
                   lastGeminiPillItems.join('') +
                 '</div>' +
               '</div>' +
               '<div style="display: flex; align-items: center; gap: 6px; min-width: 0;">' +
-                '<span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">' + CLAUDE_ICON_SVG + '</span>' +
+                '<span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0;">' + CLAUDE_ICON_SVG + '</span>' +
                 '<div style="display: flex; align-items: center; gap: 3px; flex: 1; min-width: 0;">' +
                   lastClaudePillItems.join('') +
                 '</div>' +
               '</div>' +
             '</div>' +
             '<div style="display: flex; align-items: center; justify-content: center; flex-shrink: 0; gap: 4px;">' +
-              '<span class="agy-sidebar-steps agy-tabular-nums" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); line-height: 1.2;"></span>' +
-              '<span class="agy-sidebar-gear-btn agy-tactile-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.6; padding: 3px 4px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">' + GEAR_ICON_SVG + '</span>' +
+              '<span class="agy-sidebar-steps agy-tabular-nums" style="font-size: 9.5px; font-weight: 600; padding: 1.5px 5px; border-radius: 5px; background: rgba(255,255,255,0.065); border: 1px solid rgba(255,255,255,0.06); color: rgba(239,239,239,0.85); line-height: 1.2;"></span>' +
+              '<span class="agy-sidebar-gear-btn agy-tactile-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.6; padding: 2px 4px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">' + GEAR_ICON_SVG + '</span>' +
             '</div>' +
           '</div>';
         } else {
@@ -2337,14 +2361,14 @@ async function injectWidget() {
           let singleHtml = '';
           if (hasGemini) {
             singleHtml = '<div style="display: inline-flex; align-items: center; gap: 6px; flex: 1; min-width: 0;">' +
-              '<span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">' + GEMINI_ICON_SVG + '</span>' +
+              '<span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0;">' + GEMINI_ICON_SVG + '</span>' +
               '<div style="display: inline-flex; align-items: center; gap: 3px;">' +
                 lastGeminiPillItems.join('') +
               '</div>' +
             '</div>';
           } else if (hasClaude) {
             singleHtml = '<div style="display: inline-flex; align-items: center; gap: 6px; flex: 1; min-width: 0;">' +
-              '<span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">' + CLAUDE_ICON_SVG + '</span>' +
+              '<span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0;">' + CLAUDE_ICON_SVG + '</span>' +
               '<div style="display: inline-flex; align-items: center; gap: 3px;">' +
                 lastClaudePillItems.join('') +
               '</div>' +
@@ -2362,8 +2386,8 @@ async function injectWidget() {
               singleHtml +
             '</div>' +
             '<div style="display: flex; align-items: center; flex-shrink: 0; gap: 4px;">' +
-              '<span class="agy-sidebar-steps agy-tabular-nums" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); line-height: 1.2;"></span>' +
-              '<span class="agy-sidebar-gear-btn agy-tactile-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.6; padding: 2px 4px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">' + GEAR_ICON_SVG + '</span>' +
+              '<span class="agy-sidebar-steps agy-tabular-nums" style="font-size: 9.5px; font-weight: 600; padding: 1.5px 5px; border-radius: 5px; background: rgba(255,255,255,0.065); border: 1px solid rgba(255,255,255,0.06); color: rgba(239,239,239,0.85); line-height: 1.2;"></span>' +
+              '<span class="agy-sidebar-gear-btn agy-tactile-btn" title="' + (t('settingsModalTitle') || 'Настройки') + '" style="cursor: pointer; opacity: 0.6; padding: 2px 4px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">' + GEAR_ICON_SVG + '</span>' +
             '</div>' +
           '</div>';
         }
@@ -2545,13 +2569,13 @@ async function injectWidget() {
       reportModal.id = 'agy-report-modal';
       reportModal.setAttribute('role', 'dialog');
       reportModal.setAttribute('aria-modal', 'true');
-      reportModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.72); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 10000002; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;';
+      reportModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center; z-index: 10000002; font-family: "Google Sans Flex", "Google Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;';
 
       let reportPastedImage = null;
 
       function renderReportModal() {
         reportModal.innerHTML = \`
-          <div style="background: rgb(28, 26, 23); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 12px; width: 440px; max-width: 92vw; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45); color: #f4f4f5; padding: 16px 18px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: #121011; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; width: 440px; max-width: 92vw; box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05); color: #EFEFEF; padding: 18px 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px;">
             <!-- Header -->
             <div style="display: flex; align-items: flex-start; justify-content: space-between;">
               <div>
@@ -2977,9 +3001,9 @@ async function injectWidget() {
                 const resetSec = b.resetTime?.seconds || '';
 
                 const badgeItem = \`
-                  <span class="agy-pill-badge agy-tabular-nums" role="button" tabindex="0" data-reset="\${resetSec}" data-title="\${fullMetricTitle}" style="display: inline-flex; align-items: baseline; justify-content: center; gap: 2px; padding: 1px 4px; min-width: 44px; border-radius: 3px; cursor: pointer; background: rgba(255, 255, 255, 0.05); transition: background 0.12s;">
-                    <b style="color: \${color}; font-weight: 600; font-size: 11px; pointer-events: none;" class="agy-tabular-nums">\${pct}%</b>
-                    <span style="font-size: 8.5px; color: #8a8784; font-weight: 500; pointer-events: none;">\${badgeLabel}</span>
+                  <span class="agy-pill-badge agy-tabular-nums" role="button" tabindex="0" data-reset="\${resetSec}" data-title="\${fullMetricTitle}" style="display: inline-flex; align-items: baseline; justify-content: center; gap: 2.5px; padding: 1.5px 5.5px; min-width: 46px; border-radius: 6px; cursor: pointer; background: rgba(255, 255, 255, 0.055); border: 1px solid rgba(255, 255, 255, 0.06); transition: all 0.14s ease;">
+                    <b style="color: \${color}; font-weight: 600; font-size: 11.5px; letter-spacing: -0.2px; pointer-events: none;" class="agy-tabular-nums">\${pct}%</b>
+                    <span style="font-size: 9.5px; color: rgba(239, 239, 239, 0.6); font-weight: 500; pointer-events: none;">\${badgeLabel}</span>
                   </span>
                 \`;
                 if (isGemini) geminiPillItems.push(badgeItem);
@@ -3027,13 +3051,13 @@ async function injectWidget() {
             pillHtml += \`
               <div style="display: flex; flex-direction: column; gap: 2.5px;">
                 <div style="display: flex; align-items: center; gap: 5px;">
-                  <span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">\${GEMINI_ICON_SVG}</span>
+                  <span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0;">\${GEMINI_ICON_SVG}</span>
                   <div style="display: flex; align-items: center; gap: 2.5px;">
                     \${geminiPillItems.join('')}
                   </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 5px;">
-                  <span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">\${CLAUDE_ICON_SVG}</span>
+                  <span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0;">\${CLAUDE_ICON_SVG}</span>
                   <div style="display: flex; align-items: center; gap: 2.5px;">
                     \${claudePillItems.join('')}
                   </div>
@@ -3043,7 +3067,7 @@ async function injectWidget() {
           } else if (geminiPillItems.length > 0) {
             pillHtml += \`
               <div style="display: inline-flex; align-items: center; gap: 5px;">
-                <span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">\${GEMINI_ICON_SVG}</span>
+                <span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0;">\${GEMINI_ICON_SVG}</span>
                 <div style="display: flex; align-items: center; gap: 2.5px;">
                   \${geminiPillItems.join('')}
                 </div>
@@ -3052,7 +3076,7 @@ async function injectWidget() {
           } else if (claudePillItems.length > 0) {
             pillHtml += \`
               <div style="display: inline-flex; align-items: center; gap: 5px;">
-                <span style="display: inline-flex; align-items: center; justify-content: center; width: 14px; flex-shrink: 0;">\${CLAUDE_ICON_SVG}</span>
+                <span style="display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; flex-shrink: 0;">\${CLAUDE_ICON_SVG}</span>
                 <div style="display: inline-flex; align-items: center; gap: 2.5px;">
                   \${claudePillItems.join('')}
                 </div>
@@ -3065,9 +3089,9 @@ async function injectWidget() {
 
           content.innerHTML = html;
           pillSummary.innerHTML = pillHtml + \`
-            <span class="agy-pill-steps agy-tabular-nums" style="font-size: 9px; font-weight: 600; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.06); margin-left: 4px; display: inline-flex; align-items: center;"></span>
-            <span class="agy-pill-gear-btn agy-tactile-btn" title="\${t('settingsModalTitle') || 'Настройки'}" style="cursor: pointer; opacity: 0.65; margin-left: 4px; padding: 1px 4px; border-radius: 4px; background: rgba(255,255,255,0.06); display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">\${GEAR_ICON_SVG}</span>
-            <span title="Развернуть" style="color: #8a8784; font-size: 9px; margin-left: 4px; padding: 1px 3px; border-radius: 3px; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center;">▲</span>
+            <span class="agy-pill-steps agy-tabular-nums" style="font-size: 9.5px; font-weight: 600; padding: 1.5px 5px; border-radius: 5px; background: rgba(255,255,255,0.065); border: 1px solid rgba(255,255,255,0.06); color: rgba(239,239,239,0.85); margin-left: 4px; display: inline-flex; align-items: center;"></span>
+            <span class="agy-pill-gear-btn agy-tactile-btn" title="\${t('settingsModalTitle') || 'Настройки'}" style="cursor: pointer; opacity: 0.65; margin-left: 4px; padding: 1px 4px; border-radius: 5px; background: rgba(255,255,255,0.06); display: inline-flex; align-items: center; justify-content: center; transition: opacity 0.15s, background 0.15s;">\${GEAR_ICON_SVG}</span>
+            <span title="Развернуть" style="color: #8a8784; font-size: 9px; margin-left: 4px; padding: 1px 3px; border-radius: 4px; background: rgba(255,255,255,0.05); display: inline-flex; align-items: center;">▲</span>
           \`;
 
           lastGeminiPillItems = geminiPillItems;
@@ -3252,14 +3276,16 @@ async function injectWidget() {
           toast.style.cssText = \`
             position: fixed;
             z-index: 10000000;
-            background: rgb(28, 25, 20);
-            border: 1px solid rgba(245, 158, 11, 0.45);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
-            border-radius: 8px;
-            padding: 6px 11px;
+            background: rgba(26, 23, 19, 0.94);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(245, 158, 11, 0.2);
+            border-radius: 9px;
+            padding: 7px 12px;
             color: #fbbf24;
             font-size: 11px;
-            font-family: var(--vscode-font-family, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+            font-family: "Google Sans Flex", "Google Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             align-items: center;
             gap: 8px;

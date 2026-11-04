@@ -823,5 +823,7 @@
   "Apply hot reload to Antigravity window",
   "Print lines 525 to 595 raw",
   "Reload Companion in Antigravity",
-  "Explored files, ran commands, edited files. Merging new translations and validating dictionary integrity"
+  "Explored files, ran commands, edited files. Merging new translations and validating dictionary integrity",
+  "Final test verification",
+  "Explored files, ran commands, edited files. Running final verification suite"
 ]

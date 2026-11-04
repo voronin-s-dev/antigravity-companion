@@ -48,7 +48,8 @@ function evaluateInPage(wsUrl, expression) {
         if (data.id === 1) {
           ws.close();
           if (data.result?.exceptionDetails) {
-            reject(new Error(data.result.exceptionDetails.text || 'Ошибка выполнения скрипта'));
+            const detail = data.result.exceptionDetails.exception?.description || data.result.exceptionDetails.text || 'Ошибка выполнения скрипта';
+            reject(new Error(detail));
           } else {
             resolve(data.result?.result?.value);
           }
