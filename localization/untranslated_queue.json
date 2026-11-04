@@ -137,5 +137,7 @@
   "Evaluation of Impeccable Skill",
   "Analysis Of Unslop Skill",
   "Parse messages to scratch file",
-  "Extract github and tool links"
+  "Extract github and tool links",
+  "Probe video files in ChatExport",
+  "Transcribe numpy audio buffer"
 ]
