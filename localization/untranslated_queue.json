@@ -142,5 +142,6 @@
   "Transcribe numpy audio buffer",
   "Transcribe all reels in export",
   "Reels Production Tool Analysis",
-  "Dump 10-26 and 10-28 exports"
+  "Dump 10-26 and 10-28 exports",
+  "list all global skills"
 ]
