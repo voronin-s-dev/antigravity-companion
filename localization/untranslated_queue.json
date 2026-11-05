@@ -254,5 +254,7 @@
   "Commit AAR documentation and checks map",
   "Push to origin main",
   "Hot reload companion in Antigravity",
-  "alho"
+  "alho",
+  "inspect voice mode buttons in live DOM",
+  "Locate Antigravity installation files"
 ]
