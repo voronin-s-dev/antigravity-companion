@@ -259,5 +259,6 @@
   "Locate Antigravity installation files",
   "Extract UI strings from voice toolbar code",
   "Dump voice_callbar.js snippet",
-  "Dump huc_nuc.js snippet"
+  "Dump huc_nuc.js snippet",
+  "Dump huc_only.js snippet"
 ]
