@@ -213,5 +213,12 @@
   "End Voice mode",
   "Voice mode, 0:00",
   "Listening. Ask anything.",
-  "Couldn't connect"
+  "Couldn't connect",
+  "Voice",
+  "The voice used in Voice mode. Powered by Gemini Live.",
+  "How loud Antigravity's voice is.",
+  "Mute Voice Mic",
+  "Mute Voice Speaker",
+  "Add shortcut for Mute Voice Mic",
+  "Add shortcut for Mute Voice Speaker"
 ]
