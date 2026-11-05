@@ -220,5 +220,8 @@
   "Mute Voice Mic",
   "Mute Voice Speaker",
   "Add shortcut for Mute Voice Mic",
-  "Add shortcut for Mute Voice Speaker"
+  "Add shortcut for Mute Voice Speaker",
+  "Merging translations for Voice Mode and running test suite",
+  "apply hot reload",
+  "Apply hot reload"
 ]
