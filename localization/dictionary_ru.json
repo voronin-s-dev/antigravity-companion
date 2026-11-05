@@ -13666,7 +13666,20 @@
     "print around center": "вывести окружение центра",
     "calculate dist_core at cy, cx": "вычислить dist_core в точке cy, cx",
     "test smin_correct": "протестировать smin_correct",
-    "Open In": "Открыть в"
+    "Open In": "Открыть в",
+    "Start Voice mode": "Запустить голосовой режим",
+    "Choose Antigravity's Voice": "Выберите голос Antigravity",
+    "You can change this in": "Вы можете изменить это в",
+    "later.": "позже.",
+    "Previous voice": "Предыдущий голос",
+    "Next voice": "Следующий голос",
+    "Voices": "Голоса",
+    "Clear and friendly": "Четкий и дружелюбный",
+    "Confident and clear": "Уверенный и четкий",
+    "Warm and engaging": "Теплый и вовлекающий",
+    "Warm and approachable": "Теплый и открытый",
+    "Deep and velvety": "Глубокий и бархатистый",
+    "Light and precise": "Легкий и точный"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -14984,6 +14997,10 @@
     {
       "regex": "^Branch, current: (.+)$",
       "replace": "Ветка, текущая: $1"
+    },
+    {
+      "regex": "^([A-Za-zА-Яа-яёЁ]+), voice (\\d+) of (\\d+)$",
+      "replace": "$1, голос $2 из $3"
     }
   ]
 }
