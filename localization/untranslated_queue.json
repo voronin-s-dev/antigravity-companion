@@ -257,5 +257,7 @@
   "alho",
   "inspect voice mode buttons in live DOM",
   "Locate Antigravity installation files",
-  "Extract UI strings from voice toolbar code"
+  "Extract UI strings from voice toolbar code",
+  "Dump voice_callbar.js snippet",
+  "Dump huc_nuc.js snippet"
 ]
