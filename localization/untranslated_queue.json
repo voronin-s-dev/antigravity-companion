@@ -238,5 +238,6 @@
   "Show commit bdc12e5 diff",
   "Restore build_merge_json.js from subagent log",
   "Restore build_merge_json.js from transcript_full",
-  "Dump corrupted entries from dictionary"
+  "Dump corrupted entries from dictionary",
+  "Merge repaired translations into dictionary"
 ]
