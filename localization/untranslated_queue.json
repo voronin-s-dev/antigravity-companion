@@ -256,5 +256,6 @@
   "Hot reload companion in Antigravity",
   "alho",
   "inspect voice mode buttons in live DOM",
-  "Locate Antigravity installation files"
+  "Locate Antigravity installation files",
+  "Extract UI strings from voice toolbar code"
 ]
