@@ -242,5 +242,6 @@
   "Merge repaired translations into dictionary",
   "Show commit 07fb319 stats",
   "Show commit 2eb780a stats",
-  "Print sample uFFFD entries"
+  "Print sample uFFFD entries",
+  "Directly merge and count remaining uFFFD"
 ]
