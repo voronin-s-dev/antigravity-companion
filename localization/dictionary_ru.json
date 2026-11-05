@@ -13679,7 +13679,18 @@
     "Warm and engaging": "Теплый и вовлекающий",
     "Warm and approachable": "Теплый и открытый",
     "Deep and velvety": "Глубокий и бархатистый",
-    "Light and precise": "Легкий и точный"
+    "Light and precise": "Легкий и точный",
+    "Voice": "Голос",
+    "The voice used in Voice mode. Powered by Gemini Live.": "Голос для голосового режима. На базе Gemini Live.",
+    "How loud Antigravity's voice is.": "Громкость голоса Antigravity.",
+    "End Voice mode": "Завершить голосовой режим",
+    "Voice mode, 0:00": "Голосовой режим, 0:00",
+    "Listening. Ask anything.": "Слушаю. Спросите о чём угодно.",
+    "Couldn't connect": "Не удалось подключиться",
+    "Mute Voice Mic": "Отключить микрофон голосового режима",
+    "Mute Voice Speaker": "Отключить динамик голосового режима",
+    "Add shortcut for Mute Voice Mic": "Добавить сочетание клавиш для отключения микрофона голосового режима",
+    "Add shortcut for Mute Voice Speaker": "Добавить сочетание клавиш для отключения динамика голосового режима"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
