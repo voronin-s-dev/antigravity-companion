@@ -41,7 +41,9 @@ const isStrictUiString = (s, dictRef) => {
   // Исключить обрезанные осколки слов (с дефисом на конце/начале, обрывки предложений после подсветки поиска)
   if (/^[a-z0-9]+-$/i.test(t) || /^-[a-z0-9]+/i.test(t)) return false;
   if (/^[a-z]{1,4}[,.]/.test(t)) return false;
-  if (t.length <= 3 && !/^[A-Z0-9]+$/.test(t)) return false;
+  // Исключить обрезанные осколки слов, но сохранять нормальные короткие UI-слова с заглавной буквы (например, "End", "Run", "All", "Add", "New")
+  const VALID_SHORT_WORDS = new Set(['End', 'Run', 'All', 'Add', 'New', 'Cut', 'Yes', 'No', 'Off', 'On', 'Top', 'Row', 'Tab', 'Pin', 'Log', 'Fix', 'Set', 'Get', 'Out']);
+  if (t.length <= 3 && !/^[A-Z0-9]+$/.test(t) && !VALID_SHORT_WORDS.has(t) && !/^[A-Z][a-z]{1,2}$/.test(t)) return false;
   if (['goal', 'btw', 'self', 'compact', 'plan', 'browser', 'schedule', 'automation', 'find-skills'].includes(t)) return false;
 
   // Исключить таймзоны вида Europe/Helsinki, America/New_York

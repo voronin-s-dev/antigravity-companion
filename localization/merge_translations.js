@@ -48,11 +48,12 @@ function main() {
   let addedPatterns = 0;
 
   const PROTECTED_COMMANDS = new Set(['goal', 'btw', 'self', 'compact']);
+  const VALID_SHORT_WORDS = new Set(['End', 'Run', 'All', 'Add', 'New', 'Cut', 'Yes', 'No', 'Off', 'On', 'Top', 'Row', 'Tab', 'Pin', 'Log', 'Fix', 'Set', 'Get', 'Out']);
   const isInvalidKey = (k) => {
     if (/^\d+$/.test(k.trim())) return true;
     if (PROTECTED_COMMANDS.has(k)) return true;
     if (/^[a-z0-9]+-$/i.test(k) || /^-[a-z0-9]+/i.test(k)) return true;
-    if (k.length <= 3 && !/^[A-Z0-9]+$/.test(k)) return true;
+    if (k.length <= 3 && !/^[A-Z0-9]+$/.test(k) && !VALID_SHORT_WORDS.has(k) && !/^[A-Z][a-z]{1,2}$/.test(k)) return true;
     return false;
   };
 
