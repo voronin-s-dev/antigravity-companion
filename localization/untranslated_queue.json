@@ -228,5 +228,9 @@
   "Ran commands. I am verifying the test suite in the background. Once completed, I will document the changes and confirm all tests have passed",
   "check dictionary_integrity.test.js diff",
   "Confirm zero uFFFD entries",
-  "Clean up session scratch files"
+  "Clean up session scratch files",
+  "Stage files for commit",
+  "Commit Milestone 73 changes",
+  "Push commits to origin main",
+  "Trigger hot reload via CDP"
 ]
