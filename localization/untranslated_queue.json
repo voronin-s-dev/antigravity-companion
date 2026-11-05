@@ -239,5 +239,8 @@
   "Restore build_merge_json.js from subagent log",
   "Restore build_merge_json.js from transcript_full",
   "Dump corrupted entries from dictionary",
-  "Merge repaired translations into dictionary"
+  "Merge repaired translations into dictionary",
+  "Show commit 07fb319 stats",
+  "Show commit 2eb780a stats",
+  "Print sample uFFFD entries"
 ]
