@@ -131,7 +131,6 @@
   "Render frame 60 from video_engine",
   "Show 16 more subagents",
   "Side Panel",
-  "Evaluation of Impeccable Skill",
   "Parse messages to scratch file",
   "Extract github and tool links",
   "Probe video files in ChatExport",
@@ -278,5 +277,6 @@
   "montage_ref_03_six_sounds_formula.mp4",
   "Close montage_ref_03_six_sounds_formula.mp4",
   "Reels Production Tool Analysis",
-  "list funnels directory"
+  "list funnels directory",
+  "Evaluation of Impeccable Skill"
 ]
