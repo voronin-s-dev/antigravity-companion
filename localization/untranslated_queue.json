@@ -243,5 +243,6 @@
   "Show commit 07fb319 stats",
   "Show commit 2eb780a stats",
   "Print sample uFFFD entries",
-  "Directly merge and count remaining uFFFD"
+  "Directly merge and count remaining uFFFD",
+  "Show commit d1eeb52 stats"
 ]
