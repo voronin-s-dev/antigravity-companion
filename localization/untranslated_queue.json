@@ -163,5 +163,7 @@
   "Wait and check Instagram publish status",
   "Query detailed post node in Buffer",
   "wait 25s and check Buffer status",
-  "Wait 25s and check Buffer status"
+  "Wait 25s and check Buffer status",
+  "apply hot reload to window",
+  "Apply hot reload to window"
 ]

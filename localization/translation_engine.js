@@ -935,6 +935,16 @@
     if (dict.attributes && dict.attributes[trimmed]) return dict.attributes[trimmed];
     const tr = getTranslation(trimmed);
     if (tr) return tr;
+
+    // Резервный поиск без учета регистра для меню (например, "Open In" vs "Open in")
+    if (dict.exact) {
+      const lower = trimmed.toLowerCase();
+      for (const [k, v] of Object.entries(dict.exact)) {
+        if (k.toLowerCase() === lower) return v;
+      }
+    }
+
+    reportUntranslatedString(trimmed);
     return label;
   }
 

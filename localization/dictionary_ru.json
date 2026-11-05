@@ -13665,7 +13665,8 @@
     "check final_arr": "проверить final_arr",
     "print around center": "вывести окружение центра",
     "calculate dist_core at cy, cx": "вычислить dist_core в точке cy, cx",
-    "test smin_correct": "протестировать smin_correct"
+    "test smin_correct": "протестировать smin_correct",
+    "Open In": "Открыть в"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
