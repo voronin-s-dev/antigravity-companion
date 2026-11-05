@@ -268,5 +268,6 @@
   "Go to turn 7 of 14",
   "Extract product links from Prom.ua",
   "Parse JSON-LD from Prom.ua",
-  "Extract price from product page"
+  "Extract price from product page",
+  "Filter Procraft PA12 lots"
 ]
