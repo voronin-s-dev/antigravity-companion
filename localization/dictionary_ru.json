@@ -13690,7 +13690,20 @@
     "Mute Voice Mic": "Отключить микрофон голосового режима",
     "Mute Voice Speaker": "Отключить динамик голосового режима",
     "Add shortcut for Mute Voice Mic": "Добавить сочетание клавиш для отключения микрофона голосового режима",
-    "Add shortcut for Mute Voice Speaker": "Добавить сочетание клавиш для отключения динамика голосового режима"
+    "Add shortcut for Mute Voice Speaker": "Добавить сочетание клавиш для отключения динамика голосового режима",
+    "End": "Завершить",
+    "Mute Antigravity": "Заглушить Antigravity",
+    "Unmute Antigravity": "Включить звук Antigravity",
+    "Voice speed": "Скорость голоса",
+    "Voice Speed": "Скорость голоса",
+    "Voice speed, 1x": "Скорость голоса: 1x",
+    "Voice speed, 0.75x": "Скорость голоса: 0.75x",
+    "Voice speed, 1.25x": "Скорость голоса: 1.25x",
+    "Voice speed, 1.5x": "Скорость голоса: 1.5x",
+    "Voice speed, 1.75x": "Скорость голоса: 1.75x",
+    "Voice speed, 2x": "Скорость голоса: 2x",
+    "Voice mode in progress": "Голосовой режим активен",
+    "Live chat in progress": "Голосовой режим активен"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -13850,7 +13863,16 @@
     "Version": "Версия",
     "Search Projects": "Поиск проектов",
     "Search projects": "Поиск проектов",
-    "Search: Projects": "Поиск проектов"
+    "Search: Projects": "Поиск проектов",
+    "End Voice mode": "Завершить голосовой режим",
+    "End Live chat": "Завершить голосовой режим",
+    "Mute mic": "Отключить микрофон",
+    "Unmute mic": "Включить микрофон",
+    "Mute Antigravity": "Заглушить Antigravity",
+    "Unmute Antigravity": "Включить звук Antigravity",
+    "Voice speed": "Скорость голоса",
+    "Minimize": "Свернуть",
+    "Expand": "Развернуть"
   },
   "patterns": [
     {
@@ -15012,6 +15034,26 @@
     {
       "regex": "^([A-Za-zА-Яа-яёЁ]+), voice (\\d+) of (\\d+)$",
       "replace": "$1, голос $2 из $3"
+    },
+    {
+      "regex": "^Voice speed,\\s*([0-9.]+x)$",
+      "replace": "Скорость голоса: $1"
+    },
+    {
+      "regex": "^Mute mic\\s*\\((.+)\\)$",
+      "replace": "Отключить микрофон ($1)"
+    },
+    {
+      "regex": "^Unmute mic\\s*\\((.+)\\)$",
+      "replace": "Включить микрофон ($1)"
+    },
+    {
+      "regex": "^Mute Antigravity\\s*\\((.+)\\)$",
+      "replace": "Заглушить Antigravity ($1)"
+    },
+    {
+      "regex": "^Unmute Antigravity\\s*\\((.+)\\)$",
+      "replace": "Включить звук Antigravity ($1)"
     }
   ]
 }

@@ -207,8 +207,6 @@
   "Neno",
   "Olin",
   "Tari",
-  "Mute Antigravity",
-  "Voice speed, 1x",
   "Merging translations for Voice Mode and running test suite",
   "apply hot reload",
   "Apply hot reload",
@@ -260,5 +258,8 @@
   "Extract UI strings from voice toolbar code",
   "Dump voice_callbar.js snippet",
   "Dump huc_nuc.js snippet",
-  "Dump huc_only.js snippet"
+  "Dump huc_only.js snippet",
+  "Merge voice callbar translations",
+  "Explored files, ran commands, edited files. I am waiting for the merge task and tests to complete",
+  "check git status after merge"
 ]
