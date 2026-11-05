@@ -165,5 +165,6 @@
   "wait 25s and check Buffer status",
   "Wait 25s and check Buffer status",
   "apply hot reload to window",
-  "Apply hot reload to window"
+  "Apply hot reload to window",
+  "Commit and push Open In fix"
 ]
