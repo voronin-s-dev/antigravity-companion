@@ -227,5 +227,9 @@
   "Retry pushing tag v1.7.4",
   "Explored files, ran commands, edited files. Re-translating corrupted entries via fallback model",
   "print all corrupted entries",
-  "Print all corrupted entries"
+  "Print all corrupted entries",
+  "Count corrupted entries",
+  "Show commit 7160ad4 stats",
+  "Show translation_engine.js diff in commit 7160ad4",
+  "Count uFFFD in dictionary"
 ]
