@@ -78,6 +78,24 @@ function testDictionaryIntegrity() {
     throw new Error(`Обнаружены ключи с висячими дефисами в exact: ${hyphenKeys.join(', ')}`);
   }
 
+  // 6. Защита от поврежденных символов Unicode (\uFFFD)
+  const corruptedUnicode = [];
+  for (const [k, v] of Object.entries(dict.exact)) {
+    if (k.includes('\uFFFD') || (typeof v === 'string' && v.includes('\uFFFD'))) {
+      corruptedUnicode.push(`exact["${k}"]`);
+    }
+  }
+  if (dict.attributes) {
+    for (const [k, v] of Object.entries(dict.attributes)) {
+      if (k.includes('\uFFFD') || (typeof v === 'string' && v.includes('\uFFFD'))) {
+        corruptedUnicode.push(`attributes["${k}"]`);
+      }
+    }
+  }
+  if (corruptedUnicode.length > 0) {
+    throw new Error(`Обнаружены поврежденные символы \\uFFFD (${corruptedUnicode.length} записей): ${corruptedUnicode.slice(0, 5).join(', ')}`);
+  }
+
   return {
     exactCount,
     attrCount,
