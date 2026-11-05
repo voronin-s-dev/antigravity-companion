@@ -224,5 +224,8 @@
   "apply hot reload",
   "Apply hot reload",
   "Sample corrupted keys",
-  "Retry pushing tag v1.7.4"
+  "Retry pushing tag v1.7.4",
+  "Explored files, ran commands, edited files. Re-translating corrupted entries via fallback model",
+  "print all corrupted entries",
+  "Print all corrupted entries"
 ]
