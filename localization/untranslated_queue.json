@@ -138,7 +138,6 @@
   "Probe video files in ChatExport",
   "Transcribe numpy audio buffer",
   "Transcribe all reels in export",
-  "Reels Production Tool Analysis",
   "Dump 10-26 and 10-28 exports",
   "list all global skills",
   "Extract frames from reel video",
@@ -146,8 +145,6 @@
   "Copy references to video_engine",
   "Render 6 core SFX sounds",
   "Re-run pipeline test on ref_03",
-  "montage_ref_03_six_sounds_formula.mp4",
-  "Close montage_ref_03_six_sounds_formula.mp4",
   "Go to turn 3 of 17",
   "Go to turn 4 of 17",
   "list projects in workspace",
@@ -262,5 +259,8 @@
   "Explored files, ran commands, edited files. I am waiting for the merge task and tests to complete",
   "check git status after merge",
   "Commit Milestone 75 changes",
-  "Apply hot reload"
+  "Apply hot reload",
+  "montage_ref_03_six_sounds_formula.mp4",
+  "Close montage_ref_03_six_sounds_formula.mp4",
+  "Reels Production Tool Analysis"
 ]
