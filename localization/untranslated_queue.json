@@ -244,5 +244,11 @@
   "Show commit 2eb780a stats",
   "Print sample uFFFD entries",
   "Directly merge and count remaining uFFFD",
-  "Show commit d1eeb52 stats"
+  "Show commit d1eeb52 stats",
+  "Commit all fixes immediately",
+  "Push commit to origin main",
+  "Explored files, ran commands, edited file. I am waiting for the full test suite verification to complete",
+  "apply hot reload via CDP",
+  "Apply hot reload via CDP",
+  "Grep aar-log.md for similar past issues"
 ]
