@@ -81,7 +81,8 @@
     '[data-testid*="explorer-item"]',
     '[data-testid*="tab-label"]',
     '.monaco-list-row',
-    '[data-testid="user-input-step"]',
+    '[data-testid="user-message-bubble"]',
+    '.agy-user-bubble-frame',
     '.leading-relaxed.select-text.break-words',
     '.animate-markdown',
     '.markdown-alert',
@@ -103,6 +104,9 @@
   function isExcluded(node) {
     if (!node || node.nodeType !== Node.ELEMENT_NODE) return false;
     try {
+      // Служебные плашки действий сообщений и таймстампы никогда не исключаются
+      if (node.closest('[data-testid="user-message-actions"], [data-tooltip-id^="timestamp-"]')) return false;
+
       if (node.matches(EXCLUDED_SELECTORS)) return true;
       if (node.closest(EXCLUDED_SELECTORS)) return true;
       const trigger = node.closest('[data-testid="project-selector-trigger"]');
@@ -176,6 +180,21 @@
   function formatTimeTokens(str) {
     if (!str || typeof str !== 'string') return str;
     return str
+      .replace(/^just now$/i, 'только что')
+      .replace(/(\d+)\s*days?\s+ago/gi, '$1 дн. назад')
+      .replace(/(\d+)\s*hours?\s+ago/gi, '$1 ч. назад')
+      .replace(/(\d+)\s*minutes?\s+ago/gi, '$1 мин. назад')
+      .replace(/(\d+)\s*seconds?\s+ago/gi, '$1 сек. назад')
+      .replace(/(\d+)\s*weeks?\s+ago/gi, '$1 нед. назад')
+      .replace(/(\d+)\s*months?\s+ago/gi, '$1 мес. назад')
+      .replace(/(\d+)\s*years?\s+ago/gi, '$1 г. назад')
+      .replace(/(\d+)\s*mo\s+ago/gi, '$1 мес. назад')
+      .replace(/(\d+)\s*y\s+ago/gi, '$1 г. назад')
+      .replace(/(\d+)\s*w\s+ago/gi, '$1 нед. назад')
+      .replace(/(\d+)\s*d\s+ago/gi, '$1 дн. назад')
+      .replace(/(\d+)\s*h\s+ago/gi, '$1 ч. назад')
+      .replace(/(\d+)\s*m\s+ago/gi, '$1 мин. назад')
+      .replace(/(\d+)\s*s\s+ago/gi, '$1 сек. назад')
       .replace(/(\d+)\s*days?/gi, '$1 дн.')
       .replace(/(\d+)\s*hours?/gi, '$1 ч.')
       .replace(/(\d+)\s*minutes?/gi, '$1 мин.')
@@ -314,6 +333,8 @@
     if (!domNode) return false;
     const el = domNode.nodeType === 1 ? domNode : domNode.parentElement;
     if (!el) return false;
+    // Служебные плашки действий сообщений и таймстампы всегда публичны
+    if (el.closest('[data-testid="user-message-actions"], [data-tooltip-id^="timestamp-"]')) return false;
     // 0. Меню автодополнения слэш-команд и навыков:
     // Никогда не собираем строки из typeahead меню через runtime collector, так как подсветка поиска (AA/matches)
     // динамически нарезает слова на неполные фрагменты (fi, veri, le, etc.).

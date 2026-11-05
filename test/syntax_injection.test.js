@@ -190,6 +190,10 @@ function testDynamicTokensLocalization() {
   const p2 = translate('Resets in 2h 47m');
   const p3 = translate('Sonnet 5.5 is now available on paid Pro and Ultra plans. Third-party model access will no longer be available on your current plan starting on November 18, 2026.');
   const p4 = translate('3d 8h');
+  const p5 = translate('just now');
+  const p6 = translate('5m ago');
+  const p7 = translate('2h ago');
+  const p8 = translate('1d ago');
 
   if (!p1 || !p1.includes('3 д 8 ч')) {
     throw new Error(`Ошибка локализации относительного времени "Resets in 3d 8h": результат "${p1}"`);
@@ -202,6 +206,18 @@ function testDynamicTokensLocalization() {
   }
   if (!p4 || p4 !== '3 д 8 ч') {
     throw new Error(`Ошибка локализации одиночного токена "3d 8h": результат "${p4}"`);
+  }
+  if (!p5 || p5 !== 'только что') {
+    throw new Error(`Ошибка локализации относительного времени "just now": результат "${p5}"`);
+  }
+  if (!p6 || !p6.includes('5 мин. назад')) {
+    throw new Error(`Ошибка локализации относительного времени "5m ago": результат "${p6}"`);
+  }
+  if (!p7 || !p7.includes('2 ч. назад')) {
+    throw new Error(`Ошибка локализации относительного времени "2h ago": результат "${p7}"`);
+  }
+  if (!p8 || !p8.includes('1 дн. назад')) {
+    throw new Error(`Ошибка локализации относительного времени "1d ago": результат "${p8}"`);
   }
 }
 
