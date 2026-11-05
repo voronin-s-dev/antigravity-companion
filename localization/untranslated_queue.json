@@ -118,7 +118,6 @@
   "Commit CHANGELOG for v1.7.4",
   "Explored file, ran commands, edited file. Pushing commit and tag v1.7.4 to GitHub",
   "retry pushing tag v1.7.4",
-  "Retry pushing tag v1.7.4",
   "Retrying tag push to GitHub",
   "verify remote tag v1.7.4",
   "search primary and pink in CSS",
@@ -223,5 +222,7 @@
   "Add shortcut for Mute Voice Speaker",
   "Merging translations for Voice Mode and running test suite",
   "apply hot reload",
-  "Apply hot reload"
+  "Apply hot reload",
+  "Sample corrupted keys",
+  "Retry pushing tag v1.7.4"
 ]
