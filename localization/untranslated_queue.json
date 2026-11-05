@@ -132,7 +132,6 @@
   "Show 16 more subagents",
   "Side Panel",
   "Evaluation of Impeccable Skill",
-  "Analysis Of Unslop Skill",
   "Parse messages to scratch file",
   "Extract github and tool links",
   "Probe video files in ChatExport",
@@ -226,9 +225,6 @@
   "check git status after merge",
   "Commit Milestone 75 changes",
   "Apply hot reload",
-  "montage_ref_03_six_sounds_formula.mp4",
-  "Close montage_ref_03_six_sounds_formula.mp4",
-  "Reels Production Tool Analysis",
   "Download Instagram Reel",
   "Transcribe downloaded Reel",
   "Go to turn 7 of 14",
@@ -277,5 +273,9 @@
   "Turn 29 of 33",
   "Turn 30 of 33",
   "Turn 31 of 33",
-  "Turn 32 of 33"
+  "Turn 32 of 33",
+  "Analysis Of Unslop Skill",
+  "montage_ref_03_six_sounds_formula.mp4",
+  "Close montage_ref_03_six_sounds_formula.mp4",
+  "Reels Production Tool Analysis"
 ]
