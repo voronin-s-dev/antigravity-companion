@@ -397,6 +397,27 @@
       return leading + match + trailing;
     }
 
+    // 1b. Ellipsis variant fallback (… vs ...)
+    if (dict.exact) {
+      if (trimmed.includes('\u2026')) {
+        const alt = trimmed.replace(/\u2026/g, '...');
+        if (dict.exact[alt]) {
+          const match = dict.exact[alt];
+          const leading = /^[.,;:!?)]/.test(match) ? '' : rawText.match(/^\s*/)[0];
+          const trailing = rawText.match(/\s*$/)[0];
+          return leading + match + trailing;
+        }
+      } else if (trimmed.includes('...')) {
+        const alt = trimmed.replace(/\.{3}/g, '\u2026');
+        if (dict.exact[alt]) {
+          const match = dict.exact[alt];
+          const leading = /^[.,;:!?)]/.test(match) ? '' : rawText.match(/^\s*/)[0];
+          const trailing = rawText.match(/\s*$/)[0];
+          return leading + match + trailing;
+        }
+      }
+    }
+
     // 2. Trajectory summary special handler
     const trajTr = translateTrajectorySummary(trimmed);
     if (trajTr) {
