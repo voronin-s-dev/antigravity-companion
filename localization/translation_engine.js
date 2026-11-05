@@ -154,13 +154,41 @@
     return cachedRev;
   }
 
+  const MONTH_NAMES_RU = {
+    january: 'января', february: 'февраля', march: 'марта', april: 'апреля',
+    may: 'мая', june: 'июня', july: 'июля', august: 'августа',
+    september: 'сентября', october: 'октября', november: 'ноября', december: 'декабря',
+    jan: 'янв.', feb: 'февр.', mar: 'мар.', apr: 'апр.', jun: 'июн.',
+    jul: 'июл.', aug: 'авг.', sep: 'сент.', oct: 'окт.', nov: 'нояб.', dec: 'дек.'
+  };
+
+  function formatDateTokens(str) {
+    if (!str || typeof str !== 'string') return str;
+    return str.replace(/\b(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{1,2})(?:st|nd|rd|th)?(?:\s*,?\s*(\d{4}))?\b(\.)?/gi, (m, mon, day, yr, dot) => {
+      const ruMon = MONTH_NAMES_RU[mon.toLowerCase()] || mon;
+      if (yr) {
+        return `${day} ${ruMon} ${yr} г.`;
+      }
+      return `${day} ${ruMon}${dot || ''}`;
+    });
+  }
+
   function formatTimeTokens(str) {
     if (!str || typeof str !== 'string') return str;
     return str
       .replace(/(\d+)\s*days?/gi, '$1 дн.')
       .replace(/(\d+)\s*hours?/gi, '$1 ч.')
       .replace(/(\d+)\s*minutes?/gi, '$1 мин.')
-      .replace(/(\d+)\s*seconds?/gi, '$1 сек.');
+      .replace(/(\d+)\s*seconds?/gi, '$1 сек.')
+      .replace(/(\d+)\s*d(?=[,\s]|$)/gi, '$1 д')
+      .replace(/(\d+)\s*h(?=[,\s]|$)/gi, '$1 ч')
+      .replace(/(\d+)\s*m(?=[,\s]|$)/gi, '$1 мин')
+      .replace(/(\d+)\s*s(?=[,\s]|$)/gi, '$1 с');
+  }
+
+  function formatDynamicTokens(str) {
+    if (!str || typeof str !== 'string') return str;
+    return formatDateTokens(formatTimeTokens(str));
   }
 
   function translateTrajectorySummary(raw) {
@@ -394,7 +422,7 @@
             const replacement = p.replace !== undefined ? p.replace : p.replacement;
             if (replacement === undefined) continue;
             let replaced = trimmed.replace(p._compiled, replacement);
-            replaced = formatTimeTokens(replaced);
+            replaced = formatDynamicTokens(replaced);
             const leading = /^[.,;:!?)]/.test(replaced) ? '' : rawText.match(/^\s*/)[0];
             const trailing = rawText.match(/\s*$/)[0];
             return leading + replaced + trailing;
@@ -403,6 +431,14 @@
           p._invalid = true;
         }
       }
+    }
+
+    // 4. Standalone dynamic tokens (relative duration e.g. "3d 8h" or date e.g. "November 18, 2026")
+    const formattedDynamic = formatDynamicTokens(trimmed);
+    if (formattedDynamic !== trimmed) {
+      const leading = /^[.,;:!?)]/.test(formattedDynamic) ? '' : rawText.match(/^\s*/)[0];
+      const trailing = rawText.match(/\s*$/)[0];
+      return leading + formattedDynamic + trailing;
     }
 
     return null;
@@ -783,6 +819,7 @@
 
   window.__agyTranslatorObserver = observer;
   window.__agyTranslatorActive = true;
+  window.__agyTranslateText = getTranslation;
 
   // Self-healing: гарантирует, что пользовательские имена проектов и рабочих областей не изменяются
   function restoreProjectNames() {

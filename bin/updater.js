@@ -237,7 +237,10 @@ async function applyUpdates() {
       const behind = parseInt(execSync('git rev-list HEAD..origin/main --count', { cwd: repoRoot, timeout: 4000 }).toString().trim(), 10) || 0;
       if (behind > 0) {
         try {
-          execSync('git checkout HEAD -- localization/dictionary_ru.json localization/untranslated_queue.json', { cwd: repoRoot, timeout: 4000, stdio: 'ignore' });
+          try {
+            execSync('git add localization/dictionary_ru.json localization/untranslated_queue.json', { cwd: repoRoot, timeout: 4000, stdio: 'ignore' });
+            execSync('git commit -m "chore(i18n): commit local changes before sync pull [skip ci]"', { cwd: repoRoot, timeout: 5000, stdio: 'ignore' });
+          } catch (cErr) {}
           execSync('git pull --ff-only origin main', { cwd: repoRoot, timeout: 12000, stdio: 'ignore' });
           updatedVia = 'git';
         } catch (ffErr) {
@@ -311,7 +314,10 @@ async function applyAppUpdate() {
 
   if (hasGit) {
     try {
-      execSync('git checkout HEAD -- localization/dictionary_ru.json localization/untranslated_queue.json', { cwd: repoRoot, timeout: 5000, stdio: 'ignore' });
+      try {
+        execSync('git add localization/dictionary_ru.json localization/untranslated_queue.json', { cwd: repoRoot, timeout: 4000, stdio: 'ignore' });
+        execSync('git commit -m "chore(i18n): commit local changes before OTA pull [skip ci]"', { cwd: repoRoot, timeout: 5000, stdio: 'ignore' });
+      } catch (cErr) {}
       execSync('git pull --ff-only origin main', { cwd: repoRoot, timeout: 15000, stdio: 'ignore' });
       updatedVia = 'git';
     } catch (gitErr) {

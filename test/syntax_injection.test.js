@@ -148,7 +148,64 @@ function testBackupPanelSyntaxGuard() {
   }
 }
 
-module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard, testStepCounterIntegrity, testBackupPanelSyntaxGuard };
+
+function testDynamicTokensLocalization() {
+  const enginePath = path.resolve(__dirname, '../localization/translation_engine.js');
+  const dictPath = path.resolve(__dirname, '../localization/dictionary_ru.json');
+  const engineSource = fs.readFileSync(enginePath, 'utf8');
+  const dict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+
+  const sandbox = {
+    window: {
+      __agyDictRu: dict,
+      addEventListener: () => {},
+      removeEventListener: () => {},
+      location: { href: 'http://localhost' }
+    },
+    document: {
+      title: 'Antigravity',
+      body: { appendChild: () => {} },
+      createElement: () => ({ style: {} }),
+      querySelectorAll: () => [],
+      querySelector: () => null,
+      addEventListener: () => {},
+      removeEventListener: () => {}
+    },
+    console,
+    Node: { TEXT_NODE: 3, ELEMENT_NODE: 1 },
+    MutationObserver: class { observe() {} disconnect() {} }
+  };
+  sandbox.window.window = sandbox.window;
+  sandbox.window.document = sandbox.document;
+
+  vm.createContext(sandbox);
+  vm.runInContext(engineSource, sandbox);
+
+  const translate = sandbox.window.__agyTranslateText;
+  if (typeof translate !== 'function') {
+    throw new Error('window.__agyTranslateText не экспортирован в translation_engine.js!');
+  }
+
+  const p1 = translate('Resets in 3d 8h');
+  const p2 = translate('Resets in 2h 47m');
+  const p3 = translate('Sonnet 5.5 is now available on paid Pro and Ultra plans. Third-party model access will no longer be available on your current plan starting on November 18, 2026.');
+  const p4 = translate('3d 8h');
+
+  if (!p1 || !p1.includes('3 д 8 ч')) {
+    throw new Error(`Ошибка локализации относительного времени "Resets in 3d 8h": результат "${p1}"`);
+  }
+  if (!p2 || !p2.includes('2 ч 47 мин')) {
+    throw new Error(`Ошибка локализации относительного времени "Resets in 2h 47m": результат "${p2}"`);
+  }
+  if (!p3 || !p3.includes('18 ноября 2026 г.')) {
+    throw new Error(`Ошибка локализации динамической даты: результат "${p3}"`);
+  }
+  if (!p4 || p4 !== '3 д 8 ч') {
+    throw new Error(`Ошибка локализации одиночного токена "3d 8h": результат "${p4}"`);
+  }
+}
+
+module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard, testStepCounterIntegrity, testBackupPanelSyntaxGuard, testDynamicTokensLocalization };
 
 if (require.main === module) {
   try {
@@ -158,6 +215,7 @@ if (require.main === module) {
     testStartupRetryGuard();
     testStepCounterIntegrity();
     testBackupPanelSyntaxGuard();
+    testDynamicTokensLocalization();
     console.log('✓ Синтаксис всех скриптов, изоляция проектов, команд скилов, авто-ретрай лимитов, счетчик шагов и панель бэкапа корректны!');
   } catch (e) {
     console.error('✗ Ошибка синтаксиса:', e.message);
