@@ -235,5 +235,8 @@
   "Trigger hot reload via CDP",
   "Add testDynamicTokensLocalization to runner",
   "Explored files, ran commands, edited files. I am running the full verification suite to ensure our new dynamic date and time token localization passes all tests",
-  "Show commit bdc12e5 diff"
+  "Show commit bdc12e5 diff",
+  "Restore build_merge_json.js from subagent log",
+  "Restore build_merge_json.js from transcript_full",
+  "Dump corrupted entries from dictionary"
 ]
