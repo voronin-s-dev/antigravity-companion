@@ -231,5 +231,7 @@
   "Count corrupted entries",
   "Show commit 7160ad4 stats",
   "Show translation_engine.js diff in commit 7160ad4",
-  "Count uFFFD in dictionary"
+  "Count uFFFD in dictionary",
+  "Translator / Harvester Subagent",
+  "Open Subagent: Translator / Harvester Subagent"
 ]
