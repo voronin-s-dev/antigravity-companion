@@ -13,5 +13,6 @@
   "Turn 37 of 39",
   "Turn 38 of 39",
   "publish post to Telegram channel",
-  "Publish post to Telegram channel"
+  "Publish post to Telegram channel",
+  "Re-run lint_content --gate"
 ]
