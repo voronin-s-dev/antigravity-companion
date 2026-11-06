@@ -41,5 +41,7 @@
   "Copy flow 16:9 image to public folder",
   "Upload new manifest banner to CDN",
   "Turn 52 of 52",
-  "test exact sendPhoto caption limit"
+  "test exact sendPhoto caption limit",
+  "Render Banner 1 in 2K Retina",
+  "Render Banner 2 in 2K Retina"
 ]
