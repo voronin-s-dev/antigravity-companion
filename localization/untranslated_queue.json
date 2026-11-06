@@ -304,5 +304,7 @@
   "Neo4j",
   "Install Looker",
   "Install Neo4j",
-  "Watch auto_translate workflow"
+  "Watch auto_translate workflow",
+  "Commit and push workflow update",
+  "Trigger auto_translate"
 ]
