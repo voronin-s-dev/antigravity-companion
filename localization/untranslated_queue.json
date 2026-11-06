@@ -78,5 +78,6 @@
   "Turn 57 of 58",
   "Turn 59 of 59",
   "grep aar-log for meta patterns",
-  "check lines 2500 to 3500"
+  "check lines 2500 to 3500",
+  "dump article to utf-8 file"
 ]
