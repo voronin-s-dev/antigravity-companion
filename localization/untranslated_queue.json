@@ -286,5 +286,6 @@
   "Restart Companion Service",
   "Stop old and start new companion",
   "Evaluate elements in CDP",
-  "Security scan"
+  "Security scan",
+  "Commit changes to git"
 ]
