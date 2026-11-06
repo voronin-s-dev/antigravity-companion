@@ -295,5 +295,13 @@
   "Auto-launch Companion With Antigravity",
   "Commit and push fix to main",
   "Dispatch auto_translate workflow",
-  "Watch auto_translate run"
+  "Watch auto_translate run",
+  "view failed step log",
+  "More Plugins",
+  "Explore other marketplace customizations",
+  "Looker",
+  "Connect to your managed Looker MCP server to explore data, run saved Looks, build dashboards, and validate LookML.",
+  "Neo4j",
+  "Install Looker",
+  "Install Neo4j"
 ]
