@@ -608,6 +608,7 @@
   - Служба перезапущена с новым кодом (PID 52476).
   - Проверка через CDP подтвердила одновременную активность обоих модулей в реальном окне:
     `{ sm: true, tr: true, sidebar: true }`.
+  - **Инцидент в CI и разбор /aar**: в первоначальном коммите `dad5ac5` вызов `powershell.exe` в `testPowerShellScriptsAst` не содержал проверки платформы, из-за чего runner `ubuntu-latest` в GitHub Actions упал с ошибкой `powershell: not found`. По регламенту `/aar` внедрен кросс-платформенный guard `if (!isWindows) return;`, обновлена карта проверок `.claude/aar/checks-map.md` (направление `U`), оформлена ведомость `.claude/aar/runs/2026-11-06-ci-powershell-ast-linux-runner-failure.md` и запись в журнал `aar-log.md`. Тег `v1.7.5` перевыпущен, оба джоба GitHub Actions завершились со 100% успехом, релиз `v1.7.5` с ZIP-архивом опубликован.
 
 ---
 
