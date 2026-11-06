@@ -284,5 +284,6 @@
   "video-shotcraft",
   "restart Companion Service",
   "Restart Companion Service",
-  "Stop old and start new companion"
+  "Stop old and start new companion",
+  "Evaluate elements in CDP"
 ]
