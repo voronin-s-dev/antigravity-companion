@@ -2,6 +2,23 @@
 
 Все ключевые изменения проекта **Antigravity Companion** фиксируются в данном документе.
 
+## [v1.7.5] — 2026-11-06
+
+### 🔄 Бесшовный совместный автозапуск с Antigravity (Архитектура CdpSupervisor & Self-Healing Autostart)
+* **Самовосстанавливающаяся автозагрузка Windows (`bin/start_silent.ps1`)**:
+  * Реализована автоматическая проверка и создание ярлыка в папке автозагрузки `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\AntigravityCompanion.lnk` и ключа реестра `HKCU:\Software\Microsoft\Windows\CurrentVersion\Run\AntigravityCompanion` (по образцу Skills Manager).
+  * Фоновая служба тихо запускается при старте Windows (0% CPU) и не требует ручного включения в Центре управления.
+* **Реактивный CdpSupervisor v2.1 (`bin/antigravity_companion.js`)**:
+  * **Динамический порт CDP**: Внедрено отслеживание `currentPort`. При перезапуске Electron Antigravity меняет порт — супервизор автоматически выполняет `resetConnection()` и переподключается к актуальному порту.
+  * **Непрерывный 5-секундный health-check целостности UI**: Если окно обновилось (Ctrl+R), сменился контекст или React перемонтировал сайдбар, супервизор автоматически восстанавливает и русификатор (`window.__agyTranslatorActive`), и виджет лимитов (`#agy-sidebar-limits-btn`).
+  * **Устранение полуоткрытых сокетов (Zombie Socket Fix)**: Любой сбой CDP-вызова вызывает безопасный сброс состояния и повторное подключение на следующем цикле.
+* **Бесшумный лаунчер прямого запуска (`bin/launch_antigravity.vbs` и `bin/launch_antigravity.ps1`)**:
+  * Запускает Antigravity и гарантирует активность службы Компаньона в один клик без мигания консольных окон.
+* **Тесты**:
+  * Добавлен сьют `test/supervisor_lifecycle.test.js` с проверкой AST PowerShell-скриптов и инвариантов переподключения. Все 8 сьютов тестов пройдены успешно.
+
+---
+
 ## [v1.7.4] — 2026-11-04
 
 ### 🎨 Адаптация под Onyx New UX дизайн Antigravity v2.29.0
