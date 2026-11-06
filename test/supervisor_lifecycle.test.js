@@ -26,6 +26,12 @@ function testSupervisorSyntax() {
 }
 
 function testPowerShellScriptsAst() {
+  const isWindows = process.platform === 'win32';
+  if (!isWindows) {
+    console.log('  [CI: Non-Windows platform] Skipping live Windows PowerShell AST check.');
+    return;
+  }
+
   const psScripts = [
     '../bin/start_silent.ps1',
     '../bin/launch_antigravity.ps1',
