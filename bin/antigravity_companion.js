@@ -4,17 +4,11 @@ const path = require('path');
 // Safe background logging (captures logs to %APPDATA%\AntigravityCompanion\companion.log and prevents crashes in headless mode)
 const appData = process.env.APPDATA || path.join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Roaming');
 const compDir = path.join(appData, 'AntigravityCompanion');
+const origOut = process.stdout.write ? process.stdout.write.bind(process.stdout) : null;
+const origErr = process.stderr.write ? process.stderr.write.bind(process.stderr) : null;
+
 try {
   if (!fs.existsSync(compDir)) fs.mkdirSync(compDir, { recursive: true });
-  const logStream = fs.createWriteStream(path.join(compDir, 'companion.log'), { flags: 'a' });
-  const safeWrite = (orig, chunk, enc, cb) => {
-    try { logStream.write(chunk, enc, cb); } catch (e) {}
-    try { if (orig) orig(chunk, enc, cb); } catch (e) {}
-  };
-  const origOut = process.stdout.write ? process.stdout.write.bind(process.stdout) : null;
-  const origErr = process.stderr.write ? process.stderr.write.bind(process.stderr) : null;
-  process.stdout.write = (chunk, enc, cb) => safeWrite(origOut, chunk, enc, cb);
-  process.stderr.write = (chunk, enc, cb) => safeWrite(origErr, chunk, enc, cb);
 } catch (e) {}
 
 const logSync = (msg) => {
@@ -22,10 +16,33 @@ const logSync = (msg) => {
   try {
     fs.appendFileSync(path.join(compDir, 'companion.log'), line);
   } catch (e) {}
-  try {
-    process.stdout.write(line);
-  } catch (e) {}
+  if (process.stdout.isTTY && origOut) {
+    try {
+      origOut(line);
+    } catch (e) {}
+  }
 };
+
+// Self-healing Windows Autostart: ensure Startup shortcut & Registry key exist without manual intervention
+function ensureAutostart() {
+  if (process.platform !== 'win32') return;
+  try {
+    const startupDir = path.join(appData, 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup');
+    const shortcutPath = path.join(startupDir, 'AntigravityCompanion.lnk');
+    const baseDir = path.resolve(__dirname);
+    const startPs = path.join(baseDir, 'start_silent.ps1');
+
+    if (!fs.existsSync(shortcutPath) && fs.existsSync(startPs)) {
+      const { spawn } = require('child_process');
+      const cp = spawn('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', startPs], {
+        detached: true,
+        stdio: 'ignore',
+        windowsHide: true
+      });
+      cp.unref();
+    }
+  } catch (_) {}
+}
 
 const { injectWidget } = require('../limits_widget/inject_panel.js');
 const { injectTranslator } = require('../localization/inject_translator.js');
@@ -42,6 +59,7 @@ let isConnected = false;
 let isInjecting = false;
 let fileWatcher = null;
 let recheckDebounce = null;
+let lastHealthStateOk = false;
 
 function resetConnection() {
   if (currentWs) {
@@ -51,6 +69,7 @@ function resetConnection() {
   isConnected = false;
   isConnecting = false;
   currentPort = null;
+  lastHealthStateOk = false;
 }
 
 function cdpEvaluate(ws, expression) {
@@ -111,7 +130,12 @@ async function ensureInjected() {
     }
 
     if (state.hasTranslator && state.hasWidget) {
-      logSync('[Companion] Компоненты активны: Русификатор [OK], Виджет лимитов [OK].');
+      if (!lastHealthStateOk) {
+        logSync('[Companion] Компоненты активны: Русификатор [OK], Виджет лимитов [OK].');
+        lastHealthStateOk = true;
+      }
+    } else {
+      lastHealthStateOk = false;
     }
   } catch (err) {
     logSync(`[Companion] Ошибка проверки внедрения: ${err.message}`);
@@ -130,7 +154,7 @@ async function tryConnect() {
   isConnecting = true;
 
   try {
-    const lines = fs.readFileSync(activePortFile, 'utf8').trim().split('\n');
+    const lines = fs.readFileSync(activePortFile, 'utf8').trim().split(/\r?\n/);
     const port = lines[0].trim();
     if (!port || isNaN(port)) {
       isConnecting = false;
@@ -183,11 +207,12 @@ async function tryConnect() {
       } catch (e) {}
     };
 
-    ws.onerror = (err) => {
+    ws.onerror = () => {
       // Socket error logged on close
     };
 
     ws.onclose = () => {
+      lastHealthStateOk = false;
       logSync('[Companion] Окно Antigravity закрыто или перезапускается.');
       resetConnection();
 
@@ -213,11 +238,11 @@ function setupFileWatcher() {
     }
     if (fs.existsSync(agyDir) && !fileWatcher) {
       fileWatcher = fs.watch(agyDir, (eventType, filename) => {
-        if (filename === 'DevToolsActivePort') {
+        if (!filename || filename === 'DevToolsActivePort') {
           let newPort = null;
           try {
             if (fs.existsSync(activePortFile)) {
-              newPort = fs.readFileSync(activePortFile, 'utf8').trim().split('\n')[0].trim();
+              newPort = fs.readFileSync(activePortFile, 'utf8').trim().split(/\r?\n/)[0].trim();
             }
           } catch (e) {}
 
@@ -229,6 +254,12 @@ function setupFileWatcher() {
             setTimeout(tryConnect, 250);
           }
         }
+      });
+
+      fileWatcher.on('error', () => {
+        try { fileWatcher.close(); } catch (_) {}
+        fileWatcher = null;
+        setTimeout(setupFileWatcher, 3000);
       });
     }
   } catch (e) {
@@ -244,7 +275,7 @@ setInterval(() => {
     let diskPort = null;
     try {
       if (fs.existsSync(activePortFile)) {
-        diskPort = fs.readFileSync(activePortFile, 'utf8').trim().split('\n')[0].trim();
+        diskPort = fs.readFileSync(activePortFile, 'utf8').trim().split(/\r?\n/)[0].trim();
       }
     } catch (e) {}
 
@@ -281,6 +312,7 @@ try {
   logSync(`[Config Server] Note: ${e.message}`);
 }
 
+ensureAutostart();
 setupFileWatcher();
 tryConnect();
 
