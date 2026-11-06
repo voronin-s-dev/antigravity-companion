@@ -303,5 +303,6 @@
   "Connect to your managed Looker MCP server to explore data, run saved Looks, build dashboards, and validate LookML.",
   "Neo4j",
   "Install Looker",
-  "Install Neo4j"
+  "Install Neo4j",
+  "Watch auto_translate workflow"
 ]
