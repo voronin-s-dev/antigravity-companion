@@ -15,5 +15,6 @@
   "publish post to Telegram channel",
   "Publish post to Telegram channel",
   "Re-run lint_content --gate",
-  "verify git commit and GitHub Actions runs"
+  "verify git commit and GitHub Actions runs",
+  "Compare flow image files"
 ]
