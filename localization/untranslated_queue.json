@@ -287,5 +287,10 @@
   "Stop old and start new companion",
   "Evaluate elements in CDP",
   "Security scan",
-  "Commit changes to git"
+  "Commit changes to git",
+  "Add files",
+  "Send",
+  "Back to Untitled Conversation",
+  "Drag to move",
+  "Auto-launch Companion With Antigravity"
 ]
