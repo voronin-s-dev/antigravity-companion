@@ -1,6 +1,43 @@
 $baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $baseDir) { $baseDir = Get-Location }
 $companionPath = Join-Path $baseDir "antigravity_companion.js"
+$startVbs = Join-Path $baseDir "start_silent.vbs"
+
+# 0. Ensure Windows Autostart shortcut and registry entry exist (matches Skills Manager architecture)
+try {
+    $appData = [System.Environment]::GetFolderPath('ApplicationData')
+    $startupFolder = Join-Path $appData "Microsoft\Windows\Start Menu\Programs\Startup"
+    $shortcutPath = Join-Path $startupFolder "AntigravityCompanion.lnk"
+    $wscriptExe = "$env:SystemRoot\System32\wscript.exe"
+
+    $needUpdate = $true
+    if (Test-Path $shortcutPath) {
+        try {
+            $wsh = New-Object -ComObject WScript.Shell
+            $existing = $wsh.CreateShortcut($shortcutPath)
+            if ($existing.Arguments -eq "`"$startVbs`"" -and $existing.WorkingDirectory -eq $baseDir) {
+                $needUpdate = $false
+            }
+        } catch {}
+    }
+    if ($needUpdate) {
+        $wsh = New-Object -ComObject WScript.Shell
+        $sc = $wsh.CreateShortcut($shortcutPath)
+        $sc.TargetPath = $wscriptExe
+        $sc.Arguments = "`"$startVbs`""
+        $sc.WorkingDirectory = $baseDir
+        $sc.Description = "Antigravity Companion Background Service"
+        $sc.Save()
+    }
+
+    $regPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+    $regName = "AntigravityCompanion"
+    $regVal = "`"$wscriptExe`" `"$startVbs`""
+    $reg = Get-ItemProperty -Path $regPath -Name $regName -ErrorAction SilentlyContinue
+    if (-not $reg -or $reg.$regName -ne $regVal) {
+        Set-ItemProperty -Path $regPath -Name $regName -Value $regVal -Force
+    }
+} catch {}
 
 # 1. Clean up any obsolete/rogue processes (e.g., old limits_daemon or processes from other folders)
 $allRelated = Get-CimInstance Win32_Process -ErrorAction SilentlyContinue | Where-Object { 

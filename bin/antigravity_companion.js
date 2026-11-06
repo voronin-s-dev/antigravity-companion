@@ -36,11 +36,22 @@ const activePortFile = path.join(appData, 'Antigravity', 'DevToolsActivePort');
 const exitOnClose = process.argv.includes('--exit-on-close') || process.env.AGY_EXIT_ON_CLOSE === 'true';
 
 let currentWs = null;
+let currentPort = null;
 let isConnecting = false;
 let isConnected = false;
 let isInjecting = false;
 let fileWatcher = null;
 let recheckDebounce = null;
+
+function resetConnection() {
+  if (currentWs) {
+    try { currentWs.close(); } catch (e) {}
+    currentWs = null;
+  }
+  isConnected = false;
+  isConnecting = false;
+  currentPort = null;
+}
 
 function cdpEvaluate(ws, expression) {
   return new Promise((resolve, reject) => {
@@ -79,7 +90,7 @@ async function ensureInjected() {
 
   try {
     const checkExpr = `({
-      hasWidget: !!document.getElementById('agy-limits-tooltip') && !!document.getElementById('agy-limits-floating-panel'),
+      hasWidget: !!document.getElementById('agy-sidebar-limits-btn') || (!!document.getElementById('agy-limits-tooltip') && !!document.getElementById('agy-limits-floating-panel')),
       hasTranslator: !!window.__agyTranslatorActive
     })`;
 
@@ -104,6 +115,7 @@ async function ensureInjected() {
     }
   } catch (err) {
     logSync(`[Companion] Ошибка проверки внедрения: ${err.message}`);
+    resetConnection();
   } finally {
     isInjecting = false;
   }
@@ -142,7 +154,8 @@ async function tryConnect() {
       isConnected = true;
       isConnecting = false;
       currentWs = ws;
-      logSync(`[Companion] Постоянный канал CDP активен. Подписка на события жизненного цикла окна...`);
+      currentPort = port;
+      logSync(`[Companion] Постоянный канал CDP активен (порт ${port}). Подписка на события жизненного цикла окна...`);
 
       // Subscribe to runtime and navigation events to catch window reloads (Ctrl+R) with 0ms latency
       try {
@@ -176,9 +189,7 @@ async function tryConnect() {
 
     ws.onclose = () => {
       logSync('[Companion] Окно Antigravity закрыто или перезапускается.');
-      isConnected = false;
-      isConnecting = false;
-      currentWs = null;
+      resetConnection();
 
       if (exitOnClose) {
         logSync('[Companion] Режим --exit-on-close активен. Завершение процесса службы.');
@@ -203,7 +214,18 @@ function setupFileWatcher() {
     if (fs.existsSync(agyDir) && !fileWatcher) {
       fileWatcher = fs.watch(agyDir, (eventType, filename) => {
         if (filename === 'DevToolsActivePort') {
-          if (!isConnected && !isConnecting) {
+          let newPort = null;
+          try {
+            if (fs.existsSync(activePortFile)) {
+              newPort = fs.readFileSync(activePortFile, 'utf8').trim().split('\n')[0].trim();
+            }
+          } catch (e) {}
+
+          if (newPort && currentPort && newPort !== currentPort) {
+            logSync(`[Companion] DevToolsActivePort обновлен (${currentPort} -> ${newPort}). Переподключение...`);
+            resetConnection();
+            setTimeout(tryConnect, 250);
+          } else if (!isConnected && !isConnecting) {
             setTimeout(tryConnect, 250);
           }
         }
@@ -214,10 +236,30 @@ function setupFileWatcher() {
   }
 }
 
-// Low-frequency safety poll (every 5 seconds ONLY when disconnected, zero poll when connected)
+// Continuous health monitor: reconnects when disconnected, verifies port and UI when connected
 setInterval(() => {
   if (!isConnected && !isConnecting) {
     tryConnect();
+  } else if (isConnected && !isInjecting) {
+    let diskPort = null;
+    try {
+      if (fs.existsSync(activePortFile)) {
+        diskPort = fs.readFileSync(activePortFile, 'utf8').trim().split('\n')[0].trim();
+      }
+    } catch (e) {}
+
+    if (diskPort && currentPort && diskPort !== currentPort) {
+      logSync(`[Companion] Порт Antigravity изменился (${currentPort} -> ${diskPort}). Переподключение...`);
+      resetConnection();
+      tryConnect();
+      return;
+    }
+
+    // Verify UI components are still alive and injected
+    ensureInjected().catch((err) => {
+      logSync(`[Companion] Ошибка верификации компонентов: ${err.message}. Сброс сокета...`);
+      resetConnection();
+    });
   }
 }, 5000);
 

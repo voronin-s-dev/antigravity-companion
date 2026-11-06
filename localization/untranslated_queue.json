@@ -285,5 +285,6 @@
   "restart Companion Service",
   "Restart Companion Service",
   "Stop old and start new companion",
-  "Evaluate elements in CDP"
+  "Evaluate elements in CDP",
+  "Security scan"
 ]

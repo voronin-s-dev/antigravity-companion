@@ -81,6 +81,16 @@ async function main() {
     hasErrors = true;
   }
 
+  try {
+    process.stdout.write('8. Проверка супервизора CDP и автозапуска в Windows... ');
+    const { runAllSupervisorTests } = require('./supervisor_lifecycle.test.js');
+    runAllSupervisorTests();
+    console.log(`✓ УСПЕШНО`);
+  } catch (e) {
+    console.log(`✗ ОШИБКА: ${e.message}`);
+    hasErrors = true;
+  }
+
   console.log('---------------------------------------------');
   if (hasErrors) {
     console.error('✗ Обнаружены критические ошибки при тестировании.');
