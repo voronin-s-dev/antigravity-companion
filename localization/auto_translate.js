@@ -57,9 +57,10 @@ function callGemini(apiKey, prompt, model = 'gemini-3.5-flash') {
       },
       timeout: 65000
     }, (res) => {
-      let data = '';
-      res.on('data', chunk => data += chunk);
+      const chunks = [];
+      res.on('data', chunk => chunks.push(chunk));
       res.on('end', () => {
+        const data = Buffer.concat(chunks).toString('utf8');
         if (res.statusCode !== 200) {
           return reject(new Error(`Gemini API HTTP ${res.statusCode}: ${data}`));
         }
@@ -67,7 +68,22 @@ function callGemini(apiKey, prompt, model = 'gemini-3.5-flash') {
           const json = JSON.parse(data);
           const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
           if (!text) return reject(new Error('Пустой ответ от Gemini API'));
-          resolve(JSON.parse(text));
+          const parsed = JSON.parse(text);
+
+          // Deep sanitize parsed translations from any corrupted \uFFFD characters
+          const clean = {};
+          if (typeof parsed === 'object' && parsed !== null) {
+            for (const [k, v] of Object.entries(parsed)) {
+              if (typeof k === 'string' && typeof v === 'string') {
+                if (!k.includes('\uFFFD') && !v.includes('\uFFFD')) {
+                  clean[k] = v;
+                } else {
+                  console.warn(`[Auto-Translate] Отброшен перевод с \\uFFFD: "${k}" -> "${v}"`);
+                }
+              }
+            }
+          }
+          resolve(clean);
         } catch (e) {
           reject(new Error(`Ошибка парсинга ответа Gemini: ${e.message}`));
         }

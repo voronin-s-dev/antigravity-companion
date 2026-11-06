@@ -38,7 +38,8 @@ function main() {
   }
 
   // Load dictionary locally (Node.js does this instantly without wasting LLM tokens)
-  const dict = JSON.parse(fs.readFileSync(dictPath, 'utf8'));
+  const originalDictContent = fs.readFileSync(dictPath, 'utf8');
+  const dict = JSON.parse(originalDictContent);
   dict.exact = dict.exact || {};
   dict.attributes = dict.attributes || {};
   dict.patterns = dict.patterns || [];
@@ -49,7 +50,9 @@ function main() {
 
   const PROTECTED_COMMANDS = new Set(['goal', 'btw', 'self', 'compact']);
   const VALID_SHORT_WORDS = new Set(['End', 'Run', 'All', 'Add', 'New', 'Cut', 'Yes', 'No', 'Off', 'On', 'Top', 'Row', 'Tab', 'Pin', 'Log', 'Fix', 'Set', 'Get', 'Out']);
-  const isInvalidKey = (k) => {
+  const isInvalidKey = (k, v) => {
+    if (typeof k !== 'string' || (v !== undefined && typeof v !== 'string')) return true;
+    if (k.includes('\uFFFD') || (v !== undefined && v.includes('\uFFFD'))) return true;
     if (/^\d+$/.test(k.trim())) return true;
     if (PROTECTED_COMMANDS.has(k)) return true;
     if (/^[a-z0-9]+-$/i.test(k) || /^-[a-z0-9]+/i.test(k)) return true;
@@ -61,7 +64,7 @@ function main() {
   if (newItems.exact || newItems.attributes || newItems.patterns) {
     if (newItems.exact) {
       for (const [k, v] of Object.entries(newItems.exact)) {
-        if (isInvalidKey(k)) continue;
+        if (isInvalidKey(k, v)) continue;
         if (dict.exact[k] !== v) {
           dict.exact[k] = v;
           addedExact++;
@@ -70,6 +73,7 @@ function main() {
     }
     if (newItems.attributes) {
       for (const [k, v] of Object.entries(newItems.attributes)) {
+        if (isInvalidKey(k, v)) continue;
         if (dict.attributes[k] !== v) {
           dict.attributes[k] = v;
           addedAttributes++;
@@ -80,6 +84,7 @@ function main() {
       for (const p of newItems.patterns) {
         const repl = p.replace !== undefined ? p.replace : p.replacement;
         if (p.regex && repl !== undefined) {
+          if (p.regex.includes('\uFFFD') || repl.includes('\uFFFD')) continue;
           const rule = { regex: p.regex, replace: repl };
           if (p.flags) rule.flags = p.flags;
           const existingIdx = dict.patterns.findIndex(existing => existing.regex === p.regex);
@@ -95,7 +100,7 @@ function main() {
   } else {
     // Flat key-value pairs default to exact
     for (const [k, v] of Object.entries(newItems)) {
-      if (isInvalidKey(k)) continue;
+      if (isInvalidKey(k, v)) continue;
       if (typeof v === 'string' && dict.exact[k] !== v) {
         dict.exact[k] = v;
         addedExact++;
@@ -127,7 +132,8 @@ function main() {
   try {
     execSync('npm test', { stdio: 'inherit', cwd: path.join(__dirname, '..') });
   } catch (err) {
-    console.error('\x1b[31m[Merge Error] Тесты словаря провалены!\x1b[0m');
+    console.error('\x1b[31m[Merge Error] Тесты словаря провалены! Откат словаря к исходному состоянию...\x1b[0m');
+    fs.writeFileSync(dictPath, originalDictContent, 'utf8');
     process.exit(1);
   }
 

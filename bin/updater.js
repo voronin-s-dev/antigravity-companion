@@ -150,6 +150,11 @@ function mergeDictionaries(baseDict, incomingDict) {
   const PROTECTED_COMMANDS = new Set(['goal', 'btw', 'self', 'compact']);
   const FORBIDDEN_FRAGMENTS = new Set(['fi', 'pd', 'ig', 'wa', 'ys', 'ser', 'bro', 'ork', 'ork.', 'xes', 'fin', 'les.', 'lows', 'veri', 'g path.', 'ails.']);
   for (const k of Object.keys(mergedExact)) {
+    const v = mergedExact[k];
+    if (k.includes('\uFFFD') || (typeof v === 'string' && v.includes('\uFFFD'))) {
+      delete mergedExact[k];
+      continue;
+    }
     if (/^\d+$/.test(k.trim())) delete mergedExact[k];
     if (PROTECTED_COMMANDS.has(k)) delete mergedExact[k];
     if (FORBIDDEN_FRAGMENTS.has(k)) delete mergedExact[k];

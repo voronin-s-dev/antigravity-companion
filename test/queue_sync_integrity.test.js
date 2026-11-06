@@ -67,6 +67,21 @@ description: >-
     'Line one of skill description. Line two of the description.',
     'Folded YAML scalar parsing failed'
   );
+
+  // 6. Тест защиты от расщепления многобайтовых UTF-8 символов (TCP Chunk Boundary Splitter)
+  const cyrillicText = 'Справка и поддержка в окне Antigravity';
+  const fullBuffer = Buffer.from(cyrillicText, 'utf8');
+  // Режем буфер посередине двухбайтового символа 'п' (первый байт 0xd0 в chunk1, второй 0xbf в chunk2)
+  const splitIndex = 3;
+  const chunk1 = fullBuffer.subarray(0, splitIndex);
+  const chunk2 = fullBuffer.subarray(splitIndex);
+
+  const naiveString = chunk1.toString('utf8') + chunk2.toString('utf8');
+  assert(naiveString.includes('\uFFFD'), 'Naive string coercion should produce uFFFD on split boundary');
+
+  const safeString = Buffer.concat([chunk1, chunk2]).toString('utf8');
+  assert.strictEqual(safeString, cyrillicText, 'Buffer.concat must cleanly preserve multi-byte UTF-8');
+  assert(!safeString.includes('\uFFFD'), 'Safe decoded string must never contain uFFFD');
 }
 
 if (require.main === module) {
