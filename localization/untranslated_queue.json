@@ -16,5 +16,6 @@
   "Publish post to Telegram channel",
   "Re-run lint_content --gate",
   "verify git commit and GitHub Actions runs",
-  "Compare flow image files"
+  "Compare flow image files",
+  "Copy background image to public folder"
 ]
