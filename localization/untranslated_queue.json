@@ -153,5 +153,7 @@
   "Resolve merge conflict in data files",
   "resolve merge conflict in data files",
   "Drop stash",
-  "drop stash"
+  "drop stash",
+  "fetch and check origin/main",
+  "view workflow run completion"
 ]
