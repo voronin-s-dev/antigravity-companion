@@ -145,5 +145,7 @@
   "Git pull latest cycles",
   "git pull latest cycles",
   "Stash local changes",
-  "stash local changes"
+  "stash local changes",
+  "Pull rebase origin/main",
+  "pull rebase origin/main"
 ]
