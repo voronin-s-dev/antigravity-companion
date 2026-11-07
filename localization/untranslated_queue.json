@@ -5,10 +5,7 @@
   "check code delivery type",
   "check qrcode package",
   "inspect qr_login",
-  "Turn 70 of 70",
-  "Turn 71 of 71",
   "Send code with Desktop fingerprint",
-  "Turn 72 of 72",
   "sign in with code 29847",
   "Sign in with code 29847",
   "Turn 73 of 73",
@@ -56,5 +53,14 @@
   "Turn 69 of 69",
   "Lint Carousel 03 with max-len 2200",
   "Lint pinned triad",
-  "Lint funnel readiness gate"
+  "Lint funnel readiness gate",
+  "Turn 70 of 70",
+  "Turn 71 of 71",
+  "Turn 72 of 72",
+  "Lint Carousel 03 design",
+  "check video_engine/public assets",
+  "check instagram/output",
+  "check carousel_03_internal_orchestra slides",
+  "check carousel 03 cdn references",
+  "check iili.io references"
 ]
