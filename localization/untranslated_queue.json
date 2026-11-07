@@ -128,5 +128,6 @@
   "Print lines 81-125 with ascii",
   "Print lines 125-160",
   "Parse dashboard_gen.py with ast",
-  "Print line 125"
+  "Print line 125",
+  "Regenerate status report and dashboard"
 ]
