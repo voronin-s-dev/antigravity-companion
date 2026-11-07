@@ -46,5 +46,8 @@
   "Turn 77 of 77",
   "check message ID 1",
   "Publish native Orchestra article to channel",
-  "verify channel posts state"
+  "verify channel posts state",
+  "Turn 78 of 78",
+  "inspect TextBold",
+  "inspect EditMessageRequest"
 ]
