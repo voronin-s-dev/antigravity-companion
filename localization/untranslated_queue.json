@@ -2,8 +2,6 @@
   "check recent workflow runs",
   "send Telegram login code",
   "Send Telegram login code",
-  "Turn 68 of 68",
-  "Turn 69 of 69",
   "check code delivery type",
   "check qrcode package",
   "inspect qr_login",
@@ -53,5 +51,10 @@
   "Turn 67 of 67",
   "Turn 79 of 79",
   "Turn 80 of 80",
-  "Lint Carousel 03"
+  "Lint Carousel 03",
+  "Turn 68 of 68",
+  "Turn 69 of 69",
+  "Lint Carousel 03 with max-len 2200",
+  "Lint pinned triad",
+  "Lint funnel readiness gate"
 ]
