@@ -39,5 +39,6 @@
   "run inspect_single_article",
   "check latest message",
   "inspect PageBlock types",
-  "search telethon extensions"
+  "search telethon extensions",
+  "Publish native Manifest to channel"
 ]
