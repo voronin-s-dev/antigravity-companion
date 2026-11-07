@@ -44,5 +44,7 @@
   "Publish full native Manifest to channel",
   "check channel messages",
   "Turn 77 of 77",
-  "check message ID 1"
+  "check message ID 1",
+  "Publish native Orchestra article to channel",
+  "verify channel posts state"
 ]
