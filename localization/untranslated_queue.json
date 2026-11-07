@@ -121,5 +121,6 @@
   "check system boot time",
   "Get shutdown event message",
   "Git fetch from origin",
-  "Pull latest changes from origin"
+  "Pull latest changes from origin",
+  "Grep aar-log.md for pattern"
 ]
