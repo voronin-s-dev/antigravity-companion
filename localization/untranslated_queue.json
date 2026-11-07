@@ -151,5 +151,7 @@
   "Pop stashed changes",
   "pop stashed changes",
   "Resolve merge conflict in data files",
-  "resolve merge conflict in data files"
+  "resolve merge conflict in data files",
+  "Drop stash",
+  "drop stash"
 ]
