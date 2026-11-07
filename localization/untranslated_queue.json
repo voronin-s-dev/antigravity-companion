@@ -143,5 +143,7 @@
   "view log lines from cloud job",
   "fetch and check origin/main commits",
   "Git pull latest cycles",
-  "git pull latest cycles"
+  "git pull latest cycles",
+  "Stash local changes",
+  "stash local changes"
 ]
