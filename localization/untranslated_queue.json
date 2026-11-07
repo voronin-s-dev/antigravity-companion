@@ -156,5 +156,7 @@
   "drop stash",
   "fetch and check origin/main",
   "view workflow run completion",
-  "commit test alert isolation and cadence monitoring"
+  "commit test alert isolation and cadence monitoring",
+  "continue rebase",
+  "push fixes to origin main"
 ]
