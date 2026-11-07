@@ -139,5 +139,9 @@
   "view run status",
   "view job details",
   "check gh auth token",
-  "check .gitignore"
+  "check .gitignore",
+  "view log lines from cloud job",
+  "fetch and check origin/main commits",
+  "Git pull latest cycles",
+  "git pull latest cycles"
 ]
