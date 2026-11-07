@@ -111,5 +111,11 @@
   "Turn 60 of 62",
   "Turn 61 of 62",
   "Turn 63 of 63",
-  "list directory contents"
+  "list directory contents",
+  "Get python process command lines",
+  "Query scan cycles and trades",
+  "Get schema for tables",
+  "Get column names",
+  "Query recent activity",
+  "Query last 10 scan cycles"
 ]
