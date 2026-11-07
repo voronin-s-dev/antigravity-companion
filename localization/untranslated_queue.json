@@ -138,5 +138,6 @@
   "trigger sync.yml workflow via gh CLI",
   "view run status",
   "view job details",
-  "check gh auth token"
+  "check gh auth token",
+  "check .gitignore"
 ]
