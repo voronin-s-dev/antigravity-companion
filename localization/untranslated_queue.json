@@ -119,5 +119,7 @@
   "Query recent activity",
   "Query last 10 scan cycles",
   "check system boot time",
-  "Get shutdown event message"
+  "Get shutdown event message",
+  "Git fetch from origin",
+  "Pull latest changes from origin"
 ]
