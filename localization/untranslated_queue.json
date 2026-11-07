@@ -135,5 +135,6 @@
   "check .env configuration",
   "check gh auth status",
   "Trigger sync.yml workflow via gh CLI",
-  "trigger sync.yml workflow via gh CLI"
+  "trigger sync.yml workflow via gh CLI",
+  "view run status"
 ]
