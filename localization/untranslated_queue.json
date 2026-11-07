@@ -149,5 +149,7 @@
   "Pull rebase origin/main",
   "pull rebase origin/main",
   "Pop stashed changes",
-  "pop stashed changes"
+  "pop stashed changes",
+  "Resolve merge conflict in data files",
+  "resolve merge conflict in data files"
 ]
