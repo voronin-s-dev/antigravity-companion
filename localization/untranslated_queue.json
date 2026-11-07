@@ -37,5 +37,7 @@
   "inspect InputRichFilePhoto",
   "inspect block text",
   "run inspect_single_article",
-  "check latest message"
+  "check latest message",
+  "inspect PageBlock types",
+  "search telethon extensions"
 ]
