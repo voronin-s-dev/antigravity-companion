@@ -158,5 +158,6 @@
   "view workflow run completion",
   "commit test alert isolation and cadence monitoring",
   "continue rebase",
-  "push fixes to origin main"
+  "push fixes to origin main",
+  "check recent commits"
 ]
