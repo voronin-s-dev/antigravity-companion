@@ -49,5 +49,6 @@
   "verify channel posts state",
   "Turn 78 of 78",
   "inspect TextBold",
-  "inspect EditMessageRequest"
+  "inspect EditMessageRequest",
+  "verify block order in channel"
 ]
