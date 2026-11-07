@@ -29,5 +29,12 @@
   "Turn 75 of 75",
   "inspect forward_messages",
   "Turn 76 of 76",
-  "check message 230643 structure"
+  "check message 230643 structure",
+  "check fwd_from",
+  "search telethon tl types",
+  "inspect SendMessageRequest",
+  "inspect InputRichMessage",
+  "inspect InputRichFilePhoto",
+  "inspect block text",
+  "run inspect_single_article"
 ]
