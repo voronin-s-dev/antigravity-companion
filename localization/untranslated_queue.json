@@ -16,5 +16,7 @@
   "check code delivery type",
   "check qrcode package",
   "inspect qr_login",
-  "Turn 70 of 70"
+  "Turn 70 of 70",
+  "Turn 71 of 71",
+  "Send code with Desktop fingerprint"
 ]
