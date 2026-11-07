@@ -36,5 +36,6 @@
   "inspect InputRichMessage",
   "inspect InputRichFilePhoto",
   "inspect block text",
-  "run inspect_single_article"
+  "run inspect_single_article",
+  "check latest message"
 ]
