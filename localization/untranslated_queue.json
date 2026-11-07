@@ -131,5 +131,6 @@
   "Print line 125",
   "Regenerate status report and dashboard",
   "check governance events and portfolio state",
-  "Convert test files to LF"
+  "Convert test files to LF",
+  "check .env configuration"
 ]
