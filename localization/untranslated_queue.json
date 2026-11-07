@@ -40,5 +40,7 @@
   "check latest message",
   "inspect PageBlock types",
   "search telethon extensions",
-  "Publish native Manifest to channel"
+  "Publish native Manifest to channel",
+  "Publish full native Manifest to channel",
+  "check channel messages"
 ]
