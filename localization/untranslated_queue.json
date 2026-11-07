@@ -133,5 +133,7 @@
   "check governance events and portfolio state",
   "Convert test files to LF",
   "check .env configuration",
-  "check gh auth status"
+  "check gh auth status",
+  "Trigger sync.yml workflow via gh CLI",
+  "trigger sync.yml workflow via gh CLI"
 ]
