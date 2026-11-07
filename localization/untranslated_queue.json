@@ -13,5 +13,7 @@
   "Send Telegram login code",
   "Turn 68 of 68",
   "Turn 69 of 69",
-  "check code delivery type"
+  "check code delivery type",
+  "check qrcode package",
+  "inspect qr_login"
 ]
