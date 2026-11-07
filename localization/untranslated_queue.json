@@ -147,5 +147,7 @@
   "Stash local changes",
   "stash local changes",
   "Pull rebase origin/main",
-  "pull rebase origin/main"
+  "pull rebase origin/main",
+  "Pop stashed changes",
+  "pop stashed changes"
 ]
