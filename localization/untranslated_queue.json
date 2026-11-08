@@ -38,5 +38,6 @@
   "else",
   "comes",
   "VoiceMod,",
-  "list workspace directory"
+  "list workspace directory",
+  "Show post history from buffer"
 ]
