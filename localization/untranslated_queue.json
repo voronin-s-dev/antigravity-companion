@@ -14,5 +14,6 @@
   "thought\nLook at that list:\nspeech.googleapis.com\ngenerativelanguage.googleapis.com\njetski-webchannel.googleapis.com\ncloudcode-pa.googleapis.com\ndaily-cloudcode-pa.googleapis.com\naiplatform.googleapis.com\n\nLet's test TCP connectivity to speech.googleapis.com and aiplatform.googleapis.com",
   "Print bytes around offset 57636451",
   "Locate symbol name in pclntab",
-  "Get user info from localStorage"
+  "Get user info from localStorage",
+  "Open adguard.db with immutable URI"
 ]
