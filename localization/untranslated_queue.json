@@ -15,5 +15,8 @@
   "Print bytes around offset 57636451",
   "Locate symbol name in pclntab",
   "Get user info from localStorage",
-  "Open adguard.db with immutable URI"
+  "Open adguard.db with immutable URI",
+  "Try starting QWAVE service",
+  "Set QWAVE to Automatic",
+  "Get user email from UI"
 ]
