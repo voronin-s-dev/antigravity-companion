@@ -3,5 +3,6 @@
   "Query DevTools targets",
   "Get devtools json targets",
   "Extract voice connection logic",
-  "Examine WebSocket handlers"
+  "Examine WebSocket handlers",
+  "Get language_server command line"
 ]
