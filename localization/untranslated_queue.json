@@ -22,5 +22,6 @@
   "Voice mode, 0:02",
   "Voice transcript",
   "Close Voice transcript",
-  "Copy transcript"
+  "Copy transcript",
+  "Use this skill for generative video editing, text-to-video, image- and video-referenced video generation, first-frame-to-video, first-and-last-frame transitions, and video extensions using Gemini Omni 1.2 Flash (gemini-omni-1.2-flash) via the official google-genai SDK. Includes workflows for pre-processing/optimizing high-resolution or long source videos with ffmpeg, stripping audio for full sound regeneration, and handling turn-by-turn video editing and parallel execution."
 ]
