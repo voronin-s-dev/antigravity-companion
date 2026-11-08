@@ -20,5 +20,7 @@
   "Set QWAVE to Automatic",
   "Get user email from UI",
   "Voice mode, 0:02",
-  "Voice transcript"
+  "Voice transcript",
+  "Close Voice transcript",
+  "Copy transcript"
 ]
