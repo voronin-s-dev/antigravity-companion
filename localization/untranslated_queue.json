@@ -8,5 +8,6 @@
   "Extract Set-Service snippets",
   "Unpack set-services-to-manual from asar",
   "Unpack set-services script",
-  "Extract voice package symbols"
+  "Extract voice package symbols",
+  "Print snippet around Connect to %s failed"
 ]
