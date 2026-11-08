@@ -7,5 +7,6 @@
   "Get language_server command line",
   "Extract Set-Service snippets",
   "Unpack set-services-to-manual from asar",
-  "Unpack set-services script"
+  "Unpack set-services script",
+  "Extract voice package symbols"
 ]
