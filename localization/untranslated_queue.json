@@ -18,5 +18,7 @@
   "Open adguard.db with immutable URI",
   "Try starting QWAVE service",
   "Set QWAVE to Automatic",
-  "Get user email from UI"
+  "Get user email from UI",
+  "Voice mode, 0:02",
+  "Voice transcript"
 ]
