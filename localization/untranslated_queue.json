@@ -1,5 +1,7 @@
 [
   "Slow Antigravity Agent Performance",
   "Query DevTools targets",
-  "Get devtools json targets"
+  "Get devtools json targets",
+  "Extract voice connection logic",
+  "Examine WebSocket handlers"
 ]
