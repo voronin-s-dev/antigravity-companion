@@ -4,5 +4,8 @@
   "Get devtools json targets",
   "Extract voice connection logic",
   "Examine WebSocket handlers",
-  "Get language_server command line"
+  "Get language_server command line",
+  "Extract Set-Service snippets",
+  "Unpack set-services-to-manual from asar",
+  "Unpack set-services script"
 ]
