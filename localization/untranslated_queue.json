@@ -29,5 +29,6 @@
   "check transcripts count",
   "inspect transcripts preview",
   "inspect latest transcripts",
-  "inspect latest transcripts with utf-8"
+  "inspect latest transcripts with utf-8",
+  "Count files in inbox/raw"
 ]
