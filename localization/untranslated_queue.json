@@ -9,5 +9,7 @@
   "Request login code via Telegram",
   "verify login code",
   "complete login with 2FA password",
-  "Complete login with 2FA password"
+  "Complete login with 2FA password",
+  "Print 41 items summary",
+  "Download missing videos via Telethon"
 ]
