@@ -42,5 +42,6 @@
   "Probe videos 1261, 1272, 1274",
   "Extract keyframes",
   "extract keyframes",
-  "list keyframe images"
+  "list keyframe images",
+  "check fresh messages in Telegram"
 ]
