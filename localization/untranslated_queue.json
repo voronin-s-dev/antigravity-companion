@@ -116,5 +116,17 @@
   "gmail",
   "Migrates the user's MCP servers, skills, slash commands, subagents, and instruction files from other coding agents (Claude Code, Codex, Cursor, Gemini CLI) into one new Antigravity plugin. Use when the user wants to bring over, import, or migrate their setup or config from another agent or tool. Don't use for installing Marketplace plugins or authoring a new plugin from scratch (use the plugin skill).",
   "Media 1794242645334 1e0c1d79",
-  "Reorganize local catalog files"
+  "Reorganize local catalog files",
+  "inspect every single message in topic 1310",
+  "check content cards for AI keywords",
+  "read transcripts of candidate files",
+  "check remaining content transcripts",
+  "move agent skill reels to Topic 2 AI",
+  "reorganize local catalog files",
+  "list remaining files in catalog content-creation",
+  "check latest msg ID",
+  "Chat Layout",
+  "Accessibility",
+  "Screen Reader Mode",
+  "Optimize the interface and terminal output for screen readers."
 ]
