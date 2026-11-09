@@ -5,5 +5,7 @@
   "Query recent governance events",
   "Nothing said yet",
   "Worked",
-  "Generate daily focus"
+  "Generate daily focus",
+  "Request login code via Telegram",
+  "verify login code"
 ]
