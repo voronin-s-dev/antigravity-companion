@@ -7,5 +7,7 @@
   "Worked",
   "Generate daily focus",
   "Request login code via Telegram",
-  "verify login code"
+  "verify login code",
+  "complete login with 2FA password",
+  "Complete login with 2FA password"
 ]
