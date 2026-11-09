@@ -89,5 +89,12 @@
   "MCP",
   "Discover, provision, and administer WordPress.com and Jetpack-connected sites. Use when listing sites, creating a new site, checking traffic statistics, updating site settings, managing plugins or users, or configuring domains and DNS.",
   "Draft, edit, schedule, and manage posts, pages, custom post types, media, comments, taxonomies, templates, and navigation on WordPress.com sites. Use when creating or updating site content or site structure.",
-  "Automattic Inc."
+  "Automattic Inc.",
+  "Summarize my unread emails from today",
+  "Draft a reply to the latest thread about launch readiness",
+  "Read, search, send, and manage Gmail messages, drafts, labels, and emoji reactions using a Go CLI. Use when reading emails, searching inbox, sending messages, reacting to messages with emoji, managing drafts, forwarding, checking vacation responder, managing labels, downloading attachments, or decoding `mail.google.com` Web UI URLs. Don't use for Google Chat messages or Calendar invites.",
+  "gmail (CLI)",
+  "gmail.googleapis.com, www.googleapis.com",
+  "Sign-in failed:",
+  "OAuth error: access_denied"
 ]
