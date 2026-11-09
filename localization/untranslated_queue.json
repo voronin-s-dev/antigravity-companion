@@ -30,5 +30,6 @@
   "inspect transcripts preview",
   "inspect latest transcripts",
   "inspect latest transcripts with utf-8",
-  "Count files in inbox/raw"
+  "Count files in inbox/raw",
+  "Generate precise cards"
 ]
