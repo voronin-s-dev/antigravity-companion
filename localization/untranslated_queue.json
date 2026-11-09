@@ -54,5 +54,6 @@
   "Transfer all reels to topic 1310",
   "Close Directory",
   "Return non-content reels back to AI and other topics",
-  "Get latest msg ID after return"
+  "Get latest msg ID after return",
+  "find MCP config files"
 ]
