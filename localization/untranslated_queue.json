@@ -31,5 +31,7 @@
   "inspect latest transcripts",
   "inspect latest transcripts with utf-8",
   "Count files in inbox/raw",
-  "Generate precise cards"
+  "Generate precise cards",
+  "Print 1194, 1222, 1223, 1248",
+  "Add special items to cache"
 ]
