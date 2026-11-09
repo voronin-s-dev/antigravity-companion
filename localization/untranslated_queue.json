@@ -129,5 +129,7 @@
   "Optimize the interface and terminal output for screen readers.",
   "Gmail",
   "Search, read, draft, and send emails in Gmail.",
-  "Toggle Google Antigravity SDK"
+  "Toggle Google Antigravity SDK",
+  "Transcribe all local videos in inbox raw_videos",
+  "Download and transcribe all 19 videos in 1310"
 ]
