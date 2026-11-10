@@ -60,5 +60,6 @@
   "Approve proposal 22 on latest db",
   "Dismiss proposal 21 on latest db",
   "Stage and commit changes",
-  "Cancel in-progress workflow run"
+  "Cancel in-progress workflow run",
+  "Wait and check cancelled run status"
 ]
