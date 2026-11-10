@@ -54,5 +54,6 @@
   "Pull latest commits from origin/main",
   "Commit approval and fixes",
   "Push commit to origin/main",
-  "Abort rebase cleanly"
+  "Abort rebase cleanly",
+  "Reset soft to origin/main"
 ]
