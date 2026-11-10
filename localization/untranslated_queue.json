@@ -101,5 +101,6 @@
   "Swarm",
   "check multi-res sizes in build_helpers",
   "Count petal pixels at various DPIs",
-  "Save actual size frames"
+  "Save actual size frames",
+  "Render high-vis comparison GIF"
 ]
