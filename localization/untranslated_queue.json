@@ -75,5 +75,8 @@
   "verify filter in cloud runner",
   "check run status",
   "Grep aar-log for duplicates/telegram",
-  "Grep aar-log for Polymarket entries"
+  "Grep aar-log for Polymarket entries",
+  "grep telegram calls",
+  "check position IDs",
+  "check gitignore"
 ]
