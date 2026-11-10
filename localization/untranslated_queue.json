@@ -104,5 +104,6 @@
   "Save actual size frames",
   "Render high-vis comparison GIF",
   "Render light high-vis comparison GIF",
-  "Rebuild 12 Liquid Mercury themes"
+  "Rebuild 12 Liquid Mercury themes",
+  "read build_helpers.py ANI_SIZES"
 ]
