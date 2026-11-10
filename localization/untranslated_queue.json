@@ -64,5 +64,13 @@
   "Wait and check cancelled run status",
   "fetch origin main and check commits",
   "Reset soft to origin/main and checkout data from HEAD",
-  "Approve proposal 22 and dismiss 21 on latest db"
+  "Approve proposal 22 and dismiss 21 on latest db",
+  "Trigger fresh workflow run",
+  "reset soft to origin/main and checkout data from HEAD",
+  "approve proposal 22 and dismiss 21 on latest db",
+  "stage and commit changes",
+  "push commit to origin/main",
+  "trigger fresh workflow run",
+  "check new run status",
+  "verify filter in cloud runner"
 ]
