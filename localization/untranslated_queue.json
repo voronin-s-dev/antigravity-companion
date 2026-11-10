@@ -103,5 +103,6 @@
   "Count petal pixels at various DPIs",
   "Save actual size frames",
   "Render high-vis comparison GIF",
-  "Render light high-vis comparison GIF"
+  "Render light high-vis comparison GIF",
+  "Rebuild 12 Liquid Mercury themes"
 ]
