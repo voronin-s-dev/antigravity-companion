@@ -63,5 +63,6 @@
   "Cancel in-progress workflow run",
   "Wait and check cancelled run status",
   "fetch origin main and check commits",
-  "Reset soft to origin/main and checkout data from HEAD"
+  "Reset soft to origin/main and checkout data from HEAD",
+  "Approve proposal 22 and dismiss 21 on latest db"
 ]
