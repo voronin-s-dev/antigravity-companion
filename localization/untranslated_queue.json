@@ -33,5 +33,6 @@
   "inspect centerline pixels of dot_normal",
   "measure dot_normal dark core size",
   "Measure dot_normal dark core size",
-  "Measure normal_ani frame core size"
+  "Measure normal_ani frame core size",
+  "Compare generated dot diameter with dot_engine in both modes"
 ]
