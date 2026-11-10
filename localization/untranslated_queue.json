@@ -57,5 +57,6 @@
   "Abort rebase cleanly",
   "Reset soft to origin/main",
   "Restore data and graphify-out from origin/main",
-  "Approve proposal 22 on latest db"
+  "Approve proposal 22 on latest db",
+  "Dismiss proposal 21 on latest db"
 ]
