@@ -102,5 +102,6 @@
   "check multi-res sizes in build_helpers",
   "Count petal pixels at various DPIs",
   "Save actual size frames",
-  "Render high-vis comparison GIF"
+  "Render high-vis comparison GIF",
+  "Render light high-vis comparison GIF"
 ]
