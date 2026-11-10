@@ -61,5 +61,6 @@
   "Dismiss proposal 21 on latest db",
   "Stage and commit changes",
   "Cancel in-progress workflow run",
-  "Wait and check cancelled run status"
+  "Wait and check cancelled run status",
+  "fetch origin main and check commits"
 ]
