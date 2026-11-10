@@ -139,5 +139,6 @@
   "Audit both topics to file",
   "Transcribe both Jung videos",
   "Transcribe vid_1479 directly",
-  "Audit pairs 1492-1655 to file"
+  "Audit pairs 1492-1655 to file",
+  "fetch and check recent commits on origin/main"
 ]
