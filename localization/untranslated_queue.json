@@ -30,5 +30,7 @@
   "read link and text in vector_icon_factory",
   "read vert_resize in vector_icon_factory",
   "audit all dot and ellipse occurrences in vector_icon_factory",
-  "inspect centerline pixels of dot_normal"
+  "inspect centerline pixels of dot_normal",
+  "measure dot_normal dark core size",
+  "Measure dot_normal dark core size"
 ]
