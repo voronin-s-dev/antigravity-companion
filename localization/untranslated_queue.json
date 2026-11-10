@@ -141,5 +141,6 @@
   "Transcribe vid_1479 directly",
   "Audit pairs 1492-1655 to file",
   "fetch and check recent commits on origin/main",
-  "Get job id for run 42721039155"
+  "Get job id for run 42721039155",
+  "Git log search for MIN_HOURS_TO_CLOSE_EXIT"
 ]
