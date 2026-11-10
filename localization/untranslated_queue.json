@@ -83,5 +83,13 @@
   "GitHub Actions runs",
   "Your plan's baseline quota will refresh on 11.11.2026, 01:29:25. To continue using this model now, enable AI Credit overages.",
   "Visual showcase demonstrating 100% uniform Simplify Dot diameter across all cursor roles and smooth sakura petals vortex.",
-  "Dot Size Showcase"
+  "Dot Size Showcase",
+  "14px",
+  "Code Preview",
+  "Background color picker",
+  "Foreground color picker",
+  "Accent color picker",
+  "swarm",
+  "swarm_monitor",
+  "ONLY for the native-swarm worker whose brief says it is the monitor. On a timer, it checks whether the whole swarm has stalled and calls on the one member who can unstick it. Coordinators and other workers: do not load this."
 ]
