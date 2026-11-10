@@ -73,5 +73,7 @@
   "trigger fresh workflow run",
   "check new run status",
   "verify filter in cloud runner",
-  "check run status"
+  "check run status",
+  "Grep aar-log for duplicates/telegram",
+  "Grep aar-log for Polymarket entries"
 ]
