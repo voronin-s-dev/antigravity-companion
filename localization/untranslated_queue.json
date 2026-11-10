@@ -32,5 +32,6 @@
   "audit all dot and ellipse occurrences in vector_icon_factory",
   "inspect centerline pixels of dot_normal",
   "measure dot_normal dark core size",
-  "Measure dot_normal dark core size"
+  "Measure dot_normal dark core size",
+  "Measure normal_ani frame core size"
 ]
