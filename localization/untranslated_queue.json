@@ -56,5 +56,6 @@
   "Push commit to origin/main",
   "Abort rebase cleanly",
   "Reset soft to origin/main",
-  "Restore data and graphify-out from origin/main"
+  "Restore data and graphify-out from origin/main",
+  "Approve proposal 22 on latest db"
 ]
