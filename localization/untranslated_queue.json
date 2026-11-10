@@ -72,5 +72,6 @@
   "push commit to origin/main",
   "trigger fresh workflow run",
   "check new run status",
-  "verify filter in cloud runner"
+  "verify filter in cloud runner",
+  "check run status"
 ]
