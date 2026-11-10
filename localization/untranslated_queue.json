@@ -3,8 +3,6 @@
   "pull latest commits from remote",
   "Pull latest commits from remote",
   "Query recent governance events",
-  "Nothing said yet",
-  "Worked",
   "Generate daily focus",
   "Request login code via Telegram",
   "verify login code",
@@ -144,5 +142,7 @@
   "Get job id for run 42721039155",
   "Git log search for MIN_HOURS_TO_CLOSE_EXIT",
   "Commit fix, pull and push to origin/main",
-  "Trigger sync.yml in GitHub Actions"
+  "Trigger sync.yml in GitHub Actions",
+  "Nothing said yet",
+  "Worked"
 ]
