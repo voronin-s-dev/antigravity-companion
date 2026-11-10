@@ -99,5 +99,7 @@
   "Liquid Sakura Perfection Report",
   "Agent working",
   "Swarm",
-  "check multi-res sizes in build_helpers"
+  "check multi-res sizes in build_helpers",
+  "Count petal pixels at various DPIs",
+  "Save actual size frames"
 ]
