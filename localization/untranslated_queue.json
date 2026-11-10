@@ -62,5 +62,6 @@
   "Stage and commit changes",
   "Cancel in-progress workflow run",
   "Wait and check cancelled run status",
-  "fetch origin main and check commits"
+  "fetch origin main and check commits",
+  "Reset soft to origin/main and checkout data from HEAD"
 ]
