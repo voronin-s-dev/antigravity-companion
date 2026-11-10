@@ -12,5 +12,6 @@
   "Daily focus generator",
   "check DAILY_FOCUS.md date",
   "Sync DAILY_FOCUS.md to Cursor project",
-  "Audit radii across all functions in build_v2_animations"
+  "Audit radii across all functions in build_v2_animations",
+  "Audit all dot and ellipse occurrences in vector_icon_factory"
 ]
