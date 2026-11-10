@@ -52,5 +52,6 @@
   "Agent working",
   "Swarm",
   "Pull latest commits from origin/main",
-  "Commit approval and fixes"
+  "Commit approval and fixes",
+  "Push commit to origin/main"
 ]
