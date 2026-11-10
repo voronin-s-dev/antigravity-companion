@@ -47,7 +47,6 @@
   "inspect lines 25-45 in vector_icon_factory",
   "check occurrences in vector_icon_factory",
   "Welcome back, Sofia. Where should we pick up?",
-  "Agent said",
   "Gemini 4 Carbon",
   "Agent working",
   "Swarm",
@@ -96,5 +95,7 @@
   "Good to see you, Sofia. What's next?",
   "Extract sample frames from reel",
   "Extract end frames",
-  "Generate side-by-side evolution GIF"
+  "Generate side-by-side evolution GIF",
+  "Rebuild all 12 Liquid themes",
+  "Agent said"
 ]
