@@ -53,5 +53,6 @@
   "Swarm",
   "Pull latest commits from origin/main",
   "Commit approval and fixes",
-  "Push commit to origin/main"
+  "Push commit to origin/main",
+  "Abort rebase cleanly"
 ]
