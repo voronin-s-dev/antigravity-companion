@@ -13,5 +13,22 @@
   "check DAILY_FOCUS.md date",
   "Sync DAILY_FOCUS.md to Cursor project",
   "Audit radii across all functions in build_v2_animations",
-  "Audit all dot and ellipse occurrences in vector_icon_factory"
+  "Audit all dot and ellipse occurrences in vector_icon_factory",
+  "sync DAILY_FOCUS.md to Cursor project",
+  "list project directory",
+  "list scratch directory",
+  "run dot size audit",
+  "inspect animation functions and radii",
+  "read generate_normal_ani",
+  "read build_v2_animations lines 220-290",
+  "read generate_resize_ani lines 185-230",
+  "audit radii across all functions in build_v2_animations",
+  "find all ellipse and dot radius definitions",
+  "find generate_link_ani",
+  "find files defining generate_link_ani",
+  "inspect icon_factory definitions",
+  "read link and text in vector_icon_factory",
+  "read vert_resize in vector_icon_factory",
+  "audit all dot and ellipse occurrences in vector_icon_factory",
+  "inspect centerline pixels of dot_normal"
 ]
