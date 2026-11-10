@@ -3,5 +3,7 @@
   "Query FENNEL position in database",
   "Query FENNEL position with py",
   "Query FENNEL position in db",
-  "Pull origin main"
+  "Pull origin main",
+  "Get trades_ledger columns",
+  "Query trades_ledger for position_id 126"
 ]
