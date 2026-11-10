@@ -43,5 +43,7 @@
   "inspect generate_alternate_ani",
   "inspect location and person animations",
   "verify canonical core dot function syntax",
-  "inspect lines 65-75 of build_link_ani"
+  "inspect lines 65-75 of build_link_ani",
+  "inspect lines 25-45 in vector_icon_factory",
+  "check occurrences in vector_icon_factory"
 ]
