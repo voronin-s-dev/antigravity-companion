@@ -59,5 +59,6 @@
   "Restore data and graphify-out from origin/main",
   "Approve proposal 22 on latest db",
   "Dismiss proposal 21 on latest db",
-  "Stage and commit changes"
+  "Stage and commit changes",
+  "Cancel in-progress workflow run"
 ]
