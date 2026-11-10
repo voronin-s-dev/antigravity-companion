@@ -48,8 +48,6 @@
   "check occurrences in vector_icon_factory",
   "Welcome back, Sofia. Where should we pick up?",
   "Gemini 4 Carbon",
-  "Agent working",
-  "Swarm",
   "Pull latest commits from origin/main",
   "Commit approval and fixes",
   "Push commit to origin/main",
@@ -98,5 +96,7 @@
   "Generate side-by-side evolution GIF",
   "Rebuild all 12 Liquid themes",
   "Agent said",
-  "Liquid Sakura Perfection Report"
+  "Liquid Sakura Perfection Report",
+  "Agent working",
+  "Swarm"
 ]
