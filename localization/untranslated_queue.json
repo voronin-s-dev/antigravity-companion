@@ -93,7 +93,6 @@
   "Extract end frames",
   "Generate side-by-side evolution GIF",
   "Rebuild all 12 Liquid themes",
-  "Agent working",
   "check multi-res sizes in build_helpers",
   "Count petal pixels at various DPIs",
   "Save actual size frames",
@@ -184,5 +183,6 @@
   "Liquid Sakura Perfection Report",
   "Dot Size Showcase",
   "Visual showcase demonstrating 100% uniform Simplify Dot diameter across all cursor roles and smooth sakura petals vortex.",
-  "Agent said"
+  "Agent said",
+  "Agent working"
 ]
