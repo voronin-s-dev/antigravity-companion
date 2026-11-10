@@ -47,7 +47,6 @@
   "inspect lines 25-45 in vector_icon_factory",
   "check occurrences in vector_icon_factory",
   "Welcome back, Sofia. Where should we pick up?",
-  "Gemini 4 Carbon",
   "Pull latest commits from origin/main",
   "Commit approval and fixes",
   "Push commit to origin/main",
@@ -120,7 +119,6 @@
   "Turn 27 of 37",
   "Turn 28 of 37",
   "Close Liquid Sakura Perfection Report",
-  "Swarm",
   "Agent working",
   "search Tapered Shard",
   "Wait for build to finish",
@@ -203,5 +201,7 @@
   "Turn 21 of 38",
   "Turn 22 of 38",
   "Turn 23 of 38",
-  "Liquid Sakura Perfection Report"
+  "Liquid Sakura Perfection Report",
+  "Swarm",
+  "Gemini 4 Carbon"
 ]
