@@ -233,5 +233,7 @@
   "Bot Setup For Saved Posts",
   "Sweep all spam messages in chat",
   "Show full command",
-  "Start spam cleaner daemon"
+  "Start spam cleaner daemon",
+  "Closed Businesses Today Check",
+  "Managed by the Weekly Skills Auto-Update automation"
 ]
