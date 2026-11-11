@@ -267,5 +267,6 @@
   "verify drafts with linter and extractor",
   "Messaging Threads V5 QA Skeptic (social-qa-skeptic)",
   "Messaging Threads Copywriter A/B Quiz (social-copywriter)",
-  "run full unit test suite"
+  "run full unit test suite",
+  "Message from Threads V5 QA Skeptic (social-qa-skeptic)"
 ]
