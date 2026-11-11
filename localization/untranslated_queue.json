@@ -257,5 +257,12 @@
   "Syntax and linter checks",
   "Threads Copywriter A/B Quiz",
   "Open Subagent: Threads Copywriter A/B Quiz (social-copywriter)",
-  "Register Reels Telegram reminder task"
+  "Register Reels Telegram reminder task",
+  "Message from Threads Copywriter A/B Quiz (social-copywriter)",
+  "Threads V5 QA Skeptic",
+  "Starting Threads V5 QA Skeptic",
+  "Open Subagent: Threads V5 QA Skeptic (social-qa-skeptic)",
+  "verify tasks and funnel gates",
+  "Error while running schedule",
+  "verify drafts with linter and extractor"
 ]
