@@ -197,7 +197,6 @@
   "Turn 22 of 38",
   "Turn 23 of 38",
   "Liquid Sakura Perfection Report",
-  "Swarm",
   "Gemini 4 Carbon",
   "Agent working",
   "Print CommandLine for steps 1975, 1980, 1982",
@@ -247,5 +246,7 @@
   "Compute overall closed positions statistics",
   "Agent said",
   "Collapse questionnaire",
-  "find pythonw.exe path"
+  "find pythonw.exe path",
+  "Swarm",
+  "Register Scheduled Task in Windows"
 ]
