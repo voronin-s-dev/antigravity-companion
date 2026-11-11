@@ -250,5 +250,6 @@
   "Register Scheduled Task in Windows",
   "Agent working",
   "Register Scheduled Task cleanly",
-  "Lint thread file"
+  "Lint thread file",
+  "Schedule thread in Buffer"
 ]
