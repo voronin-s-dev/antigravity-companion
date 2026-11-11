@@ -265,5 +265,7 @@
   "verify tasks and funnel gates",
   "Error while running schedule",
   "verify drafts with linter and extractor",
-  "Messaging Threads V5 QA Skeptic (social-qa-skeptic)"
+  "Messaging Threads V5 QA Skeptic (social-qa-skeptic)",
+  "Messaging Threads Copywriter A/B Quiz (social-copywriter)",
+  "run full unit test suite"
 ]
