@@ -225,5 +225,9 @@
   "Pull origin main",
   "Welcome back, Sofia. Where should we pick up?",
   "Retry Buffer channels",
-  "Generate Daily Focus"
+  "Generate Daily Focus",
+  "Text Shard 50pct Larger Comparison",
+  "Close Text Shard 50pct Larger Comparison",
+  "Text Shard 50pct Pulse",
+  "Close Text Shard 50pct Pulse"
 ]
