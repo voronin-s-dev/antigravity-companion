@@ -3,7 +3,6 @@
   "Query FENNEL position in database",
   "Query FENNEL position with py",
   "Query FENNEL position in db",
-  "Pull origin main",
   "Get trades_ledger columns",
   "Query trades_ledger for position_id 126",
   "Get recent runs with json",
@@ -222,5 +221,7 @@
   "check daily focus for new day",
   "Killing task Check models in AppData",
   "Instagram Reel Analysis Check",
-  "fetch and inspect recent commits on origin/main"
+  "fetch and inspect recent commits on origin/main",
+  "Show commit c82feab",
+  "Pull origin main"
 ]
