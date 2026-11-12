@@ -15,5 +15,6 @@
   "check_snippets_db.mjs",
   "verify 404 title and speculationrules removal",
   "Parse Buffer list_posts JSON output",
-  "check sweep.log entries"
+  "check sweep.log entries",
+  "Gemini 4 Carbon is currently available to Ultra plan subscribers."
 ]
