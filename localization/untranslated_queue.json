@@ -5,5 +5,6 @@
   "check live 404 page on site",
   "check site language and settings",
   "inspect 404 template metadata",
-  "check snippet plugin and snippet 1011"
+  "check snippet plugin and snippet 1011",
+  "verify live 404 title and speculationrules removal"
 ]
