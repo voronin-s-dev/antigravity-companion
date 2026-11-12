@@ -9,5 +9,6 @@
   "verify live 404 title and speculationrules removal",
   "check DB snippets and Yoast 404 title",
   "check recent post modifications in DB",
-  "verify_db_state.mjs"
+  "verify_db_state.mjs",
+  "check PHP snippets in DB"
 ]
