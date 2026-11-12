@@ -4,5 +4,6 @@
   "verify best-buy-store status",
   "check live 404 page on site",
   "check site language and settings",
-  "inspect 404 template metadata"
+  "inspect 404 template metadata",
+  "check snippet plugin and snippet 1011"
 ]
