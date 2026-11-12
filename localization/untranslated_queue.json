@@ -12,5 +12,6 @@
   "verify_db_state.mjs",
   "check PHP snippets in DB",
   "read EMCP admin menu titles",
-  "check_snippets_db.mjs"
+  "check_snippets_db.mjs",
+  "verify 404 title and speculationrules removal"
 ]
