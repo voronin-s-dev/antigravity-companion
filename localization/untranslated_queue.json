@@ -11,5 +11,6 @@
   "check recent post modifications in DB",
   "verify_db_state.mjs",
   "check PHP snippets in DB",
-  "read EMCP admin menu titles"
+  "read EMCP admin menu titles",
+  "check_snippets_db.mjs"
 ]
