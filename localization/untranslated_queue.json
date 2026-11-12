@@ -7,5 +7,6 @@
   "inspect 404 template metadata",
   "check snippet plugin and snippet 1011",
   "verify live 404 title and speculationrules removal",
-  "check DB snippets and Yoast 404 title"
+  "check DB snippets and Yoast 404 title",
+  "check recent post modifications in DB"
 ]
