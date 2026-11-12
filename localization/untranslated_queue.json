@@ -1,5 +1,6 @@
 [
   "Crawl site for 404 links",
   "check all domain URLs in HTML",
-  "verify best-buy-store status"
+  "verify best-buy-store status",
+  "check live 404 page on site"
 ]
