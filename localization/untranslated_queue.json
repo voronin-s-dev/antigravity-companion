@@ -2,5 +2,7 @@
   "Crawl site for 404 links",
   "check all domain URLs in HTML",
   "verify best-buy-store status",
-  "check live 404 page on site"
+  "check live 404 page on site",
+  "check site language and settings",
+  "inspect 404 template metadata"
 ]
