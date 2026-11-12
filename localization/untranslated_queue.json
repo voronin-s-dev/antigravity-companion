@@ -14,5 +14,6 @@
   "read EMCP admin menu titles",
   "check_snippets_db.mjs",
   "verify 404 title and speculationrules removal",
-  "Parse Buffer list_posts JSON output"
+  "Parse Buffer list_posts JSON output",
+  "check sweep.log entries"
 ]
