@@ -10,5 +10,6 @@
   "check DB snippets and Yoast 404 title",
   "check recent post modifications in DB",
   "verify_db_state.mjs",
-  "check PHP snippets in DB"
+  "check PHP snippets in DB",
+  "read EMCP admin menu titles"
 ]
