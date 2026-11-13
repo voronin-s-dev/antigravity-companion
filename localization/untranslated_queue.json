@@ -10,5 +10,8 @@
   "Wait for the thread post and replies to load in the column content region.",
   "Dismiss the login dialog with Escape and inspect all post text in the DOM.",
   "Extract clean post text without UI buttons and icons.",
-  "run lint_content.py on both draft threads"
+  "run lint_content.py on both draft threads",
+  "Close Threads Copywriter A/B Quiz",
+  "social-copywriter",
+  "Locate Warmup Reels files and renders"
 ]
