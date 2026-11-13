@@ -6,5 +6,6 @@
   "Extract Russian text blocks from page",
   "Starting Threads Post Reader",
   "Started Threads Post Reader",
-  "Threads Post Reader"
+  "Threads Post Reader",
+  "Wait for the thread post and replies to load in the column content region."
 ]
