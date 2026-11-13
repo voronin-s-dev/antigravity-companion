@@ -29,5 +29,6 @@
   "Close promo popup and navigate to Household Chemicals category",
   "Extract all products on the current page and inspect pagination",
   "Scroll to top and test search input or explore search URL",
-  "Browser: you took over"
+  "Browser: you took over",
+  "test requests to ATB"
 ]
