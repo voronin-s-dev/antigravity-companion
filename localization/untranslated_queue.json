@@ -7,5 +7,6 @@
   "Starting Threads Post Reader",
   "Started Threads Post Reader",
   "Threads Post Reader",
-  "Wait for the thread post and replies to load in the column content region."
+  "Wait for the thread post and replies to load in the column content region.",
+  "Dismiss the login dialog with Escape and inspect all post text in the DOM."
 ]
