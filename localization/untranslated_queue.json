@@ -1,3 +1,4 @@
 [
-  "fetch Threads share link metadata"
+  "fetch Threads share link metadata",
+  "Extract canonical and links from Threads share page"
 ]
