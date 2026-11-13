@@ -1,5 +1,6 @@
 [
   "fetch Threads share link metadata",
   "Extract canonical and links from Threads share page",
-  "Extract all metadata and OG URL from Threads post"
+  "Extract all metadata and OG URL from Threads post",
+  "Extract all text from the Threads thread"
 ]
