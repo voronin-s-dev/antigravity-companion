@@ -3,5 +3,8 @@
   "Extract canonical and links from Threads share page",
   "Extract all metadata and OG URL from Threads post",
   "Extract all text from the Threads thread",
-  "Extract Russian text blocks from page"
+  "Extract Russian text blocks from page",
+  "Starting Threads Post Reader",
+  "Started Threads Post Reader",
+  "Threads Post Reader"
 ]
