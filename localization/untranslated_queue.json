@@ -26,5 +26,6 @@
   "about:blank",
   "Navigate to ATB Market homepage",
   "You're viewing a blank page. View site information",
-  "Close promo popup and navigate to Household Chemicals category"
+  "Close promo popup and navigate to Household Chemicals category",
+  "Extract all products on the current page and inspect pagination"
 ]
