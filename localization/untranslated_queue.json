@@ -16,5 +16,6 @@
   "verify 404 title and speculationrules removal",
   "Parse Buffer list_posts JSON output",
   "check sweep.log entries",
-  "Gemini 4 Carbon is currently available to Ultra plan subscribers."
+  "Gemini 4 Carbon is currently available to Ultra plan subscribers.",
+  "check daily focus script"
 ]
