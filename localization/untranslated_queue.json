@@ -6,5 +6,6 @@
   "Lint banner parameters",
   "Render editorial telegram banner",
   "Lint telegram article",
-  "Lint updated telegram article"
+  "Lint updated telegram article",
+  "Publish shadow article to Telegram channel"
 ]
