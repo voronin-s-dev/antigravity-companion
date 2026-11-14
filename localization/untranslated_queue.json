@@ -8,5 +8,6 @@
   "Lint telegram article",
   "Lint updated telegram article",
   "Publish shadow article to Telegram channel",
-  "telegram"
+  "telegram",
+  "search for banner_01 and banner_02 in scripts"
 ]
