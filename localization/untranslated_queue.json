@@ -5,5 +5,6 @@
   "Copy generated art to video engine public",
   "Lint banner parameters",
   "Render editorial telegram banner",
-  "Lint telegram article"
+  "Lint telegram article",
+  "Lint updated telegram article"
 ]
