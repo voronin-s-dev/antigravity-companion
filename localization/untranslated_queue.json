@@ -20,5 +20,8 @@
   "Diff code changes in a5368b5",
   "Soft reset to origin/main",
   "Checkout fresh data from origin/main",
-  "Commit code changes cleanly"
+  "Commit code changes cleanly",
+  "Sync and push to origin main",
+  "Query portfolio and governance state",
+  "Query portfolio and governance rows"
 ]
