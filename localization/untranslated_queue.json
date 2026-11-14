@@ -23,5 +23,6 @@
   "Commit code changes cleanly",
   "Sync and push to origin main",
   "Query portfolio and governance state",
-  "Query portfolio and governance rows"
+  "Query portfolio and governance rows",
+  "Count pending governance events"
 ]
