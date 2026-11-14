@@ -25,5 +25,8 @@
   "Ask /btw",
   "list contents of .agents directory",
   "Defining numerology-consultant subagent",
-  "Skills For Numerology Consulting"
+  "Skills For Numerology Consulting",
+  "Query local/session storage via CDP",
+  "Retrieve user quota summary via CDP",
+  "Retrieve user quota summary with BigInt handled"
 ]
