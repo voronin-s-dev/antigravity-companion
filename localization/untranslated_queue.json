@@ -28,5 +28,6 @@
   "Skills For Numerology Consulting",
   "Query local/session storage via CDP",
   "Retrieve user quota summary via CDP",
-  "Retrieve user quota summary with BigInt handled"
+  "Retrieve user quota summary with BigInt handled",
+  "Get Antigravity process path"
 ]
