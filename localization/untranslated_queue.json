@@ -14,5 +14,11 @@
   "pull latest commits from origin",
   "Pull latest commits from origin",
   "Restore data and pull rebase origin main",
-  "Show commit a5368b5 stats"
+  "Show commit a5368b5 stats",
+  "Show commits on origin/main",
+  "Show merge-base commit",
+  "Diff code changes in a5368b5",
+  "Soft reset to origin/main",
+  "Checkout fresh data from origin/main",
+  "Commit code changes cleanly"
 ]
