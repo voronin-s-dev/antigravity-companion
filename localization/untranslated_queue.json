@@ -24,5 +24,7 @@
   "Sync and push to origin main",
   "Query portfolio and governance state",
   "Query portfolio and governance rows",
-  "Count pending governance events"
+  "Count pending governance events",
+  "search active_category_filter",
+  "Fast-forward pull from origin main"
 ]
