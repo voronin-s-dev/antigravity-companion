@@ -38,5 +38,7 @@
   "Commit and push category rotation snapshot",
   "Dismiss proposal 25",
   "Debug test_unfreeze_proposal",
-  "Debug test_shadow_governor directly"
+  "Debug test_shadow_governor directly",
+  "Start reminder daemon in background",
+  "Send setup confirmation to telegram bot"
 ]
