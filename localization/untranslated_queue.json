@@ -28,5 +28,11 @@
   "search active_category_filter",
   "Fast-forward pull from origin main",
   "Apply category rotation to Sports",
-  "Set category to Sports"
+  "Set category to Sports",
+  "Commit category rotation to Sports",
+  "Push category rotation to origin main",
+  "Reset and checkout data from origin/main",
+  "Abort git rebase",
+  "Soft reset to origin/main and checkout data",
+  "Commit run_sim.py enhancements"
 ]
