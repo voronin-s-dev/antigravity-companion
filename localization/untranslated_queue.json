@@ -36,5 +36,6 @@
   "Soft reset to origin/main and checkout data",
   "Commit run_sim.py enhancements",
   "Commit and push category rotation snapshot",
-  "Dismiss proposal 25"
+  "Dismiss proposal 25",
+  "Debug test_unfreeze_proposal"
 ]
