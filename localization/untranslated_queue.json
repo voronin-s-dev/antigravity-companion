@@ -38,5 +38,6 @@
   "run lint_content gate",
   "run lint_content registry",
   "lint today's Threads filler",
-  "Lint today's Threads filler"
+  "Lint today's Threads filler",
+  "check instagram output directory"
 ]
