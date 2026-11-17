@@ -47,5 +47,6 @@
   "Wait for thread contents and replies to finish loading.",
   "Set viewport size and close the login/signup prompt modal.",
   "Extract visible posts and check if scrolling loads additional comments.",
-  "Extract the full text content from the body to see all loaded replies."
+  "Extract the full text content from the body to see all loaded replies.",
+  "Killing subagent"
 ]
