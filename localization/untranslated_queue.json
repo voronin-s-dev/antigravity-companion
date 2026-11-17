@@ -96,5 +96,6 @@
   "Turn 47 of 48",
   "clean non-project personal chat files",
   "Clean non-project personal chat files",
-  "Grep AAR log for prior patterns"
+  "Grep AAR log for prior patterns",
+  "Pull latest trades and logs from origin main"
 ]
