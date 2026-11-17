@@ -41,5 +41,7 @@
   "Lint today's Threads filler",
   "check instagram output directory",
   "check rendered slides for battery carousel",
-  "Schedule For Next Posts"
+  "Schedule For Next Posts",
+  "I've launched the browser subagent to fetch and read the Threads post and its replies from the link. I will review the content and compare it with the Threads-Copilot codebase as soon as the subagent finishes",
+  "Navigate to the shared Threads URL to inspect the main post and replies."
 ]
