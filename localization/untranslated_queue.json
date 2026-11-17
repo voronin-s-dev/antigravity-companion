@@ -49,5 +49,6 @@
   "Extract visible posts and check if scrolling loads additional comments.",
   "Extract the full text content from the body to see all loaded replies.",
   "Killing subagent",
-  "Buffer channels check"
+  "Buffer channels check",
+  "Toxic Relationship Story Analysis"
 ]
