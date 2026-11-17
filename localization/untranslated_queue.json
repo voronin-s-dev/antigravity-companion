@@ -39,5 +39,6 @@
   "run lint_content registry",
   "lint today's Threads filler",
   "Lint today's Threads filler",
-  "check instagram output directory"
+  "check instagram output directory",
+  "check rendered slides for battery carousel"
 ]
