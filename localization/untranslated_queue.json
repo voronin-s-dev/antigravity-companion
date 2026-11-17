@@ -29,5 +29,6 @@
   "Lint comment 3 for anxiety post",
   "run cadence sentinel",
   "Lint CAROUSEL_01_BATTERY",
-  "Gate check CAROUSEL_01_BATTERY"
+  "Gate check CAROUSEL_01_BATTERY",
+  "Debug lint_readiness_gate"
 ]
