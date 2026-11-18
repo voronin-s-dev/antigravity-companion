@@ -15,10 +15,15 @@ if not defined AGY_EXE if exist "%LOCALAPPDATA%\antigravity\Antigravity.exe" set
 :: 2. Запуск службы Companion (если еще не активна)
 powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0bin\start_silent.ps1"
 
-:: 3. Запуск самого Antigravity
+:: 2.1 Запуск службы Skill Manager (если установлена)
+if exist "%~dp0..\antigravity-skill-manager\bin\start_silent.ps1" (
+    powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0..\antigravity-skill-manager\bin\start_silent.ps1"
+)
+
+:: 3. Запуск самого Antigravity с портом удаленной отладки для CDP-инъекций
 if defined AGY_EXE (
     echo [+] Запуск Antigravity: %AGY_EXE%
-    start "" "%AGY_EXE%" %*
+    start "" "%AGY_EXE%" --remote-debugging-port=0 %*
 ) else (
     echo [!] Antigravity.exe не найден в стандартных путях.
     echo     Запустите Antigravity обычным способом — служба Companion подхватит его автоматически.

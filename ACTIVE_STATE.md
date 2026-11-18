@@ -5,7 +5,7 @@
 ---
 
 ## 1. Метаданные репозитория
-- **Версия**: `v1.7.6`
+- **Версия**: `v1.7.7`
 - **Ветка**: `main`
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
@@ -648,6 +648,26 @@
      - Ярлык автозапуска и ключ в реестре успешно созданы.
      - Служба запущена в фоне (PID 41148), `npm run doctor:cdp` подтверждает 100% готовность UI.
      - Все 8 сьютов `npm test` завершены успешно.
+
+### Веха 81: Разбор AAR: Устранение потери флага --remote-debugging-port после автообновления Antigravity IDE (v2.33.0)
+- **Диагностика инцидента (AAR)**:
+  - Пользователь сообщил, что после обновления Antigravity IDE и перезапуска служба Companion не возобновила работу.
+  - Анализ логов `main.log` и `companion.log` показал: автоапдейтер IDE обновил приложение до v2.33.0 и выполнил перезапуск с параметрами `--updated,--force-run` без ключа `--remote-debugging-port`.
+  - Анализ `resources/app.asar` Antigravity подтвердил: при отсутствии свитча `remote-debugging-port` Electron-приложение принудительно удаляет `DevToolsActivePort`. Служба Companion осталась в бесконечном энергоэффективном ожидании (0% CPU).
+- **Архитектурные исправления**:
+  1. *Новое направление проверок `H` (Host Launch & Debug Switches)*:
+     - В `.claude/aar/checks-map.md` добавлено направление контроля аргументов запуска хоста Antigravity.
+  2. *Самовосстановление ярлыков (`bin/fix_shortcuts.ps1`)*:
+     - Скрипт сканирует все ярлыки Antigravity (меню «Пуск», Рабочий стол, профиль) и внедряет `--remote-debugging-port=0`.
+     - Создает и поддерживает рабочий ярлык на Рабочем столе: `Antigravity (с Компаньоном).lnk`.
+  3. *Обновление лаунчеров (`launch_antigravity.bat` и `bin/launch_antigravity.ps1`)*:
+     - При вызове `Antigravity.exe` всегда передается флаг `--remote-debugging-port=0`.
+  4. *Интеграция в фоновую службу (`bin/antigravity_companion.js` и `bin/start_silent.ps1`)*:
+     - Метод `ensureAntigravityShortcuts()` автоматически проверяет и восстанавливает флаг отладки в ярлыках при старте службы и при исчезновении файла порта.
+  5. *AAR ведомость и тесты*:
+     - Оформлен отчет `.claude/aar/runs/2026-11-18-ide-update-remote-debugging-port-wipe.md` и запись в `~/.gemini/antigravity/aar-log.md`.
+     - Обновлен сьют `test/supervisor_lifecycle.test.js` с проверкой AST `fix_shortcuts.ps1` и флага в `launch_antigravity.ps1`.
+     - Все 8 сьютов `npm test` пройдены успешно (100% green).
 
 ---
 

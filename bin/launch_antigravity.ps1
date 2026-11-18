@@ -1,9 +1,17 @@
-[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+﻿[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $baseDir) { $baseDir = Get-Location }
 
 # 1. Запуск фоновой службы Компаньона
 & (Join-Path $baseDir "start_silent.ps1")
+
+# 1.1 Запуск фоновой службы Skill Manager (если проект присутствует)
+$smStart = "C:\Antigravity projects\antigravity-skill-manager\bin\start_silent.ps1"
+if (Test-Path $smStart) {
+    try {
+        & $smStart
+    } catch {}
+}
 
 # 2. Поиск исполняемого файла Antigravity
 $agyExe = $null
@@ -21,10 +29,10 @@ foreach ($p in $possiblePaths) {
     }
 }
 
-# 3. Запуск самого Antigravity (если процесс еще не запущен)
+# 3. Запуск самого Antigravity с портом удаленной отладки для CDP
 if ($agyExe) {
     $existing = Get-Process Antigravity -ErrorAction SilentlyContinue | Select-Object -First 1
     if (-not $existing) {
-        Start-Process -FilePath $agyExe
+        Start-Process -FilePath $agyExe -ArgumentList "--remote-debugging-port=0"
     }
 }

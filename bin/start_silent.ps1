@@ -1,4 +1,4 @@
-$baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+﻿$baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $baseDir) { $baseDir = Get-Location }
 $companionPath = Join-Path $baseDir "antigravity_companion.js"
 $startVbs = Join-Path $baseDir "start_silent.vbs"
@@ -36,6 +36,14 @@ try {
     $reg = Get-ItemProperty -Path $regPath -Name $regName -ErrorAction SilentlyContinue
     if (-not $reg -or $reg.$regName -ne $regVal) {
         Set-ItemProperty -Path $regPath -Name $regName -Value $regVal -Force
+    }
+} catch {}
+
+# 0.1. Ensure Antigravity shortcuts always have --remote-debugging-port=0 (prevents IDE updates from disabling CDP)
+try {
+    $fixShortcutsScript = Join-Path $baseDir "fix_shortcuts.ps1"
+    if (Test-Path $fixShortcutsScript) {
+        & $fixShortcutsScript
     }
 } catch {}
 

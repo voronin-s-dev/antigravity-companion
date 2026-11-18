@@ -44,6 +44,24 @@ function ensureAutostart() {
   } catch (_) {}
 }
 
+// Self-healing Antigravity shortcuts: ensures --remote-debugging-port=0 is present (persists through IDE auto-updates)
+function ensureAntigravityShortcuts() {
+  if (process.platform !== 'win32') return;
+  try {
+    const baseDir = path.resolve(__dirname);
+    const fixScript = path.join(baseDir, 'fix_shortcuts.ps1');
+    if (fs.existsSync(fixScript)) {
+      const { spawn } = require('child_process');
+      const cp = spawn('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', fixScript], {
+        detached: true,
+        stdio: 'ignore',
+        windowsHide: true
+      });
+      cp.unref();
+    }
+  } catch (_) {}
+}
+
 const { injectWidget } = require('../limits_widget/inject_panel.js');
 const { injectTranslator } = require('../localization/inject_translator.js');
 
@@ -60,6 +78,7 @@ let isInjecting = false;
 let fileWatcher = null;
 let recheckDebounce = null;
 let lastHealthStateOk = false;
+let missingPortWarned = false;
 
 function resetConnection() {
   if (currentWs) {
@@ -179,6 +198,7 @@ async function tryConnect() {
       isConnecting = false;
       currentWs = ws;
       currentPort = port;
+      missingPortWarned = false;
       logSync(`[Companion] Постоянный канал CDP активен (порт ${port}). Подписка на события жизненного цикла окна...`);
 
       // Subscribe to runtime and navigation events to catch window reloads (Ctrl+R) with 0ms latency
@@ -270,8 +290,15 @@ function setupFileWatcher() {
 // Continuous health monitor: reconnects when disconnected, verifies port and UI when connected
 setInterval(() => {
   if (!isConnected && !isConnecting) {
+    if (!fs.existsSync(activePortFile)) {
+      if (!missingPortWarned) {
+        ensureAntigravityShortcuts();
+        missingPortWarned = true;
+      }
+    }
     tryConnect();
   } else if (isConnected && !isInjecting) {
+    missingPortWarned = false;
     let diskPort = null;
     try {
       if (fs.existsSync(activePortFile)) {
@@ -313,6 +340,7 @@ try {
 }
 
 ensureAutostart();
+ensureAntigravityShortcuts();
 setupFileWatcher();
 tryConnect();
 

@@ -36,7 +36,8 @@ function testPowerShellScriptsAst() {
     '../bin/start_silent.ps1',
     '../bin/launch_antigravity.ps1',
     '../bin/status.ps1',
-    '../bin/companion_manager.ps1'
+    '../bin/companion_manager.ps1',
+    '../bin/fix_shortcuts.ps1'
   ];
 
   for (const rel of psScripts) {
@@ -62,6 +63,11 @@ function testAutostartArtifacts() {
   const vbsContent = fs.readFileSync(vbsLauncher, 'utf8');
   if (!vbsContent.includes('launch_antigravity.ps1')) {
     throw new Error('launch_antigravity.vbs must target launch_antigravity.ps1');
+  }
+
+  const launchPs = fs.readFileSync(path.resolve(__dirname, '../bin/launch_antigravity.ps1'), 'utf8');
+  if (!launchPs.includes('--remote-debugging-port')) {
+    throw new Error('launch_antigravity.ps1 must launch Antigravity with --remote-debugging-port');
   }
 
   const startSilentPs = fs.readFileSync(path.resolve(__dirname, '../bin/start_silent.ps1'), 'utf8');
