@@ -25,6 +25,7 @@ npm-debug.log*
 # Builds & Archives
 dist/
 *.zip
+bin/*.exe
 
 # Local Agent Workspace
 .gemini/

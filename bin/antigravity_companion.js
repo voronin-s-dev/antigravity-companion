@@ -62,6 +62,23 @@ function ensureAntigravityShortcuts() {
   } catch (_) {}
 }
 
+let shimManager = null;
+try {
+  shimManager = require('./shim_manager.js');
+} catch (_) {}
+
+function ensureLauncherShim() {
+  if (process.platform !== 'win32' || !shimManager) return;
+  try {
+    if (!shimManager.isShimInstalled() && !shimManager.isAntigravityRunning()) {
+      const res = shimManager.installShim();
+      if (res && res.installed) {
+        logSync('[Companion] Установлен нативный лаунчер-шим для прозрачного запуска Antigravity с портом отладки.');
+      }
+    }
+  } catch (_) {}
+}
+
 const { injectWidget } = require('../limits_widget/inject_panel.js');
 const { injectTranslator } = require('../localization/inject_translator.js');
 
@@ -241,6 +258,7 @@ async function tryConnect() {
         process.exit(0);
       } else {
         logSync('[Companion] Переход в энергоэффективный режим ожидания (0% CPU, ожидание запуска Antigravity)...');
+        setTimeout(ensureLauncherShim, 1200);
       }
     };
   } catch (e) {
@@ -293,6 +311,7 @@ setInterval(() => {
     if (!fs.existsSync(activePortFile)) {
       if (!missingPortWarned) {
         ensureAntigravityShortcuts();
+        ensureLauncherShim();
         missingPortWarned = true;
       }
     }
@@ -341,6 +360,7 @@ try {
 
 ensureAutostart();
 ensureAntigravityShortcuts();
+ensureLauncherShim();
 setupFileWatcher();
 tryConnect();
 

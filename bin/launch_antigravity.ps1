@@ -29,10 +29,16 @@ foreach ($p in $possiblePaths) {
     }
 }
 
-# 3. Запуск самого Antigravity с портом удаленной отладки для CDP
+# 3. Запуск Antigravity с портом удаленной отладки для CDP
 if ($agyExe) {
+    $portFile = Join-Path $env:APPDATA "Antigravity\DevToolsActivePort"
     $existing = Get-Process Antigravity -ErrorAction SilentlyContinue | Select-Object -First 1
     if (-not $existing) {
+        Start-Process -FilePath $agyExe -ArgumentList "--remote-debugging-port=0"
+    } elseif (-not (Test-Path $portFile)) {
+        # Process was launched without debugging flag; restart cleanly with debug port
+        Stop-Process -Name Antigravity -Force -ErrorAction SilentlyContinue
+        Start-Sleep -Milliseconds 800
         Start-Process -FilePath $agyExe -ArgumentList "--remote-debugging-port=0"
     }
 }

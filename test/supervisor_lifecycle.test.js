@@ -76,6 +76,24 @@ function testAutostartArtifacts() {
   }
 }
 
+function testShimManagerInvariants() {
+  const shimSrc = path.resolve(__dirname, '../bin/AntigravityShim.cs');
+  if (!fs.existsSync(shimSrc)) {
+    throw new Error('AntigravityShim.cs is missing in bin/');
+  }
+  const csCode = fs.readFileSync(shimSrc, 'utf8');
+  if (!csCode.includes('--remote-debugging-port=0') || !csCode.includes('Antigravity_orig.exe')) {
+    throw new Error('AntigravityShim.cs must define --remote-debugging-port=0 and Antigravity_orig.exe target');
+  }
+
+  const shimManager = require('../bin/shim_manager.js');
+  if (typeof shimManager.compileShim !== 'function' ||
+      typeof shimManager.isShimInstalled !== 'function' ||
+      typeof shimManager.installShim !== 'function') {
+    throw new Error('shim_manager.js must export compileShim, isShimInstalled, and installShim');
+  }
+}
+
 function runAllSupervisorTests() {
   console.log('[Test: Supervisor & Autostart] Starting tests...');
   testSupervisorSyntax();
@@ -84,6 +102,8 @@ function runAllSupervisorTests() {
   console.log('  ✓ PowerShell scripts AST validation passed.');
   testAutostartArtifacts();
   console.log('  ✓ Autostart artifacts and registry invariants passed.');
+  testShimManagerInvariants();
+  console.log('  ✓ Transparent launcher shim invariants passed.');
   return true;
 }
 

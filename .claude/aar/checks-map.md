@@ -13,7 +13,7 @@
 | `R` | Контроль сборки релиза, CI и доставки | GitHub Actions (`gh run list`, `release.yml`) | Зелёный статус CI validate, сборку ZIP-архива релиза, публикацию на GitHub | Ошибки в работе сторонних антивирусов на клиенте |
 | `D` | Выводы по данным и состоянию проекта | `ACTIVE_STATE.md`, `git status` | Рассинхрон версий, незафиксированные правки, превышение лимита шагов | Несоответствие между веткой `main` и тегом `v*` |
 | `L` | Локализация динамических токенов и кодировка | `npm test` (`testDynamicTokensLocalization`, правило 6 `testDictionaryIntegrity`, тест 6 `queue_sync_integrity`) | Английские даты и единицы времени внутри regex-групп, символы `\uFFFD` в словаре, предотвращение расщепления байтовых срезов UTF-8 в стримах сетевых клиентов (`Buffer.concat`) | Canvas-тексты и пиксельный WebGL-рендеринг |
-| `H` | Запуск и аргументы хоста Antigravity | `bin/fix_shortcuts.ps1`, `testAutostartArtifacts` | Наличие флага `--remote-debugging-port=0` во всех ярлыках и лаунчерах после автообновлений IDE | Ошибки во внутренних сетевых политиках Windows Firewall |
+| `H` | Запуск и аргументы хоста Antigravity | `bin/shim_manager.js`, `bin/fix_shortcuts.ps1`, `testShimManagerInvariants` | Гарантированное наличие флага `--remote-debugging-port=0` при любом нативном способе запуска Antigravity (поиск, пуск, таскбар, авто-рестарт) через прозрачный шим | Ошибки во внутренних сетевых политиках Windows Firewall |
 
 ## Когда направление обязательно
 

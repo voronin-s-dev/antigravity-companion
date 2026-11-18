@@ -5,7 +5,7 @@
 ---
 
 ## 1. Метаданные репозитория
-- **Версия**: `v1.7.7`
+- **Версия**: `v1.7.8`
 - **Ветка**: `main`
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
@@ -668,6 +668,27 @@
      - Оформлен отчет `.claude/aar/runs/2026-11-18-ide-update-remote-debugging-port-wipe.md` и запись в `~/.gemini/antigravity/aar-log.md`.
      - Обновлен сьют `test/supervisor_lifecycle.test.js` с проверкой AST `fix_shortcuts.ps1` и флага в `launch_antigravity.ps1`.
      - Все 8 сьютов `npm test` пройдены успешно (100% green).
+
+### Веха 82: Разбор AAR: Прозрачный запуск Antigravity без сторонних ярлыков (Native Binary Launcher Shim)
+- **Диагностика инцидента (AAR Режим 2, Мета)**:
+  - Пользователь сообщил, что создание отдельного ярлыка `Antigravity (с Компаньоном).lnk` на Рабочем столе не сработало, и потребовал обеспечить запуск как раньше: полностью автоматически без специальных ярлыков.
+  - Анализ показал: в Windows 11 запуск через меню «Пуск», поиск Windows Search, закреплённые значки таскбара и перезапуск `app.relaunch()` обращаются напрямую к `Antigravity.exe`, игнорируя аргументы пользовательских `.lnk`-файлов. Кроме того, скрипт `launch_antigravity.ps1` при наличии процесса в фоне молча блокировал запуск (`if (-not $existing)`).
+- **Архитектурные исправления**:
+  1. *Удаление искусственных сущностей*:
+     - Ярлык `Antigravity (с Компаньоном).lnk` удален с Рабочего стола пользователя.
+     - Убран файл `launch_antigravity.bat`.
+  2. *Нативный прозрачный шим (`bin/AntigravityShim.cs` & `bin/shim_manager.js`)*:
+     - Разработан микро-шим (5 КБ, C# / .NET 4.0, компилируемый встроенным `csc.exe` без внешних зависимостей) с официальной иконкой Google Antigravity.
+     - Замещает `Antigravity.exe` и делегирует вызовы в `Antigravity_orig.exe`:
+       * Для основного окна прозрачно добавляет `--remote-debugging-port=0`, гарантируя создание `DevToolsActivePort`.
+       * Для дочерних процессов (рендереры Chromium, GPU, Node-сайдкары с `--type=` или `--import=`) передает аргументы без изменений.
+  3. *Авто-восстановление и устранение бага в `launch_antigravity.ps1`*:
+     - В `launch_antigravity.ps1` исправлен скип: если Antigravity запущен без порта отладки, выполняется чистый перезапуск с флагом.
+     - В `bin/antigravity_companion.js` интегрирован вызов `ensureLauncherShim()`.
+  4. *AAR ведомость и тесты*:
+     - Оформлен отчет `.claude/aar/runs/2026-11-18-antigravity-native-launch-without-custom-shortcuts.md`, обновлены `checks-map.md` и `aar-log.md`.
+     - Добавлен тест `testShimManagerInvariants()` в `test/supervisor_lifecycle.test.js`.
+     - Все 8 сьютов `npm test` пройдены успешно (100% green). Версия повышена до v1.7.8.
 
 ---
 
