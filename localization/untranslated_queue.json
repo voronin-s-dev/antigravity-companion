@@ -3,5 +3,6 @@
   "check AAR log and project AAR directory",
   "check scripts and tests in workspace",
   "Probe Buffer GraphQL status filter and sort",
-  "Final unit test verification"
+  "Final unit test verification",
+  "Missing Threads Activity Reminder"
 ]
