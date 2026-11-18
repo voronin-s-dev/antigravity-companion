@@ -2,5 +2,6 @@
   "check recent file modifications in threads/",
   "check AAR log and project AAR directory",
   "check scripts and tests in workspace",
-  "Probe Buffer GraphQL status filter and sort"
+  "Probe Buffer GraphQL status filter and sort",
+  "Final unit test verification"
 ]
