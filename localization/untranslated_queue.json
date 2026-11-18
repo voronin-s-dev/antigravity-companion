@@ -1,1 +1,5 @@
-[]
+[
+  "check recent file modifications in threads/",
+  "check AAR log and project AAR directory",
+  "check scripts and tests in workspace"
+]
