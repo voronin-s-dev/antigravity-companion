@@ -4,5 +4,6 @@
   "check scripts and tests in workspace",
   "Probe Buffer GraphQL status filter and sort",
   "Final unit test verification",
-  "Missing Threads Activity Reminder"
+  "Missing Threads Activity Reminder",
+  "Lint 3 Threads comment variants"
 ]
