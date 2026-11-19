@@ -22,5 +22,7 @@
   "lint 3 revised variants with NPC/projection paradox",
   "Lint 3 revised variants with NPC/projection paradox",
   "check and generate daily focus",
-  "Audit all SaveAsBot buttons in 300 messages"
+  "Audit all SaveAsBot buttons in 300 messages",
+  "Get total message count in chat",
+  "Gemini 4 Neon"
 ]
