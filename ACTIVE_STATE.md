@@ -5,7 +5,7 @@
 ---
 
 ## 1. Метаданные репозитория
-- **Версия**: `v1.7.8`
+- **Версия**: `v1.7.9`
 - **Ветка**: `main`
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
@@ -689,6 +689,26 @@
      - Оформлен отчет `.claude/aar/runs/2026-11-18-antigravity-native-launch-without-custom-shortcuts.md`, обновлены `checks-map.md` и `aar-log.md`.
      - Добавлен тест `testShimManagerInvariants()` в `test/supervisor_lifecycle.test.js`.
      - Все 8 сьютов `npm test` пройдены успешно (100% green). Версия повышена до v1.7.8.
+
+### Веха 83: Разбор AAR: Устранение гонки завершения процессов в restart.bat и авто-установка шима
+- **Диагностика инцидента (AAR Режим 2, Мета)**:
+  - Пользователь сообщил, что после обновления Antigravity (v2.33.1) запуск `restart.bat` не помогает восстановить работу Компаньона.
+  - Анализ выявил Race Condition в `clean_restart.ps1`: `Stop-Process -Force` выполнялся асинхронно, а пауза в 1 секунду была недостаточна для освобождения Chromium single-instance lock. Новый процесс вылетал на старте, а пользователь открывал IDE обычным кликом без отладочного порта.
+  - Кроме того, `clean_restart.ps1` не устанавливал лаунчер-шим при закрытом приложении, а `AntigravityShim.cs` блокировал файл шима через `process.WaitForExit()`.
+- **Архитектурные исправления**:
+  1. *Детерминированный цикл ожидания в `clean_restart.ps1`*:
+     - Внедрен цикл `while (Get-Process Antigravity, Antigravity_orig) { Start-Sleep -Milliseconds 300 }` с тайм-аутом до 10 секунд до полного выхода всех процессов перед вызовом `Start-Process`.
+  2. *Автоматическая установка и обновление шима*:
+     - `clean_restart.ps1` во время подтвержденного простоя процессов вызывает `shim_manager.js install`.
+     - `shim_manager.js` обновляет `Antigravity_orig.exe`, если `Antigravity.exe` был перезаписан установщиком IDE.
+  3. *Неблокирующий запуск в `AntigravityShim.cs`*:
+     - Основной процесс GUI запускается без `process.WaitForExit()`, что мгновенно освобождает файл шима в файловой системе.
+  4. *Периодический контроль ярлыков в супервизоре*:
+     - В `antigravity_companion.js` снята постоянная заглушка `missingPortWarned`, ярлыки повторно проверяются каждые 30 секунд при отсутствии порта.
+  5. *AAR и тесты*:
+     - Составлен отчет `.claude/aar/runs/2026-11-20-antigravity-update-restart-bat-race-condition.md`, запись внесена в `aar-log.md`.
+     - `clean_restart.ps1` включен в обязательный AST-контроль тестов `test/supervisor_lifecycle.test.js`.
+     - Все 8 сьютов `npm test` пройдены успешно (100% green, 15577 правил). Версия повышена до v1.7.9.
 
 ---
 

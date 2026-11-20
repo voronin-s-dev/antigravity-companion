@@ -131,9 +131,16 @@ function installShim() {
   const origExe = path.join(agyDir, 'Antigravity_orig.exe');
 
   try {
-    // Rename original Antigravity.exe -> Antigravity_orig.exe
+    // If origExe does not exist yet:
     if (!fs.existsSync(origExe)) {
       fs.renameSync(agyExe, origExe);
+    } else {
+      // If origExe exists, check if Antigravity.exe was overwritten by an IDE auto-updater (> 500 KB)
+      const currentStat = fs.statSync(agyExe);
+      if (currentStat.size > 500000) {
+        try { fs.unlinkSync(origExe); } catch (_) {}
+        fs.renameSync(agyExe, origExe);
+      }
     }
     // Copy compiled shim -> Antigravity.exe
     fs.copyFileSync(compiledShim, agyExe);
@@ -170,6 +177,26 @@ function uninstallShim() {
     return { success: true, restored: true };
   } catch (err) {
     return { success: false, reason: err.message };
+  }
+}
+
+if (require.main === module) {
+  const cmd = (process.argv[2] || 'status').toLowerCase();
+  if (cmd === 'install') {
+    const res = installShim();
+    console.log(JSON.stringify(res));
+    process.exit(res.success ? 0 : 1);
+  } else if (cmd === 'uninstall') {
+    const res = uninstallShim();
+    console.log(JSON.stringify(res));
+    process.exit(res.success ? 0 : 1);
+  } else if (cmd === 'status') {
+    console.log(JSON.stringify({
+      installed: isShimInstalled(),
+      running: isAntigravityRunning(),
+      path: getAntigravityExePath()
+    }));
+    process.exit(0);
   }
 }
 

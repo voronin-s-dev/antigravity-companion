@@ -54,7 +54,7 @@ namespace AntigravityShim
             ProcessStartInfo psi = new ProcessStartInfo(targetExe, finalArgs)
             {
                 UseShellExecute = false,
-                WorkingDirectory = Environment.CurrentDirectory
+                WorkingDirectory = !string.IsNullOrEmpty(Environment.CurrentDirectory) ? Environment.CurrentDirectory : baseDir
             };
 
             try
@@ -62,8 +62,12 @@ namespace AntigravityShim
                 using (Process process = Process.Start(psi))
                 {
                     if (process == null) return 1;
-                    process.WaitForExit();
-                    return process.ExitCode;
+                    if (isSubProcess)
+                    {
+                        process.WaitForExit();
+                        return process.ExitCode;
+                    }
+                    return 0;
                 }
             }
             catch

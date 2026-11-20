@@ -306,18 +306,24 @@ function setupFileWatcher() {
 }
 
 // Continuous health monitor: reconnects when disconnected, verifies port and UI when connected
+let missingPortChecks = 0;
 setInterval(() => {
   if (!isConnected && !isConnecting) {
     if (!fs.existsSync(activePortFile)) {
-      if (!missingPortWarned) {
+      missingPortChecks++;
+      if (!missingPortWarned || missingPortChecks % 6 === 0) {
         ensureAntigravityShortcuts();
-        ensureLauncherShim();
         missingPortWarned = true;
+      }
+      // Periodically attempt shim installation whenever Antigravity window closes
+      if (shimManager && !shimManager.isShimInstalled() && !shimManager.isAntigravityRunning()) {
+        ensureLauncherShim();
       }
     }
     tryConnect();
   } else if (isConnected && !isInjecting) {
     missingPortWarned = false;
+    missingPortChecks = 0;
     let diskPort = null;
     try {
       if (fs.existsSync(activePortFile)) {

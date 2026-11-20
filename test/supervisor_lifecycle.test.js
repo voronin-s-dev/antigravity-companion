@@ -35,6 +35,7 @@ function testPowerShellScriptsAst() {
   const psScripts = [
     '../bin/start_silent.ps1',
     '../bin/launch_antigravity.ps1',
+    '../bin/clean_restart.ps1',
     '../bin/status.ps1',
     '../bin/companion_manager.ps1',
     '../bin/fix_shortcuts.ps1'
