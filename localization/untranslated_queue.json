@@ -93,5 +93,6 @@
   "Close restart.bat",
   "Fold lines 5-9",
   "run doctor:cdp",
-  "Normalize CRLF on restart.bat"
+  "Normalize CRLF on restart.bat",
+  "Commit and push fix for restart.bat"
 ]
