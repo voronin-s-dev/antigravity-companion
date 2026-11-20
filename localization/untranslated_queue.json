@@ -42,5 +42,6 @@
   "Generate redacted proof images",
   "Fix redaction on im2",
   "check Chrome window titles",
-  "Get extension names"
+  "Get extension names",
+  "search transcript for extension or browser actions"
 ]
