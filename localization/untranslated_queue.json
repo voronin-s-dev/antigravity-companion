@@ -45,7 +45,6 @@
   "Crop headers from SentBox images",
   "Crop headers from INBOX images",
   "Lint thread 16",
-  "Lint Option 2",
   "lint Option A",
   "Lint Option A",
   "Lint Option B",
@@ -98,5 +97,8 @@
   "Git commit v1.7.10",
   "Push main and tag v1.7.10",
   "Restart companion service with updated code",
-  "generate daily focus"
+  "generate daily focus",
+  "check reply lengths",
+  "Lint Option 2",
+  "When the user wants organic social content for LinkedIn, X, Instagram, TikTok, or Facebook, or asks what to post, which format to favor, or from which account: posts, threads, carousels, short-form video scripts, calendars, build-in-public posts from commits, listening. No AI tells like 'it's not X, it's Y' or broetry. For content strategy, see content-strategy. For paid ads, see ad-creative. For press, see public-relations."
 ]
