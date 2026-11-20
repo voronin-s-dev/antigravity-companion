@@ -95,5 +95,6 @@
   "run doctor:cdp",
   "Normalize CRLF on restart.bat",
   "Commit and push fix for restart.bat",
-  "Git commit v1.7.10"
+  "Git commit v1.7.10",
+  "Push main and tag v1.7.10"
 ]
