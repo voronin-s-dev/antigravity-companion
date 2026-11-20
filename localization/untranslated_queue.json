@@ -43,5 +43,7 @@
   "Fix redaction on im2",
   "check Chrome window titles",
   "Get extension names",
-  "search transcript for extension or browser actions"
+  "search transcript for extension or browser actions",
+  "Crop headers from SentBox images",
+  "Crop headers from INBOX images"
 ]
