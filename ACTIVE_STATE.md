@@ -5,7 +5,7 @@
 ---
 
 ## 1. Метаданные репозитория
-- **Версия**: `v1.7.9`
+- **Версия**: `v1.7.10`
 - **Ветка**: `main`
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
@@ -709,6 +709,20 @@
      - Составлен отчет `.claude/aar/runs/2026-11-20-antigravity-update-restart-bat-race-condition.md`, запись внесена в `aar-log.md`.
      - `clean_restart.ps1` включен в обязательный AST-контроль тестов `test/supervisor_lifecycle.test.js`.
      - Все 8 сьютов `npm test` пройдены успешно (100% green, 15577 правил). Версия повышена до v1.7.9.
+
+### Веха 84: Автоматическое бесшовное самовосстановление после обновлений IDE (Self-Healing Supervisor)
+- **Цель**: Полное исключение необходимости ручного запуска `restart.bat` при будущих автообновлениях Google Antigravity.
+- **Архитектурное решение**:
+  1. *Детектор нешиммированного хоста (`selfHealUnshimmedHost` в `bin/antigravity_companion.js`)*:
+     - Фоновый супервизор отслеживает ситуацию, когда Google Antigravity обновился: `isAntigravityRunning() === true`, но лаунчер-шим перезаписан установщиком (`isShimInstalled() === false`) и порт отладки отсутствует.
+     - Выдерживается защитный интервал стабилизации (~10 секунд) после запуска IDE.
+  2. *Защита от циклов (Circuit Breaker)*:
+     - Ограничение: не более 1 авто-рестарта за 10 минут, предотвращающее любые петли перезапусков.
+  3. *Бесшовный тихий перезапуск*:
+     - При фиксации обновления IDE супервизор в фоновом режиме вызывает `clean_restart.ps1`, который останавливает процессы, возвращает нативный шим на место и запускает Antigravity с портом отладки.
+  4. *Тесты и релиз*:
+     - В `test/supervisor_lifecycle.test.js` добавлен инвариант контроля функции `selfHealUnshimmedHost()`.
+     - Все 8 сьютов `npm test` пройдены успешно (100% green). Версия повышена до `v1.7.10`.
 
 ---
 

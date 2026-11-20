@@ -23,6 +23,9 @@ function testSupervisorSyntax() {
   if (!code.includes('DevToolsActivePort обновлен')) {
     throw new Error('Supervisor must handle DevToolsActivePort update during fs.watch');
   }
+  if (!code.includes('selfHealUnshimmedHost()')) {
+    throw new Error('Supervisor must define and invoke selfHealUnshimmedHost() for seamless auto-updates');
+  }
 }
 
 function testPowerShellScriptsAst() {

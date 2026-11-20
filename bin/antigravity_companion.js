@@ -67,6 +67,46 @@ try {
   shimManager = require('./shim_manager.js');
 } catch (_) {}
 
+let lastAutoHealAttempt = 0;
+let unshimmedRunningCount = 0;
+
+function selfHealUnshimmedHost() {
+  if (process.platform !== 'win32' || !shimManager) return;
+  // Guard: Only fire if Antigravity is actively running without our shim and without debug port
+  if (shimManager.isShimInstalled() || !shimManager.isAntigravityRunning() || isConnected) {
+    unshimmedRunningCount = 0;
+    return;
+  }
+
+  unshimmedRunningCount++;
+  // Wait at least 2 checks (~10 seconds) to ensure IDE has finished its initial launch after update
+  if (unshimmedRunningCount < 2) return;
+
+  // Circuit breaker: max 1 auto-restart per 10 minutes to prevent loops
+  const now = Date.now();
+  if (now - lastAutoHealAttempt < 600000) return;
+  lastAutoHealAttempt = now;
+  unshimmedRunningCount = 0;
+
+  logSync('[Companion Auto-Heal] Обнаружен запуск Antigravity после обновления IDE без порта отладки. Выполняется автоматический перезапуск для восстановления шима...');
+
+  try {
+    const baseDir = path.resolve(__dirname);
+    const restartScript = path.join(baseDir, 'clean_restart.ps1');
+    if (fs.existsSync(restartScript)) {
+      const { spawn } = require('child_process');
+      const cp = spawn('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', restartScript], {
+        detached: true,
+        stdio: 'ignore',
+        windowsHide: true
+      });
+      cp.unref();
+    }
+  } catch (e) {
+    logSync(`[Companion Auto-Heal Error] ${e.message}`);
+  }
+}
+
 function ensureLauncherShim() {
   if (process.platform !== 'win32' || !shimManager) return;
   try {
@@ -318,6 +358,10 @@ setInterval(() => {
       // Periodically attempt shim installation whenever Antigravity window closes
       if (shimManager && !shimManager.isShimInstalled() && !shimManager.isAntigravityRunning()) {
         ensureLauncherShim();
+      }
+      // Self-heal: If Antigravity was updated by Google installer and launched without shim/port, auto-restart it
+      if (shimManager && !shimManager.isShimInstalled() && shimManager.isAntigravityRunning()) {
+        selfHealUnshimmedHost();
       }
     }
     tryConnect();
