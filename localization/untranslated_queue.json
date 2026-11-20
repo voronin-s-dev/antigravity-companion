@@ -45,5 +45,6 @@
   "Get extension names",
   "search transcript for extension or browser actions",
   "Crop headers from SentBox images",
-  "Crop headers from INBOX images"
+  "Crop headers from INBOX images",
+  "Lint thread 16"
 ]
