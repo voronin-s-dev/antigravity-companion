@@ -91,5 +91,6 @@
   "Breadcrumb",
   "restart.bat",
   "Close restart.bat",
-  "Fold lines 5-9"
+  "Fold lines 5-9",
+  "run doctor:cdp"
 ]
