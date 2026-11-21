@@ -96,6 +96,27 @@ function testDictionaryIntegrity() {
     throw new Error(`Обнаружены поврежденные символы \\uFFFD (${corruptedUnicode.length} записей): ${corruptedUnicode.slice(0, 5).join(', ')}`);
   }
 
+  // 7. Защита от машинных калек и полисемии в ключевых терминах ИИ и контекста
+  const aiTerminologyInvariants = [
+    { key: 'Compaction', forbidden: ['Уплотнение'], requiredRegex: /сжат/i },
+    { key: 'Compacting', forbidden: ['Уплотнение'], requiredRegex: /сжат/i },
+    { key: 'Context Window', forbidden: ['Окно содержимого'], requiredRegex: /контекст/i }
+  ];
+
+  for (const inv of aiTerminologyInvariants) {
+    const val = dict.exact[inv.key];
+    if (val) {
+      for (const f of inv.forbidden) {
+        if (val.includes(f)) {
+          throw new Error(`Обнаружена машинная калька/коллизия полисемии для exact["${inv.key}"]: "${val}" содержит запрещенное "${f}". Ожидается соответствие ${inv.requiredRegex}`);
+        }
+      }
+      if (inv.requiredRegex && !inv.requiredRegex.test(val)) {
+        throw new Error(`Нарушен инвариант терминологии ИИ для exact["${inv.key}"]: "${val}" не соответствует ${inv.requiredRegex}`);
+      }
+    }
+  }
+
   return {
     exactCount,
     attrCount,
