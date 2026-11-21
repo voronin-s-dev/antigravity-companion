@@ -62,7 +62,6 @@
   "Lint Angle 1",
   "Lint trimmed Angle 2",
   "lint Option 1",
-  "Lint Option 1",
   "Lint trimmed Option 2",
   "Lint Option 3",
   "Lint Option 1 refined",
@@ -123,5 +122,7 @@
   "Lint new thread file",
   "Lint content registry",
   "Lint video scripts",
-  "Lint knowledge base"
+  "Lint knowledge base",
+  "Lint Option 1",
+  "Lint Option 4"
 ]
