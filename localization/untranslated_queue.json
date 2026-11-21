@@ -196,5 +196,6 @@
   "check Buffer sync and queue",
   "Lint draft thread",
   "Lint full thread",
-  "Schedule Threads thread in Buffer"
+  "Schedule Threads thread in Buffer",
+  "test humanized viral thread"
 ]
