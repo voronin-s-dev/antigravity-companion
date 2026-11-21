@@ -83,9 +83,6 @@
   "Lint punchline 2",
   "Lint punchline 3",
   "Lint punchline 4",
-  "Opens the New Conversation screen for this project",
-  "Edits the conversation title",
-  "Breadcrumb",
   "restart.bat",
   "Close restart.bat",
   "Fold lines 5-9",
@@ -134,5 +131,8 @@
   "CLI lint option 1",
   "CLI lint option 2",
   "CLI lint option 3",
-  "CLI lint option 4"
+  "CLI lint option 4",
+  "Opens the New Conversation screen for this project",
+  "Edits the conversation title",
+  "Breadcrumb"
 ]
