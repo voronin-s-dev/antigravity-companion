@@ -193,5 +193,8 @@
   "Count DOM elements in Antigravity",
   "Grep aar-log for keywords",
   "Lint corrected Variant 1",
-  "check Buffer sync and queue"
+  "check Buffer sync and queue",
+  "Lint draft thread",
+  "Lint full thread",
+  "Schedule Threads thread in Buffer"
 ]
