@@ -125,5 +125,6 @@
   "Lint knowledge base",
   "Lint Option 1",
   "Lint Option 4",
-  "search comment reply patterns in knowledge"
+  "search comment reply patterns in knowledge",
+  "search VIRAL_PATTERNS_VAULT for comment patterns"
 ]
