@@ -15109,7 +15109,15 @@
     "lint 3 comment variants for symmetricalex thread": "проверить линтером 3 варианта комментария для ветки symmetricalex",
     "Lint 3 comment variants for khusnora.kamolova thread": "Проверить линтером 3 варианта комментария для ветки khusnora.kamolova",
     "lint 3 comment variants for khusnora.kamolova thread": "проверить линтером 3 варианта комментария для ветки khusnora.kamolova",
-    "Antigravity AI Pro Subscription Issue": "Проблема с подпиской Antigravity AI Pro"
+    "Antigravity AI Pro Subscription Issue": "Проблема с подпиской Antigravity AI Pro",
+    "Waiting for subagent": "Ожидание субагента",
+    "Waiting for subagent...": "Ожидание субагента...",
+    "Waiting for subagents": "Ожидание субагентов",
+    "Waiting for subagents...": "Ожидание субагентов...",
+    "Waiting for agent": "Ожидание агента",
+    "Waiting for agent...": "Ожидание агента...",
+    "Waiting for background task": "Ожидание фоновой задачи",
+    "Waiting for background task...": "Ожидание фоновой задачи..."
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -16466,6 +16474,14 @@
     {
       "regex": "^Unmute Antigravity\\s*\\((.+)\\)$",
       "replace": "Включить звук Antigravity ($1)"
+    },
+    {
+      "regex": "^Waiting for subagent(\\.\\.\\.)?$",
+      "replace": "Ожидание субагента$1"
+    },
+    {
+      "regex": "^Waiting for subagents(\\.\\.\\.)?$",
+      "replace": "Ожидание субагентов$1"
     }
   ]
 }
