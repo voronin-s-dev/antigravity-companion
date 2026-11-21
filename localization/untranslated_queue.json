@@ -175,5 +175,11 @@
   "Transcribe with medium Whisper model",
   "Opens the New Conversation screen for this project",
   "Edits the conversation title",
-  "Breadcrumb"
+  "Breadcrumb",
+  "get detailed transcription segments",
+  "Get detailed transcription segments",
+  "I will wait for the detailed segments to finish extracting",
+  "print word timestamps for voice note",
+  "Print word timestamps for voice note",
+  "I am extracting word-level timestamps to verify the exact wording and will wait for it to complete"
 ]
