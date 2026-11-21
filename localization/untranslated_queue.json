@@ -108,5 +108,7 @@
   "Go to turn 10 of 26",
   "crop Post 6 from screenshot",
   "Crop Post 6 from screenshot",
-  "Zoom in on text below images in Post 6"
+  "Zoom in on text below images in Post 6",
+  "Parse posts from fetched HTML",
+  "Print full text of Post 6"
 ]
