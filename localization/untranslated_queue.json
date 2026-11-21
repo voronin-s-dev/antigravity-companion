@@ -126,5 +126,13 @@
   "Lint Option 1",
   "Lint Option 4",
   "search comment reply patterns in knowledge",
-  "search VIRAL_PATTERNS_VAULT for comment patterns"
+  "search VIRAL_PATTERNS_VAULT for comment patterns",
+  "Lint Comment Option 1",
+  "Lint Comment Option 2",
+  "Lint Comment Option 3",
+  "Lint Comment Option 4",
+  "CLI lint option 1",
+  "CLI lint option 2",
+  "CLI lint option 3",
+  "CLI lint option 4"
 ]
