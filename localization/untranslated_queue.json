@@ -135,5 +135,9 @@
   "Opens the New Conversation screen for this project",
   "Edits the conversation title",
   "Breadcrumb",
-  "search knowledge for comment handling"
+  "search knowledge for comment handling",
+  "CLI lint reply 1",
+  "CLI lint reply 2",
+  "CLI lint reply 3",
+  "CLI lint reply 4"
 ]
