@@ -156,5 +156,6 @@
   "Lint comment option 4",
   "Get source lines of lint_viral_deconstruction",
   "Grep in tests",
-  "Grep audit-viral in tests"
+  "Grep audit-viral in tests",
+  "Lint new thread draft"
 ]
