@@ -120,5 +120,8 @@
   "Extract thinking about each uploaded image",
   "Prepare master audit update",
   "Go to turn 4 of 30",
-  "Lint new thread file"
+  "Lint new thread file",
+  "Lint content registry",
+  "Lint video scripts",
+  "Lint knowledge base"
 ]
