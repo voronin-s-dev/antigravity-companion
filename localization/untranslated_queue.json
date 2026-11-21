@@ -2,7 +2,6 @@
   "Viral Content Analyst",
   "Open Subagent: Viral Content Analyst",
   "list threads directory",
-  "Lint new thread file",
   "Lint checklist paradox thread",
   "Lint cleaned Option 3",
   "Lint cleaned Option 4",
@@ -120,5 +119,6 @@
   "list uploaded media files",
   "Extract thinking about each uploaded image",
   "Prepare master audit update",
-  "Go to turn 4 of 30"
+  "Go to turn 4 of 30",
+  "Lint new thread file"
 ]
