@@ -125,9 +125,6 @@
   "CLI lint option 2",
   "CLI lint option 3",
   "CLI lint option 4",
-  "Opens the New Conversation screen for this project",
-  "Edits the conversation title",
-  "Breadcrumb",
   "search knowledge for comment handling",
   "CLI lint reply 1",
   "CLI lint reply 2",
@@ -175,5 +172,8 @@
   "Transcribe Yevgeniy voice note",
   "I have started checking the environment and will wait for the output to finish",
   "Transcribe voice note with Whisper",
-  "Transcribe with medium Whisper model"
+  "Transcribe with medium Whisper model",
+  "Opens the New Conversation screen for this project",
+  "Edits the conversation title",
+  "Breadcrumb"
 ]
