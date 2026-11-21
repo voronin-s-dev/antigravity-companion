@@ -170,5 +170,10 @@
   "Turn 51 of 52",
   "restart.bat",
   "Close restart.bat",
-  "check Telegram bot updates"
+  "check Telegram bot updates",
+  "transcribe Yevgeniy voice note",
+  "Transcribe Yevgeniy voice note",
+  "I have started checking the environment and will wait for the output to finish",
+  "Transcribe voice note with Whisper",
+  "Transcribe with medium Whisper model"
 ]
