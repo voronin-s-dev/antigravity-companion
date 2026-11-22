@@ -12,5 +12,7 @@
   "Lint generator ending",
   "Message from Social Viral Analyst (self)",
   "Git recent commits check",
-  "Git diff learnings and preferences"
+  "Git diff learnings and preferences",
+  "Extract user inputs from previous session",
+  "Extract user inputs using py"
 ]
