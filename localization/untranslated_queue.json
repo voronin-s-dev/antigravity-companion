@@ -18,5 +18,6 @@
   "check Threads queue in Buffer",
   "check existing day files",
   "Final timing verification",
-  ".git"
+  ".git",
+  "Copy workouts to profile and create profile zip"
 ]
