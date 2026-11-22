@@ -19,5 +19,7 @@
   "check existing day files",
   "Final timing verification",
   ".git",
-  "Copy workouts to profile and create profile zip"
+  "Copy workouts to profile and create profile zip",
+  "lint depression post comments",
+  "Lint depression post comments"
 ]
