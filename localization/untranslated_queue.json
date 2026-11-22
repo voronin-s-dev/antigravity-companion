@@ -206,5 +206,8 @@
   "Navigate to Bitcointalk topic 5600408",
   "bitcointalk.org",
   "Open stafstor thread via playwright-cli",
-  "Open last page of stafstor thread"
+  "Open last page of stafstor thread",
+  "open Bitcointalk thread 5600408",
+  "Open Bitcointalk thread 5600408",
+  "Open Reddit link via playwright-cli"
 ]
