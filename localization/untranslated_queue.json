@@ -210,5 +210,6 @@
   "open Bitcointalk thread 5600408",
   "Open Bitcointalk thread 5600408",
   "Open Reddit link via playwright-cli",
-  "check r/Freewallet_org post via playwright-cli"
+  "check r/Freewallet_org post via playwright-cli",
+  "search for Reddit post text in workspace"
 ]
