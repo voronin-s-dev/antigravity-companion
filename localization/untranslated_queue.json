@@ -204,5 +204,7 @@
   "Web Forum Inspector",
   "Wait for the subagent to report back",
   "Navigate to Bitcointalk topic 5600408",
-  "bitcointalk.org"
+  "bitcointalk.org",
+  "Open stafstor thread via playwright-cli",
+  "Open last page of stafstor thread"
 ]
