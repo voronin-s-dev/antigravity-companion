@@ -16,5 +16,6 @@
   "Extract user inputs from previous session",
   "Extract user inputs using py",
   "check Threads queue in Buffer",
-  "check existing day files"
+  "check existing day files",
+  "Final timing verification"
 ]
