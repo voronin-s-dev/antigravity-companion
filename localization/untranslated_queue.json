@@ -52,5 +52,7 @@
   "seo-audit",
   "Turn 47 of 68",
   "length check for comments",
-  "Length check for comments"
+  "Length check for comments",
+  "Thinking effort",
+  "Controls how much time and quota the model spends reasoning before responding. Higher effort improves accuracy on hard problems, at the cost of slower responses and higher quota use."
 ]
