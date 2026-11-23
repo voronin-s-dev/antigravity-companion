@@ -57,5 +57,6 @@
   "Controls how much time and quota the model spends reasoning before responding. Higher effort improves accuracy on hard problems, at the cost of slower responses and higher quota use.",
   "Lint check options for tatiana",
   "check comment length",
-  "verify comment lengths and run linter"
+  "verify comment lengths and run linter",
+  "check comments length and lint"
 ]
