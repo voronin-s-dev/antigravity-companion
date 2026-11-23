@@ -58,5 +58,6 @@
   "Lint check options for tatiana",
   "check comment length",
   "verify comment lengths and run linter",
-  "check comments length and lint"
+  "check comments length and lint",
+  "check revised comments length and lint"
 ]
