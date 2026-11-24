@@ -21,5 +21,6 @@
   "In progress",
   "Not started",
   "Plan, 0 of 6 steps done",
-  "create skill directories"
+  "create skill directories",
+  "Initialize git repo"
 ]
