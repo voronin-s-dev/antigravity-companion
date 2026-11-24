@@ -15732,7 +15732,63 @@
     "Lint thread 35": "Проверка линтером треда 35",
     "Copy meme to photo/memes directory": "Скопировать мем в директорию photo/memes",
     "Log in": "Войти",
-    "Drive": "Диск"
+    "Drive": "Диск",
+    "Toggle sidebar": "Переключить боковую панель",
+    "Customize Sidebar": "Настроить боковую панель",
+    "Customize Sidebar).": "Настроить боковую панель).",
+    "View archived in the sidebar (Customize Sidebar).": "Просмотр архива в боковой панели (Настроить боковую панель).",
+    "View archived in the sidebar (menu).": "Просмотр архива в боковой панели (меню).",
+    "Conversation Unarchived": "Диалог разархивирован",
+    "In progress": "Выполняется",
+    "Not started": "Не начато",
+    "Show plan": "Показать план",
+    "Hide plan": "Скрыть план",
+    "Extra High": "Сверхвысокий",
+    "Gemini 4 Carbon is currently available to Ultra and paid Pro plan subscribers.": "Gemini 4 Carbon сейчас доступна подписчикам тарифов Ultra и платного Pro.",
+    "Use Hydrogen for better quality with lower quota usage. Leaving on Nov 30.": "Используйте Hydrogen для более высокого качества при меньшем расходе квоты. Доступно до 30 ноября.",
+    "For speed and efficiency in execution tasks": "Для скорости и эффективности при выполнении задач",
+    "Looking for this conversation's swarm…": "Поиск роя для этого диалога…",
+    "Live": "Прямой эфир",
+    "Board": "Доска",
+    "Members": "Участники",
+    "Narrator’s page": "Страница рассказчика",
+    "Narrator's page": "Страница рассказчика",
+    "Want this view different? Tell the coordinator.": "Нужен другой вид? Скажите координатору.",
+    "Open coordinator chat": "Открыть чат координатора",
+    "From anyone": "От любого",
+    "To anyone": "Кому угодно",
+    "All channels": "Все каналы",
+    "Follow": "Следить",
+    "Latest": "Новые",
+    "Hive": "Улей",
+    "Hide inactive": "Скрыть неактивных",
+    "Expand @all": "Развернуть @all",
+    "Even pacing": "Равномерный темп",
+    "Real-time gaps": "Паузы в реальном времени",
+    "Export GIF": "Экспорт GIF",
+    "@mention, width = count": "@упоминание, ширина = кол-во",
+    "via @all": "через @all",
+    "Show posts that call on one member": "Показать посты с обращением к одному участнику",
+    "Filter by recipient": "Фильтр по получателю",
+    "Show posts in one channel": "Показать посты в одном канале",
+    "Filter by channel": "Фильтр по каналу",
+    "Keep the newest post in view": "Держать последний пост в поле зрения",
+    "Show or hide each member's posts": "Показать или скрыть посты каждого участника",
+    "Replay": "Повтор",
+    "Jump to start": "К началу",
+    "Previous post": "Предыдущий пост",
+    "Play / pause replay (space)": "Воспроизведение / пауза (пробел)",
+    "Play replay": "Запустить повтор",
+    "Next post": "Следующий пост",
+    "Show everything and follow live": "Показать всё и следить в реальном времени",
+    "Graph view": "Вид графа",
+    "Threads as cells, with each worker where it works": "Потоки в виде ячеек с рабочим пространством каждого исполнителя",
+    "Hide killed and inactive members from the graph": "Скрыть завершённых и неактивных участников на графе",
+    "Replay pacing": "Темп повтора",
+    "Replay speed": "Скорость повтора",
+    "Export graph replay as an animated GIF": "Экспортировать повтор графа как анимированный GIF",
+    "Close preview": "Закрыть предпросмотр",
+    "Exported swarm graph replay": "Повтор графа роя экспортирован"
   },
   "attributes": {
     "Search conversations...": "Поиск диалогов...",
@@ -15907,7 +15963,11 @@
     "Still connecting…": "Подключение продолжается…",
     "Still connecting...": "Подключение продолжается...",
     "Reconnecting…": "Повторное подключение…",
-    "Reconnecting...": "Повторное подключение..."
+    "Reconnecting...": "Повторное подключение...",
+    "Dismiss notification": "Закрыть уведомление",
+    "Filter by recipient": "Фильтр по получателю",
+    "Filter by channel": "Фильтр по каналу",
+    "Replay speed": "Скорость повтора"
   },
   "patterns": [
     {
@@ -17097,6 +17157,34 @@
     {
       "regex": "^Waiting for subagents(\\.\\.\\.)?$",
       "replace": "Ожидание субагентов$1"
+    },
+    {
+      "regex": "^Managed by the (.+) automation$",
+      "replace": "Управляется автоматизацией $1"
+    },
+    {
+      "regex": "^Open Subagent:\\s*(.+)$",
+      "replace": "Открыть субагент: $1"
+    },
+    {
+      "regex": "^Turn (\\d+) of (\\d+)$",
+      "replace": "Ход $1 из $2"
+    },
+    {
+      "regex": "^Plan, (\\d+) of (\\d+) steps done$",
+      "replace": "План: выполнено $1 из $2 шагов"
+    },
+    {
+      "regex": "^(\\d+)/(\\d+) steps$",
+      "replace": "Шагов: $1/$2"
+    },
+    {
+      "regex": "^(\\d+)/(\\d+) steps\\. Show plan$",
+      "replace": "Шагов: $1/$2. Показать план"
+    },
+    {
+      "regex": "^(\\d+)/(\\d+) steps\\. Hide plan$",
+      "replace": "Шагов: $1/$2. Скрыть план"
     }
   ]
 }
