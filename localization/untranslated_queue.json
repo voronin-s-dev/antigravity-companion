@@ -1264,5 +1264,6 @@
   "Combine translated batches and inspect skipped samples",
   "Merge 1053 UI translations and run tests",
   "Re-run merge with fixed SVG filter",
-  "Rebuild translations_to_merge and run merge"
+  "Rebuild translations_to_merge and run merge",
+  "Restart daemon, hot-reload, doctor:cdp, and run all tests"
 ]
