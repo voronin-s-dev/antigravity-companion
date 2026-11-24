@@ -1045,5 +1045,6 @@
   "Model cannot be changed while the agent is running",
   "Permissions cannot be changed while the agent is running",
   "Model: Gemini 4 Hydrogen Low, Model cannot be changed while the agent is running",
-  "Lint thread 37 and registry"
+  "Lint thread 37 and registry",
+  "Social QA Skeptic Auditor"
 ]
