@@ -101,14 +101,92 @@
     '.xterm'
   ].join(', ');
 
+  const HARD_EXCLUDED_SELECTORS = [
+    'head',
+    'script',
+    'style',
+    'noscript',
+    'pre',
+    'code',
+    '.monaco-editor',
+    '.xterm',
+    'textarea',
+    '[contenteditable="true"]',
+    '[data-lexical-editor]',
+    '#agy-limits-floating-panel',
+    '.font-mono'
+  ].join(', ');
+
+  const OVERLAY_CONTAINER_SELECTORS = [
+    '[data-testid="toast-notification"]',
+    '[data-testid="toast-permission"]',
+    '.toast-viewport',
+    '.compact-tooltip',
+    '[role="tooltip"]',
+    '[role="dialog"]',
+    '[role="alertdialog"]',
+    '[data-base-ui-portal]',
+    '[data-radix-popper-content-wrapper]'
+  ].join(', ');
+
+  const CHAT_PRIVATE_SELECTORS = [
+    '.chat-message',
+    '.user-message',
+    '.agent-message',
+    '[data-testid="planner-response-text"]',
+    '[data-testid="user-message-bubble"]',
+    '.agy-user-bubble-frame',
+    '[data-mention-menu]',
+    '#typeahead-menu'
+  ].join(', ');
+
+  const IDENTITY_AND_CHAT_EXCLUDED_SELECTORS = [
+    '[data-testid="conversation-row-sidebar"] span.truncate',
+    '[data-testid="project-header"]',
+    '[data-project-card]',
+    '[data-project-label]',
+    '[data-project-name]',
+    '[data-testid="project-selector-item"]',
+    '[data-testid="breadcrumb-segment"]',
+    '[data-testid*="project-name"]',
+    '[data-testid*="project-title"]',
+    '[data-testid*="workspace-name"]',
+    '[data-testid*="workspace-title"]',
+    '.flex.items-center.gap-2.h-7:has(button[aria-label*="name" i], button[aria-label*="имя" i], button[aria-label*="проекта" i])',
+    '[data-testid*="file-tree"]',
+    '[data-testid*="file-node"]',
+    '[data-testid*="explorer-item"]',
+    '[role="region"][aria-label="Explorer"]',
+    '[role="region"][aria-label="Просмотр файлов"]',
+    '[data-testid*="tab-label"]',
+    '.monaco-list-row',
+    '[data-testid="user-message-bubble"]',
+    '.agy-user-bubble-frame',
+    '[data-testid="step-plan-item"]',
+    '[data-testid="menu-option-label"]',
+    '[data-testid="hover-card-title"]',
+    '[data-testid="menu-option-trailing-label"]',
+    '#typeahead-menu li.item > span.text'
+  ].join(', ');
+
   function isExcluded(node) {
     if (!node || node.nodeType !== Node.ELEMENT_NODE) return false;
     try {
-      // Служебные плашки действий сообщений и таймстампы никогда не исключаются
-      if (node.closest('[data-testid="user-message-actions"], [data-tooltip-id^="timestamp-"]')) return false;
+      // Служебные плашки действий сообщений и таймстампы никогда не исключаются (кроме кода внутри них)
+      if (node.closest('[data-testid="user-message-actions"], [data-tooltip-id^="timestamp-"]')) {
+        return !!(node.matches(HARD_EXCLUDED_SELECTORS) || node.closest(HARD_EXCLUDED_SELECTORS));
+      }
 
-      if (node.matches(EXCLUDED_SELECTORS)) return true;
-      if (node.closest(EXCLUDED_SELECTORS)) return true;
+      if (node.matches(HARD_EXCLUDED_SELECTORS) || node.closest(HARD_EXCLUDED_SELECTORS)) return true;
+      if (node.matches(IDENTITY_AND_CHAT_EXCLUDED_SELECTORS) || node.closest(IDENTITY_AND_CHAT_EXCLUDED_SELECTORS)) return true;
+
+      const sysOverlay = node.closest(OVERLAY_CONTAINER_SELECTORS);
+      const inPrivateChat = !!node.closest(CHAT_PRIVATE_SELECTORS);
+      if (!(sysOverlay && !inPrivateChat)) {
+        if (node.matches(EXCLUDED_SELECTORS)) return true;
+        if (node.closest(EXCLUDED_SELECTORS)) return true;
+      }
+
       const trigger = node.closest('[data-testid="project-selector-trigger"]');
       if (trigger) {
         const text = (node.textContent || '').trim();
@@ -333,20 +411,22 @@
     if (!domNode) return false;
     const el = domNode.nodeType === 1 ? domNode : domNode.parentElement;
     if (!el) return false;
+    // Технический код, инпуты и редактор всегда исключаются
+    if (el.closest('textarea, input, pre, code, .monaco-editor, .xterm, [contenteditable="true"], [data-lexical-editor], .font-mono, #agy-limits-floating-panel')) return true;
     // Служебные плашки действий сообщений и таймстампы всегда публичны
     if (el.closest('[data-testid="user-message-actions"], [data-tooltip-id^="timestamp-"]')) return false;
     // 0. Меню автодополнения слэш-команд и навыков:
-    // Никогда не собираем строки из typeahead меню через runtime collector, так как подсветка поиска (AA/matches)
-    // динамически нарезает слова на неполные фрагменты (fi, veri, le, etc.).
-    // Описания навыков извлекаются чисто и централизованно через skills_harvester.js из YAML frontmatter.
     if (el.closest('#typeahead-menu, [id^="typeahead-item"], [data-testid^="menu-option-"], [data-mention-menu], [role="listbox"]')) return true;
-    // 1. Всегда исключаем редактор кода, инпуты, блоки кода и ответы/сообщения чата
-    if (el.closest('textarea, input, pre, code, .monaco-editor, [contenteditable="true"]')) return true;
+    // Системные тосты и тултипы (не внутри переписки) всегда собираются в очередь
+    if (el.closest('[data-testid="toast-notification"], [data-testid="toast-permission"], .toast-viewport, .compact-tooltip, [role="tooltip"]') &&
+        !el.closest('.chat-message, .user-message, .agent-message, [data-testid="planner-response-text"], [data-testid="user-message-bubble"]')) {
+      return false;
+    }
     // 2. Исключаем приватные названия бесед в сайдбаре, имена папок проектов, блоки текста чата (.md-divider-spacing, .select-text) и одноразовые подписи шагов тулов
-    if (el.closest('[data-testid="conversation-row-sidebar"], [data-testid*="conversation-title"], [data-testid*="conversation-item"], [data-testid*="thread"], [data-testid*="session"], [data-testid="lifted-context-menu-trigger"], [data-testid="planner-response-text"], [data-testid*="user-input"], [data-testid$="-step"]')) return true;
+    if (el.closest('[data-testid="conversation-row-sidebar"], [data-testid*="conversation-title"], [data-testid*="conversation-item"], [data-testid*="thread"], [data-testid*="session"], [data-testid="lifted-context-menu-trigger"], [data-testid="planner-response-text"], [data-testid*="user-input"], [data-testid$="-step"], [data-testid="step-plan-item"], [data-testid="tool-group-collapsible"], .shimmer-text-content, .shimmer-text-mask')) return true;
     if (el.closest('.md-divider-spacing, .select-text, .chat-message, .conversation-item, .conversation-title, .user-message, .agent-message, .prose, .markdown, .thread-item, [data-testid*="message"]')) return true;
     // 3. Исключаем карточки и заголовки проектов, имена файлов и веток пользователя, выбор проектов, хлебные крошки и проекты в настройках
-    if (el.closest('[data-testid="project-header"], [data-project-card], [data-project-label], [data-project-name], [data-testid="project-selector-item"], [data-testid="project-selector-trigger"], [data-testid="breadcrumb-segment"], [data-testid*="project-name"], [data-testid*="project-title"], [data-testid*="workspace-name"], [data-testid*="workspace-title"], [data-testid*="file-tree"], [data-testid*="file-node"], [data-testid*="explorer-item"], .monaco-list-row, .flex.items-center.gap-2.h-7:has(button[aria-label*="name" i], button[aria-label*="имя" i], button[aria-label*="проекта" i])')) return true;
+    if (el.closest('[data-testid="project-header"], [data-project-card], [data-project-label], [data-project-name], [data-testid="project-selector-item"], [data-testid="project-selector-trigger"], [data-testid="breadcrumb-segment"], [data-testid*="project-name"], [data-testid*="project-title"], [data-testid*="workspace-name"], [data-testid*="workspace-title"], [data-testid*="file-tree"], [data-testid*="file-node"], [data-testid*="explorer-item"], [role="region"][aria-label="Explorer"], [role="region"][aria-label="Просмотр файлов"], .monaco-list-row, .flex.items-center.gap-2.h-7:has(button[aria-label*="name" i], button[aria-label*="имя" i], button[aria-label*="проекта" i])')) return true;
     const sNavBtn = el.closest('button[data-testid^="settings-nav-item-"]');
     if (sNavBtn && !STANDARD_SETTINGS_SCREENS.has(sNavBtn.getAttribute('data-testid'))) return true;
     // 4. Остальные элементы (включая системные плейсхолдеры сайдбара вроде "No conversations yet", модалки, тосты и настройки) разрешены
@@ -359,13 +439,13 @@
     const str = raw.trim();
     if (str.length < 2 || str.length > 2000) return;
     if (/[а-яА-ЯёЁ]/.test(str)) return;
-    if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%\`\[\]]+$/.test(str)) return;
+    if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%\`\[\]\u2026\u2013\u2014\u2018\u2019\u201C\u201D\u2022\u2190-\u2193+&=@*#\u2318\u2325\u21E7\u2303]+$/.test(str)) return;
     if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(str)) return;
-    if (/^[0-9+\-.,:;!?()\/\\%\s]+$/.test(str)) return;
+    if (/^[0-9+\-.,:;!?()\/\\%\s\u2026\u2013\u2014]+$/.test(str)) return;
     if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll)$/i.test(str)) return;
     if (/^(Ctrl|Alt|Shift|Cmd|Meta|Enter|Esc|Space|Tab|\+)+/i.test(str)) return;
     if (/^#[0-9a-fA-F]{3,8}$/.test(str)) return;
-    if (/(Error|Proto|Descriptor|Options|Field|Feature|Enum)$/i.test(str)) return;
+    if (!/\s/.test(str) && /(Error|Proto|Descriptor|Options|Field|Feature|Enum)$/i.test(str)) return;
     // Исключить обрезанные осколки слов (с дефисом на конце/начале, обрывки предложений после подсветки поиска)
     if (/^[a-z0-9]+-$/i.test(str) || /^-[a-z0-9]+/i.test(str)) return;
     if (/^[a-z]{1,4}[,.]/.test(str)) return;
@@ -544,21 +624,38 @@
       }
 
       if (trimmedVal === 'View archived in the sidebar (') {
-        const nextSvg = node.nextSibling;
-        if (nextSvg && nextSvg.nodeType === Node.ELEMENT_NODE) {
-          const nextText = nextSvg.nextSibling;
-          if (nextText && nextText.nodeType === Node.TEXT_NODE && nextText.nodeValue.includes('menu).')) {
-            try {
-              isInternalMutating = true;
-              node.nodeValue = 'Просмотр архива в боковой панели (меню ';
-              node.__agy_last_translated = node.nodeValue;
-              nextText.nodeValue = ').';
-              nextText.__agy_last_translated = nextText.nodeValue;
-              return;
-            } finally {
-              isInternalMutating = false;
+        let cur = node.nextSibling;
+        let sawElem = false;
+        for (let step = 0; step < 4 && cur; step++) {
+          if (cur.nodeType === Node.ELEMENT_NODE) {
+            sawElem = true;
+          } else if (sawElem && cur.nodeType === Node.TEXT_NODE) {
+            const nt = cur.nodeValue || '';
+            if (nt.includes('Customize Sidebar).')) {
+              try {
+                isInternalMutating = true;
+                node.nodeValue = 'Просмотр архива в боковой панели (';
+                node.__agy_last_translated = node.nodeValue;
+                cur.nodeValue = ' Настроить боковую панель).';
+                cur.__agy_last_translated = cur.nodeValue;
+                return;
+              } finally {
+                isInternalMutating = false;
+              }
+            } else if (nt.includes('menu).')) {
+              try {
+                isInternalMutating = true;
+                node.nodeValue = 'Просмотр архива в боковой панели (меню ';
+                node.__agy_last_translated = node.nodeValue;
+                cur.nodeValue = ').';
+                cur.__agy_last_translated = cur.nodeValue;
+                return;
+              } finally {
+                isInternalMutating = false;
+              }
             }
           }
+          cur = cur.nextSibling;
         }
       }
 
@@ -620,22 +717,39 @@
         }
       }
 
-      if (trimmedVal === 'Просмотр архива в боковой панели (меню') {
-        const nextSvg = node.nextSibling;
-        if (nextSvg && nextSvg.nodeType === Node.ELEMENT_NODE) {
-          const nextText = nextSvg.nextSibling;
-          if (nextText && nextText.nodeType === Node.TEXT_NODE && nextText.nodeValue.includes(').')) {
-            try {
-              isInternalMutating = true;
-              node.nodeValue = 'View archived in the sidebar (';
-              node.__agy_last_translated = node.nodeValue;
-              nextText.nodeValue = ' menu).';
-              nextText.__agy_last_translated = nextText.nodeValue;
-              return;
-            } finally {
-              isInternalMutating = false;
+      if (trimmedVal === 'Просмотр архива в боковой панели (меню' || trimmedVal === 'Просмотр архива в боковой панели (') {
+        let cur = node.nextSibling;
+        let sawElem = false;
+        for (let step = 0; step < 4 && cur; step++) {
+          if (cur.nodeType === Node.ELEMENT_NODE) {
+            sawElem = true;
+          } else if (sawElem && cur.nodeType === Node.TEXT_NODE) {
+            const nt = cur.nodeValue || '';
+            if (nt.includes('Настроить боковую панель).')) {
+              try {
+                isInternalMutating = true;
+                node.nodeValue = 'View archived in the sidebar (';
+                node.__agy_last_translated = node.nodeValue;
+                cur.nodeValue = ' Customize Sidebar).';
+                cur.__agy_last_translated = cur.nodeValue;
+                return;
+              } finally {
+                isInternalMutating = false;
+              }
+            } else if (nt.includes(').')) {
+              try {
+                isInternalMutating = true;
+                node.nodeValue = 'View archived in the sidebar (';
+                node.__agy_last_translated = node.nodeValue;
+                cur.nodeValue = ' menu).';
+                cur.__agy_last_translated = cur.nodeValue;
+                return;
+              } finally {
+                isInternalMutating = false;
+              }
             }
           }
+          cur = cur.nextSibling;
         }
       }
 
@@ -655,22 +769,25 @@
     }
   }
 
+  const TRANSLATABLE_ATTRS = ['placeholder', 'title', 'aria-label', 'aria-description', 'data-tooltip-content', 'data-tooltip', 'alt'];
+  const TRANSLATABLE_ATTR_SELECTOR = '[placeholder], [title], [aria-label], [aria-description], [data-tooltip-content], [data-tooltip], [alt]';
+
   function translateAttributes(el, lang) {
     if (!el || el.nodeType !== Node.ELEMENT_NODE || isAttrExcluded(el)) return;
 
-    const attrs = ['placeholder', 'title', 'aria-label'];
     const dict = window.__agyDictRu || {};
     const rev = getReverseMap();
 
-    for (const attr of attrs) {
+    for (const attr of TRANSLATABLE_ATTRS) {
       const val = el.getAttribute(attr);
       if (!val) continue;
 
       const cacheProp = '__agy_orig_' + attr;
+      const lastProp = '__agy_last_' + attr;
       const trimmedVal = val.trim();
       if (rev[trimmedVal]) {
         el[cacheProp] = rev[trimmedVal];
-      } else if (el[cacheProp] === undefined) {
+      } else if (el[cacheProp] === undefined || (el[lastProp] !== undefined && val !== el[lastProp])) {
         el[cacheProp] = val;
       }
 
@@ -682,6 +799,7 @@
           try {
             isInternalMutating = true;
             el.setAttribute(attr, tr);
+            el[lastProp] = tr;
           } finally {
             isInternalMutating = false;
           }
@@ -693,6 +811,7 @@
           try {
             isInternalMutating = true;
             el.setAttribute(attr, el[cacheProp]);
+            el[lastProp] = el[cacheProp];
           } finally {
             isInternalMutating = false;
           }
@@ -704,19 +823,28 @@
   function translateReactTooltipRegistry() {
     if (currentLang !== 'ru' || !window.__agyDictRu) return;
     try {
-      const trigger = document.querySelector('[data-tooltip-id]');
-      if (!trigger) return;
-      const fKey = Object.getOwnPropertyNames(trigger).find(k => k.startsWith('__reactFiber'));
-      if (!fKey) return;
-      let fiber = trigger[fKey];
+      const triggers = document.querySelectorAll('[data-tooltip-id]');
+      if (!triggers.length) return;
+
+      const visitedFibers = new WeakSet();
+      const visitedRegistries = new WeakSet();
+
+      function translateTooltipText(str) {
+        const rep = getTranslation(str);
+        if (rep) return rep;
+        reportUntranslatedString(str);
+        return null;
+      }
 
       function walkProps(n) {
         if (!n) return;
         if (Array.isArray(n)) {
           for (let i = 0; i < n.length; i++) {
             if (typeof n[i] === 'string') {
-              const rep = getTranslation(n[i]);
-              if (rep) n[i] = rep;
+              const rep = translateTooltipText(n[i]);
+              if (rep) {
+                try { n[i] = rep; } catch (e) {}
+              }
             } else if (n[i] && typeof n[i] === 'object') {
               walkProps(n[i]);
             }
@@ -724,8 +852,12 @@
         } else if (typeof n === 'object') {
           if (n.props && n.props.children) {
             if (typeof n.props.children === 'string') {
-              const rep = getTranslation(n.props.children);
-              if (rep) n.props.children = rep;
+              const rep = translateTooltipText(n.props.children);
+              if (rep) {
+                try {
+                  if (!Object.isFrozen(n.props)) n.props.children = rep;
+                } catch (e) {}
+              }
             } else {
               walkProps(n.props.children);
             }
@@ -733,27 +865,59 @@
         }
       }
 
-      while (fiber) {
-        let h = fiber.memoizedState;
-        while (h) {
-          if (h.memoizedState && typeof h.memoizedState === 'object' && 'current' in h.memoizedState) {
-            const cur = h.memoizedState.current;
-            if (cur && typeof cur === 'object') {
-              for (const [k, v] of Object.entries(cur)) {
-                if (v && v.body) {
-                  if (typeof v.body === 'string') {
-                    const rep = getTranslation(v.body);
-                    if (rep) v.body = rep;
-                  } else {
-                    walkProps(v.body);
+      function translateEntryBody(container, key, body) {
+        if (typeof body === 'string') {
+          const rep = translateTooltipText(body);
+          if (rep) {
+            try { container[key] = rep; } catch (e) {}
+          }
+        } else {
+          walkProps(body);
+        }
+      }
+
+      for (let idx = 0; idx < triggers.length; idx++) {
+        const trigger = triggers[idx];
+        const fKey = Object.getOwnPropertyNames(trigger).find(k => k.startsWith('__reactFiber'));
+        if (!fKey) continue;
+        let fiber = trigger[fKey];
+
+        while (fiber && !visitedFibers.has(fiber)) {
+          visitedFibers.add(fiber);
+
+          if (fiber.memoizedProps && typeof fiber.memoizedProps === 'object') {
+            if (fiber.memoizedProps.body != null) {
+              if (typeof fiber.memoizedProps.body === 'string') {
+                translateTooltipText(fiber.memoizedProps.body);
+              } else {
+                walkProps(fiber.memoizedProps.body);
+              }
+            }
+            if (typeof fiber.memoizedProps.content === 'string') {
+              translateTooltipText(fiber.memoizedProps.content);
+            }
+          }
+
+          let h = fiber.memoizedState;
+          while (h) {
+            if (h.memoizedState && typeof h.memoizedState === 'object' && 'current' in h.memoizedState) {
+              const cur = h.memoizedState.current;
+              if (cur && typeof cur === 'object' && !Array.isArray(cur) && !visitedRegistries.has(cur)) {
+                const entries = Object.entries(cur);
+                if (entries.some(([, v]) => v && typeof v === 'object' && 'body' in v)) {
+                  visitedRegistries.add(cur);
+                  for (const [, v] of entries) {
+                    if (v && v.body) {
+                      translateEntryBody(v, 'body', v.body);
+                    }
                   }
                 }
               }
             }
+            h = h.next;
           }
-          h = h.next;
+          fiber = fiber.return;
         }
-        fiber = fiber.return;
       }
     } catch (e) {}
   }
@@ -774,9 +938,20 @@
         translateAttributes(root, lang);
       }
       if (isExcluded(root)) return;
+      if (root.shadowRoot) {
+        walkAndTranslate(root.shadowRoot, lang);
+      }
+      if (root.tagName === 'IFRAME') {
+        try {
+          if (root.contentDocument && root.contentDocument.body) {
+            walkAndTranslate(root.contentDocument.body, lang);
+          }
+        } catch (e) {}
+      }
     }
 
-    const walker = document.createTreeWalker(
+    const doc = root.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? root.ownerDocument : root.ownerDocument;
+    const walker = (doc || document).createTreeWalker(
       root,
       NodeFilter.SHOW_TEXT,
       {
@@ -795,10 +970,24 @@
     }
 
     if (root.querySelectorAll) {
-      const elementsWithAttrs = root.querySelectorAll('[placeholder], [title], [aria-label]');
+      const elementsWithAttrs = root.querySelectorAll(TRANSLATABLE_ATTR_SELECTOR);
       for (let i = 0; i < elementsWithAttrs.length; i++) {
         if (!isAttrExcluded(elementsWithAttrs[i])) {
           translateAttributes(elementsWithAttrs[i], lang);
+        }
+      }
+      const shadowOrFrameHosts = root.querySelectorAll('*');
+      for (let i = 0; i < shadowOrFrameHosts.length; i++) {
+        const host = shadowOrFrameHosts[i];
+        if (host.shadowRoot) {
+          walkAndTranslate(host.shadowRoot, lang);
+        }
+        if (host.tagName === 'IFRAME') {
+          try {
+            if (host.contentDocument && host.contentDocument.body) {
+              walkAndTranslate(host.contentDocument.body, lang);
+            }
+          } catch (e) {}
         }
       }
     }
@@ -807,16 +996,30 @@
   // Batch queue for MutationObserver
   let scheduledNodes = new Set();
   let rafId = null;
+  let lastTooltipSyncTs = 0;
 
   function processBatch() {
     rafId = null;
     const nodes = Array.from(scheduledNodes);
     scheduledNodes.clear();
 
+    let needsTooltipSync = false;
+    const obsRoot = document.documentElement || document.body;
+
     for (const node of nodes) {
-      if (document.body.contains(node)) {
+      if (obsRoot && obsRoot.contains(node)) {
+        if (node.nodeType === Node.ELEMENT_NODE &&
+            ((node.hasAttribute && node.hasAttribute('data-tooltip-id')) ||
+             (node.querySelector && node.querySelector('[data-tooltip-id]')))) {
+          needsTooltipSync = true;
+        }
         walkAndTranslate(node, currentLang);
       }
+    }
+    const now = Date.now();
+    if (needsTooltipSync || now - lastTooltipSyncTs > 500) {
+      lastTooltipSyncTs = now;
+      translateReactTooltipRegistry();
     }
     restoreProjectNames();
   }
@@ -849,14 +1052,20 @@
         if (mut.target && mut.target.nodeType === Node.TEXT_NODE) {
           queueNode(mut.target.parentElement || document.body);
         }
+      } else if (mut.type === 'attributes') {
+        if (mut.target && mut.target.nodeType === Node.ELEMENT_NODE && !isAttrExcluded(mut.target)) {
+          translateAttributes(mut.target, currentLang);
+        }
       }
     }
   });
 
-  observer.observe(document.body, {
+  observer.observe(document.documentElement || document.body, {
     childList: true,
     subtree: true,
-    characterData: true
+    characterData: true,
+    attributes: true,
+    attributeFilter: TRANSLATABLE_ATTRS
   });
 
   window.__agyTranslatorObserver = observer;
@@ -964,14 +1173,14 @@
     localStorage.setItem('agy_limits_lang', lang);
     console.log(`[Antigravity Translator] Language switched to: ${lang.toUpperCase()}`);
     translateReactTooltipRegistry();
-    walkAndTranslate(document.body, currentLang);
+    walkAndTranslate(document.documentElement || document.body, currentLang);
     restoreProjectHeaders();
   };
 
   window.__agyTranslatorRefresh = function() {
     cachedRev = null;
     translateReactTooltipRegistry();
-    walkAndTranslate(document.body, currentLang);
+    walkAndTranslate(document.documentElement || document.body, currentLang);
     restoreProjectHeaders();
   };
 
@@ -985,7 +1194,7 @@
   // Dynamic Tooltip Interceptor
   window.__agyPointerEnterHandler = function(e) {
     if (e.target && e.target.nodeType === Node.ELEMENT_NODE) {
-      if (e.target.hasAttribute && e.target.hasAttribute('data-tooltip-id')) {
+      if (e.target.closest && e.target.closest('[data-tooltip-id]')) {
         translateReactTooltipRegistry();
       }
     }
@@ -994,9 +1203,9 @@
 
   window.__agyMouseOverHandler = function(e) {
     if (e.target && e.target.nodeType === Node.ELEMENT_NODE) {
-      if (e.target.closest && (e.target.closest('[data-tooltip-id]') || e.target.closest('.compact-tooltip, [role="tooltip"]'))) {
+      if (e.target.closest && (e.target.closest('[data-tooltip-id]') || e.target.closest('.compact-tooltip, [role="tooltip"], [data-base-ui-portal], [data-radix-popper-content-wrapper]'))) {
         translateReactTooltipRegistry();
-        const tip = e.target.closest('.compact-tooltip, [role="tooltip"]');
+        const tip = e.target.closest('.compact-tooltip, [role="tooltip"], [data-base-ui-portal], [data-radix-popper-content-wrapper]');
         if (tip) walkAndTranslate(tip, currentLang);
       }
     }
@@ -1156,7 +1365,7 @@
 
   // Initial translation run
   translateReactTooltipRegistry();
-  walkAndTranslate(document.body, currentLang);
+  walkAndTranslate(document.documentElement || document.body, currentLang);
   restoreProjectHeaders();
   console.log(`[Antigravity Translator] Engine initialized successfully. Active: ${currentLang.toUpperCase()}`);
 })();

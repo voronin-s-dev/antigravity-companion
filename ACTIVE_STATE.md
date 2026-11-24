@@ -5,7 +5,7 @@
 ---
 
 ## 1. Метаданные репозитория
-- **Версия**: `v1.7.11`
+- **Версия**: `v1.7.12`
 - **Ветка**: `main`
 - **GitHub**: [https://github.com/voronin-s-dev/antigravity-companion](https://github.com/voronin-s-dev/antigravity-companion)
 - **CI/CD**: `.github/workflows/release.yml` (автотесты + автосборка ZIP при тегах `v*`)
@@ -14,7 +14,7 @@
 ---
 
 ## 2. Архитектурный базис
-- **Словарь**: `localization/dictionary_ru.json` — **6630 точных терминов**, **155 атрибутов**, **283 шаблона** (всего 7068 правил).
+- **Словарь**: `localization/dictionary_ru.json` — **16841 точных терминов**, **177 атрибутов**, **304 шаблона** (всего 17322 правил).
 - **Zero-Context Dictionary**: чтение словаря напрямую запрещено; пополнение через `localization/translations_to_merge.json` и `npm run merge`.
 - **Служба Companion**: фоновый процесс Node.js с реактивным супервизором v2.0 (постоянный WebSocket, перехват `DevToolsActivePort`, мгновенная инъекция при перезагрузке, 0% CPU в ожидании).
 - **Виджет лимитов**: встроен в сайдбар Antigravity (`#agy-limits-pill`) и разворачивается во флайаут/настройки без оверлеев. Поддержка звуковых оповещений (Web Audio / кастомные MP3), счетчик шагов сессии (`Шаг X/40`), Pre-flight Paste Guard и точный расчет ETA восстановления квот.
@@ -737,6 +737,18 @@
   3. *AAR и тесты*:
      - Оформлен отчет `.claude/aar/runs/2026-11-21-i18n-compaction-polysemy-collision.md`, обновлены `checks-map.md` (направление `L`) и `aar-log.md`.
      - Все 8 сьютов `npm test` подтвердили 100% успех. Версия повышена до `v1.7.11`.
+
+### Веха 86: Глубокий аудит захвата и перевода тостов, тултипов, порталов и мульти-таргетов (Antigravity v2.34.0)
+- **Выявленные причины пропусков UI после обновлений IDE**:
+  1. *Блокировка Markdown-уведомлений (`isExcluded` и `isPrivateContainer`)*: тосты с `isMarkdown: true` (напр. `Conversation Archived` / `View archived in the sidebar (`) рендерятся через компонент `X1` (`.prose`, `.animate-markdown`, `.leading-relaxed.select-text.break-words`), который целиком исключался из перевода и сбора.
+  2. *Неполная обработка React-тултипов (`translateReactTooltipRegistry` и `mouseover`/`pointerenter`)*: обходился только первый `[data-tooltip-id]` триггер; `pointerenter` не использовал `.closest('[data-tooltip-id]')`; непереведенный текст тултипов не отправлялся в `reportUntranslatedString`; не отслеживались мутации атрибутов (`data-tooltip-content`, `title`, `aria-label` и др.) с кэш-инвалидацией.
+  3. *Игнорирование вторичных окон и фреймов CDP*: инъектор и харвестер подключались только к первому `page`-таргету (`tabs.find`), пропуская дополнительные окна и встроенные `iframe` (`plugin://swarm--swarm_board-...`).
+  4. *Узкие фильтры харвестеров и санитайзера*: `bundle_harvester.js` и `reportUntranslatedString` отбрасывали UI-свойства (`content`, `plainTextFallback`, `subtitle`, `body`), markdown-иконки (`![tune](icon://...)`), Unicode-пунктуацию (`…`, `—`, `•`, `⌘`, `&`, `+`) и фразы длиннее 100 символов.
+- **Реализованные исправления**:
+  1. Разделены жёсткие/приватные исключения и системные оверлеи (`OVERLAY_CONTAINER_SELECTORS`) в `localization/translation_engine.js`; добавлена поддержка `Customize Sidebar).`, атрибутов с `attributeFilter`, Shadow DOM/iframe и мульти-реестров `[data-tooltip-id]`.
+  2. Внедрена мульти-таргетная инъекция и фоновый контроль вторичных окон/фреймов в `localization/inject_translator.js` и `bin/antigravity_companion.js`.
+  3. Расширены `localization/bundle_harvester.js`, `localization/strings_harvester.js` (с union-merge и защитой от утечки имен файлов/шагов `step-plan-item`/`shimmer-text`) и `localization/sanitize_queue.js` (фильтр SVG-путей и `.bat`/dotfiles).
+  4. Переведено и слито **1111 новых терминов** (58 курированных + 1053 из бандла и Swarm-интерфейса), добавлены 7 regex-шаблонов (`Managed by the ... automation`, `Open Subagent: ...`, `Turn X of Y`, `X/Y steps`), база расширена до **17322 правил**.
 
 ---
 

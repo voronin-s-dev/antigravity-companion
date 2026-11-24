@@ -49,9 +49,14 @@ function testQueueAndSyncIntegrity() {
   const remoteValidHead = remoteQueue.filter(s => !tailSet.has(s) && isStrictUiString(s, merged));
   const mergedQueue = Array.from(new Set([...remoteValidHead, ...localValidTail]));
 
-  // 4. Тест поддержки markdown-символов (обратные кавычки, скобки) в описаниях навыков
+  // 4. Тест поддержки markdown-символов и Unicode UI пунктуации, а также фильтрации файлов и SVG-путей
   assert.strictEqual(isStrictUiString('The default is `design-taste-frontend` (v2)', merged), true, 'Skill description with backticks rejected');
   assert.strictEqual(isStrictUiString('Use when [action-oriented] or ADHD-friendly communication is requested.', merged), true, 'Skill description with brackets rejected');
+  assert.strictEqual(isStrictUiString("Looking for this conversation's swarm\u2026", merged), true, 'UI string with ellipsis rejected');
+  assert.strictEqual(isStrictUiString('Engine & CDP Auditor \u2014 Ready', merged), true, 'UI string with & and em-dash rejected');
+  assert.strictEqual(isStrictUiString('.claude', merged), false, 'Dotfile leaked');
+  assert.strictEqual(isStrictUiString('companion.bat', merged), false, 'Batch script filename leaked');
+  assert.strictEqual(isStrictUiString('M12 4L4 12M4 4l8 8', merged), false, 'SVG path leaked');
 
   // 5. Тест парсера описаний навыков (Skills Harvester YAML frontmatter)
   const { parseSkillDescription } = require('../localization/skills_harvester.js');

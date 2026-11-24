@@ -219,6 +219,35 @@ function testDynamicTokensLocalization() {
   if (!p8 || !p8.includes('1 дн. назад')) {
     throw new Error(`Ошибка локализации относительного времени "1d ago": результат "${p8}"`);
   }
+
+  const p9 = translate('Managed by the Daily Focus (12:30 Briefing) automation');
+  const p10 = translate('Open Subagent: Engine & CDP Auditor');
+  const p11 = translate('Turn 100 of 100');
+  const p12 = translate('4/4 steps. Show plan');
+  if (p9 !== 'Управляется автоматизацией Daily Focus (12:30 Briefing)') {
+    throw new Error(`Ошибка локализации статуса автоматизации: "${p9}"`);
+  }
+  if (p10 !== 'Открыть субагент: Engine & CDP Auditor') {
+    throw new Error(`Ошибка локализации кнопки субагента: "${p10}"`);
+  }
+  if (p11 !== 'Ход 100 из 100') {
+    throw new Error(`Ошибка локализации счетчика ходов: "${p11}"`);
+  }
+  if (p12 !== 'Шагов: 4/4. Показать план') {
+    throw new Error(`Ошибка локализации плашки шагов: "${p12}"`);
+  }
+
+  // Verify overlay/tooltip/multi-target engine invariants
+  if (!engineSource.includes('OVERLAY_CONTAINER_SELECTORS') || !engineSource.includes('data-tooltip-content')) {
+    throw new Error('Отсутствуют исправления OVERLAY_CONTAINER_SELECTORS или data-tooltip-content в translation_engine.js');
+  }
+  if (!engineSource.includes("querySelectorAll('[data-tooltip-id]')")) {
+    throw new Error('translateReactTooltipRegistry должен обходить все [data-tooltip-id] триггеры');
+  }
+  const injectTranslatorSrc = fs.readFileSync(path.resolve(__dirname, '../localization/inject_translator.js'), 'utf8');
+  if (!injectTranslatorSrc.includes('isInjectableTarget')) {
+    throw new Error('inject_translator.js должен поддерживать мультитаргетную инъекцию (page + iframe + webview)');
+  }
 }
 
 module.exports = { testFileSyntax, testInjectionCodeExtraction, testProjectIsolationGuard, testSkillCommandIsolationGuard, testStartupRetryGuard, testStepCounterIntegrity, testBackupPanelSyntaxGuard, testDynamicTokensLocalization };

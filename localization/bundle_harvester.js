@@ -93,7 +93,10 @@ function isUIStringCandidate(str) {
   if (/^(px|rem|em|vh|vw|%|s|ms)$/i.test(s)) return false;
   if (/^(use[A-Z]|get[A-Z]|set[A-Z]|is[A-Z]|has[A-Z])/i.test(s)) return false;
   if (/^[a-z]+([A-Z][a-z0-9]+)+$/.test(s)) return false; // camelCase идентификаторы
+  if (/^[A-Z][a-z]+([A-Z][a-z0-9]+){2,}$/.test(s)) return false; // PascalCase из 3+ слов без пробелов (WebkitAppRegion, InterfaceIsAbstract)
   if (/^[A-Z_0-9]{3,}$/.test(s)) return false; // CONSTANTS_UPPERCASE
+  if (/^[Mm]\s*-?\d+(?:\.\d+)?[\s,MmLlHhVvCcSsQqTtAaZz0-9.-]{6,}$/.test(s)) return false; // SVG path d="..."
+  if (/^(Etc\/GMT|org\.eclipse\.|java\.|javax\.)/i.test(s)) return false;
   if (/[{}[\]<>=`$\\]/.test(s)) return false; // фрагменты кода и синтаксиса
   if (/^(function|return|typeof|instanceof|import|export|class|const|let|var|switch|case|default|break|continue|throw|catch|finally|async|await|package|interface)$/.test(s)) return false;
 
@@ -128,18 +131,30 @@ async function harvestBundle() {
   // Регулярные выражения для поиска UI-литералов в JSX / свойствах объектов
   const candidates = new Set();
 
-  // 1. Свойства типа title: "...", label: "...", placeholder: "...", tooltip: "...", ariaLabel: "..."
-  const propRegex = /(?:title|label|placeholder|tooltip|header|heading|aria-label|ariaLabel|buttonText|description|message|hint|emptyText|fallback)\s*:\s*(["'])(.+?)\1/g;
+  // 1. Свойства UI-объектов (title, label, content, subtitle, plainTextFallback и др.)
+  const propRegex = /(?:title|label|placeholder|tooltip|header|heading|aria-label|ariaLabel|ariaDescription|buttonText|description|message|hint|emptyText|fallback|plainTextFallback|content|subtitle|body|caption|confirmText|cancelText|ctaText|primaryLabel|secondaryLabel|actionLabel|headerTitle|emptyMessage|helperText|errorMessage|warningMessage|infoMessage|sublabel|badgeText|summary|primaryActionLabel)\s*:\s*(["'])(.+?)\1/g;
   let match;
   while ((match = propRegex.exec(bundleCode)) !== null) {
     const val = match[2];
+    if (/!\[[^\]]*\]\(icon:\/\/[^)]+\)/.test(val)) {
+      const cleaned = val.replace(/!\[[^\]]*\]\(icon:\/\/[^)]+\)/g, ' ').replace(/\s+/g, ' ').trim();
+      if (isUIStringCandidate(cleaned)) candidates.add(cleaned);
+    } else if (isUIStringCandidate(val)) {
+      candidates.add(val.trim());
+    }
+  }
+
+  // 2. JSX строковые дети и человекочитаемые фразы в двойных кавычках (до 400 символов, включая скобки, +, &, …)
+  const stringLiteralRegex = /"(?:[A-Z][A-Za-z0-9' ,.:!?()/+\-&\u2026\u2013\u2014\u2018\u2019\u201C\u201D]{3,400})"/g;
+  while ((match = stringLiteralRegex.exec(bundleCode)) !== null) {
+    const val = match[0].slice(1, -1);
     if (isUIStringCandidate(val)) candidates.add(val.trim());
   }
 
-  // 2. JSX строковые дети и литералы в одинарных/двойных кавычках с человекочитаемыми фразами
-  const stringLiteralRegex = /"(?:[A-Z][a-zA-Z0-9' ,.:!?-]{3,100})"/g;
-  while ((match = stringLiteralRegex.exec(bundleCode)) !== null) {
-    const val = match[0].slice(1, -1);
+  // 3. Строки-аргументы внутри React.createElement(..., null, "...")
+  const createElChildRegex = /createElement\([^;{}()]{1,120},\s*(?:null|\{[^;{}]{0,200}\})\s*,\s*(["'])([A-Za-z][A-Za-z0-9' ,.:!?()/+\-&\u2026\u2013\u2014\u2018\u2019]{2,300})\1\s*\)/g;
+  while ((match = createElChildRegex.exec(bundleCode)) !== null) {
+    const val = match[2];
     if (isUIStringCandidate(val)) candidates.add(val.trim());
   }
 

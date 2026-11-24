@@ -129,6 +129,7 @@ const exitOnClose = process.argv.includes('--exit-on-close') || process.env.AGY_
 
 let currentWs = null;
 let currentPort = null;
+let primaryTargetId = null;
 let isConnecting = false;
 let isConnected = false;
 let isInjecting = false;
@@ -145,6 +146,7 @@ function resetConnection() {
   isConnected = false;
   isConnecting = false;
   currentPort = null;
+  primaryTargetId = null;
   lastHealthStateOk = false;
 }
 
@@ -213,12 +215,57 @@ async function ensureInjected() {
     } else {
       lastHealthStateOk = false;
     }
+
+    // Ensure secondary windows, webviews, and plugin iframes (e.g., Swarm Board) are also translated
+    await ensureSecondaryTargetsTranslated();
   } catch (err) {
     logSync(`[Companion] Ошибка проверки внедрения: ${err.message}`);
     resetConnection();
   } finally {
     isInjecting = false;
   }
+}
+
+async function ensureSecondaryTargetsTranslated() {
+  if (!currentPort) return;
+  try {
+    const res = await fetch(`http://127.0.0.1:${currentPort}/json`, { signal: AbortSignal.timeout(1200) });
+    const tabs = await res.json();
+    const { isInjectableTarget } = require('../localization/inject_translator.js');
+    const secondary = tabs.filter(t => isInjectableTarget(t) && t.id !== primaryTargetId);
+    for (const target of secondary) {
+      let hasTranslator = false;
+      try {
+        hasTranslator = await new Promise((resolve) => {
+          const ws = new WebSocket(target.webSocketDebuggerUrl);
+          const tm = setTimeout(() => { try { ws.close(); } catch (_) {} resolve(true); }, 1200);
+          ws.onopen = () => {
+            ws.send(JSON.stringify({ id: 1, method: 'Runtime.evaluate', params: { expression: '!!window.__agyTranslatorActive', returnByValue: true } }));
+          };
+          ws.onmessage = (evt) => {
+            try {
+              const msg = JSON.parse(evt.data);
+              if (msg.id === 1) {
+                clearTimeout(tm);
+                try { ws.close(); } catch (_) {}
+                resolve(Boolean(msg.result?.result?.value));
+              }
+            } catch (_) {}
+          };
+          ws.onerror = () => { clearTimeout(tm); resolve(true); };
+        });
+      } catch (_) {
+        hasTranslator = true;
+      }
+
+      if (!hasTranslator) {
+        logSync(`[Companion] Обнаружена вторичная цель (${target.type}): ${target.url.slice(0, 80)}. Внедрение русификатора...`);
+        try { delete require.cache[require.resolve('../localization/inject_translator.js')]; } catch (_) {}
+        const { injectTranslator: freshInjectTranslator } = require('../localization/inject_translator.js');
+        await freshInjectTranslator(target.id);
+      }
+    }
+  } catch (_) {}
 }
 
 async function tryConnect() {
@@ -255,6 +302,7 @@ async function tryConnect() {
       isConnecting = false;
       currentWs = ws;
       currentPort = port;
+      primaryTargetId = page.id || null;
       missingPortWarned = false;
       logSync(`[Companion] Постоянный канал CDP активен (порт ${port}). Подписка на события жизненного цикла окна...`);
 

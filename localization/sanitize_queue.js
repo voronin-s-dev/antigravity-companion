@@ -25,7 +25,8 @@ const isStrictUiString = (s, dictRef) => {
   // Исключить пути, URL и файлы (включая пути внутри скобок или строк)
   if (/^(https?:\/\/|file:\/\/|\/|[A-Za-z]:\\)/i.test(t)) return false;
   if (/[A-Za-z]:[/\\]/.test(t)) return false;
-  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|exe|dll|yml|yaml|toml|lock)$/i.test(t)) return false;
+  if (/\.(png|jpg|jpeg|gif|svg|webp|ico|css|js|ts|tsx|jsx|json|md|py|sh|ps1|bat|cmd|vbs|exe|dll|yml|yaml|toml|lock|tmp|log)$/i.test(t)) return false;
+  if (/^\.[a-z0-9_-]+$/i.test(t)) return false;
 
   // Исключить токены, ключи API и секреты через централизованный Zero-Leak Secret Guard
   const { containsSecret } = require('./secret_guard.js');
@@ -59,15 +60,18 @@ const isStrictUiString = (s, dictRef) => {
   // Исключить служебные названия проекта и репозитория
   if (['antigravity-companion', 'ACTIVE_STATE.md', 'FM', 'DNB', 'Polymarket-Sim'].includes(t)) return false;
 
-  // Исключить числа и спецсимволы
-  if (/^[0-9+\-.,:;!?()\/\\%\s]+$/.test(t)) return false;
+  // Исключить числа, SVG-пути и спецсимволы
+  if (/^[0-9+\-.,:;!?()\/\\%\s\u2026\u2013\u2014]+$/.test(t)) return false;
+  if (/^[Mm]\s*-?\d+(?:\.\d+)?[\s,MmLlHhVvCcSsQqTtAaZz0-9.-]{6,}$/.test(t)) return false;
+  if (/^[A-Z][a-z]+([A-Z][a-z0-9]+){2,}$/.test(t)) return false;
+  if (/^(Etc\/GMT|org\.eclipse\.|java\.|javax\.)/i.test(t)) return false;
   if (/^#?[0-9a-fA-F]{3,8}$/.test(t)) return false;
 
   // Должны быть английские буквы
   if (!/[A-Za-z]/.test(t)) return false;
 
   // Должно быть допустимо для UI
-  if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%\`\[\]]+$/.test(t)) return false;
+  if (!/^[A-Za-z0-9\s:_\-.,!?()'"/%\`\[\]\u2026\u2013\u2014\u2018\u2019\u201C\u201D\u2022\u2190-\u2193+&=@*#\u2318\u2325\u21E7\u2303]+$/.test(t)) return false;
 
   // Проверка по уже переведенному словарю
   if (activeDict) {
