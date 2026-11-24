@@ -1043,5 +1043,6 @@
   "Model: Gemini 4 Hydrogen Medium, Model cannot be changed while the agent is running",
   "Agent permissions preset: Turbo, Permissions cannot be changed while the agent is running",
   "Model cannot be changed while the agent is running",
-  "Permissions cannot be changed while the agent is running"
+  "Permissions cannot be changed while the agent is running",
+  "Model: Gemini 4 Hydrogen Low, Model cannot be changed while the agent is running"
 ]
