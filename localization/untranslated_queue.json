@@ -1172,5 +1172,6 @@
   "Agent permissions preset: Turbo, Permissions cannot be changed while the agent is running",
   "Model cannot be changed while the agent is running",
   "Permissions cannot be changed while the agent is running",
-  "Zoom in (+)"
+  "Zoom in (+)",
+  "Re-lint thread 60 file"
 ]
