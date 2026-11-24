@@ -2,6 +2,21 @@
 
 Все ключевые изменения проекта **Antigravity Companion** фиксируются в данном документе.
 
+## [v1.7.12] — 2026-11-24
+
+### 🔍 Глубокий аудит захвата и перевода (Antigravity v2.34.0)
+* **Тосты и Markdown-оверлеи (`localization/translation_engine.js`)**:
+  * Разделены исключения чата/кода и системных оверлеев (`OVERLAY_CONTAINER_SELECTORS`): уведомления (`toast-notification`, `toast-permission`), тултипы, диалоги и порталы Base UI больше не блокируются классами `.prose`, `.animate-markdown` и `.select-text`.
+  * Добавлен двусторонний разбор встроенной иконки для `View archived in the sidebar (` (`Customize Sidebar).` и `menu).`).
+* **Динамические тултипы и атрибуты**:
+  * `translateReactTooltipRegistry()` обходит все `[data-tooltip-id]` триггеры и собирает пропущенные строки в очередь.
+  * `MutationObserver` переведён на `document.documentElement` с отслеживанием атрибутов (`placeholder`, `title`, `aria-label`, `aria-description`, `data-tooltip-content`, `data-tooltip`, `alt`) и обходом Shadow DOM / `iframe`.
+* **Мульти-таргетная CDP-инъекция (`localization/inject_translator.js`, `bin/antigravity_companion.js`)**:
+  * Поддержка инъекции и фонового контроля на всех `page`, `iframe` и `webview` целях (включая встроенную панель `Swarm`).
+* **Харвестеры и словарь (`localization/bundle_harvester.js`, `localization/strings_harvester.js`, `localization/sanitize_queue.js`)**:
+  * Расширен парсинг UI-свойств React-бандла, добавлен фильтр SVG-путей и `.bat`/dotfiles, внедрено union-слияние очереди.
+  * Добавлено **1111** новых терминов и **7** regex-шаблонов (итого **17 322 правил**).
+
 ## [v1.7.5] — 2026-11-06
 
 ### 🔄 Бесшовный совместный автозапуск с Antigravity (Архитектура CdpSupervisor & Self-Healing Autostart)
