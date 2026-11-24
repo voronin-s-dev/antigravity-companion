@@ -1039,5 +1039,9 @@
   "Publish sanitized thread 36 to Threads",
   "Gemini 4 Hydrogen now available!",
   "Where the agent runs, current: This Computer",
-  "Harmonious-Thinker-Media (Ctrl+.)"
+  "Harmonious-Thinker-Media (Ctrl+.)",
+  "Model: Gemini 4 Hydrogen Medium, Model cannot be changed while the agent is running",
+  "Agent permissions preset: Turbo, Permissions cannot be changed while the agent is running",
+  "Model cannot be changed while the agent is running",
+  "Permissions cannot be changed while the agent is running"
 ]
