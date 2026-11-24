@@ -1050,5 +1050,6 @@
   "Message from Social QA Skeptic Auditor (social-qa-skeptic)",
   "Commit and push skill updates to GitHub",
   "Lint and measure 4 reply options",
-  "Re-lint thread 50 file"
+  "Re-lint thread 50 file",
+  "Model: Gemini 3.8 Flash Low, Model cannot be changed while the agent is running"
 ]
