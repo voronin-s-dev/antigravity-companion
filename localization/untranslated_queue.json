@@ -2313,5 +2313,6 @@
   "Message from Translator Subagent 2 (self)",
   "Message from Translator Subagent 1 (self)",
   "Message from Translator Subagent 3 (self)",
-  "Message from Translator Subagent 4 (self)"
+  "Message from Translator Subagent 4 (self)",
+  "Combine translated batches and inspect skipped samples"
 ]
