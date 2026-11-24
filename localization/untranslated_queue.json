@@ -52,6 +52,11 @@
   "Fix gaps in capture and translation",
   "Harvest and translate missing UI strings",
   "Re-harvest clean queue and hot-reload engine",
+  "Compare :r1u2: before and after __agyTranslatorRefresh",
+  "Merging dynamic tooltip, toast, and Swarm UI translations",
+  "Clean stale entries and verify queue count",
+  "Auto-translating newly harvested Antigravity UI strings",
+  "Auto-translate newly harvested UI strings",
   "Adspirer Marketing Analytics",
   "Read-only marketing analytics: report spend, conversions, CPA and ROAS across ad platforms, GA4 and Search Console. It never changes your accounts.",
   "cobrief",
@@ -2300,9 +2305,8 @@
   "ONLY for the native-swarm worker whose brief says it is the narrator. It watches the board and keeps the facts behind the user's Overview (view.json) current. Coordinators and other workers: do not load this.",
   "What the coordinator writes so the Swarm UI's Overview can show the swarm's goal, its groups of work and a screenshot timeline. Load it before you brief and add the first workers to a swarm.",
   "Use this skill when writing code that calls the Gemini API for text generation, multi-turn chat, multimodal understanding, image generation, video generation, interactive world simulation (Genie 4), speech generation (TTS), voice design, voice replication, voice remixing, music generation, streaming responses, background research tasks, function calling, structured output, calibrated decisions (yes/no, choice, rubric scoring), or migrating from the old generateContent API. Covers SDK usage and best practices for Gemini models and agents in Python and TypeScript.",
-  "Compare :r1u2: before and after __agyTranslatorRefresh",
-  "Merging dynamic tooltip, toast, and Swarm UI translations",
-  "Clean stale entries and verify queue count",
-  "Auto-translating newly harvested Antigravity UI strings",
-  "Auto-translate newly harvested UI strings"
+  "Count clean UI strings under 180 chars",
+  "Split clean UI strings into translation batches",
+  "Categorizing untranslated UI strings for batch translation",
+  "Starting Translator Subagent 5"
 ]
