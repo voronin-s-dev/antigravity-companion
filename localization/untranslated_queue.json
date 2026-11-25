@@ -27,5 +27,6 @@
   "Validate comments on shared goals marriage",
   "Validate comments on Law 48",
   "Sync Telegram bot updates",
-  "Lint short acknowledgment draft"
+  "Lint short acknowledgment draft",
+  "Lint reply draft"
 ]
