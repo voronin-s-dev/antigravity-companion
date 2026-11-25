@@ -54,5 +54,10 @@
   "Print metrics of last 15 Threads posts",
   "Print metrics of last 15 posts",
   "Parse line 1 of posts output",
-  "Go to turn 18 of 29"
+  "Go to turn 18 of 29",
+  "Lint test comment options",
+  "Lint 4 candidate comments",
+  "Lint candidate thread posts",
+  "Lint thread 84",
+  "Lint thread 84 with positional arg"
 ]
