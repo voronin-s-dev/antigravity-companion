@@ -1175,5 +1175,6 @@
   "Zoom in (+)",
   "Re-lint thread 60 file",
   "Model: Gemini 3.8 Flash Medium, Model cannot be changed while the agent is running",
-  "Validate reply comment options"
+  "Validate reply comment options",
+  "Validate concise options"
 ]
