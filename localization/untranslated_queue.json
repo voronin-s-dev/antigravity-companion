@@ -130,7 +130,6 @@
   "flow_card_1793549707.html",
   "video_engine/style_guide",
   "video_engine/video_engine/out",
-  "Close www.threads.com",
   "Extract exact post text, author details, and engagement metric button labels/ic…",
   "Dismiss the Threads login/signup overlay with Escape if dismissible and extract…",
   "Message queued. Sends after background work finishes. Actions available: Send Now, Edit, Delete",
@@ -181,5 +180,6 @@
   "Navigate to the Threads share URL to inspect the post and any overlay",
   "Press Escape to close the sign-up overlay and extract the exact post text and m…",
   "Lint Observer + quantum universe thread version",
-  "Good to see you, Groove. What's next?"
+  "Good to see you, Groove. What's next?",
+  "Close www.threads.com"
 ]
