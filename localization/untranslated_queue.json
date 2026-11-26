@@ -184,5 +184,7 @@
   "Close www.threads.com",
   "Grep aar-log for browser/Chrome/Threads",
   "Lint knowledge files",
-  "Print scheduled posts and dueAt times"
+  "Print scheduled posts and dueAt times",
+  "Lint 4 Observer + Quantum Universe comments",
+  "Re-lint C3 and C4 comments"
 ]
