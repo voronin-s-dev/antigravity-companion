@@ -74,7 +74,6 @@
   "Launch visible Chrome for Threads login and deep inspect",
   "Close Launch visible Chrome for Threads login and deep inspect",
   "Extract fullText to readable txt files",
-  "Message from social-copywriter (self)",
   "Lint 4 ready anchor threads for the weekly schedule",
   "Audit SEO keyword coverage across all 21 posts",
   "Dry-run weekly Buffer schedule parser",
@@ -136,5 +135,6 @@
   "Re-lint fixed C2 comment",
   "Message from social-viral-analyst (self)",
   "memes",
-  "Message from social-qa-skeptic (self)"
+  "Message from social-qa-skeptic (self)",
+  "Message from social-copywriter (self)"
 ]
