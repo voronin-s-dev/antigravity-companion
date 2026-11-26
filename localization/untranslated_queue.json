@@ -183,5 +183,6 @@
   "Good to see you, Groove. What's next?",
   "Close www.threads.com",
   "Grep aar-log for browser/Chrome/Threads",
-  "Lint knowledge files"
+  "Lint knowledge files",
+  "Print scheduled posts and dueAt times"
 ]
