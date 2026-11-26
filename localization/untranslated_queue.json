@@ -58,12 +58,9 @@
   "Scroll down on maksakovanna.psy profile to see if more posts load or if the log…",
   "Press Escape to try dismissing the Threads login popup and extract all currentl…",
   "Scroll down maksakovanna.psy in increments, dismissing any login modal with Esc…",
-  "Thinking (10s)…",
-  "Thinking (11s)…",
   "Dismiss the login dialog with Escape and read the full region innerText and ari…",
   "Click the dark modal backdrop at (150, 500) to dismiss the Threads login popup…",
   "Reload maksakovanna.psy and scroll incrementally in 700px steps, capturing full…",
-  "Message queued. Sends after background work finishes. Actions available: Send Now, Edit, Delete",
   "Thinking (12s)…",
   "Thinking (13s)…",
   "Locate installed Playwright binary or cache",
@@ -141,5 +138,8 @@
   "video_engine/video_engine/out",
   "Close www.threads.com",
   "Extract exact post text, author details, and engagement metric button labels/ic…",
-  "Dismiss the Threads login/signup overlay with Escape if dismissible and extract…"
+  "Dismiss the Threads login/signup overlay with Escape if dismissible and extract…",
+  "Message queued. Sends after background work finishes. Actions available: Send Now, Edit, Delete",
+  "Thinking (10s)…",
+  "Thinking (11s)…"
 ]
