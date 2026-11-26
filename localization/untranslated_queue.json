@@ -86,7 +86,6 @@
   "Welcome back, Groove. Where should we pick up?",
   "Re-verify Companion injection and PID",
   "Locate auto-capture and tooltip logic",
-  "Applies to /btw and messages sent after this turn",
   "Commit and push launcher fix",
   "antigravity-companion (Ctrl+.)",
   "Competitive Analysis Of Psychologists",
@@ -139,5 +138,6 @@
   "yana",
   "Switch to RTL text direction",
   "Comment (C)",
-  "Loss Of Passion In Relationships"
+  "Loss Of Passion In Relationships",
+  "Applies to /btw and messages sent after this turn"
 ]
