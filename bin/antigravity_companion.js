@@ -72,15 +72,15 @@ let unshimmedRunningCount = 0;
 
 function selfHealUnshimmedHost() {
   if (process.platform !== 'win32' || !shimManager) return;
-  // Guard: Only fire if Antigravity is actively running without our shim and without debug port
-  if (shimManager.isShimInstalled() || !shimManager.isAntigravityRunning() || isConnected) {
+  // Guard: Only fire if Antigravity is actively running without an active CDP connection
+  if (!shimManager.isAntigravityRunning() || isConnected || isConnecting) {
     unshimmedRunningCount = 0;
     return;
   }
 
   unshimmedRunningCount++;
-  // Wait at least 2 checks (~10 seconds) to ensure IDE has finished its initial launch after update
-  if (unshimmedRunningCount < 2) return;
+  // Wait at least 3 checks (~15 seconds) so normal shortcut launches have time to open DevToolsActivePort
+  if (unshimmedRunningCount < 3) return;
 
   // Circuit breaker: max 1 auto-restart per 10 minutes to prevent loops
   const now = Date.now();
@@ -88,7 +88,7 @@ function selfHealUnshimmedHost() {
   lastAutoHealAttempt = now;
   unshimmedRunningCount = 0;
 
-  logSync('[Companion Auto-Heal] Обнаружен запуск Antigravity после обновления IDE без порта отладки. Выполняется автоматический перезапуск для восстановления шима...');
+  logSync('[Companion Auto-Heal] Обнаружен запуск Antigravity без порта отладки (например, после обновления IDE). Выполняется чистый перезапуск...');
 
   try {
     const baseDir = path.resolve(__dirname);
@@ -107,13 +107,13 @@ function selfHealUnshimmedHost() {
   }
 }
 
-function ensureLauncherShim() {
+function ensureCleanHostBinary() {
   if (process.platform !== 'win32' || !shimManager) return;
   try {
-    if (!shimManager.isShimInstalled() && !shimManager.isAntigravityRunning()) {
-      const res = shimManager.installShim();
-      if (res && res.installed) {
-        logSync('[Companion] Установлен нативный лаунчер-шим для прозрачного запуска Antigravity с портом отладки.');
+    if (shimManager.isShimInstalled() && !shimManager.isAntigravityRunning()) {
+      const res = shimManager.uninstallShim();
+      if (res && res.restored) {
+        logSync('[Companion] Удален лаунчер-шим: восстановлен оригинальный Antigravity.exe.');
       }
     }
   } catch (_) {}
@@ -346,7 +346,7 @@ async function tryConnect() {
         process.exit(0);
       } else {
         logSync('[Companion] Переход в энергоэффективный режим ожидания (0% CPU, ожидание запуска Antigravity)...');
-        setTimeout(ensureLauncherShim, 1200);
+        setTimeout(ensureCleanHostBinary, 1200);
       }
     };
   } catch (e) {
@@ -403,17 +403,18 @@ setInterval(() => {
         ensureAntigravityShortcuts();
         missingPortWarned = true;
       }
-      // Periodically attempt shim installation whenever Antigravity window closes
-      if (shimManager && !shimManager.isShimInstalled() && !shimManager.isAntigravityRunning()) {
-        ensureLauncherShim();
-      }
-      // Self-heal: If Antigravity was updated by Google installer and launched without shim/port, auto-restart it
-      if (shimManager && !shimManager.isShimInstalled() && shimManager.isAntigravityRunning()) {
-        selfHealUnshimmedHost();
-      }
+    }
+    // Restore original Antigravity.exe if a legacy shim is still present while IDE is closed
+    if (shimManager && shimManager.isShimInstalled() && !shimManager.isAntigravityRunning()) {
+      ensureCleanHostBinary();
+    }
+    // Self-heal: If Antigravity was launched without debug port (e.g. after IDE update), auto-restart cleanly
+    if (shimManager && shimManager.isAntigravityRunning()) {
+      selfHealUnshimmedHost();
     }
     tryConnect();
   } else if (isConnected && !isInjecting) {
+    unshimmedRunningCount = 0;
     missingPortWarned = false;
     missingPortChecks = 0;
     let diskPort = null;
@@ -458,7 +459,7 @@ try {
 
 ensureAutostart();
 ensureAntigravityShortcuts();
-ensureLauncherShim();
+ensureCleanHostBinary();
 setupFileWatcher();
 tryConnect();
 

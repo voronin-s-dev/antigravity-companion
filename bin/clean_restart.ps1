@@ -17,7 +17,7 @@ Write-Host "[+] Все процессы Antigravity успешно заверш�
 $baseDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 if (-not $baseDir) { $baseDir = Get-Location }
 
-# 2. Установка / обновление нативного лаунчер-шима (пока Antigravity закрыт)
+# 2. Восстановление оригинального Antigravity.exe (удаление устаревшего шима, пока Antigravity закрыт)
 try {
     $nodeExe = (Get-Command node -ErrorAction SilentlyContinue).Source
     if (-not $nodeExe) {
@@ -33,13 +33,13 @@ try {
     if ($nodeExe) {
         $shimScript = Join-Path $baseDir "shim_manager.js"
         if (Test-Path $shimScript) {
-            Write-Host "[*] Установка нативного лаунчера для авто-отладки..." -ForegroundColor Cyan
-            & $nodeExe $shimScript install | Out-Null
-            Write-Host "[+] Нативный лаунчер проверен и установлен." -ForegroundColor Green
+            Write-Host "[*] Проверка чистоты бинарного файла Antigravity.exe..." -ForegroundColor Cyan
+            & $nodeExe $shimScript uninstall | Out-Null
+            Write-Host "[+] Оригинальный Antigravity.exe подтвержден." -ForegroundColor Green
         }
     }
 } catch {
-    Write-Host "[!] Предупреждение установки шима: $_" -ForegroundColor Yellow
+    Write-Host "[!] Предупреждение проверки шима: $_" -ForegroundColor Yellow
 }
 
 # 3. Обновление ярлыков с флагом отладки (включая меню Пуск и Рабочий стол)

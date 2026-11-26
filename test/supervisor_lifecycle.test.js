@@ -81,20 +81,23 @@ function testAutostartArtifacts() {
 }
 
 function testShimManagerInvariants() {
-  const shimSrc = path.resolve(__dirname, '../bin/AntigravityShim.cs');
-  if (!fs.existsSync(shimSrc)) {
-    throw new Error('AntigravityShim.cs is missing in bin/');
+  const compCode = fs.readFileSync(path.resolve(__dirname, '../bin/antigravity_companion.js'), 'utf8');
+  if (/\binstallShim\(/.test(compCode)) {
+    throw new Error('Supervisor must NOT call installShim() to avoid modifying signed Antigravity.exe');
   }
-  const csCode = fs.readFileSync(shimSrc, 'utf8');
-  if (!csCode.includes('--remote-debugging-port=0') || !csCode.includes('Antigravity_orig.exe')) {
-    throw new Error('AntigravityShim.cs must define --remote-debugging-port=0 and Antigravity_orig.exe target');
+  if (!compCode.includes('ensureCleanHostBinary()')) {
+    throw new Error('Supervisor must define and invoke ensureCleanHostBinary() to restore original Antigravity.exe');
+  }
+
+  const cleanRestartPs = fs.readFileSync(path.resolve(__dirname, '../bin/clean_restart.ps1'), 'utf8');
+  if (!cleanRestartPs.includes('shim_manager.js') || !cleanRestartPs.includes('uninstall')) {
+    throw new Error('clean_restart.ps1 must invoke shim_manager.js uninstall');
   }
 
   const shimManager = require('../bin/shim_manager.js');
-  if (typeof shimManager.compileShim !== 'function' ||
-      typeof shimManager.isShimInstalled !== 'function' ||
-      typeof shimManager.installShim !== 'function') {
-    throw new Error('shim_manager.js must export compileShim, isShimInstalled, and installShim');
+  if (typeof shimManager.isShimInstalled !== 'function' ||
+      typeof shimManager.uninstallShim !== 'function') {
+    throw new Error('shim_manager.js must export isShimInstalled and uninstallShim');
   }
 }
 

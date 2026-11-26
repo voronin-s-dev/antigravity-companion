@@ -42,9 +42,17 @@ foreach ($path in $shortcutPaths) {
         try {
             $sc = $sh.CreateShortcut($path)
             if ($sc.TargetPath -like "*Antigravity.exe*" -or $sc.TargetPath -like "*Antigravity_orig.exe*") {
+                $changed = $false
+                if ($sc.TargetPath -like "*Antigravity_orig.exe*" -and (Test-Path $agyExe)) {
+                    $sc.TargetPath = $agyExe
+                    $changed = $true
+                }
                 if ($sc.Arguments -notlike "*--remote-debugging-port*") {
                     $newArgs = if ($sc.Arguments) { "$($sc.Arguments) --remote-debugging-port=0".Trim() } else { "--remote-debugging-port=0" }
                     $sc.Arguments = $newArgs
+                    $changed = $true
+                }
+                if ($changed) {
                     $sc.Save()
                     Write-Host "[+] Ярлык обновлен с флагом отладки: $path" -ForegroundColor Green
                 }
