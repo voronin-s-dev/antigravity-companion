@@ -1,7 +1,6 @@
 [
   "Cjdnb29nbGUvaW50ZXJuYWwvY2xvdWQvY29kZS92MWludGVybmFsL2VudGl0bGVtZW50LnByb3RvEiVnb29nbGUuaW50ZXJuYWwuY2xvdWQuY29kZS52MWludGVybmFsIi0KC0VudGl0bGVtZW50Eh4KCXVzZXJfdGllchgBIAEoCUIL4kEBAqCg8JgB8g5CPwopY29tLmdvb2dsZS5pbnRlcm5hbC5jbG91ZC5jb2RlLnYxaW50ZXJuYWxCEEVudGl0bGVtZW50UHJvdG9QAWIGcHJvdG8z",
   "Postgres best practices maintained by Supabase, for Postgres running anywhere. Load this skill BEFORE writing or changing anything that lives in a Postgres database: creating or altering tables and columns (including choosing column types), schema design, migrations and declarative schema files, RLS policies and the tests that verify them, indexes, triggers, database functions, queues and scheduled jobs (pg_cron, pgmq), vector/semantic search (pgvector), and restoring dumps (pg_restore) or importing data. Also load it when diagnosing slow queries, high CPU, timeouts, EXPLAIN plans, connection exhaustion, locking, bloat, or rows visible to the wrong user or tenant. This is not just a performance guide — schema, migration, security, and SQL authoring tasks need these rules too, even for a one-column change or a single query.",
-  "Welcome back, Groove. Where should we pick up?",
   "Model: Gemini 3.8 Flash High, Model cannot be changed while the agent is running",
   "insertion",
   "deletion",
@@ -88,5 +87,7 @@
   "Lint 4 reply comments for blog_marilife",
   "Message from social-viral-analyst (self)",
   "Lint 3 sharper philosophical and brain-nuance comments",
-  "Hey Groove, what should we build today?"
+  "Hey Groove, what should we build today?",
+  "Go to turn 20 of 21",
+  "Welcome back, Groove. Where should we pick up?"
 ]
