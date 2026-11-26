@@ -153,5 +153,6 @@
   "Lint 4 reply comments for mir.natalia response",
   "Lint 4 custom reply options for mir.natalia",
   "Extract exact post author, post text, timestamp, and engagement metrics from th…",
-  "Press Escape to close the sign-up overlay dialog and extract the post author, e…"
+  "Press Escape to close the sign-up overlay dialog and extract the post author, e…",
+  "Re-lint fixed C1 comment"
 ]
