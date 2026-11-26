@@ -139,5 +139,7 @@
   "flow_card_1793549707.html",
   "video_engine/style_guide",
   "video_engine/video_engine/out",
-  "Close www.threads.com"
+  "Close www.threads.com",
+  "Extract exact post text, author details, and engagement metric button labels/ic…",
+  "Dismiss the Threads login/signup overlay with Escape if dismissible and extract…"
 ]
