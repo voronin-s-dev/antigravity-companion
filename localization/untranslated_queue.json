@@ -13,7 +13,6 @@
   "Validate options for l_khodina part 3",
   "Validate options for piterskaya.performs part 2",
   "Validate comments length and linter",
-  "Starting social-viral-analyst",
   "Validate comments on Zeno death",
   "Validate comments on marriage thesis",
   "Validate comments on law 56",
@@ -141,5 +140,7 @@
   "Message queued. Sends after background work finishes. Actions available: Send Now, Edit, Delete",
   "Thinking (10s)…",
   "Thinking (11s)…",
-  "Message from social-viral-analyst (self)"
+  "Message from social-viral-analyst (self)",
+  "Close the Threads sign-up dialog using Escape and verify the underlying post an…",
+  "Starting social-viral-analyst"
 ]
