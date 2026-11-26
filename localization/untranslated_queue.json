@@ -52,7 +52,6 @@
   "Lint candidate thread posts",
   "Lint thread 84",
   "Lint thread 84 with positional arg",
-  "Good to see you, Groove. What's next?",
   "Threads Profile Inspector",
   "Scroll down on maksakovanna.psy profile to see if more posts load or if the log…",
   "Press Escape to try dismissing the Threads login popup and extract all currentl…",
@@ -181,5 +180,6 @@
   "Press Escape to close the sign-up dialog overlay and extract the exact post tex…",
   "Navigate to the Threads share URL to inspect the post and any overlay",
   "Press Escape to close the sign-up overlay and extract the exact post text and m…",
-  "Lint Observer + quantum universe thread version"
+  "Lint Observer + quantum universe thread version",
+  "Good to see you, Groove. What's next?"
 ]
