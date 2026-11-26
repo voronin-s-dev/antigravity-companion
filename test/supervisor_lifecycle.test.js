@@ -1,4 +1,5 @@
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const vm = require('vm');
 const child_process = require('child_process');
@@ -25,6 +26,12 @@ function testSupervisorSyntax() {
   }
   if (!code.includes('selfHealUnshimmedHost()')) {
     throw new Error('Supervisor must define and invoke selfHealUnshimmedHost() for seamless auto-updates');
+  }
+  if (!code.includes('function runPowerShellScript(')) {
+    throw new Error('Supervisor must define runPowerShellScript() helper for Windows PowerShell invocation');
+  }
+  if (/spawn\(\s*['"]powershell\.exe['"][\s\S]{0,300}detached\s*:\s*true/.test(code)) {
+    throw new Error('Supervisor must NOT spawn powershell.exe with detached: true (silently exits 0 on Windows)');
   }
 }
 
@@ -101,6 +108,31 @@ function testShimManagerInvariants() {
   }
 }
 
+function testWindowsPowerShellSpawnExecution() {
+  if (process.platform !== 'win32') {
+    console.log('  [CI: Non-Windows platform] Skipping live Windows PowerShell spawn test.');
+    return;
+  }
+
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'agy-ps-probe-'));
+  const psPath = path.join(tmpDir, 'probe.ps1');
+  const outPath = path.join(tmpDir, 'out.txt');
+  fs.writeFileSync(psPath, `"PS_EXEC_OK" | Set-Content -Path '${outPath.replace(/'/g, "''")}'`, 'utf8');
+
+  try {
+    const res = child_process.spawnSync(
+      'powershell.exe',
+      ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', psPath],
+      { windowsHide: true, encoding: 'utf8' }
+    );
+    if (res.status !== 0 || !fs.existsSync(outPath) || !fs.readFileSync(outPath, 'utf8').includes('PS_EXEC_OK')) {
+      throw new Error(`Attached PowerShell execution failed (status=${res.status}, exists=${fs.existsSync(outPath)})`);
+    }
+  } finally {
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  }
+}
+
 function runAllSupervisorTests() {
   console.log('[Test: Supervisor & Autostart] Starting tests...');
   testSupervisorSyntax();
@@ -111,6 +143,8 @@ function runAllSupervisorTests() {
   console.log('  ✓ Autostart artifacts and registry invariants passed.');
   testShimManagerInvariants();
   console.log('  ✓ Transparent launcher shim invariants passed.');
+  testWindowsPowerShellSpawnExecution();
+  console.log('  ✓ Live Windows PowerShell execution test passed.');
   return true;
 }
 

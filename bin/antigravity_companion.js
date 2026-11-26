@@ -23,6 +23,30 @@ const logSync = (msg) => {
   }
 };
 
+// Run PowerShell scripts attached (detached: false) with windowsHide: true.
+// On Windows, spawning console powershell.exe with detached: true + windowsHide: true exits 0 without executing the script.
+function runPowerShellScript(scriptPath, label) {
+  if (process.platform !== 'win32' || !fs.existsSync(scriptPath)) return;
+  const { spawn } = require('child_process');
+  const cp = spawn('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', scriptPath], {
+    detached: false,
+    stdio: ['ignore', 'pipe', 'pipe'],
+    windowsHide: true
+  });
+  let errOut = '';
+  if (cp.stderr) {
+    cp.stderr.on('data', (d) => { errOut += d.toString(); });
+  }
+  cp.on('error', (err) => {
+    logSync(`[${label}] Spawn error: ${err.message}`);
+  });
+  cp.on('exit', (code) => {
+    if (code !== 0) {
+      logSync(`[${label}] Exited with code ${code}${errOut.trim() ? `: ${errOut.trim()}` : ''}`);
+    }
+  });
+}
+
 // Self-healing Windows Autostart: ensure Startup shortcut & Registry key exist without manual intervention
 function ensureAutostart() {
   if (process.platform !== 'win32') return;
@@ -33,13 +57,7 @@ function ensureAutostart() {
     const startPs = path.join(baseDir, 'start_silent.ps1');
 
     if (!fs.existsSync(shortcutPath) && fs.existsSync(startPs)) {
-      const { spawn } = require('child_process');
-      const cp = spawn('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', startPs], {
-        detached: true,
-        stdio: 'ignore',
-        windowsHide: true
-      });
-      cp.unref();
+      runPowerShellScript(startPs, 'Companion Autostart');
     }
   } catch (_) {}
 }
@@ -49,16 +67,7 @@ function ensureAntigravityShortcuts() {
   if (process.platform !== 'win32') return;
   try {
     const baseDir = path.resolve(__dirname);
-    const fixScript = path.join(baseDir, 'fix_shortcuts.ps1');
-    if (fs.existsSync(fixScript)) {
-      const { spawn } = require('child_process');
-      const cp = spawn('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', fixScript], {
-        detached: true,
-        stdio: 'ignore',
-        windowsHide: true
-      });
-      cp.unref();
-    }
+    runPowerShellScript(path.join(baseDir, 'fix_shortcuts.ps1'), 'Companion Shortcuts');
   } catch (_) {}
 }
 
@@ -92,16 +101,7 @@ function selfHealUnshimmedHost() {
 
   try {
     const baseDir = path.resolve(__dirname);
-    const restartScript = path.join(baseDir, 'clean_restart.ps1');
-    if (fs.existsSync(restartScript)) {
-      const { spawn } = require('child_process');
-      const cp = spawn('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', restartScript], {
-        detached: true,
-        stdio: 'ignore',
-        windowsHide: true
-      });
-      cp.unref();
-    }
+    runPowerShellScript(path.join(baseDir, 'clean_restart.ps1'), 'Companion Auto-Heal');
   } catch (e) {
     logSync(`[Companion Auto-Heal Error] ${e.message}`);
   }
