@@ -129,7 +129,6 @@
   "Message queued. Sends after background work finishes. Actions available: Send Now, Edit, Delete",
   "Thinking (10s)…",
   "Thinking (11s)…",
-  "Message from social-viral-analyst (self)",
   "Close the Threads sign-up dialog using Escape and verify the underlying post an…",
   "[SCAM] Freewallet.org: 3+ Months Blocked Funds (Ticket #1672546)",
   "Close [SCAM] Freewallet.org: 3+ Months Blocked Funds (Ticket #1672546)",
@@ -208,5 +207,6 @@
   "social-commenter",
   "Starting 2 subagents",
   "Starting social-viral-analyst",
-  "Message from social-commenter (self)"
+  "Message from social-commenter (self)",
+  "Message from social-viral-analyst (self)"
 ]
