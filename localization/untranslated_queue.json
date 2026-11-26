@@ -92,5 +92,6 @@
   "Re-verify Companion injection and PID",
   "Locate auto-capture and tooltip logic",
   "Applies to /btw and messages sent after this turn",
-  "Commit and push launcher fix"
+  "Commit and push launcher fix",
+  "antigravity-companion (Ctrl+.)"
 ]
