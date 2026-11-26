@@ -131,7 +131,6 @@
   "Thinking (11s)…",
   "Message from social-viral-analyst (self)",
   "Close the Threads sign-up dialog using Escape and verify the underlying post an…",
-  "Starting social-viral-analyst",
   "[SCAM] Freewallet.org: 3+ Months Blocked Funds (Ticket #1672546)",
   "Close [SCAM] Freewallet.org: 3+ Months Blocked Funds (Ticket #1672546)",
   "bitcointalk.org/index.php?topic=5600408.0",
@@ -204,5 +203,10 @@
   "Message from social-qa-skeptic (self)",
   "Show 1 more subagent",
   "Copy authenticated Threads session into project",
-  "Threads Post Discussion"
+  "Threads Post Discussion",
+  "Starting Viral Post Analyst",
+  "social-commenter",
+  "Starting 2 subagents",
+  "Starting social-viral-analyst",
+  "Message from social-commenter (self)"
 ]
