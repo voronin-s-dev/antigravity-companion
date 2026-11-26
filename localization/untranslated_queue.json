@@ -75,5 +75,6 @@
   "Locate installed Playwright binary or cache",
   "Close www.instagram.com",
   "Instagram",
-  "Close Instagram"
+  "Close Instagram",
+  "Launch visible Chrome for Threads login and deep inspect"
 ]
