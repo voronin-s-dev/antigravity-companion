@@ -60,7 +60,6 @@
   "Dismiss the login dialog with Escape and read the full region innerText and ari…",
   "Click the dark modal backdrop at (150, 500) to dismiss the Threads login popup…",
   "Reload maksakovanna.psy and scroll incrementally in 700px steps, capturing full…",
-  "Thinking (13s)…",
   "Locate installed Playwright binary or cache",
   "Close www.instagram.com",
   "Instagram",
@@ -160,5 +159,17 @@
   "Ensure any sign-up overlay is dismissed with Escape and read the exact post con…",
   "Press Escape to dismiss the sign-up overlay if present and verify the page is u…",
   "4 browser steps",
-  "Hide 4 browser steps"
+  "Hide 4 browser steps",
+  "Thinking (13s)…",
+  "Thinking (14s)…",
+  "Thinking (15s)…",
+  "Thinking (16s)…",
+  "Thinking (17s)…",
+  "Thinking (18s)…",
+  "Thinking (19s)…",
+  "Thinking (20s)…",
+  "Thinking (21s)…",
+  "Thinking (22s)…",
+  "Thinking (23s)…",
+  "Thinking (24s)…"
 ]
