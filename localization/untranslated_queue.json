@@ -73,7 +73,6 @@
   "Started social-qa-skeptic",
   "Lint 4 reply comments for blog_marilife",
   "Lint 3 sharper philosophical and brain-nuance comments",
-  "Hey Groove, what should we build today?",
   "Go to turn 20 of 21",
   "Welcome back, Groove. Where should we pick up?",
   "Re-verify Companion injection and PID",
@@ -88,7 +87,6 @@
   "yana",
   "Switch to RTL text direction",
   "Comment (C)",
-  "Loss Of Passion In Relationships",
   ".agents/rules",
   ".agents/skills/instagram-creator",
   ".agents/skills/threads-creator",
@@ -138,7 +136,6 @@
   "Message from social-viral-analyst (self)",
   "Close the Threads sign-up dialog using Escape and verify the underlying post an…",
   "Starting social-viral-analyst",
-  "Applies to /btw and messages sent after this turn",
   "[SCAM] Freewallet.org: 3+ Months Blocked Funds (Ticket #1672546)",
   "Close [SCAM] Freewallet.org: 3+ Months Blocked Funds (Ticket #1672546)",
   "bitcointalk.org/index.php?topic=5600408.0",
@@ -186,5 +183,8 @@
   "Lint knowledge files",
   "Print scheduled posts and dueAt times",
   "Lint 4 Observer + Quantum Universe comments",
-  "Re-lint C3 and C4 comments"
+  "Re-lint C3 and C4 comments",
+  "Loss Of Passion In Relationships",
+  "Hey Groove, what should we build today?",
+  "Applies to /btw and messages sent after this turn"
 ]
