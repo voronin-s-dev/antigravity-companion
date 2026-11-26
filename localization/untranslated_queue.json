@@ -83,5 +83,7 @@
   "Lint 4 ready anchor threads for the weekly schedule",
   "Message from social-qa-skeptic (self)",
   "Audit SEO keyword coverage across all 21 posts",
-  "memes"
+  "memes",
+  "Dry-run weekly Buffer schedule parser",
+  "Schedule all 25 Threads posts in Buffer"
 ]
