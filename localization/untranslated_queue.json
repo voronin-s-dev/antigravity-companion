@@ -157,5 +157,8 @@
   "Re-lint fixed C1 comment",
   "Navigate to the Threads share URL to inspect the page and HUD.",
   "Press Escape to dismiss the sign-up dialog overlay and extract the exact post t…",
-  "Ensure any sign-up overlay is dismissed with Escape and read the exact post con…"
+  "Ensure any sign-up overlay is dismissed with Escape and read the exact post con…",
+  "Press Escape to dismiss the sign-up overlay if present and verify the page is u…",
+  "4 browser steps",
+  "Hide 4 browser steps"
 ]
