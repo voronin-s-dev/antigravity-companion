@@ -41,7 +41,6 @@
   "Validate replies to nkuklina",
   "Validate fresh comments logic",
   "Validate concise dialogue replies",
-  "Applies to /btw and messages sent after this turn",
   "Validate comments on smart girls and destructive partners",
   "Validate comments on therapy transfer",
   "Validate comments on spiritual insight",
@@ -90,5 +89,7 @@
   "Hey Groove, what should we build today?",
   "Go to turn 20 of 21",
   "Welcome back, Groove. Where should we pick up?",
-  "Re-verify Companion injection and PID"
+  "Re-verify Companion injection and PID",
+  "Locate auto-capture and tooltip logic",
+  "Applies to /btw and messages sent after this turn"
 ]
