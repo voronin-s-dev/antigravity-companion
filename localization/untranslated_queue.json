@@ -154,5 +154,8 @@
   "Lint 4 custom reply options for mir.natalia",
   "Extract exact post author, post text, timestamp, and engagement metrics from th…",
   "Press Escape to close the sign-up overlay dialog and extract the post author, e…",
-  "Re-lint fixed C1 comment"
+  "Re-lint fixed C1 comment",
+  "Navigate to the Threads share URL to inspect the page and HUD.",
+  "Press Escape to dismiss the sign-up dialog overlay and extract the exact post t…",
+  "Ensure any sign-up overlay is dismissed with Escape and read the exact post con…"
 ]
