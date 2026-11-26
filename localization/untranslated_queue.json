@@ -135,5 +135,6 @@
   "video_engine/public",
   "flow_card_1793549707.html",
   "video_engine/style_guide",
-  "video_engine/video_engine/out"
+  "video_engine/video_engine/out",
+  "Re-lint fixed C2 comment"
 ]
