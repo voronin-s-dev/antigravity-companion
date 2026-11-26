@@ -60,7 +60,6 @@
   "Dismiss the login dialog with Escape and read the full region innerText and ari…",
   "Click the dark modal backdrop at (150, 500) to dismiss the Threads login popup…",
   "Reload maksakovanna.psy and scroll incrementally in 700px steps, capturing full…",
-  "Thinking (12s)…",
   "Thinking (13s)…",
   "Locate installed Playwright binary or cache",
   "Close www.instagram.com",
@@ -145,5 +144,7 @@
   "Applies to /btw and messages sent after this turn",
   "[SCAM] Freewallet.org: 3+ Months Blocked Funds (Ticket #1672546)",
   "Close [SCAM] Freewallet.org: 3+ Months Blocked Funds (Ticket #1672546)",
-  "bitcointalk.org/index.php?topic=5600408.0"
+  "bitcointalk.org/index.php?topic=5600408.0",
+  "Wait for the Threads post content to finish loading, dismiss any overlay with E…",
+  "Thinking (12s)…"
 ]
