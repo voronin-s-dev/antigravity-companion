@@ -92,7 +92,6 @@
   "Switch to RTL text direction",
   "Comment (C)",
   "Loss Of Passion In Relationships",
-  "Applies to /btw and messages sent after this turn",
   ".agents/rules",
   ".agents/skills/instagram-creator",
   ".agents/skills/threads-creator",
@@ -142,5 +141,6 @@
   "Thinking (11s)…",
   "Message from social-viral-analyst (self)",
   "Close the Threads sign-up dialog using Escape and verify the underlying post an…",
-  "Starting social-viral-analyst"
+  "Starting social-viral-analyst",
+  "Applies to /btw and messages sent after this turn"
 ]
