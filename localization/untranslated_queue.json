@@ -71,5 +71,6 @@
   "Reload maksakovanna.psy and scroll incrementally in 700px steps, capturing full…",
   "Message queued. Sends after background work finishes. Actions available: Send Now, Edit, Delete",
   "Thinking (12s)…",
-  "Thinking (13s)…"
+  "Thinking (13s)…",
+  "Locate installed Playwright binary or cache"
 ]
