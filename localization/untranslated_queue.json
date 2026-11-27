@@ -216,5 +216,7 @@
   "Pull latest origin/main",
   "Diff recent parser commits",
   "Print positions #225 to #241",
-  "Breakdown of Nov 21-27 trades by oracle"
+  "Breakdown of Nov 21-27 trades by oracle",
+  "Holdout Judge Verifier",
+  "Weekly Audit Report"
 ]
