@@ -211,5 +211,6 @@
   "Message from social-viral-analyst (self)",
   "Started 2 subagents",
   "Parse yt-dlp Instagram metadata",
-  "Download reel via yt-dlp"
+  "Download reel via yt-dlp",
+  "Extract keyframes from reel"
 ]
