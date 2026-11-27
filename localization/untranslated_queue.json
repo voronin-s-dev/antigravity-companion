@@ -31,5 +31,6 @@
   "Get scheduled posts from Buffer",
   "Get scheduled posts with dueAt",
   "Schedule CNT-056 to Buffer for Sunday",
-  "Download memes from Threads thread"
+  "Download memes from Threads thread",
+  "Copy selected memes with descriptive names"
 ]
