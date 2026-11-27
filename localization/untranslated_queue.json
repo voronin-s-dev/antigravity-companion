@@ -30,5 +30,6 @@
   "Get due_at for scheduled posts",
   "Get scheduled posts from Buffer",
   "Get scheduled posts with dueAt",
-  "Schedule CNT-056 to Buffer for Sunday"
+  "Schedule CNT-056 to Buffer for Sunday",
+  "Download memes from Threads thread"
 ]
