@@ -212,5 +212,9 @@
   "Started 2 subagents",
   "Parse yt-dlp Instagram metadata",
   "Download reel via yt-dlp",
-  "Extract keyframes from reel"
+  "Extract keyframes from reel",
+  "Pull latest origin/main",
+  "Diff recent parser commits",
+  "Print positions #225 to #241",
+  "Breakdown of Nov 21-27 trades by oracle"
 ]
