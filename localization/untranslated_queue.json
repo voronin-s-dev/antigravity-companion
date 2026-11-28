@@ -34,5 +34,6 @@
   "Download memes from Threads thread",
   "Copy selected memes with descriptive names",
   "Lint all 5 meme draft files",
-  "Select-String in registry"
+  "Select-String in registry",
+  "Print queued posts"
 ]
