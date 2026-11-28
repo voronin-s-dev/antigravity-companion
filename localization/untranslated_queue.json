@@ -33,5 +33,6 @@
   "Schedule CNT-056 to Buffer for Sunday",
   "Download memes from Threads thread",
   "Copy selected memes with descriptive names",
-  "Lint all 5 meme draft files"
+  "Lint all 5 meme draft files",
+  "Select-String in registry"
 ]
